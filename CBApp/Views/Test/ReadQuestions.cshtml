@@ -1,0 +1,37 @@
+﻿@model List<Question>
+
+@{
+    ViewData["Title"] = "Questions";
+}
+
+<h1 class="bg-info text-white">Questions</h1>
+<a asp-action="CreateQuestion" class="btn btn-secondary">Create Question</a>
+
+<table style="color: white" class="table table-sm table-bordered">
+    <tr>
+        <th>QuestionId</th>
+        <th>QuestionString</th>
+        <th></th>
+        <th></th>
+    </tr> @foreach (Question q in Model)
+    {
+        <tr>
+            <td>@q.QuestionId</td>
+            <td>@q.QuestionString</td>
+            <td>
+                <a class="btn btn-sm btn-primary" asp-action="UpdateQuestion" asp-route-id="@q.QuestionId" method="get">Update</a>
+            </td>
+            <td>
+                <form asp-action="DeleteQuestion" asp-route-id="@q.QuestionId" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+<br />
+<br />
+<br />
