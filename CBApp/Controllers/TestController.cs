@@ -147,47 +147,44 @@ namespace CBApp.Controllers
             CreateUserViewModel model = new CreateUserViewModel();
             
             // Populate view model with CareerPhases
-            model.careerPhaseList = new List<CareerPhase>();
-            foreach (var cp in context.CareerPhases.ToList())
+            model.careerPhaseSelectList = new List<SelectListItem>();
+
+            List<CareerPhase> careerPhases = context.CareerPhases.ToList();
+
+            foreach (var cp in careerPhases)
             {
-                model.careerPhaseList.Add(
-                    new CareerPhase
+                model.careerPhaseSelectList.Add(
+                    new SelectListItem
                     {
-                        CareerPhaseId = cp.CareerPhaseId,
-                        Name = cp.Name
+                        Text = cp.Name,
+                        Value = cp.CareerPhaseId.ToString()
                     }
-                );
+                ); ;
             }
 
             // Populate view model with ExperienceLevels
-            model.experienceLevelViewModelList = new List<ExperienceLevelViewModel>();
-
-            List<ExperienceLevel> experienceLevels = context.ExperienceLevels.ToList();
-
-            foreach (var el in experienceLevels)
+            model.experienceLevelList = new List<ExperienceLevel>();
+            foreach (var e in context.ExperienceLevels.ToList())
             {
-                model.experienceLevelViewModelList.Add(
-                    new ExperienceLevelViewModel
+                model.experienceLevelList.Add(
+                    new ExperienceLevel
                     {
-                        experienceLevel = el,
-                        isSelected = false
+                        ExperienceLevelId = e.ExperienceLevelId,
+                        Name = e.Name
                     }
                 );
             }
 
 
             // Populate view model with Genders
-            model.genderViewModelList = new List<GenderViewModel>();
-
-            List<Gender> genders = context.Genders.ToList();
-
-            foreach (var g in genders)
-            { 
-                model.genderViewModelList.Add(
-                    new GenderViewModel
+            model.genderList = new List<Gender>();
+            foreach (var g in context.Genders.ToList())
+            {
+                model.genderList.Add(
+                    new Gender
                     {
-                        gender = g,
-                        isSelected = false
+                        GenderId = g.GenderId,
+                        Name = g.Name
                     }
                 );
             }
@@ -266,12 +263,13 @@ namespace CBApp.Controllers
         public IActionResult CreateUserTest(CreateUserViewModel model)
         {
 
-            var userInput = model.user.SlackId.ToString() + ", " +
-                model.user.UserName + ", " + model.user.Bio;
+            var careerId = model.SelectedCareerPhaseId;
+
+            Type tp = careerId.GetType();
 
             if (ModelState.IsValid)
             {
-                return Content("It works");
+                return Content(tp.ToString());
             }
             else
             {
