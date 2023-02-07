@@ -16,7 +16,7 @@
         <li style="display: inline;">
             @Html.HiddenFor(m => m[i].programmingLanguage.ProgrammingLanguageId)
             @Html.HiddenFor(m => m[i].programmingLanguage.Name)
-            @Html.CheckBoxFor(m => m[i].isSelected, new { Style = "vertical-align:3px}" })
+            @Html.CheckBoxFor(m => m[i].isSelected, new { Style = "vertical-align:3px;" })
             @Html.DisplayFor(m => m[i].programmingLanguage.Name)
         </li>
     }

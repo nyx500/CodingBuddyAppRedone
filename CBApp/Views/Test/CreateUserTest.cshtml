@@ -5,7 +5,7 @@
 }
 
 <h1 style="color: black; margin: 20px">Create User</h1>
-
+@*
 <form asp-action="CreateUserTest" method="post">
     <div class="form-group-row">
         <div class="col-sm-2">
@@ -51,26 +51,34 @@
     </div>
     <button type="submit" class="btn btn-primary" style="color: white; background-color: black; margin: 20px;">Create</button>
 </form>
+*@
 
 
-@*
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
+    <div class="form-horizontal" style="padding: 20px; background: darkblue; border: 2px solid black; border-radius: 12px">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.user.SlackId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div style="color: black!important;" class="col-md-10">
-                @Html.EditorFor(model => model.user.SlackId, new { htmlAttributes = new { @class = "form-control" })
+            @Html.LabelFor(model => model.user.SlackId, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.user.SlackId, new { htmlAttributes = new { @class = "form-control"} })
                 @Html.ValidationMessageFor(model => model.user.SlackId, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.user.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div style="color: black!important;" class="col-md-10">
+            @Html.LabelFor(model => model.user.UserName, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-2" })
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.user.UserName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.user.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.user.CareerPhase, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.user.CareerPhase, new SelectList(Model.careerPhaseList, "Name", "Name"));
+@*                @Html.EditorFor(model => model.careerPhaseList, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.user.CareerPhase, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -80,4 +88,4 @@
         </div>
     </div>
 
-}*@
+}

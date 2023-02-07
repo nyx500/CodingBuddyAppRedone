@@ -147,17 +147,14 @@ namespace CBApp.Controllers
             CreateUserViewModel model = new CreateUserViewModel();
             
             // Populate view model with CareerPhases
-            model.careerPhaseViewModelList = new List<CareerPhaseViewModel>();
-
-            List<CareerPhase> careerPhases = context.CareerPhases.ToList();
-
-            foreach (var cp in careerPhases)
+            model.careerPhaseList = new List<CareerPhase>();
+            foreach (var cp in context.CareerPhases.ToList())
             {
-                model.careerPhaseViewModelList.Add(
-                    new CareerPhaseViewModel
+                model.careerPhaseList.Add(
+                    new CareerPhase
                     {
-                        careerPhase = cp,
-                        isSelected = false
+                        CareerPhaseId = cp.CareerPhaseId,
+                        Name = cp.Name
                     }
                 );
             }

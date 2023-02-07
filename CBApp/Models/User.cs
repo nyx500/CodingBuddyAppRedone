@@ -28,6 +28,7 @@ namespace CBApp.Models
         // Many-to-one relationships
         //[Required(ErrorMessage = "Please enter your career phase!")]
         public int CareerPhaseId { get; set; } // foreign key
+        [Display(Name = "Career Phase")]
         public CareerPhase? CareerPhase { get; set; } // navigation property
 
 
