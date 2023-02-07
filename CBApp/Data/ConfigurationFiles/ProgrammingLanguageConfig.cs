@@ -12,27 +12,25 @@ namespace CBApp.Data.ConfigurationFiles
         // We must override the Configure method in the IEntityTypeConfiguration interface here
         public void Configure(EntityTypeBuilder<ProgrammingLanguage> entity)
         {
+            entity.Property(p => p.ProgrammingLanguageId);
+            entity.Property(p => p.Name);
 
-            entity.Property(n => n.ProgrammingLanguageId);
-            entity.Property(n => n.Name);
+            foreach (int i in Enum.GetValues(typeof(EnumsForUser.ProgrammingLanguageName)))
+            {
+                // Casts integer into the corresponding enum
+                var enumLanguage = (EnumsForUser.ProgrammingLanguageName)i;
 
-            //foreach (int i in Enum.GetValues(typeof(EnumsForUser.ProgrammingLanguageName)))
-            //{
-            //    // Casts integer into the corresponding enum
-            //    var enumLanguage = (EnumsForUser.ProgrammingLanguageName)i;
+                string enumAsString = enumLanguage.ToString();
 
-            //    string enumAsString = enumLanguage.ToString();
-
-            //    // Seed the DB with names and Ids of natural spoken languages
-            //    entity.HasData(
-            //        new ProgrammingLanguage
-            //        {
-            //            // Initializes the first Id with '1' instead of '0'
-            //            ProgrammingLanguageId = (i + 1),
-            //            Name = enumAsString
-            //        }
-            //    );
-            //}
+                // Seed the DB with names and Ids of natural spoken languages
+                entity.HasData(
+                    new ProgrammingLanguage
+                    {   
+                        ProgrammingLanguageId = i + 1, // Start from 1
+                        Name = enumAsString
+                    }
+                );
+            }
         }
     }
 }

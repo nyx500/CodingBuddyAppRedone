@@ -10,6 +10,7 @@ namespace CBApp.Models
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+        [Display(Name = "Question and Answer")]
         public int QuestionAnswerBlockId;
 
 

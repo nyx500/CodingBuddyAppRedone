@@ -91,10 +91,49 @@ namespace CBApp.Controllers
             }
         }
 
+        [HttpGet]
         public IActionResult ReadQuestions()
         {
             var questions = context.Questions.ToList();
             return View(questions);
         }
+
+        //////// Testing user creation ///////////////
+        [HttpGet]
+        public IActionResult SelectProgrammingLanguages()
+        {
+            List<ProgrammingLanguage> programmingLangs = context.ProgrammingLanguages.ToList();
+
+            List<ProgrammingLanguageViewModel> programmingLangsViewModelList = new List<ProgrammingLanguageViewModel>();
+
+            foreach(var language in programmingLangs)
+            {
+                programmingLangsViewModelList.Add(
+                    new ProgrammingLanguageViewModel
+                    {
+                        programmingLanguage = language,
+                        isSelected = false
+                    }
+                );
+            }
+
+            return View(programmingLangsViewModelList);
+        }
+
+        [HttpPost]
+        public IActionResult SelectProgrammingLanguages(List<ProgrammingLanguageViewModel> programmingLangs)
+        {
+            if (programmingLangs.Count(p => p.isSelected) == 0)
+            {
+                return Content("You have not selected anything.");
+            }
+            else
+            {
+                return Content("You selected " + programmingLangs.Count(p => p.isSelected) + " things.");
+            }
+        }
+
+
+
     }
 }
