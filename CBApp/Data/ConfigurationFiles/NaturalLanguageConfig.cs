@@ -15,24 +15,24 @@ namespace CBApp.Data.ConfigurationFiles
               entity.Property(n => n.NaturalLanguageId);
               entity.Property(n => n.Name);
 
-            //foreach (int i in Enum.GetValues(typeof(EnumsForUser.NaturalLanguageName)))
-            //{   
-            //    // Casts integer into the corresponding enum
-            //    var enumLanguage = (EnumsForUser.NaturalLanguageName)i;
+            foreach (int i in Enum.GetValues(typeof(EnumsForUser.NaturalLanguageName)))
+            {
+                // Casts integer into the corresponding enum
+                var enumLanguage = (EnumsForUser.NaturalLanguageName)i;
 
-            //    // Get the language name from the enum as a string
-            //    string enumAsString = enumLanguage.ToString();
+                // Get the language name from the enum as a string
+                string enumAsString = enumLanguage.ToString();
 
-            //    // Seed the DB with names and Ids of natural spoken languages
-            //    entity.HasData(
-            //        new NaturalLanguage
-            //        {
-            //            // Initializes the first Id with '1' instead of '0'
-            //            NaturalLanguageId = (i + 1),
-            //            Name = enumAsString
-            //        }
-            //    );
-            //}
+                // Seed the DB with names and Ids of natural spoken languages
+                entity.HasData(
+                    new NaturalLanguage
+                    {
+                        // Initializes the first Id with '1' instead of '0'
+                        NaturalLanguageId = (i + 1),
+                        Name = enumAsString
+                    }
+                );
+            }
         }
     }
 }

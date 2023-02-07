@@ -19,6 +19,9 @@ namespace CBApp.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<CareerPhase> CareerPhases { get; set; }
+        public DbSet<ExperienceLevel> ExperienceLevels { get; set; }
+        public DbSet<Gender> Genders { get; set; }
         public DbSet<NaturalLanguage> NaturalLanguages { get; set; }
         public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
         public DbSet<CSInterest> CSInterests { get; set; }

@@ -15,24 +15,24 @@ namespace CBApp.Data.ConfigurationFiles
             entity.Property(n => n.CareerPhaseId);
             entity.Property(n => n.Name);
 
-            //foreach (int i in Enum.GetValues(typeof(EnumsForUser.CareerPhase)))
-            //{
-            //    // Casts integer into the corresponding enum
-            //    var enumLanguage = (EnumsForUser.CareerPhase)i;
+            foreach (int i in Enum.GetValues(typeof(EnumsForUser.CareerPhase)))
+            {
+                // Casts integer into the corresponding enum
+                var enumLanguage = (EnumsForUser.CareerPhase)i;
 
-            //    // Get the CareerPhase name from the enum as a string
-            //    string enumAsString = enumLanguage.ToString();
+                // Get the CareerPhase name from the enum as a string
+                string enumAsString = enumLanguage.ToString();
 
-            //    // Seed the DB with names and Ids of different CareerPhases
-            //    entity.HasData(
-            //        new CareerPhase
-            //        {
-            //            // Initializes the first Id value with '1' instead of '0'
-            //            CareerPhaseId = (i + 1),
-            //            Name = enumAsString
-            //        }
-            //    );
-            //}
+                // Seed the DB with names and Ids of different CareerPhases
+                entity.HasData(
+                    new CareerPhase
+                    {
+                        // Initializes the first Id value with '1' instead of '0'
+                        CareerPhaseId = (i + 1),
+                        Name = enumAsString
+                    }
+                );
+            }
         }
     }
 }

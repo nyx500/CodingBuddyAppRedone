@@ -4,14 +4,14 @@
     {
         public User user { get; set; }
 
-        List<CareerPhaseViewModel> careerPhaseViewModelList;
-        List<ExperienceLevelViewModel> experienceLevelViewModelList;
-        List<NaturalLanguageViewModel> naturalLanguagesViewModelList;
-        List<Gender> genderViewModelList;
+        public List<CareerPhaseViewModel> careerPhaseViewModelList;
+        public List<ExperienceLevelViewModel> experienceLevelViewModelList;
+        public List<NaturalLanguageViewModel> naturalLanguagesViewModelList;
+        public List<GenderViewModel> genderViewModelList;
 
-        List<ProgrammingLanguageViewModel> programmingLangsViewModelList;
-        List<CSInterestViewModel> csInterestViewModelList;
-        List<HobbyViewModel> hobbiesViewModelList;
+        public List<ProgrammingLanguageViewModel> programmingLanguagesViewModelList;
+        public List<CSInterestViewModel> csInterestViewModelList;
+        public List<HobbyViewModel> hobbiesViewModelList;
 
     }
 }

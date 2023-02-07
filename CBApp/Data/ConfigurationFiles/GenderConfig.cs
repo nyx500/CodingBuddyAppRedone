@@ -24,14 +24,14 @@ namespace CBApp.Data.ConfigurationFiles
                 string enumAsString = enumLanguage.ToString();
 
                 // Seed the DB with names and Ids of different genders
-                //entity.HasData(
-                //    new Gender
-                //    {
-                //        // Initializes the first Id value with '1' instead of '0'
-                //        GenderId = (i + 1),
-                //        Name = enumAsString
-                //    }
-                //);
+                entity.HasData(
+                    new Gender
+                    {
+                        // Initializes the first Id value with '1' instead of '0'
+                        GenderId = (i + 1),
+                        Name = enumAsString
+                    }
+                );
             }
         }
     }
