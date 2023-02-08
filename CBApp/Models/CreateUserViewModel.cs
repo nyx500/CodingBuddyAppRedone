@@ -27,10 +27,13 @@ namespace CBApp.Models
         public int? SelectedGenderId { get; set; }
 
         // Multiple checkboxes
-        public List<NaturalLanguageViewModel>? naturalLanguagesViewModelList;
-        public List<ProgrammingLanguageViewModel>? programmingLanguagesViewModelList;
-        public List<CSInterestViewModel>? csInterestViewModelList;
-        public List<HobbyViewModel>? hobbiesViewModelList;
+
+        [Display(Name = "Select languages")]
+        public List<NaturalLanguageViewModel>? NaturalLanguagesViewModelList {get; set;}
+ 
+        //public List<ProgrammingLanguageViewModel> programmingLanguagesViewModelList;
+        //public List<CSInterestViewModel>? csInterestViewModelList;
+        //public List<HobbyViewModel>? hobbiesViewModelList;
 
     }
 }

@@ -106,7 +106,7 @@ namespace CBApp.Controllers
 
             List<ProgrammingLanguageViewModel> programmingLangsViewModelList = new List<ProgrammingLanguageViewModel>();
 
-            foreach(var language in programmingLangs)
+            foreach (var language in programmingLangs)
             {
                 programmingLangsViewModelList.Add(
                     new ProgrammingLanguageViewModel
@@ -129,7 +129,7 @@ namespace CBApp.Controllers
             }
             else
             {
-                List < ProgrammingLanguage > selectedLangs = new List<ProgrammingLanguage>();
+                List<ProgrammingLanguage> selectedLangs = new List<ProgrammingLanguage>();
                 foreach (var language in programmingLangs)
                 {
                     if (language.isSelected)
@@ -145,7 +145,7 @@ namespace CBApp.Controllers
         public IActionResult CreateUserTest()
         {
             CreateUserViewModel model = new CreateUserViewModel();
-            
+
             // Populate view model with CareerPhases
             model.careerPhaseSelectList = new List<SelectListItem>();
 
@@ -194,70 +194,70 @@ namespace CBApp.Controllers
                 );
             }
 
-            // Populate view model with languages
-            model.naturalLanguagesViewModelList = new List<NaturalLanguageViewModel>();
-
             List<NaturalLanguage> nlangs = context.NaturalLanguages.ToList();
 
-            foreach (var nl in nlangs)
+            model.NaturalLanguagesViewModelList = new List<NaturalLanguageViewModel>();
+
+            foreach (var language in nlangs)
             {
-                model.naturalLanguagesViewModelList.Add(
+                model.NaturalLanguagesViewModelList.Add(
                     new NaturalLanguageViewModel
                     {
-                        naturalLanguage = nl,
-                        isSelected = false
-                    }
-                );
-            }
-
-            // Populate view model with programming languages
-            model.programmingLanguagesViewModelList = new List<ProgrammingLanguageViewModel>();
-
-            List<ProgrammingLanguage> plangs = context.ProgrammingLanguages.ToList();
-
-            foreach (var pl in plangs)
-            {
-                model.programmingLanguagesViewModelList.Add(
-                    new ProgrammingLanguageViewModel
-                    {
-                        programmingLanguage = pl,
+                        naturalLanguage = language,
                         isSelected = false
                     }
                 );
             }
 
 
-            // Populate view model with CS interests
-            model.csInterestViewModelList = new List<CSInterestViewModel>();
+            //// Populate view model with programming languages
+            //model.programmingLanguagesViewModelList = new List<ProgrammingLanguageViewModel>();
 
-            List<CSInterest> csInterests = context.CSInterests.ToList();
+            //List<ProgrammingLanguage> plangs = context.ProgrammingLanguages.ToList();
 
-            foreach (var ci in csInterests)
-            {
-                model.csInterestViewModelList.Add(
-                    new CSInterestViewModel
-                    {
-                        csInterest= ci,
-                        isSelected = false
-                    }
-                );
-            }
+            //foreach (var pl in plangs)
+            //{
+            //    model.programmingLanguagesViewModelList.Add(
+            //        new ProgrammingLanguageViewModel
+            //        {
+            //            programmingLanguage = pl,
+            //            isSelected = false
+            //        }
+            //    );
+            //}
 
-            // Populate view model with hobbies
-            model.hobbiesViewModelList = new List<HobbyViewModel>();
 
-            List<Hobby> hobbies = context.Hobbies.ToList();
+            //// Populate view model with CS interests
+            //model.csInterestViewModelList = new List<CSInterestViewModel>();
 
-            foreach (var h in hobbies)
-            {
-                model.hobbiesViewModelList.Add(
-                    new HobbyViewModel
-                    {
-                        hobby = h,
-                        isSelected = false
-                    }
-                );
-            }
+            //List<CSInterest> csInterests = context.CSInterests.ToList();
+
+            //foreach (var ci in csInterests)
+            //{
+            //    model.csInterestViewModelList.Add(
+            //        new CSInterestViewModel
+            //        {
+            //            csInterest = ci,
+            //            isSelected = false
+            //        }
+            //    );
+            //}
+
+            //// Populate view model with hobbies
+            //model.hobbiesViewModelList = new List<HobbyViewModel>();
+
+            //List<Hobby> hobbies = context.Hobbies.ToList();
+
+            //foreach (var h in hobbies)
+            //{
+            //    model.hobbiesViewModelList.Add(
+            //        new HobbyViewModel
+            //        {
+            //            hobby = h,
+            //            isSelected = false
+            //        }
+            //    );
+            //}
 
             return View(model);
 
@@ -268,17 +268,19 @@ namespace CBApp.Controllers
         public IActionResult CreateUserTest(CreateUserViewModel model)
         {
 
-            var careerId = model.SelectedCareerPhaseId;
+            string result;
 
-            string tp1 = careerId.GetType().ToString();
+            int count = 0;
 
-            var experienceId = model.SelectedExperienceLevelId;
-            string tp2 = experienceId.GetType().ToString();
+            for (var i = 0; i < model.NaturalLanguagesViewModelList.Count(); i++)
+            {   
+                if (model.NaturalLanguagesViewModelList[i].isSelected)
+                {
+                    count++;
+                }
+            }
 
-            var genderId = model.SelectedGenderId;
-            string tp3 = genderId.GetType().ToString();
-
-            string result = "career phase id type: " + tp1 + ", experience level id type: " + tp2 + ", gender id type: " + tp3;
+            result = count.ToString();
 
             if (ModelState.IsValid)
             {
@@ -286,10 +288,7 @@ namespace CBApp.Controllers
             }
             else
             {
-                var errors = ModelState
-                    .Where(x => x.Value.Errors.Count > 0)
-                    .Select(x => new { x.Key, x.Value.Errors })
-                    .ToArray();
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
 
                 return Content(errors.ToString());
             }

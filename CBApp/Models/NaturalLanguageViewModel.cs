@@ -2,7 +2,7 @@
 {
     public class NaturalLanguageViewModel
     {
-        public NaturalLanguage naturalLanguage { get; set; }
+        public NaturalLanguage? naturalLanguage { get; set; }
         public bool isSelected { get; set; }
     }
 }
