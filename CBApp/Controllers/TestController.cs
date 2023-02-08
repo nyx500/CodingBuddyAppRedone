@@ -163,28 +163,33 @@ namespace CBApp.Controllers
             }
 
             // Populate view model with ExperienceLevels
-            model.experienceLevelList = new List<ExperienceLevel>();
-            foreach (var e in context.ExperienceLevels.ToList())
+            model.experienceLevelSelectList = new List<SelectListItem>();
+
+            List<ExperienceLevel> experienceLevels = context.ExperienceLevels.ToList();
+
+            foreach (var e in experienceLevels)
             {
-                model.experienceLevelList.Add(
-                    new ExperienceLevel
+                model.experienceLevelSelectList.Add(
+                    new SelectListItem
                     {
-                        ExperienceLevelId = e.ExperienceLevelId,
-                        Name = e.Name
+                        Text = e.Name,
+                        Value = e.ExperienceLevelId.ToString()
                     }
-                );
+                ); ;
             }
 
 
             // Populate view model with Genders
-            model.genderList = new List<Gender>();
-            foreach (var g in context.Genders.ToList())
+            model.genderSelectList = new List<SelectListItem>();
+            List<Gender> genders = context.Genders.ToList();
+
+            foreach (var g in genders)
             {
-                model.genderList.Add(
-                    new Gender
+                model.genderSelectList.Add(
+                    new SelectListItem
                     {
-                        GenderId = g.GenderId,
-                        Name = g.Name
+                        Text = g.Name,
+                        Value = g.GenderId.ToString()
                     }
                 );
             }
@@ -265,11 +270,19 @@ namespace CBApp.Controllers
 
             var careerId = model.SelectedCareerPhaseId;
 
-            Type tp = careerId.GetType();
+            string tp1 = careerId.GetType().ToString();
+
+            var experienceId = model.SelectedExperienceLevelId;
+            string tp2 = experienceId.GetType().ToString();
+
+            var genderId = model.SelectedGenderId;
+            string tp3 = genderId.GetType().ToString();
+
+            string result = "career phase id type: " + tp1 + ", experience level id type: " + tp2 + ", gender id type: " + tp3;
 
             if (ModelState.IsValid)
             {
-                return Content(tp.ToString());
+                return Content(result);
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿namespace CBApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+namespace CBApp.Models
 {   
     public class SelectListItem
     {
@@ -11,12 +12,19 @@
 
         // Dropdowns (single-option)
         public List<SelectListItem>? careerPhaseSelectList;
-        public List<ExperienceLevel>? experienceLevelList;
-        public List<Gender>? genderList;
+        public List<SelectListItem>? experienceLevelSelectList;
+        public List<SelectListItem>? genderSelectList;
 
+
+        [Display(Name = "Career Phase")]
         public int? SelectedCareerPhaseId { get; set; }
-        public ExperienceLevel? SelectedExperienceLevelId { get; set; }
-        public Gender? SelectedGenderId { get; set; }
+
+        [Display(Name = "Experience Level")]
+        public int? SelectedExperienceLevelId { get; set; }
+
+
+        [Display(Name = "Gender")]
+        public int? SelectedGenderId { get; set; }
 
         // Multiple checkboxes
         public List<NaturalLanguageViewModel>? naturalLanguagesViewModelList;
