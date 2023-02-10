@@ -107,7 +107,21 @@
                             @Html.HiddenFor(model => model.NaturalLanguagesViewModelList![i].naturalLanguage!)
                             @Html.CheckBoxFor(model => model.NaturalLanguagesViewModelList![i].isSelected, new { Style = "vertical-align:3px;" })
                             @Html.Label(Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name)
-                            @*@Html.DisplayFor(model => model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name)*@
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="form-group" style="margin-left: 20px">
+            @Html.LabelFor(model => model.ProgrammingLanguagesViewModelList, htmlAttributes: new {Style = "color: white;", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <ul style="list-style-type: none;">
+                    @for (var i = 0; i < Model.ProgrammingLanguagesViewModelList!.Count(); i++)
+                    {
+                        <li style="display: inline; color: white;">
+                            @Html.HiddenFor(model => model.ProgrammingLanguagesViewModelList![i].programmingLanguage!)
+                            @Html.CheckBoxFor(model => model.ProgrammingLanguagesViewModelList![i].isSelected, new { Style = "vertical-align:3px;" })
+                            @Html.Label(Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name)
                         </li>
                     }
                 </ul>

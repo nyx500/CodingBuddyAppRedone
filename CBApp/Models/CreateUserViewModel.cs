@@ -30,8 +30,9 @@ namespace CBApp.Models
 
         [Display(Name = "Select languages")]
         public List<NaturalLanguageViewModel>? NaturalLanguagesViewModelList {get; set;}
- 
-        //public List<ProgrammingLanguageViewModel> programmingLanguagesViewModelList;
+
+        [Display(Name = "Select favourite programming languages")]
+        public List<ProgrammingLanguageViewModel>? ProgrammingLanguagesViewModelList;
         //public List<CSInterestViewModel>? csInterestViewModelList;
         //public List<HobbyViewModel>? hobbiesViewModelList;
 

@@ -209,22 +209,21 @@ namespace CBApp.Controllers
                 );
             }
 
+            // Populates 'create user' view model with programming languages view models with isSelected fields for each language
+            List<ProgrammingLanguage> plangs = context.ProgrammingLanguages.ToList();
+            model.ProgrammingLanguagesViewModelList = new List<ProgrammingLanguageViewModel>();
+            foreach (var language in plangs)
+            {
+                model.ProgrammingLanguagesViewModelList.Add(
+                    new ProgrammingLanguageViewModel
+                    {
+                        programmingLanguage = language,
+                        isSelected = false
+                    }
+                );
+            }
 
-            //// Populate view model with programming languages
-            //model.programmingLanguagesViewModelList = new List<ProgrammingLanguageViewModel>();
 
-            //List<ProgrammingLanguage> plangs = context.ProgrammingLanguages.ToList();
-
-            //foreach (var pl in plangs)
-            //{
-            //    model.programmingLanguagesViewModelList.Add(
-            //        new ProgrammingLanguageViewModel
-            //        {
-            //            programmingLanguage = pl,
-            //            isSelected = false
-            //        }
-            //    );
-            //}
 
 
             //// Populate view model with CS interests
