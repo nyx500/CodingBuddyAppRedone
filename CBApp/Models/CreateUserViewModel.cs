@@ -28,13 +28,17 @@ namespace CBApp.Models
 
         // Multiple checkboxes
 
-        [Display(Name = "Select languages")]
+        [Display(Name = "Select languages:")]
         public List<NaturalLanguageViewModel>? NaturalLanguagesViewModelList {get; set;}
 
-        [Display(Name = "Select favourite programming languages")]
-        public List<ProgrammingLanguageViewModel>? ProgrammingLanguagesViewModelList;
-        //public List<CSInterestViewModel>? csInterestViewModelList;
-        //public List<HobbyViewModel>? hobbiesViewModelList;
+        [Display(Name = "Select your favourite programming languages:")]
+        public List<ProgrammingLanguageViewModel>? ProgrammingLanguagesViewModelList { get; set; }
+
+        [Display(Name = "Select your Computer Science interests:")]
+        public List<CSInterestViewModel>? CSInterestsViewModelList { get; set; }
+
+        [Display(Name = "Select your favourite hobbies:")]
+        public List<HobbyViewModel>? HobbiesViewModelList { get; set; }
 
     }
 }

@@ -23,13 +23,17 @@ namespace CBApp.Data.ConfigurationFiles
                 // Get the language name from the enum as a string
                 string enumAsString = enumLanguage.ToString();
 
+                // Strings in C# are immutable --> .: create a new string with the '_'s in the enum members
+                // replaced with a space
+                string languageName = enumAsString.Replace('_', ' ');
+
                 // Seed the DB with names and Ids of natural spoken languages
                 entity.HasData(
                     new NaturalLanguage
                     {
                         // Initializes the first Id with '1' instead of '0'
                         NaturalLanguageId = (i + 1),
-                        Name = enumAsString
+                        Name = languageName
                     }
                 );
             }

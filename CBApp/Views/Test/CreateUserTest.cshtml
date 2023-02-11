@@ -127,6 +127,36 @@
                 </ul>
             </div>
         </div>
+        <div class="form-group" style="margin-left: 20px">
+            @Html.LabelFor(model => model.CSInterestsViewModelList, htmlAttributes: new {Style = "color: white;", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <ul style="list-style-type: none;">
+                    @for (var i = 0; i < Model.CSInterestsViewModelList!.Count(); i++)
+                    {
+                        <li style="display: inline; color: white;">
+                            @Html.HiddenFor(model => model.CSInterestsViewModelList![i].CSInterest!)
+                            @Html.CheckBoxFor(model => model.CSInterestsViewModelList![i].isSelected, new { Style = "vertical-align:3px;" })
+                            @Html.Label(Model.CSInterestsViewModelList![i].CSInterest!.Name)
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="form-group" style="margin-left: 20px">
+            @Html.LabelFor(model => model.HobbiesViewModelList, htmlAttributes: new {Style = "color: white;", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <ul style="list-style-type: none;">
+                    @for (var i = 0; i < Model.HobbiesViewModelList!.Count(); i++)
+                    {
+                        <li style="display: inline; color: white;">
+                            @Html.HiddenFor(model => model.HobbiesViewModelList![i].Hobby!)
+                            @Html.CheckBoxFor(model => model.HobbiesViewModelList![i].isSelected, new { Style = "vertical-align:3px;" })
+                            @Html.Label(Model.HobbiesViewModelList![i].Hobby!.Name)
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
         <br />
         <div class="form-group" style="margin-left: 20px;">
             <div class="col-md-offset-2 col-md-10">

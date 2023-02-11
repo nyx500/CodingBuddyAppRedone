@@ -2,7 +2,7 @@
 {
     public class HobbyViewModel
     {
-        public Hobby hobby { get; set; }
+        public Hobby? Hobby { get; set; }
         public bool isSelected { get; set; }
     }
 }

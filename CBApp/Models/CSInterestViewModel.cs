@@ -2,7 +2,7 @@
 {
     public class CSInterestViewModel
     {
-        public CSInterest csInterest { get; set; }
+        public CSInterest? CSInterest { get; set; }
         public bool isSelected { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using CBApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CBApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230211113230_ReplacedUnderscoresInCSInterestNamesWithSpaces")]
+    partial class ReplacedUnderscoresInCSInterestNamesWithSpaces
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,7 +277,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 2,
-                            Name = "Adventure Sports"
+                            Name = "Adventure_Sports"
                         },
                         new
                         {
@@ -324,12 +327,12 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 12,
-                            Name = "Board Games"
+                            Name = "Board_Games"
                         },
                         new
                         {
                             HobbyId = 13,
-                            Name = "Card Games"
+                            Name = "Card_Games"
                         },
                         new
                         {
@@ -349,7 +352,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 17,
-                            Name = "Classical Music"
+                            Name = "Classical_Music"
                         },
                         new
                         {
@@ -379,7 +382,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 23,
-                            Name = "Creative Writing"
+                            Name = "Creative_Writing"
                         },
                         new
                         {
@@ -389,7 +392,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 25,
-                            Name = "Digital Art"
+                            Name = "Digital_Art"
                         },
                         new
                         {
@@ -414,7 +417,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 30,
-                            Name = "Electronic Music"
+                            Name = "Electronic_Music"
                         },
                         new
                         {
@@ -444,7 +447,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 36,
-                            Name = "Folk Music"
+                            Name = "Folk_Music"
                         },
                         new
                         {
@@ -479,7 +482,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 43,
-                            Name = "Horseback Riding"
+                            Name = "Horseback_Riding"
                         },
                         new
                         {
@@ -489,7 +492,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 45,
-                            Name = "Learning Languages"
+                            Name = "Learning_Languages"
                         },
                         new
                         {
@@ -499,7 +502,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 47,
-                            Name = "Martial Arts"
+                            Name = "Martial_Arts"
                         },
                         new
                         {
@@ -519,12 +522,12 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 51,
-                            Name = "Music Production"
+                            Name = "Music_Production"
                         },
                         new
                         {
                             HobbyId = 52,
-                            Name = "Non Fiction"
+                            Name = "Non_Fiction"
                         },
                         new
                         {
@@ -554,7 +557,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 58,
-                            Name = "Playing An Instrument"
+                            Name = "Playing_An_Instrument"
                         },
                         new
                         {
@@ -564,7 +567,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 60,
-                            Name = "Pop Music"
+                            Name = "Pop_Music"
                         },
                         new
                         {
@@ -579,7 +582,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 63,
-                            Name = "Rock Music"
+                            Name = "Rock_Music"
                         },
                         new
                         {
@@ -619,12 +622,12 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 71,
-                            Name = "Snow Sports"
+                            Name = "Snow_Sports"
                         },
                         new
                         {
                             HobbyId = 72,
-                            Name = "Street Art"
+                            Name = "Street_Art"
                         },
                         new
                         {
@@ -649,7 +652,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 77,
-                            Name = "Video Games"
+                            Name = "Video_Games"
                         },
                         new
                         {
@@ -664,7 +667,7 @@ namespace CBApp.Migrations
                         new
                         {
                             HobbyId = 80,
-                            Name = "Water Sports"
+                            Name = "Water_Sports"
                         },
                         new
                         {
@@ -825,7 +828,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 20,
-                            Name = "Eastern Min"
+                            Name = "Eastern_Min"
                         },
                         new
                         {
@@ -845,7 +848,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 24,
-                            Name = "Gan Chinese"
+                            Name = "Gan_Chinese"
                         },
                         new
                         {
@@ -865,7 +868,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 28,
-                            Name = "Haitian Creole"
+                            Name = "Haitian_Creole"
                         },
                         new
                         {
@@ -995,7 +998,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 54,
-                            Name = "Malay Indonesian"
+                            Name = "Malay_Indonesian"
                         },
                         new
                         {
@@ -1030,12 +1033,12 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 61,
-                            Name = "Northern Min"
+                            Name = "Northern_Min"
                         },
                         new
                         {
                             NaturalLanguageId = 62,
-                            Name = "Odia Oriya"
+                            Name = "Odia_Oriya"
                         },
                         new
                         {
@@ -1090,7 +1093,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 73,
-                            Name = "Serbo Croatian"
+                            Name = "Serbo_Croatian"
                         },
                         new
                         {
@@ -1115,7 +1118,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 78,
-                            Name = "Southern Min"
+                            Name = "Southern_Min"
                         },
                         new
                         {
@@ -1195,7 +1198,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 94,
-                            Name = "Wu inc Shanghainese"
+                            Name = "Wu_inc_Shanghainese"
                         },
                         new
                         {
@@ -1205,7 +1208,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 96,
-                            Name = "Xiang Hunnanese"
+                            Name = "Xiang_Hunnanese"
                         },
                         new
                         {
@@ -1215,7 +1218,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 98,
-                            Name = "Yue Cantonese"
+                            Name = "Yue_Cantonese"
                         },
                         new
                         {

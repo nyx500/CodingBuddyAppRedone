@@ -4,6 +4,7 @@ using CBApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CBApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230211113446_ReplacedUnderscoresInHobbyNamesWithSpaces")]
+    partial class ReplacedUnderscoresInHobbyNamesWithSpaces
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -825,7 +828,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 20,
-                            Name = "Eastern Min"
+                            Name = "Eastern_Min"
                         },
                         new
                         {
@@ -845,7 +848,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 24,
-                            Name = "Gan Chinese"
+                            Name = "Gan_Chinese"
                         },
                         new
                         {
@@ -865,7 +868,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 28,
-                            Name = "Haitian Creole"
+                            Name = "Haitian_Creole"
                         },
                         new
                         {
@@ -995,7 +998,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 54,
-                            Name = "Malay Indonesian"
+                            Name = "Malay_Indonesian"
                         },
                         new
                         {
@@ -1030,12 +1033,12 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 61,
-                            Name = "Northern Min"
+                            Name = "Northern_Min"
                         },
                         new
                         {
                             NaturalLanguageId = 62,
-                            Name = "Odia Oriya"
+                            Name = "Odia_Oriya"
                         },
                         new
                         {
@@ -1090,7 +1093,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 73,
-                            Name = "Serbo Croatian"
+                            Name = "Serbo_Croatian"
                         },
                         new
                         {
@@ -1115,7 +1118,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 78,
-                            Name = "Southern Min"
+                            Name = "Southern_Min"
                         },
                         new
                         {
@@ -1195,7 +1198,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 94,
-                            Name = "Wu inc Shanghainese"
+                            Name = "Wu_inc_Shanghainese"
                         },
                         new
                         {
@@ -1205,7 +1208,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 96,
-                            Name = "Xiang Hunnanese"
+                            Name = "Xiang_Hunnanese"
                         },
                         new
                         {
@@ -1215,7 +1218,7 @@ namespace CBApp.Migrations
                         new
                         {
                             NaturalLanguageId = 98,
-                            Name = "Yue Cantonese"
+                            Name = "Yue_Cantonese"
                         },
                         new
                         {

@@ -224,39 +224,37 @@ namespace CBApp.Controllers
             }
 
 
+            // Populate view model with CS interests
+            List<CSInterest> interests = context.CSInterests.ToList();
+            model.CSInterestsViewModelList = new List<CSInterestViewModel>();
+
+            foreach (var interest in interests)
+            {
+                model.CSInterestsViewModelList.Add(
+                    new CSInterestViewModel
+                    {
+                        CSInterest = interest,
+                        isSelected = false
+                    }
+                );
+            }
 
 
-            //// Populate view model with CS interests
-            //model.csInterestViewModelList = new List<CSInterestViewModel>();
+            // Populate view model with hobbies
+            List<Hobby> hobbies = context.Hobbies.ToList();
+            model.HobbiesViewModelList = new List<HobbyViewModel>();
 
-            //List<CSInterest> csInterests = context.CSInterests.ToList();
 
-            //foreach (var ci in csInterests)
-            //{
-            //    model.csInterestViewModelList.Add(
-            //        new CSInterestViewModel
-            //        {
-            //            csInterest = ci,
-            //            isSelected = false
-            //        }
-            //    );
-            //}
-
-            //// Populate view model with hobbies
-            //model.hobbiesViewModelList = new List<HobbyViewModel>();
-
-            //List<Hobby> hobbies = context.Hobbies.ToList();
-
-            //foreach (var h in hobbies)
-            //{
-            //    model.hobbiesViewModelList.Add(
-            //        new HobbyViewModel
-            //        {
-            //            hobby = h,
-            //            isSelected = false
-            //        }
-            //    );
-            //}
+            foreach (var hobby in hobbies)
+            {
+                model.HobbiesViewModelList.Add(
+                    new HobbyViewModel
+                    {
+                        Hobby = hobby,
+                        isSelected = false
+                    }
+                );
+            }
 
             return View(model);
 
