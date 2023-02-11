@@ -26,13 +26,13 @@ namespace CBApp.Models
         //public string UserId { get; set; }
 
         // Many-to-one relationships
-        //[Required(ErrorMessage = "Please enter your career phase!")]
+        [Required(ErrorMessage = "Please enter your career phase!")]
         public int CareerPhaseId { get; set; } // foreign key
         [Display(Name = "Career Phase")]
         public CareerPhase? CareerPhase { get; set; } // navigation property
 
 
-        //[Required(ErrorMessage = "Please enter your experience level!")]
+        [Required(ErrorMessage = "Please enter your experience level!")]
         public int ExperienceLevelId { get; set; } // foreign key
         public ExperienceLevel? ExperienceLevel { get; set; } // navigation property
 

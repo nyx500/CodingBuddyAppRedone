@@ -17,12 +17,14 @@ namespace CBApp.Models
 
 
         [Display(Name = "Career Phase")]
+        [Required(ErrorMessage = "Please enter your career phase!")]
         public int? SelectedCareerPhaseId { get; set; }
 
         [Display(Name = "Experience Level")]
+        [Required(ErrorMessage = "Please enter your experience level!")]
         public int? SelectedExperienceLevelId { get; set; }
 
-
+        // Gender selection is optional
         [Display(Name = "Gender")]
         public int? SelectedGenderId { get; set; }
 

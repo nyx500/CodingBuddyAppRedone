@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Controllers",
+    "\\Models",
+    "\\Views",
+    "\\Views\\Test"
   ],
   "SelectedNode": "\\CBApp.sln",
   "PreviewInSolutionExplorer": false
