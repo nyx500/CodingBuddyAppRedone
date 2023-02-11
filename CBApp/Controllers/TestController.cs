@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CBApp.Models;
 using CBApp.Data;
+using Newtonsoft.Json;
 
 namespace CBApp.Controllers
 {
@@ -256,6 +257,13 @@ namespace CBApp.Controllers
                 );
             }
 
+            if (HttpContext.Session.GetString("errors") == null)
+            {
+                CreateUserErrors create_user_errors = new CreateUserErrors();
+                string create_user_errors_Json = JsonConvert.SerializeObject(create_user_errors);
+                HttpContext.Session.SetString("errors", create_user_errors_Json);
+            }
+
             return View(model);
 
 
@@ -263,25 +271,12 @@ namespace CBApp.Controllers
 
         [HttpPost]
         public IActionResult CreateUserTest(CreateUserViewModel model)
-        {
-
-            string result;
-
-            int count = 0;
-
-            for (var i = 0; i < model.NaturalLanguagesViewModelList.Count(); i++)
-            {   
-                if (model.NaturalLanguagesViewModelList[i].isSelected)
-                {
-                    count++;
-                }
-            }
-
-            result = count.ToString();
+        {   
+            
 
             if (ModelState.IsValid)
             {
-                return Content(result);
+                return Content("required fields are not null!");
             }
             else
             {

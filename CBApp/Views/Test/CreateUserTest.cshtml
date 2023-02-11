@@ -53,7 +53,9 @@
 </form>
 *@
 
-
+<div style="color: white;">
+    @Context.Session.GetString("errors");
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

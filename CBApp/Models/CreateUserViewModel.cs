@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic; // required for Dictionary DS
 namespace CBApp.Models
 {   
     public class SelectListItem
@@ -28,7 +29,7 @@ namespace CBApp.Models
         [Display(Name = "Gender")]
         public int? SelectedGenderId { get; set; }
 
-        // Multiple checkboxes
+        // Multiple checkboxes options (languages & interests)
 
         [Display(Name = "Select languages:")]
         public List<NaturalLanguageViewModel>? NaturalLanguagesViewModelList {get; set;}
@@ -41,6 +42,8 @@ namespace CBApp.Models
 
         [Display(Name = "Select your favourite hobbies:")]
         public List<HobbyViewModel>? HobbiesViewModelList { get; set; }
+
+
 
     }
 }
