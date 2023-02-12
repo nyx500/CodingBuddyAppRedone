@@ -18,10 +18,10 @@ namespace CBApp.Data.ConfigurationFiles
             foreach (int i in Enum.GetValues(typeof(EnumsForUser.CareerPhase)))
             {
                 // Casts integer into the corresponding enum
-                var enumLanguage = (EnumsForUser.CareerPhase)i;
+                var enumCareerPhase = (EnumsForUser.CareerPhase)i;
 
                 // Get the CareerPhase name from the enum as a string
-                string enumAsString = enumLanguage.ToString();
+                string enumAsString = enumCareerPhase.ToString();
 
                 // Seed the DB with names and Ids of different CareerPhases
                 entity.HasData(

@@ -9,7 +9,7 @@ namespace CBApp.Models
     }
     public class CreateUserViewModel
     {
-        public User? user { get; set; }
+        public User user { get; set; }
 
         // Dropdowns (single-option)
         public List<SelectListItem>? careerPhaseSelectList;
@@ -19,15 +19,15 @@ namespace CBApp.Models
 
         [Display(Name = "*Career Phase")]
         [Required(ErrorMessage = "Please enter your career phase!")]
-        public int? SelectedCareerPhaseId { get; set; }
+        public int SelectedCareerPhaseId { get; set; }
 
         [Display(Name = "*Experience Level")]
         [Required(ErrorMessage = "Please enter your experience level!")]
-        public int? SelectedExperienceLevelId { get; set; }
+        public int SelectedExperienceLevelId { get; set; }
 
         // Gender selection is optional
         [Display(Name = "Gender: (optional)")]
-        public int? SelectedGenderId { get; set; }
+        public int SelectedGenderId { get; set; }
 
         // Multiple checkboxes options (languages & interests)
 

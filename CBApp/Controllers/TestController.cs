@@ -7,6 +7,8 @@ using CBApp.Models;
 using CBApp.Data;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace CBApp.Controllers
 {
@@ -265,7 +267,7 @@ namespace CBApp.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateUserTest(CreateUserViewModel model)
+        public async Task<IActionResult> CreateUserTest(CreateUserViewModel model)
         {   
             // Create a new object storing types of errors for the form input
             CreateUserErrors errorsObject = new CreateUserErrors();
@@ -393,7 +395,7 @@ namespace CBApp.Controllers
 
             // Converts errors object back into JSON and stores it back in the session
             //string errorsString = JsonConvert.SerializeObject(errorsObject);
-            HttpContext.Session.SetObject("errors", errorsObject);
+            //HttpContext.Session.SetObject("errors", errorsObject);
 
 
             // Redirects to original form (with errors stored in the session) if the error counter reports errors
@@ -401,11 +403,98 @@ namespace CBApp.Controllers
             {
                 return RedirectToAction("CreateUserTest");
             }
+            else
+            {
+                User user = new User();
+                user.SlackId = model!.user!.SlackId;
+                user.UserName = model!.user!.UserName;
+                user.CareerPhaseId = model.SelectedCareerPhaseId;
+                user.CareerPhase = context.CareerPhases.Find(model.SelectedCareerPhaseId);
+                user.ExperienceLevelId = model.SelectedExperienceLevelId;
+                user.ExperienceLevel = context.ExperienceLevels.Find(model.SelectedExperienceLevelId);
+
+                if (model.SelectedGenderId != null)
+                {
+                    user.GenderId = model.SelectedGenderId;
+                    user.Gender = context.Genders.Find(model.SelectedGenderId);
+                }
+
+                user.NaturalLanguageUsers = new List<NaturalLanguageUser>();
+                foreach (var langModel in model.NaturalLanguagesViewModelList)
+                {
+                    if (langModel.isSelected)
+                    {
+                        user.NaturalLanguageUsers!.Add(
+                            new NaturalLanguageUser
+                            {
+                                SlackId = user.SlackId!,
+                                NaturalLanguageId = langModel.naturalLanguage!.NaturalLanguageId,
+                                User = user,
+                                NaturalLanguage = langModel.naturalLanguage
+                            }
+                        ); ;
+                    }
+                }
+
+                user.ProgrammingLanguageUsers = new List<ProgrammingLanguageUser>();
+                foreach (var langModel in model.ProgrammingLanguagesViewModelList)
+                {
+                    if (langModel.isSelected)
+                    {
+                        user.ProgrammingLanguageUsers!.Add(
+                            new ProgrammingLanguageUser
+                            {
+                                SlackId = user.SlackId!,
+                                ProgrammingLanguageId = langModel.programmingLanguage!.ProgrammingLanguageId,
+                                User = user,
+                                ProgrammingLanguage = langModel.programmingLanguage
+                            }
+                        ); ;
+                    }
+                }
+
+                user.CSInterestUsers = new List<CSInterestUser>();
+                foreach (var interest in model.CSInterestsViewModelList)
+                {
+                    if (interest.isSelected)
+                    {
+                        user.CSInterestUsers.Add(
+                            new CSInterestUser
+                            {
+                                SlackId = user.SlackId,
+                                CSInterestId = interest.CSInterest.CSInterestId,
+                                User = user,
+                                CSInterest = interest.CSInterest
+                            }
+                        ); ;
+                    }
+                }
+
+                user.HobbyUsers = new List<HobbyUser>();
+                foreach (var hobby in model.HobbiesViewModelList)
+                {
+                    if (hobby.isSelected)
+                    {
+                        user.HobbyUsers.Add(
+                            new HobbyUser
+                            {
+                                SlackId = user.SlackId,
+                                HobbyId = hobby.Hobby.HobbyId,
+                                User = user,
+                                Hobby = hobby.Hobby
+                            }
+                        ); ;
+                    }
+                }
+
+                context.Add(user);
+                await context.SaveChangesAsync();
+            }
 
             // For testing purposes: return Content view result instead of RedirectToAction if all fields have been properly filled in by the user
             if (ModelState.IsValid)
             {
-                return Content("Success!");
+                return View("SuccessfullyCreatedUser");
             }
             else
             {
