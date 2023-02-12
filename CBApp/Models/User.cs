@@ -15,12 +15,12 @@ namespace CBApp.Models
         [Required(ErrorMessage = "Please enter a Slack ID!")]
         [StringLength(50)]
         [Key]
-        [Display(Name ="Slack ID")]
+        [Display(Name ="*Slack ID")]
         public string? SlackId { get; set; }
 
         [Required(ErrorMessage = "Please enter a Username!")]
         [StringLength(70)]
-        [Display(Name = "Username")]
+        [Display(Name = "*Username")]
         new public string?  UserName  { get; set; }
 
         //public string UserId { get; set; }

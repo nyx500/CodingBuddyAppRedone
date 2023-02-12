@@ -258,23 +258,17 @@ namespace CBApp.Controllers
                 );
             }
 
-            //if (HttpContext.Session.GetString("errors") == null)
-            //{
-            //    CreateUserErrors create_user_errors = new CreateUserErrors();
-            //    string create_user_errors_Json = JsonConvert.SerializeObject(create_user_errors);
-            //    HttpContext.Session.SetString("errors", create_user_errors_Json);
-            //}
-
             return View(model);
 
 
         }
 
+
         [HttpPost]
         public IActionResult CreateUserTest(CreateUserViewModel model)
         {   
             // Create a new object storing types of errors for the form input
-            CreateUserErrors errors_object = new CreateUserErrors();
+            CreateUserErrors errorsObject = new CreateUserErrors();
 
             int ErrorCounter = 0;
 
@@ -282,7 +276,7 @@ namespace CBApp.Controllers
             // Model cannot be null in this httppost method --> use null forgiving '!' operator
             if (model!.user!.SlackId == null) // User did not enter SlackId
             {
-                errors_object!.No_Slack_Id = true;
+                errorsObject!.No_Slack_Id = true;
                 ++ErrorCounter;
             }
             else
@@ -290,7 +284,7 @@ namespace CBApp.Controllers
                 // SlackId fields is not null --> do other checks for right format
                 if (model.user.SlackId!.Length > 50)
                 {
-                    errors_object!.Slack_Id_Too_Long = true;
+                    errorsObject!.Slack_Id_Too_Long = true;
                     ++ErrorCounter;
                 }
 
@@ -300,7 +294,7 @@ namespace CBApp.Controllers
                 if (!Regex.IsMatch(model.user.SlackId!, "^[a-zA-Z0-9]*$")
                     || !model.user.SlackId.Any(char.IsDigit))
                 {
-                    errors_object!.Invalid_Slack_Id = true;
+                    errorsObject!.Invalid_Slack_Id = true;
                     ++ErrorCounter;
                 }
 
@@ -309,7 +303,7 @@ namespace CBApp.Controllers
             // CODE FOR USERNAME ERRORS IN THE INPUT FORM
             if (model!.user!.UserName == null) // User did not enter SlackId
             {
-                errors_object!.No_Username = true;
+                errorsObject!.No_Username = true;
                 ++ErrorCounter;
             }
             else
@@ -317,7 +311,7 @@ namespace CBApp.Controllers
                 // SlackId fields is not null --> do other checks for right format
                 if (model.user.UserName!.Length > 70)
                 {
-                    errors_object!.Username_Too_Long = true;
+                    errorsObject!.Username_Too_Long = true;
                     ++ErrorCounter;
                 }
 
@@ -326,7 +320,7 @@ namespace CBApp.Controllers
                 // https://stackoverflow.com/questions/1540620/check-if-a-string-has-at-least-one-number-in-it-using-linq
                 if (!Regex.IsMatch(model.user.UserName!, "^[a-zA-Z0-9_]*$"))
                 {
-                    errors_object!.Invalid_Username = true;
+                    errorsObject!.Invalid_Username = true;
                     ++ErrorCounter;
                 }
 
@@ -335,21 +329,71 @@ namespace CBApp.Controllers
             // CODE FOR CHECKING IF USER HAS SELECTED CAREER PHASE OPTION
             if (model!.SelectedCareerPhaseId == null)
             {
-                errors_object!.No_Career_Phase_Selected = true;
+                errorsObject!.No_Career_Phase_Selected = true;
                 ++ErrorCounter;
             }
 
             // CODE FOR CHECKING IF USER HAS SELECTED EXPERIENCE LEVEL
             if (model!.SelectedExperienceLevelId == null)
             {
-                errors_object!.No_Experience_Level_Selected = true;
+                errorsObject!.No_Experience_Level_Selected = true;
+                ++ErrorCounter;
+            }
+
+            // CODE FOR CHECKING AT LEAST ONE PROGRAMMING LANGUAGE IS SELECTED
+            int programmingLanguagesSelectedCounter = 0;
+            foreach (var p_lang_view_model in model.ProgrammingLanguagesViewModelList!)
+            {
+                if (p_lang_view_model.isSelected)
+                {
+                    ++programmingLanguagesSelectedCounter;
+                }
+            }
+            // Store the error if user has not selected any programming languages
+            if (programmingLanguagesSelectedCounter == 0)
+            {
+                errorsObject.Wrong_Number_Programming_Languages_Selected = true;
+                ++ErrorCounter;
+            }
+
+            // CODE FOR CHECKING AT LEAST ONE CS INTEREST IS SELECTED
+            int csInterestsSelectedCounter = 0;
+            foreach (var interest  in model.CSInterestsViewModelList!)
+            {
+                if (interest.isSelected)
+                {
+                    ++csInterestsSelectedCounter;
+                }
+            }
+            // Store the error if user has not selected any programming languages
+            if (csInterestsSelectedCounter == 0)
+            {
+                errorsObject.Wrong_Number_CSInterests_Selected = true;
+                ++ErrorCounter;
+            }
+
+            // CODE FOR CHECKING THAT BETWEEN 3 - 10 HOBBIES ARE SELECTED
+            int hobbiesSelectedCounter = 0;
+            foreach (var hobby in model.HobbiesViewModelList!)
+            {
+                if (hobby.isSelected)
+                {
+                    ++hobbiesSelectedCounter;
+                }
+            }
+            // Store the error if user has not selected any programming languages
+            if (hobbiesSelectedCounter < 3 
+                || hobbiesSelectedCounter > 10
+            )
+            {
+                errorsObject.Wrong_Number_Hobbies_Selected = true;
                 ++ErrorCounter;
             }
 
 
             // Converts errors object back into JSON and stores it back in the session
-            string errors_string = JsonConvert.SerializeObject(errors_object);
-            HttpContext.Session.SetString("errors", errors_string);
+            //string errorsString = JsonConvert.SerializeObject(errorsObject);
+            HttpContext.Session.SetObject("errors", errorsObject);
 
 
             // Redirects to original form (with errors stored in the session) if the error counter reports errors

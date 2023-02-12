@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic; // required for Dictionary DS
+using Newtonsoft.Json;
 namespace CBApp.Models
 {   
     public class SelectListItem
@@ -17,31 +17,32 @@ namespace CBApp.Models
         public List<SelectListItem>? genderSelectList;
 
 
-        [Display(Name = "Career Phase")]
+        [Display(Name = "*Career Phase")]
         [Required(ErrorMessage = "Please enter your career phase!")]
         public int? SelectedCareerPhaseId { get; set; }
 
-        [Display(Name = "Experience Level")]
+        [Display(Name = "*Experience Level")]
         [Required(ErrorMessage = "Please enter your experience level!")]
         public int? SelectedExperienceLevelId { get; set; }
 
         // Gender selection is optional
-        [Display(Name = "Gender")]
+        [Display(Name = "Gender: (optional)")]
         public int? SelectedGenderId { get; set; }
 
         // Multiple checkboxes options (languages & interests)
 
-        [Display(Name = "Select languages:")]
+        [Display(Name = "Select natural/spoken languages: (optional)")]
         public List<NaturalLanguageViewModel>? NaturalLanguagesViewModelList {get; set;}
 
-        [Display(Name = "Select your favourite programming languages:")]
+        [Display(Name = "*Select your favourite programming languages (please select at least one):")]
         public List<ProgrammingLanguageViewModel>? ProgrammingLanguagesViewModelList { get; set; }
 
-        [Display(Name = "Select your Computer Science interests:")]
+        [Display(Name = "Select your Computer Science interests (please select at least one):")]
         public List<CSInterestViewModel>? CSInterestsViewModelList { get; set; }
 
-        [Display(Name = "Select your favourite hobbies:")]
+        [Display(Name = "Select your favourite hobbies (please select between 3-10 hobbies!):")]
         public List<HobbyViewModel>? HobbiesViewModelList { get; set; }
+
 
 
 
