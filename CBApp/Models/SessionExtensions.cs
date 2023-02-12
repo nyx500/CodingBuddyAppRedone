@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
+// Attribution: Murach MVC ASP.net book, page 331
+
 namespace CBApp.Models
 {
     public static class SessionExtensions

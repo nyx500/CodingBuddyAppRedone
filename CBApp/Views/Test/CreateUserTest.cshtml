@@ -74,8 +74,8 @@
                 if (errors.No_Slack_Id || errors.Invalid_Slack_Id || errors.Slack_Id_Too_Long)
                 {
                             <div class="form-group" style="margin: 20px;">
-                        <label class="control-label col-md-6" style="color:red;">Please enter a SlackID (only alphanumeric characters, must include at least one number.
-                            </label>
+                                <label class="control-label col-md-6" style="color:red;">Please enter a SlackID (only alphanumeric characters, 
+                                    must include at least one number:</label>
                                 <div class="col-md-10">
                                     @Html.EditorFor(model => model!.user!.SlackId, new { htmlAttributes = new {Style = "border: 3px solid red;", @class = "form-control"} })
                                     @Html.ValidationMessageFor(model => model.user!.SlackId, "", new { @class = "text-danger" })
@@ -105,14 +105,49 @@
             }
                             
         }
-    
-        <div class="form-group" style="margin: 20px;">
-            @Html.LabelFor(model => model.user.UserName, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.user.UserName, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.user.UserName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
+        @{
+            if (errors != null)
+            {
+                if (errors.No_Username || errors.Invalid_Username|| errors.Username_Too_Long)
+                {
+                    <div class="form-group" style="margin: 20px;">
+                        <label class="control-label col-md-6" style="color:red;">
+                            Please enter a valid username (including only alphanumeric characters and the '_' character):
+                        </label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model!.user!.UserName, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model!.user!.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                else 
+                {
+                    <div class="form-group" style="margin: 20px;">
+                        @Html.LabelFor(model => model!.user!.UserName, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model!.user!.UserName, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model!.user!.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                }
+            }
+            else 
+            {
+                <div class="form-group" style="margin: 20px;">
+                    @Html.LabelFor(model => model!.user!.UserName, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model!.user!.UserName, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model!.user!.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            }
+         }
+
+
+
         <div class="form-group" style="margin-left: 20px;">
             @Html.LabelFor(model => model.SelectedCareerPhaseId, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
             <div class="col-md-10">
