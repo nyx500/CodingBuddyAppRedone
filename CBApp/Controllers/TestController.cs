@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CBApp.Models;
 using CBApp.Data;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace CBApp.Controllers
 {
@@ -257,12 +258,12 @@ namespace CBApp.Controllers
                 );
             }
 
-            if (HttpContext.Session.GetString("errors") == null)
-            {
-                CreateUserErrors create_user_errors = new CreateUserErrors();
-                string create_user_errors_Json = JsonConvert.SerializeObject(create_user_errors);
-                HttpContext.Session.SetString("errors", create_user_errors_Json);
-            }
+            //if (HttpContext.Session.GetString("errors") == null)
+            //{
+            //    CreateUserErrors create_user_errors = new CreateUserErrors();
+            //    string create_user_errors_Json = JsonConvert.SerializeObject(create_user_errors);
+            //    HttpContext.Session.SetString("errors", create_user_errors_Json);
+            //}
 
             return View(model);
 
@@ -272,7 +273,91 @@ namespace CBApp.Controllers
         [HttpPost]
         public IActionResult CreateUserTest(CreateUserViewModel model)
         {   
-            
+            // Create a new object storing types of errors for the form input
+            CreateUserErrors errors_object = new CreateUserErrors();
+
+            int ErrorCounter = 0;
+
+            // CODE FOR SLACK_ID ERRORS IN THE INPUT FORM
+            // Model cannot be null in this httppost method --> use null forgiving '!' operator
+            if (model!.user!.SlackId == null) // User did not enter SlackId
+            {
+                errors_object!.No_Slack_Id = true;
+                ++ErrorCounter;
+            }
+            else
+            {
+                // SlackId fields is not null --> do other checks for right format
+                if (model.user.SlackId!.Length > 50)
+                {
+                    errors_object!.Slack_Id_Too_Long = true;
+                    ++ErrorCounter;
+                }
+
+                // Attribution (for C# regex tutorial): https://www.techiedelight.com/check-string-consists-alphanumeric-characters-csharp/
+                // Attribution (for checking if SlackId input string contains at least one number):
+                // https://stackoverflow.com/questions/1540620/check-if-a-string-has-at-least-one-number-in-it-using-linq
+                if (!Regex.IsMatch(model.user.SlackId!, "^[a-zA-Z0-9]*$")
+                    || !model.user.SlackId.Any(char.IsDigit))
+                {
+                    errors_object!.Invalid_Slack_Id = true;
+                    ++ErrorCounter;
+                }
+
+            }
+
+            // CODE FOR USERNAME ERRORS IN THE INPUT FORM
+            if (model!.user!.UserName == null) // User did not enter SlackId
+            {
+                errors_object!.No_Username = true;
+                ++ErrorCounter;
+            }
+            else
+            {
+                // SlackId fields is not null --> do other checks for right format
+                if (model.user.UserName!.Length > 70)
+                {
+                    errors_object!.Username_Too_Long = true;
+                    ++ErrorCounter;
+                }
+
+                // Attribution (for C# regex tutorial): https://www.techiedelight.com/check-string-consists-alphanumeric-characters-csharp/
+                // Attribution (for checking if SlackId input string contains at least one number):
+                // https://stackoverflow.com/questions/1540620/check-if-a-string-has-at-least-one-number-in-it-using-linq
+                if (!Regex.IsMatch(model.user.UserName!, "^[a-zA-Z0-9_]*$"))
+                {
+                    errors_object!.Invalid_Username = true;
+                    ++ErrorCounter;
+                }
+
+            }
+
+            // CODE FOR CHECKING IF USER HAS SELECTED CAREER PHASE OPTION
+            if (model!.SelectedCareerPhaseId == null)
+            {
+                errors_object!.No_Career_Phase_Selected = true;
+                ++ErrorCounter;
+            }
+
+            // CODE FOR CHECKING IF USER HAS SELECTED EXPERIENCE LEVEL
+            if (model!.SelectedExperienceLevelId == null)
+            {
+                errors_object!.No_Experience_Level_Selected = true;
+                ++ErrorCounter;
+            }
+
+
+            // Converts errors object back into JSON and stores it back in the session
+            string errors_string = JsonConvert.SerializeObject(errors_object);
+            HttpContext.Session.SetString("errors", errors_string);
+
+
+            // Redirects to original form (with errors stored in the session) if the error counter reports errors
+            if (ErrorCounter > 0)
+            {
+                return RedirectToAction("CreateUserTest");
+            }
+
 
             if (ModelState.IsValid)
             {
@@ -280,9 +365,10 @@ namespace CBApp.Controllers
             }
             else
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                //var errors = ModelState.Values.SelectMany(v => v.Errors);
 
-                return Content(errors.ToString());
+                //return Content(errors.ToString());
+                return RedirectToAction("CreateUserTest");
             }
 
         }

@@ -11,7 +11,7 @@
         public bool Invalid_Username = false;
         public bool Username_Too_Long = false;
         public bool No_Career_Phase_Selected = false;
-        public bool No_Experiene_Level_Selected = false;
+        public bool No_Experience_Level_Selected = false;
         public bool Wrong_Number_Programming_Languages_Selected = false;
         public bool Wrong_Number_CSInterests_Selected = false;
         public bool Wrong_Number_Hobbies_Selected = false;
