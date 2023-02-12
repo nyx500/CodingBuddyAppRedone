@@ -402,10 +402,10 @@ namespace CBApp.Controllers
                 return RedirectToAction("CreateUserTest");
             }
 
-
+            // For testing purposes: return Content view result instead of RedirectToAction if all fields have been properly filled in by the user
             if (ModelState.IsValid)
             {
-                return Content("required fields are not null!");
+                return Content("Success!");
             }
             else
             {
