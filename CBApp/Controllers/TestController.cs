@@ -268,7 +268,7 @@ namespace CBApp.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateUserTest(CreateUserViewModel model)
-        {   
+        {
             // Create a new object storing types of errors for the form input
             CreateUserErrors errorsObject = new CreateUserErrors();
 
@@ -329,14 +329,14 @@ namespace CBApp.Controllers
             }
 
             // CODE FOR CHECKING IF USER HAS SELECTED CAREER PHASE OPTION
-            if (model!.SelectedCareerPhaseId == null)
+            if (model!.SelectedCareerPhaseId == null || model!.SelectedCareerPhaseId < 1 || model!.SelectedCareerPhaseId > 3)
             {
                 errorsObject!.No_Career_Phase_Selected = true;
                 ++ErrorCounter;
             }
 
             // CODE FOR CHECKING IF USER HAS SELECTED EXPERIENCE LEVEL
-            if (model!.SelectedExperienceLevelId == null)
+            if (model!.SelectedExperienceLevelId == null || model!.SelectedExperienceLevelId < 1 || model!.SelectedExperienceLevelId > 3)
             {
                 errorsObject!.No_Experience_Level_Selected = true;
                 ++ErrorCounter;
@@ -403,7 +403,10 @@ namespace CBApp.Controllers
             {
                 return RedirectToAction("CreateUserTest");
             }
-            else
+             
+
+            // For testing purposes: return Content view result instead of RedirectToAction if all fields have been properly filled in by the user
+            if (ModelState.IsValid)
             {
                 User user = new User();
                 user.SlackId = model!.user!.SlackId;
@@ -424,15 +427,13 @@ namespace CBApp.Controllers
                 {
                     if (langModel.isSelected)
                     {
-                        user.NaturalLanguageUsers!.Add(
+                        context.NaturalLanguageUsers.Add(
                             new NaturalLanguageUser
                             {
                                 SlackId = user.SlackId!,
-                                NaturalLanguageId = langModel.naturalLanguage!.NaturalLanguageId,
-                                User = user,
-                                NaturalLanguage = langModel.naturalLanguage
+                                NaturalLanguageId = langModel.naturalLanguage!.NaturalLanguageId
                             }
-                        ); ;
+                        );
                     }
                 }
 
@@ -441,15 +442,13 @@ namespace CBApp.Controllers
                 {
                     if (langModel.isSelected)
                     {
-                        user.ProgrammingLanguageUsers!.Add(
+                        context.ProgrammingLanguageUsers.Add(
                             new ProgrammingLanguageUser
                             {
                                 SlackId = user.SlackId!,
-                                ProgrammingLanguageId = langModel.programmingLanguage!.ProgrammingLanguageId,
-                                User = user,
-                                ProgrammingLanguage = langModel.programmingLanguage
+                                ProgrammingLanguageId = langModel.programmingLanguage!.ProgrammingLanguageId
                             }
-                        ); ;
+                        );
                     }
                 }
 
@@ -458,13 +457,11 @@ namespace CBApp.Controllers
                 {
                     if (interest.isSelected)
                     {
-                        user.CSInterestUsers.Add(
+                        context.CSInterestUsers.Add(
                             new CSInterestUser
                             {
                                 SlackId = user.SlackId,
-                                CSInterestId = interest.CSInterest.CSInterestId,
-                                User = user,
-                                CSInterest = interest.CSInterest
+                                CSInterestId = interest.CSInterest.CSInterestId
                             }
                         ); ;
                     }
@@ -475,13 +472,11 @@ namespace CBApp.Controllers
                 {
                     if (hobby.isSelected)
                     {
-                        user.HobbyUsers.Add(
+                        context.HobbyUsers.Add(
                             new HobbyUser
                             {
                                 SlackId = user.SlackId,
-                                HobbyId = hobby.Hobby.HobbyId,
-                                User = user,
-                                Hobby = hobby.Hobby
+                                HobbyId = hobby.Hobby.HobbyId
                             }
                         ); ;
                     }
@@ -489,19 +484,14 @@ namespace CBApp.Controllers
 
                 context.Add(user);
                 await context.SaveChangesAsync();
-            }
-
-            // For testing purposes: return Content view result instead of RedirectToAction if all fields have been properly filled in by the user
-            if (ModelState.IsValid)
-            {
                 return View("SuccessfullyCreatedUser");
             }
             else
             {
-                //var errors = ModelState.Values.SelectMany(v => v.Errors);
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
 
-                //return Content(errors.ToString());
-                return RedirectToAction("CreateUserTest");
+                return Content(errors.ToString());
+                //return RedirectToAction("CreateUserTest");
             }
 
         }

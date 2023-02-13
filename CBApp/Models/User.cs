@@ -39,7 +39,7 @@ namespace CBApp.Models
         // Many-to-many relationships
 
         // ICollection variables storing lists of natural and programming languages
-        public ICollection<NaturalLanguageUser>? NaturalLanguageUsers { get; set; }
+        public ICollection<NaturalLanguageUser> NaturalLanguageUsers { get; set; }
 
         //[Required(ErrorMessage = "Please enable selection of favourite programming languages!")]
         public ICollection<ProgrammingLanguageUser>? ProgrammingLanguageUsers { get; set; }
