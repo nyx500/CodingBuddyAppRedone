@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "CodingBuddy - Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*Attribution for split-screen layout: https://www.w3schools.com/howto/howto_css_split_screen.asp*@
+<div class="about">
+    <div class="splitscreentextbox">
+        <h1 id="about-heading">About Us</h1>
+        <div id="welcome-list">
+            <h3 id="about-slogan">Helping you connect</h3>
+            <p id="app-about">
+                CodingBuddy is a web application aimed at online students on the BSc UoL Computer Science course.
+                It will be integrated with the Slack platform which most of the target users are already familiar with.
+                The purpose of this application is to match the user with another student based on their coding
+                interests. The matches will be based on specific attributes which the target users consider to be the
+                most important.
+                <br /><br />
+                Although Slack has proven to be a popular platform for students on our course, certain peers have
+                mentioned they were often too shy to initiate a conversation with another student or to participate
+                actively in group chats. We wanted to improve on the networking opportunities offered already by
+                Slack and UoL. For instance, our application should facilitate matching with a buddy with more
+                coding experience who can act as a “mentor” to support the user through the beginnings of their
+                coding journey. We wanted to make it easier for people to initialize conversations by matching them
+                to others who share their personal passions in technology.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="splitscreen right">
+    <div class="slogan-container">
+        <img id="slogan-graphics" src="~/assets/codeConnectCreate.svg" alt="White text in black bubble background saying Code, Connect Create." />
+    </div>
+</div>

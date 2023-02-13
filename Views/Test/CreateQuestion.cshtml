@@ -1,0 +1,21 @@
+﻿@model Question
+
+@{
+    ViewData["Title"] = "Create Question";
+}
+
+<h1 class="bg-info text-white">Create Question</h1>
+<a asp-action="ReadQuestions" class="btn btn-secondary">View all</a>
+
+<div asp-validation-summary="All" class="text-danger btn-light"></div>
+
+<form asp-action="CreateQuestion" method="post">
+    <div class="form-group">
+        <label asp-for="QuestionString"></label>
+        <input type="text" asp-for="QuestionString" class="form-control" />
+        <span asp-validation-for="QuestionString" class="text-danger"></span>
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
