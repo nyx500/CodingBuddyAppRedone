@@ -27,7 +27,7 @@
             @if (signInManager.IsSignedIn(User))
             {
                 <li class="list-item">
-                    <form method="post" asp-action="Logout" asp-controller="Account"
+                    <form method="post" asp-action="LogOut" asp-controller="Account"
                     asp-area="">
                     <input type="submit" value="Log Out"
                         class="btn" id="logout-button">

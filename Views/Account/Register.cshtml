@@ -21,75 +21,121 @@
         @{
 
             if (errors != null
-            && (errors.No_Slack_Id || errors.Invalid_Slack_Id || errors.Slack_Id_Too_Long)
+            && (errors.No_Slack_Id || errors.Invalid_Slack_Id || errors.Bad_Slack_Id_Length)
             )
             {
-                                    <div class="form-group" style="margin: 20px;">
-                                        <label class="control-label col-md-6" style="color:red;">
-                                            Please enter a SlackID (only alphanumeric characters,
-                                            must include at least one number:
-                                        </label>
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.SlackId, new { htmlAttributes = new {Style = "border: 3px solid red;", @class = "form-control"} })
-                                            @Html.ValidationMessageFor(model => model.SlackId, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
+                <div class="form-group" style="margin: 20px;">
+                    <label class="control-label col-md-6" style="color:red;">
+                        Please enter a SlackID (only alphanumeric characters,
+                        must include at least one number:
+                    </label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SlackId, new { htmlAttributes = new {Style = "border: 3px solid red;", @class = "form-control"} })
+                        @Html.ValidationMessageFor(model => model.SlackId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             }
             else
             {
-                                    <div class="form-group" style="margin: 20px;">
-                                        @Html.LabelFor(model => model.SlackId, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model!.SlackId, new { htmlAttributes = new {Style = "border: 3px solid black;", @class = "form-control"} })
-                                            @Html.ValidationMessageFor(model => model!.SlackId, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
+                <div class="form-group" style="margin: 20px;">
+                    @Html.LabelFor(model => model.SlackId, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model!.SlackId, new { htmlAttributes = new {Style = "border: 3px solid black;", @class = "form-control"} })
+                        @Html.ValidationMessageFor(model => model!.SlackId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             }
 
         }
 
         @{
             if (errors != null &&
-            (errors.No_Username || errors.Invalid_Username || errors.Username_Too_Long))
+            (errors.No_Username || errors.Invalid_Username || errors.Bad_Username_Length))
             {
-                                    <div class="form-group" style="margin: 20px;">
-                                        <label class="control-label col-md-6" style="color:red;">
-                                            Please enter a valid username (including only alphanumeric characters and the '_' character):
-                                        </label>
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
+                <div class="form-group" style="margin: 20px;">
+                    <label class="control-label col-md-6" style="color:red;">
+                        Please enter a valid username (including only alphanumeric characters and the '_' character):
+                    </label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             }
             else
             {
-                                    <div class="form-group" style="margin: 20px;">
-                                        @Html.LabelFor(model => model!.UserName, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model!.UserName, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model!.UserName, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
+                <div class="form-group" style="margin: 20px;">
+                    @Html.LabelFor(model => model!.UserName, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model!.UserName, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model!.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
             }
         }
 
-        <div class="form-group" style="margin: 20px;">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @{
 
-        <div class="form-group" style="margin: 20px;">
-            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            if (errors != null)
+            {
+                if (errors.No_Password|| errors.Bad_Password_Length)
+                {
+                    <div class="form-group" style="margin: 20px;">
+                        <label class="control-label col-md-6" style="color:red;">Please enter a password of at least 8 characters!</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin: 20px;">
+                        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                if (errors.Passwords_Do_Not_Match)
+                {
+                    <div class="form-group" style="margin: 20px;">
+                        <label class="control-label col-md-6" style="color:red;">Passwords do not match!</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin: 20px;">
+                        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { Style = "color: red;", @class = "control-label col-md-6" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="form-group" style="margin: 20px;">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin: 20px;">
+                    @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+        }
+
+
+
 
         @{
             if (errors != null && errors.No_Career_Phase_Selected)

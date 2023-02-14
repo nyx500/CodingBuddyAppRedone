@@ -12,17 +12,17 @@ namespace CBApp.Models
 
         [Required(ErrorMessage = "Please enter a Slack ID!")]
         [StringLength(50)]
-        [Display(Name = "Please enter your Slack ID:")]
+        [Display(Name = "Please enter your Slack ID (at least 5 chars, alphanumeric only)")]
         public string? SlackId { get; set; }
 
         [Required(ErrorMessage = "Please enter a Username!")]
         [StringLength(70)]
-        [Display(Name = "Choose a username:")]
+        [Display(Name = "Choose a username (must be at least 6 chars)")]
         public string? UserName { get; set; }
 
-        [Required(ErrorMessage = "Please enter a password!")]
+        [Required(ErrorMessage = "You must enter a password!")]
         [DataType(DataType.Password)]
-        [Display(Name = "Enter password:")]
+        [Display(Name = "Please enter a password (must be at least 8 chars)")]
         [Compare("ConfirmPassword")]
         public string? Password { get; set; }
 

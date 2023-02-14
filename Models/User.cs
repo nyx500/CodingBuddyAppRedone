@@ -21,9 +21,8 @@ namespace CBApp.Models
         [Required(ErrorMessage = "Please enter a Username!")]
         [StringLength(70)]
         [Display(Name = "*Username")]
-        new public string?  UserName  { get; set; }
+        public override string?  UserName  { get; set; }
 
-        //public string UserId { get; set; }
 
         // Many-to-one relationships
         [Required(ErrorMessage = "Please enter your career phase!")]
