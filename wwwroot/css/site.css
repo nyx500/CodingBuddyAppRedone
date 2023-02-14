@@ -147,14 +147,14 @@ textarea {
     }
 
 /* Styling for login and sign up buttons */
-#signup-button, #login-button {
+#signup-button, #login-button, #logout-button {
     padding: 10px 30px !important;
     border-radius: 30px;
     font-size: 1rem;
     cursor: pointer;
 }
 
-#login-button {
+#login-button, #logout-button {
     background-color: var(--mediumBlue);
     padding-left: 35px;
     padding-right: 35px;
@@ -179,7 +179,7 @@ textarea {
     color: var(--mediumBlue);
 }
 
-#login-button:hover, #signup-button:hover {
+#login-button:hover, #logout-button:hover, #signup-button:hover {
     text-decoration: underline;
 }
 
@@ -259,11 +259,16 @@ textarea {
         display: block;
     }
 
-    #login-button, #signup-button {
+    #login-button, #logout-button, #signup-button {
         padding-top: 4px;
         padding-bottom: 4px;
         width: fit-content;
     }
+}
+
+.selected {
+    color: var(--mediumBlue);
+    text-decoration: underline;
 }
 
 /**********************End of Navigation Bar Settings*****************************/

@@ -1,10 +1,35 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using CBApp.Data;
+using System;
+
 namespace CBApp.Models
-{   
-    public class CreateUserViewModel
+{
+
+    public class RegisterViewModel
     {
-        public User user { get; set; }
+
+        [Required(ErrorMessage = "Please enter a Slack ID!")]
+        [StringLength(50)]
+        [Display(Name = "Please enter your Slack ID:")]
+        public string? SlackId { get; set; }
+
+        [Required(ErrorMessage = "Please enter a Username!")]
+        [StringLength(70)]
+        [Display(Name = "Choose a username:")]
+        public string? UserName { get; set; }
+
+        [Required(ErrorMessage = "Please enter a password!")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Enter password:")]
+        [Compare("ConfirmPassword")]
+        public string? Password { get; set; }
+
+        [Required(ErrorMessage = "Please confirm your password!")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
+        public string? ConfirmPassword { get; set; }
 
         // Dropdowns (single-option)
         public List<SelectListItem>? careerPhaseSelectList;
@@ -24,21 +49,28 @@ namespace CBApp.Models
         [Display(Name = "Gender: (optional)")]
         public int SelectedGenderId { get; set; }
 
+
+
         // Multiple checkboxes options (languages & interests)
 
         [Display(Name = "Select natural/spoken languages: (optional)")]
-        public List<NaturalLanguageViewModel>? NaturalLanguagesViewModelList {get; set;}
+        public List<NaturalLanguageViewModel>? NaturalLanguagesViewModelList { get; set; }
 
-        [Display(Name = "*Select your favourite programming languages (please select at least one):")]
+       
+
+
+        [Display(Name = "Select your favourite programming languages (select at least one):")]
         public List<ProgrammingLanguageViewModel>? ProgrammingLanguagesViewModelList { get; set; }
+
+
 
         [Display(Name = "Select your Computer Science interests (please select at least one):")]
         public List<CSInterestViewModel>? CSInterestsViewModelList { get; set; }
 
+        
+
         [Display(Name = "Select your favourite hobbies (please select between **3-10** hobbies!):")]
         public List<HobbyViewModel>? HobbiesViewModelList { get; set; }
-
-
 
 
     }

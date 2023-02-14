@@ -1,0 +1,301 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewBag.Title = "Sign Up";
+}
+
+<h1 style="color: white; margin: 20px">Sign Up</h1>
+
+@{  
+    var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-vertical" style="padding: 20px; margin: 50px; background: navy; border: 2px solid black; border-radius: 12px">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @{
+
+            if (errors != null
+            && (errors.No_Slack_Id || errors.Invalid_Slack_Id || errors.Slack_Id_Too_Long)
+            )
+            {
+                                    <div class="form-group" style="margin: 20px;">
+                                        <label class="control-label col-md-6" style="color:red;">
+                                            Please enter a SlackID (only alphanumeric characters,
+                                            must include at least one number:
+                                        </label>
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.SlackId, new { htmlAttributes = new {Style = "border: 3px solid red;", @class = "form-control"} })
+                                            @Html.ValidationMessageFor(model => model.SlackId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+            }
+            else
+            {
+                                    <div class="form-group" style="margin: 20px;">
+                                        @Html.LabelFor(model => model.SlackId, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model!.SlackId, new { htmlAttributes = new {Style = "border: 3px solid black;", @class = "form-control"} })
+                                            @Html.ValidationMessageFor(model => model!.SlackId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+            }
+
+        }
+
+        @{
+            if (errors != null &&
+            (errors.No_Username || errors.Invalid_Username || errors.Username_Too_Long))
+            {
+                                    <div class="form-group" style="margin: 20px;">
+                                        <label class="control-label col-md-6" style="color:red;">
+                                            Please enter a valid username (including only alphanumeric characters and the '_' character):
+                                        </label>
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+            }
+            else
+            {
+                                    <div class="form-group" style="margin: 20px;">
+                                        @Html.LabelFor(model => model!.UserName, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model!.UserName, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model!.UserName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+            }
+        }
+
+        <div class="form-group" style="margin: 20px;">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="margin: 20px;">
+            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{
+            if (errors != null && errors.No_Career_Phase_Selected)
+            {
+                <div class="form-group" style="margin-left: 20px;">
+                    @Html.LabelFor(model => model.SelectedCareerPhaseId, htmlAttributes: new { Style = "color: red;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SelectedCareerPhaseId, new SelectList(Model.careerPhaseSelectList, "Value", "Text"),
+            "Select Career Phase",  new { Style = "border: 3px solid red;", @class = "form-control"});
+                        @Html.ValidationMessageFor(model => model.SelectedCareerPhaseId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="form-group" style="margin-left: 20px;">
+                    @Html.LabelFor(model => model.SelectedCareerPhaseId, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SelectedCareerPhaseId, new SelectList(Model.careerPhaseSelectList, "Value", "Text"),
+                            "Select Career Phase",  new { Style = "border: 3px solid black;", @class = "form-control"});
+                        @Html.ValidationMessageFor(model => model.SelectedCareerPhaseId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+        }
+
+        @{
+            if (errors != null && errors.No_Experience_Level_Selected)
+            {
+                <div class="form-group" style="margin-left: 20px;">
+                    @Html.LabelFor(model => model.SelectedExperienceLevelId, htmlAttributes: new {Style = "color: red;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SelectedExperienceLevelId, new SelectList(Model.experienceLevelSelectList, "Value", "Text"),
+            "Select Experience Level",  new { Style = "border: 3px solid red;", @class = "form-control"});
+                        @Html.ValidationMessageFor(model => model.SelectedExperienceLevelId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group" style="margin-left: 20px;">
+                    @Html.LabelFor(model => model.SelectedExperienceLevelId, htmlAttributes: new {Style = "color: white;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SelectedExperienceLevelId, new SelectList(Model.experienceLevelSelectList, "Value", "Text"),
+            "Select Experience Level",  new { Style = "border: 3px solid black;", @class = "form-control"});
+                        @Html.ValidationMessageFor(model => model.SelectedExperienceLevelId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+        }
+
+        <div class="form-group" style="margin-left: 20px;">
+            @Html.LabelFor(model => model.SelectedGenderId, htmlAttributes: new {Style = "color: white;", @class = "control-label col-md-6" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SelectedGenderId, new SelectList(Model.genderSelectList, "Value", "Text"),
+            "Select Experience Level",  new { Style = "border: 3px solid black;", @class = "form-control"});
+                @Html.ValidationMessageFor(model => model.SelectedGenderId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 10px; margin-left: 20px; padding: 20px; border: 2px solid black;">
+            @Html.LabelFor(model => model.NaturalLanguagesViewModelList, htmlAttributes: new {Style = "color: white;", @class = "control-label col-md-6" })
+            <div class="col-md-10">
+                <ul style="list-style-type: none;">
+                    @for (var i = 0; i < Model.NaturalLanguagesViewModelList!.Count(); i++)
+                    {
+                        <li style="display: inline; color: white;">
+                            @Html.HiddenFor(model => model.NaturalLanguagesViewModelList![i].naturalLanguage!)
+                            @Html.CheckBoxFor(model => model.NaturalLanguagesViewModelList![i].isSelected, new { Style = "vertical-align:3px;" })
+                            @Html.Label(Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name)
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        @{
+            if (errors != null && errors.Wrong_Number_Programming_Languages_Selected)
+            {
+                <div class="form-group" style=" margin-top: 10px; margin-left: 20px; padding: 20px; border: 4px solid red;">
+                    <label class="control-label col-md-6" style="color:red;">
+                        Please select at least one programming language:
+                    </label>
+                    <div class="col-md-10">
+                        <ul style="list-style-type: none;">
+                            @for (var i = 0; i < Model.ProgrammingLanguagesViewModelList!.Count(); i++)
+                            {
+                                <li style="display: inline; color: white;">
+                                    @Html.HiddenFor(model => model.ProgrammingLanguagesViewModelList![i].programmingLanguage!)
+                                    @Html.CheckBoxFor(model => model.ProgrammingLanguagesViewModelList![i].isSelected, new { Style = "vertical-align:3px;" })
+                                    @Html.Label(Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name)
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group" style=" margin-top: 10px; margin-left: 20px; padding: 20px; border: 2px solid black;">
+                    @Html.LabelFor(model => model.ProgrammingLanguagesViewModelList, htmlAttributes: new {Style = "color: white;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        <ul style="list-style-type: none;">
+                            @for (var i = 0; i < Model.ProgrammingLanguagesViewModelList!.Count(); i++)
+                            {
+                                <li style="display: inline; color: white;">
+                                    @Html.HiddenFor(model => model.ProgrammingLanguagesViewModelList![i].programmingLanguage!)
+                                    @Html.CheckBoxFor(model => model.ProgrammingLanguagesViewModelList![i].isSelected, new { Style = "vertical-align:3px;" })
+                                    @Html.Label(Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name)
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        }
+
+        @{
+            if (errors != null && errors.Wrong_Number_CSInterests_Selected)
+            {
+                <div class="form-group" style=" margin-top: 10px; margin-left: 20px; padding: 20px; border: 2px solid red;">
+                    <label class="control-label col-md-6" style="color:red;">
+                        Please select at least one Computer Science interest:
+                    </label>
+                    <div class="col-md-10">
+                        <ul style="list-style-type: none;">
+                            @for (var i = 0; i < Model.CSInterestsViewModelList!.Count(); i++)
+                            {
+                                <li style="display: inline; color: white;">
+                                    @Html.HiddenFor(model => model.CSInterestsViewModelList![i].CSInterest!)
+                                    @Html.CheckBoxFor(model => model.CSInterestsViewModelList![i].isSelected, new { Style = "vertical-align:3px;" })
+                                    @Html.Label(Model.CSInterestsViewModelList![i].CSInterest!.Name)
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group" style=" margin-top: 10px; margin-left: 20px; padding: 20px; border: 2px solid black;">
+                    @Html.LabelFor(model => model.CSInterestsViewModelList, htmlAttributes: new {Style = "color: white;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        <ul style="list-style-type: none;">
+                            @for (var i = 0; i < Model.CSInterestsViewModelList!.Count(); i++)
+                            {
+                                <li style="display: inline; color: white;">
+                                    @Html.HiddenFor(model => model.CSInterestsViewModelList![i].CSInterest!)
+                                    @Html.CheckBoxFor(model => model.CSInterestsViewModelList![i].isSelected, new { Style = "vertical-align:3px;" })
+                                    @Html.Label(Model.CSInterestsViewModelList![i].CSInterest!.Name)
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        }
+
+        @{
+            if (errors != null && errors.Wrong_Number_Hobbies_Selected)
+            {
+                <div class="form-group" style="margin-top: 10px; margin-left: 20px; padding: 20px; border: 2px solid red;">
+                    <label class="control-label col-md-6" style="color:red;">
+                        Please select between 3 and 10 hobbies:
+                    </label>
+                    <div class="col-md-10">
+                        <ul style="list-style-type: none;">
+                            @for (var i = 0; i < Model.HobbiesViewModelList!.Count(); i++)
+                            {
+                                <li style="display: inline; color: white;">
+                                    @Html.HiddenFor(model => model.HobbiesViewModelList![i].Hobby!)
+                                    @Html.CheckBoxFor(model => model.HobbiesViewModelList![i].isSelected, new { Style = "vertical-align:3px;" })
+                                    @Html.Label(Model.HobbiesViewModelList![i].Hobby!.Name)
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group" style="margin-top: 10px; margin-left: 20px; padding: 20px; border: 2px solid black;">
+                    @Html.LabelFor(model => model.HobbiesViewModelList, htmlAttributes: new {Style = "color: white;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        <ul style="list-style-type: none;">
+                            @for (var i = 0; i < Model.HobbiesViewModelList!.Count(); i++)
+                            {
+                                <li style="display: inline; color: white;">
+                                    @Html.HiddenFor(model => model.HobbiesViewModelList![i].Hobby!)
+                                    @Html.CheckBoxFor(model => model.HobbiesViewModelList![i].isSelected, new { Style = "vertical-align:3px;" })
+                                    @Html.Label(Model.HobbiesViewModelList![i].Hobby!.Name)
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        }
+
+        <br />
+        <div class="form-group" style="margin-left: 20px;">
+            <div class="col-md-offset-2 col-md-10">
+                <input style="background-color: black; color: white; margin: 20px 0px;" type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
