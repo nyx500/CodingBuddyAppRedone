@@ -76,44 +76,43 @@
         }
 
         @{
-
-            if (errors != null)
+            if (errors != null &&
+            (errors.No_Password || errors.Bad_Password_Length))
             {
-                if (errors.No_Password|| errors.Bad_Password_Length)
-                {
-                    <div class="form-group" style="margin: 20px;">
-                        <label class="control-label col-md-6" style="color:red;">Please enter a password of at least 8 characters!</label>
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                        </div>
+                <div class="form-group" style="margin: 20px;">
+                    <label class="control-label col-md-6" style="color:red;">Please enter a password of at least 8 characters!</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     </div>
-                    <div class="form-group" style="margin: 20px;">
-                        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                        </div>
+                </div>
+                <div class="form-group" style="margin: 20px;">
+                    @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { Style = "color: white;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { Style = "border: 3px solid black;", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                     </div>
-                }
-                if (errors.Passwords_Do_Not_Match)
-                {
-                    <div class="form-group" style="margin: 20px;">
-                        <label class="control-label col-md-6" style="color:red;">Passwords do not match!</label>
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group" style="margin: 20px;">
-                        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { Style = "color: red;", @class = "control-label col-md-6" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                }
+                </div>
             }
+
+            if (errors != null && errors!.Passwords_Do_Not_Match)
+            {
+                <div class="form-group" style="margin: 20px;">
+                    <label class="control-label col-md-6" style="color:red;">Passwords do not match!</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" style="margin: 20px;">
+                    @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { Style = "color: red;", @class = "control-label col-md-6" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { Style = "border: 3px solid red;", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
             else
             {
                 <div class="form-group" style="margin: 20px;">

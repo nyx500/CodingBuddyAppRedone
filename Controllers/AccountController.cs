@@ -498,5 +498,48 @@ namespace CBApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        [HttpGet]
+        public IActionResult Login(string returnURL = "")
+        {   
+            // Initialize the ReturnUrl property of the view model to the parameter of the method
+            // This works because the name of the parameter matches the name of the query string parameter
+            // (Murach book, p. 676)
+            var model = new LoginViewModel {  ReturnUrl = returnURL };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(
+                    model.Username, model.Password, isPersistent: model.RememberMe,
+                    lockoutOnFailure: false);
+
+                // If result succeeded, check if ReturnUrl property of view model exists
+                if (result.Succeeded)
+                {   
+                    // Checking that the ReturnUrl contains a local URL protects against hacker redirecting
+                    // the browser to an external malicious website
+                    if (!string.IsNullOrEmpty(model.ReturnUrl)
+                        && Url.IsLocalUrl(model.ReturnUrl)
+                    )
+                    {   
+                        // Redirect to the Url specified by ReturnUrl view model property
+                        return Redirect(model.ReturnUrl);
+                    }
+                    else
+                    {   
+                        // Otherwise, return to homepage
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+
+            ModelState.AddModelError("", "Invalid username/password.");
+            return View(model);
+        }
     }
 }

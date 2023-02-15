@@ -22,11 +22,13 @@ namespace CBApp.Models
 
         [Required(ErrorMessage = "You must enter a password!")]
         [DataType(DataType.Password)]
-        [Display(Name = "Please enter a password (must be at least 8 chars)")]
+        [StringLength(100)]
+        [Display(Name = "Please enter a password (must be at least 8 chars, may be up to 100 chars)")]
         [Compare("ConfirmPassword")]
         public string? Password { get; set; }
 
         [Required(ErrorMessage = "Please confirm your password!")]
+        [StringLength(100)]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
         public string? ConfirmPassword { get; set; }
