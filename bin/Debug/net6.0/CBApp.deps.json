@@ -26,6 +26,8 @@
           "Microsoft.Extensions.Hosting": "7.0.0",
           "Microsoft.NET.Test.Sdk": "17.4.1",
           "Repository": "1.0.7.8",
+          "bootstrap": "3.3.0",
+          "twitter-bootstrap-wizard": "1.4.2",
           "xunit": "2.4.2",
           "xunit.core": "2.4.2",
           "xunit.runner.visualstudio": "2.4.5"
@@ -76,6 +78,11 @@
           }
         }
       },
+      "bootstrap/3.3.0": {
+        "dependencies": {
+          "jQuery": "1.9.0"
+        }
+      },
       "Castle.Core/5.1.0": {
         "dependencies": {
           "System.Diagnostics.EventLog": "7.0.0"
@@ -103,6 +110,7 @@
           }
         }
       },
+      "jQuery/1.9.0": {},
       "Microsoft.AspNetCore.Cryptography.Internal/6.0.13": {
         "runtime": {
           "lib/net6.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {
@@ -2099,6 +2107,7 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
+      "twitter-bootstrap-wizard/1.4.2": {},
       "xunit/2.4.2": {
         "dependencies": {
           "xunit.analyzers": "1.0.0",
@@ -2186,6 +2195,13 @@
       "path": "azure.identity/1.6.0",
       "hashPath": "azure.identity.1.6.0.nupkg.sha512"
     },
+    "bootstrap/3.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8Fn3Tnk23NpT0i1Osj3mydnknbzbFA/rOVk5hoGlqb0XXl/rDn085qanSCcCqsZlIGL2VWSbO4vihOs1hMtZ5A==",
+      "path": "bootstrap/3.3.0",
+      "hashPath": "bootstrap.3.3.0.nupkg.sha512"
+    },
     "Castle.Core/5.1.0": {
       "type": "package",
       "serviceable": true,
@@ -2206,6 +2222,13 @@
       "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "jQuery/1.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bS6OGSd/QL39vKKhATpeehgZDCzV6foRJ52EocEGAB29VetwXkQHN6KQIBlBbW9VJzuHr+rQxHYZ13MnPGQ/vw==",
+      "path": "jquery/1.9.0",
+      "hashPath": "jquery.1.9.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/6.0.13": {
       "type": "package",
@@ -3424,6 +3447,13 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "twitter-bootstrap-wizard/1.4.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mPwPnHvdfF+gCpELk3qssv9/VMkKmm5hs2qLp0syCgd8EY1k04NKryaoekht4C3gtVJfy0FfBSziP+OdHaf7QQ==",
+      "path": "twitter-bootstrap-wizard/1.4.2",
+      "hashPath": "twitter-bootstrap-wizard.1.4.2.nupkg.sha512"
     },
     "xunit/2.4.2": {
       "type": "package",
