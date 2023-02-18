@@ -3,6 +3,8 @@
 
 // Write your JavaScript code.
 
+// Attribution: https://stackoverflow.com/questions/15944559/form-submit-using-jquery-and-mvc
+
 // Store the toggle button on the navbar
 const toggleButton = document.getElementById("toggle-button");
 // Store the lists of links inside the navbar
@@ -21,9 +23,11 @@ $(document).ready(function () {
 
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
-     // Regex for SlackID --> alphanumeric chars only + underscore
+    // Regex for SlackID --> alphanumeric chars only + underscore
     var usernameRegex = /^[A-Za-z0-9_]+/;
-    var errors;
+    var firstPageErrors;
+    var secondPageErrors;
+    var thirdPageErrors;
     var slackIdInputField;
     var slackIdValue;
     var usernameInputField;
@@ -32,121 +36,76 @@ $(document).ready(function () {
     var passwordValue;
     var confirmPasswordInputField;
     var confirmPasswordValue;
-    
-
-    $(".next").click(function () {
-
-        // If it is the first "next" button being clicked...
-        if ($(this).attr("id") == "first") {
 
 
-            // CLIENT-SIDE VALIDATION FOR ALL THE INPUT FIELDS ON THE FIRST PAGE (to put in separate functions later)
-            errors = 0;
+    $("#first").click(function () {
 
-            // Get slackId input value and check for validity (slackId client-side validation)
-            slackIdInputField = $("#slackId");
-            slackIdValue = $("#slackId").val();
-            usernameInputField = $("#username-input");
-            usernameValue = $("#username-input").val();
-            passwordInputField = $("#password-input");
-            passwordValue = $("#password-input").val();
-            confirmPasswordInputField = $("#confirm-password-input");
-            confirmPasswordValue = $("#confirm-password-input").val();
+        // CLIENT-SIDE VALIDATION FOR ALL THE INPUT FIELDS ON THE FIRST PAGE (to put in separate functions later)
+        firstPageErrors = 0;
 
-            // Highlight SlackId input field in red by adding error CSS class if invalid (not alphanumeric
-            // or does not contain at least one digit, or is less than 5 characters), and do not
-            // continue on the form
-            // Regex for SlackID --> alphanumeric chars only
-            if (slackIdValue.length < 5 || slackIdValue.length > 50 || !slackIdValue.match(/^[0-9a-zA-Z]+$/) || !/\d/.test(slackIdValue)) {
-                // Add error CSS class to SlackId input field
-                errors += 1;
-                slackIdInputField.addClass("invalid-input");
+        // Get slackId input value and check for validity (slackId client-side validation)
+        slackIdInputField = $("#slackId");
+        slackIdValue = $("#slackId").val();
+        usernameInputField = $("#username-input");
+        usernameValue = $("#username-input").val();
+        passwordInputField = $("#password-input");
+        passwordValue = $("#password-input").val();
+        confirmPasswordInputField = $("#confirm-password-input");
+        confirmPasswordValue = $("#confirm-password-input").val();
+
+        // Highlight SlackId input field in red by adding error CSS class if invalid (not alphanumeric
+        // or does not contain at least one digit, or is less than 5 characters), and do not
+        // continue on the form
+        // Regex for SlackID --> alphanumeric chars only
+        if (slackIdValue.length < 5 || slackIdValue.length > 50 || !slackIdValue.match(/^[0-9a-zA-Z]+$/) || !/\d/.test(slackIdValue)) {
+            // Add error CSS class to SlackId input field
+            firstPageErrors += 1;
+            slackIdInputField.addClass("invalid-input");
+        }
+        else {
+            if (slackIdInputField.hasClass("invalid-input")) {
+                slackIdInputField.removeClass("invalid-input");
             }
-            else {
-                if (slackIdInputField.hasClass("invalid-input")) {
-                    slackIdInputField.removeClass("invalid-input");
-                }
-            }
+        }
 
-            // Validate username
-            if (usernameValue.length < 6 || !usernameValue.match(/^[0-9a-zA-Z]+$/) || usernameValue > 70)
-            {
-                errors += 1;
-                usernameInputField.addClass("invalid-input");
-
-            }
-            else {
-                if (usernameInputField.hasClass("invalid-input")) {
-                    usernameInputField.removeClass("invalid-input");
-                }
-            }
-
-            // Validate password
-            if (passwordValue.length < 10)   
-            {
-                errors += 1;
-                passwordInputField.addClass("invalid-input");
-            }
-            else {
-                if (passwordInputField.hasClass("invalid-input")) {
-                    passwordInputField.removeClass("invalid-input");
-                }
-            }
-
-            // Validation of passwords matching
-            if (passwordValue != confirmPasswordValue) {
-                errors += 1;
-                confirmPasswordInputField.addClass("invalid-input");
-            }
-            else {
-                if (confirmPasswordInputField.hasClass("invalid-input")) {
-                    confirmPasswordInputField.removeClass("invalid-input");
-                }
-            }
-
-            // Validate career-phase selected
-            if ($("#career-phases-dropdown").val() === "")
-            {   
-                errors += 1;
-                $("#career-phases-dropdown").addClass("invalid-input");
-            }
-            else {
-                if ($("#career-phases-dropdown").hasClass("invalid-input"))
-                {
-                    $("#career-phases-dropdown").removeClass("invalid-input");
-                }
-            }
-
-            console.log("Number of errors: " + errors);
-
-            if (errors == 0)
-            {
-                current_fs = $(this).parent();
-                next_fs = $(this).parent().next();
-
-                //Add Class Active
-                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-                //show the next fieldset
-                next_fs.show();
-
-                //hide the current fieldset with style
-                current_fs.animate({ opacity: 0 }, {
-                    step: function (now) {
-                        // for making fielset appear animation
-                        opacity = 1 - now;
-
-                        current_fs.css({
-                            'display': 'none',
-                            'position': 'relative'
-                        });
-                        next_fs.css({ 'opacity': opacity });
-                    },
-                    duration: 600
-                });
-            }
+        // Validate username
+        if (usernameValue.length < 6 || !usernameValue.match(/^[0-9a-zA-Z]+$/) || usernameValue > 70) {
+            firstPageErrors += 1;
+            usernameInputField.addClass("invalid-input");
 
         }
         else {
+            if (usernameInputField.hasClass("invalid-input")) {
+                usernameInputField.removeClass("invalid-input");
+            }
+        }
+
+        // Validate password
+        if (passwordValue.length < 10) {
+            firstPageErrors += 1;
+            passwordInputField.addClass("invalid-input");
+        }
+        else {
+            if (passwordInputField.hasClass("invalid-input")) {
+                passwordInputField.removeClass("invalid-input");
+            }
+        }
+
+        // Validation of passwords matching
+        if (passwordValue != confirmPasswordValue) {
+            firstPageErrors += 1;
+            confirmPasswordInputField.addClass("invalid-input");
+        }
+        else {
+            if (confirmPasswordInputField.hasClass("invalid-input")) {
+                confirmPasswordInputField.removeClass("invalid-input");
+            }
+        }
+
+
+        if (firstPageErrors == 0) {
+
+            console.log(firstPageErrors);
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
 
@@ -171,6 +130,84 @@ $(document).ready(function () {
             });
         }
     });
+
+
+    $("#second").click(function () {
+
+        secondPageErrors = 0;
+
+        // Validate career-phase selected
+        if ($("#career-phases-dropdown").val() === "") {
+            secondPageErrors += 1;
+            $("#career-phases-dropdown").addClass("invalid-input");
+        }
+        else {
+            if ($("#career-phases-dropdown").hasClass("invalid-input")) {
+                $("#career-phases-dropdown").removeClass("invalid-input");
+            }
+        }
+
+        //Validate experience-level selected
+        if ($("#experience-levels-dropdown").val() === "") {
+            secondPageErrors += 1;
+            $("#experience-levels-dropdown").addClass("invalid-input");
+        }
+        else {
+            if ($("#experience-levels-dropdown").hasClass("invalid-input")) {
+                $("#experience-levels-dropdown").removeClass("invalid-input");
+            }
+        }
+
+        if (secondPageErrors == 0) {
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+
+            //Add Class Active
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+            //show the next fieldset
+            next_fs.show();
+
+            //hide the current fieldset with style
+            current_fs.animate({ opacity: 0 }, {
+                step: function (now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    next_fs.css({ 'opacity': opacity });
+                },
+                duration: 600
+            });
+        }
+    }
+    )
+
+    $("#confirmation").click(function () {
+
+        thirdPageErrors = 0;
+
+        var progLangCount = 0;
+
+        // Attribution: https://stackoverflow.com/questions/4735342/jquery-to-loop-through-elements-with-the-same-class
+        $(".prog-lang-checkbox").each(function (i, obj) {
+            // Attribution: https://stackoverflow.com/questions/901712/how-do-i-check-whether-a-checkbox-is-checked-in-jquery
+            if (obj.checked) {
+                progLangCount++;
+            }
+        });
+
+        if (progLangCount < 1) {
+            $("#progLangsLabel").addClass("invalid-input");
+            thirdPageErrors++;
+        }
+        else {
+            $("#progLangsLabel").removeClass("invalid-input");
+        }
+    });
+
 
     $(".previous").click(function () {
 
@@ -198,14 +235,85 @@ $(document).ready(function () {
             duration: 600
         });
     });
-
-    $('.radio-group .radio').click(function () {
-        $(this).parent().find('.radio').removeClass('selected');
-        $(this).addClass('selected');
-    });
-
-    $(".submit").click(function () {
-        return false;
-    })
-
 });
+
+    //    $("#second").click(function () {
+    //        secondPageErrors = 0;
+    //        // Validate career-phase selected
+    //        if ($("#career-phases-dropdown").val() === "") {
+    //            secondPageErrors += 1;
+    //            $("#career-phases-dropdown").addClass("invalid-input");
+    //        }
+    //        else {
+    //            if ($("#career-phases-dropdown").hasClass("invalid-input")) {
+    //                $("#career-phases-dropdown").removeClass("invalid-input");
+    //            }
+    //        }
+
+    //        // Validate experience-level selected
+    //        if ($("#experience-levels-dropdown").val() === "") {
+    //            secondPageErrors += 1;
+    //            $("#experience-levels-dropdown").addClass("invalid-input");
+    //        }
+    //        else {
+    //            if ($("#experience-levels-dropdown").hasClass("invalid-input")) {
+    //                $("#experience-levels-dropdown").removeClass("invalid-input");
+    //            }
+    //        }
+
+    //        if (secondPageErrors == 0) {
+    //            current_fs = $(this).parent();
+    //            next_fs = $(this).parent().next();
+
+    //            //Add Class Active
+    //            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+    //            //show the next fieldset
+    //            next_fs.show();
+
+    //            //hide the current fieldset with style
+    //            current_fs.animate({ opacity: 0 }, {
+    //                step: function (now) {
+    //                    // for making fielset appear animation
+    //                    opacity = 1 - now;
+
+    //                    current_fs.css({
+    //                        'display': 'none',
+    //                        'position': 'relative'
+    //                    });
+    //                    next_fs.css({ 'opacity': opacity });
+    //                },
+    //                duration: 600
+    //            });
+    //        }
+
+    //    }
+    //    else {
+    //        current_fs = $(this).parent();
+    //        next_fs = $(this).parent().next();
+
+    //        //Add Class Active
+    //        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+    //        //show the next fieldset
+    //        next_fs.show();
+
+    //        //hide the current fieldset with style
+    //        current_fs.animate({ opacity: 0 }, {
+    //            step: function (now) {
+    //                // for making fielset appear animation
+    //                opacity = 1 - now;
+
+    //                current_fs.css({
+    //                    'display': 'none',
+    //                    'position': 'relative'
+    //                });
+    //                next_fs.css({ 'opacity': opacity });
+    //            },
+    //            duration: 600
+    //        });
+    //    }
+    //});
+
+
+    //$(".submit").click(function () {
+    //    return false;
+    //})

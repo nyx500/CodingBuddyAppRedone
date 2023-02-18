@@ -3,169 +3,264 @@
 @model RegisterViewModel
 
 @{
-    ViewBag.Title = "Register (multistep form)";
+ViewBag.Title = "Register (multistep form)";
 }
 @{
-    var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
-}
+var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
+    }
 
 
-<!-- MultiStep Form -->
-<div class="wizard-page container-fluid" id="grad1">
-    <div class="row justify-content-center mt-0">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                <h2><strong>Sign Up</strong></h2>
-                <p>Fill all the form fields to go to the next step</p>
-                <div class="row">
-                    <div class="col-md-12 mx-0">
-                        <form id="msform" method="post" asp-action="RegisterInSteps">
-                            <!-- progressbar -->
-                            <ul id="progressbar">
-                                @*SlackId, Username, Passwords*@
-                                <li class="active" id="account"><strong>Account</strong></li>
-                                @*Career phase, Experience, Gender, Languages spoken*@
-                                <li id="personal"><strong>About Me</strong></li>
-                                @*Computer Science interests and Hobbies*@
-                                <li id="interests"><strong>Interests</strong></li>
-                                <li id="confirm"><strong>Finish</strong></li>
-                            </ul>
-                            <!-- fieldsets -->
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title">Account Information</h2>
-                                    <br />
-                                    <br />
+    <!-- MultiStep Form -->
+    <div class="wizard-page container-fluid" id="grad1">
+        <div class="row justify-content-center mt-0">
+            <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                    <h2><strong>Sign Up</strong></h2>
+                    <p>Fill all the form fields to go to the next step</p>
+                    <div class="row">
+                        <div class="col-md-12 mx-0">
+                            <form id="msform" method="post" asp-action="RegisterInSteps">
+                                <!-- progressbar -->
+                                <ul id="progressbar">
+                                    @*SlackId, Username, Passwords*@
+                                    <li class="active" id="account"><strong>Account</strong></li>
+                                    @*Career phase, Experience, Gender, Languages spoken*@
+                                    <li id="personal"><strong>About Me</strong></li>
+                                    @*Computer Science interests and Hobbies*@
+                                    <li id="interests"><strong>Interests</strong></li>
+                                    <li id="confirm"><strong>Finish</strong></li>
+                                </ul>
+                                <!-- fieldsets -->
+                                <fieldset>
+                                    <div class="form-card">
+                                        <h2 class="fs-title">Account Information</h2>
+                                        <br />
+                                        <br />
 
-                                     @{
+                                        @{
 
-                                        if (errors != null && (errors.No_Slack_Id || errors.Invalid_Slack_Id || errors.Bad_Slack_Id_Length))
+                                        if (errors != null && (errors.No_Slack_Id || errors.Invalid_Slack_Id ||
+                                        errors.Bad_Slack_Id_Length))
                                         {
-                                                <label class="registration-error-message">Please enter a SlackID (only alphanumeric chars allowed, must include at least 1 number!)</label>
-                                                <input id="slackId" style="color: red;" asp-for="SlackId" class="form-control" type="text" name="slackIdInput" placeholder="SlackId" />
+                                        <label class="registration-error-message">Please enter a SlackID (only
+                                            alphanumeric chars allowed, must include at least 1 number!)</label>
+                                        <input id="slackId" style="color: red;" asp-for="SlackId" class="form-control"
+                                            type="text" name="slackIdInput" placeholder="SlackId" />
                                         }
                                         else
                                         {
-                                                <input id="slackId" asp-for="SlackId" class="form-control" type="text" name="slackIdInput" placeholder="SlackId" />
+                                        <input id="slackId" asp-for="SlackId" class="form-control" type="text"
+                                            name="slackIdInput" placeholder="SlackId" />
                                         }
-                                    }
-                                    <span style="font-weight: 800!important; color:red; background-color: black;" asp-validation-for="SlackId" class="text-danger"></span>
-                                    
-                                    @{
-                                        if (errors != null && (errors.No_Username || errors.Invalid_Username || errors.Bad_Username_Length))
+                                        }
+                                        <span style="font-weight: 800!important; color:red; background-color: black;"
+                                            asp-validation-for="SlackId" class="text-danger"></span>
+
+                                        @{
+                                        if (errors != null && (errors.No_Username || errors.Invalid_Username ||
+                                        errors.Bad_Username_Length))
                                         {
-                                                <label class="registration-error-message">Please enter a username containing only alphanumeric characters and '_' (max. length = 70 chars)</label>
-                                                <input id="username-input" style="color: red;" asp-for="UserName" class="form-control" type="text" name="usernameInput" placeholder="Username" />
+                                        <label class="registration-error-message">Please enter a username containing
+                                            only alphanumeric characters and '_' (max. length = 70 chars)</label>
+                                        <input id="username-input" style="color: red;" asp-for="UserName"
+                                            class="form-control" type="text" name="usernameInput"
+                                            placeholder="Username" />
                                         }
                                         else
                                         {
-                                                <input id="username-input" asp-for="UserName" class="form-control" type="text" name="usernameInput" placeholder="Username" />
+                                        <input id="username-input" asp-for="UserName" class="form-control" type="text"
+                                            name="usernameInput" placeholder="Username" />
                                         }
-                                        
-                                    }
-                                    <span style="font-weight: 800!important; background-color: black;" asp-validation-for="UserName" class="text-danger"></span>
 
-                                    
-                                    @{
+                                        }
+                                        <span style="font-weight: 800!important; background-color: black;"
+                                            asp-validation-for="UserName" class="text-danger"></span>
+
+
+                                        @{
                                         if (errors != null &&
                                         (errors.No_Password || errors.Bad_Password_Length))
                                         {
-                                                <label class="registration-error-message">Please enter a password of at least 8 characters!</label>
-                                                <input id="password-input" style="color: red;" asp-for="Password" class="form-control" type="text" name="passwordInput" placeholder="Password" />
-                                                <span style="font-weight: 800!important; background-color: black;" asp-validation-for="Password" class="text-danger"></span>
-                                                <input id="confirm-password-input" asp-for="ConfirmPassword" class="form-control" type="text" name="confirmPasswordInput" placeholder="Confirm password" />
-                                                <span style="font-weight: 800!important; background-color: black;" asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                        <label class="registration-error-message">Please enter a password of at least 8
+                                            characters!</label>
+                                        <input id="password-input" style="color: red;" asp-for="Password"
+                                            class="form-control" type="text" name="passwordInput"
+                                            placeholder="Password" />
+                                        <span style="font-weight: 800!important; background-color: black;"
+                                            asp-validation-for="Password" class="text-danger"></span>
+                                        <input id="confirm-password-input" asp-for="ConfirmPassword"
+                                            class="form-control" type="text" name="confirmPasswordInput"
+                                            placeholder="Confirm password" />
+                                        <span style="font-weight: 800!important; background-color: black;"
+                                            asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                         }
                                         if (errors != null && errors!.Passwords_Do_Not_Match)
                                         {
-                                                <label class="registration-error-message">Passwords do not match!</label>
-                                                <input id="password-input" style="color: red;" asp-for="Password" class="form-control" type="text" name="passwordInput" placeholder="Password" />
-                                                <span style="font-weight: 800!important; background-color: black;" asp-validation-for="Password" class="text-danger"></span>
-                                                <input id="confirm-password-input" style="color: red;" asp-for="ConfirmPassword" class="form-control" type="text" name="confirmPasswordInput" placeholder="Confirm password" />
-                                                <span style="font-weight: 800!important; background-color: black;" asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                        <label class="registration-error-message">Passwords do not match!</label>
+                                        <input id="password-input" style="color: red;" asp-for="Password"
+                                            class="form-control" type="text" name="passwordInput"
+                                            placeholder="Password" />
+                                        <span style="font-weight: 800!important; background-color: black;"
+                                            asp-validation-for="Password" class="text-danger"></span>
+                                        <input id="confirm-password-input" style="color: red;" asp-for="ConfirmPassword"
+                                            class="form-control" type="text" name="confirmPasswordInput"
+                                            placeholder="Confirm password" />
+                                        <span style="font-weight: 800!important; background-color: black;"
+                                            asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                         }
                                         else
                                         {
-                                                <input id="password-input" asp-for="Password" class="form-control" type="text" name="passwordInput" placeholder="Password" />
-                                                <span style="font-weight: 800!important; background-color: black;" asp-validation-for="Password" class="text-danger"></span>
-                                                <input id="confirm-password-input" asp-for="ConfirmPassword" class="form-control" type="text" name="confirmPasswordInput" placeholder="Confirm password" />
-                                                <span style="font-weight: 800!important; background-color: black;" asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                        <input id="password-input" asp-for="Password" class="form-control" type="text"
+                                            name="passwordInput" placeholder="Password" />
+                                        <span style="font-weight: 800!important; background-color: black;"
+                                            asp-validation-for="Password" class="text-danger"></span>
+                                        <input id="confirm-password-input" asp-for="ConfirmPassword"
+                                            class="form-control" type="text" name="confirmPasswordInput"
+                                            placeholder="Confirm password" />
+                                        <span style="font-weight: 800!important; background-color: black;"
+                                            asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                         }
-                                    }
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.SelectedCareerPhaseId, htmlAttributes: new { Style = "color: black;", @class = "control-label col-md-6" })
-                                        <div class="col-md-10">
-                                            @Html.DropDownListFor(model => model.SelectedCareerPhaseId, new SelectList(Model.careerPhaseSelectList, "Value", "Text"),
-                                            "Select Career Phase",  new { Style = "border: 1px solid black;", @class = "form-control", @id = "career-phases-dropdown"});
-                                            @Html.ValidationMessageFor(model => model.SelectedCareerPhaseId, "", new { @class = "text-danger" })
-                                        </div>
+                                        }
                                     </div>
-                                    </div>
-                                    <input type="button" name="next" class="next action-button" id="first" value="Next Step" />
+                                    <input type="button" name="next" class="next action-button" id="first"
+                                        value="Next Step" />
                                 </fieldset>
                                 <fieldset>
-                                    <h1>
-                                        @Model.SelectedCareerPhaseId;
-                                    </h1>
                                     <div class="form-card">
                                         <h2 class="fs-title">Personal Information</h2>
-                                        <input type="text" name="fname" placeholder="First Name" />
-                                        <input type="text" name="lname" placeholder="Last Name" />
-                                        <input type="text" name="phno" placeholder="Contact No." />
-                                        <input type="text" name="phno_2" placeholder="Alternate Contact No." />
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.SelectedCareerPhaseId, htmlAttributes: new {
+                                            Style = "color: black;", @class = "control-label col-md-6" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownListFor(model => model.SelectedCareerPhaseId, new
+                                                SelectList(Model.careerPhaseSelectList, "Value", "Text"),
+                                                "Select Career Phase", new { Style = "border: 1px solid black;", @class
+                                                = "form-control", @id = "career-phases-dropdown"})
+                                                @Html.ValidationMessageFor(model => model.SelectedCareerPhaseId, "", new
+                                                { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.SelectedExperienceLevelId, htmlAttributes: new
+                                            { Style = "color: black;", @class = "control-label col-md-6" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownListFor(model => model.SelectedExperienceLevelId, new
+                                                SelectList(Model.experienceLevelSelectList, "Value", "Text"),
+                                                "Select Your Experience Level", new { Style = "border: 1px solid black;", @class = "form-control", @id = "experience-levels-dropdown"})
+                                                @Html.ValidationMessageFor(model => model.SelectedExperienceLevelId, "",
+                                                new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.SelectedGenderId, htmlAttributes: new { Style
+                                            = "color: black;", @class = "control-label col-md-6" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownListFor(model => model.SelectedGenderId, new
+                                                SelectList(Model.genderSelectList, "Value", "Text"),
+                                                "Select Your Gender (optional)", new { Style = "border: 1px solid black;", @class = "form-control", @id = "gender-dropdown"})
+                                                @Html.ValidationMessageFor(model => model.SelectedGenderId, "", new {
+                                                @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group" style="padding: 10px;">
+                                            <b>@Html.LabelFor(model => model.NaturalLanguagesViewModelList,
+                                                htmlAttributes: new {Style = "color: black; margin-left: -40px; margin-bottom: 10px;", @class = "control-label" }) </b>
+                                            <br />
+                                            <ul
+                                                style="list-style-type: none; -webkit-column-count: 2; -moz-column-count: 2; column-count: 2;">
+                                                @for (var i = 0; i < Model.NaturalLanguagesViewModelList!.Count(); i++)
+                                                    { <span
+                                                    style="white-space: nowrap; text-align: left; margin-left: -130px;">
+                                                    @Html.HiddenFor(model => model.NaturalLanguagesViewModelList![i])
+                                                    @Html.CheckBoxFor(model =>
+                                                    model.NaturalLanguagesViewModelList![i].isSelected, new {
+                                                    @class="lang-checkbox"})
+                                                    @Html.Label(Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,
+                                                    htmlAttributes: new {Style = "color: black; margin-left: -50px;" })
+                                                    </span>
+                                                    <br />
+                                                    }
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                                    <input type="button" name="next" class="next action-button" value="Next Step" />
+                                    <input type="button" name="previous" class="previous action-button-previous"
+                                        value="Previous" />
+                                    <input type="button" name="next" class="next action-button" id="second"
+                                        value="Next Step" />
                                 </fieldset>
                                 <fieldset>
                                     <div class="form-card">
-                                        <h2 class="fs-title">Payment Information</h2>
-                                        <div class="radio-group">
-                                            <div class='radio' data-value="credit"><img src="https://i.imgur.com/XzOzVHZ.jpg" width="200px" height="100px"></div>
-                                            <div class='radio' data-value="paypal"><img src="https://i.imgur.com/jXjwZlj.jpg" width="200px" height="100px"></div>
-                                            <br>
-                                        </div>
-                                        <label class="pay">Card Holder Name*</label>
-                                        <input type="text" name="holdername" placeholder="" />
-                                        <div class="row">
-                                            <div class="col-9">
-                                                <label class="pay">Card Number*</label>
-                                                <input type="text" name="cardno" placeholder="" />
-                                            </div>
-                                            <div class="col-3">
-                                                <label class="pay">CVC*</label>
-                                                <input type="password" name="cvcpwd" placeholder="***" />
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <label class="pay">Expiry Date*</label>
-                                            </div>
-                                            <div class="col-9">
-                                                <select class="list-dt" id="month" name="expmonth">
-                                                    <option selected>Month</option>
-                                                    <option>January</option>
-                                                    <option>February</option>
-                                                    <option>March</option>
-                                                    <option>April</option>
-                                                    <option>May</option>
-                                                    <option>June</option>
-                                                    <option>July</option>
-                                                    <option>August</option>
-                                                    <option>September</option>
-                                                    <option>October</option>
-                                                    <option>November</option>
-                                                    <option>December</option>
-                                                </select>
-                                                <select class="list-dt" id="year" name="expyear">
-                                                    <option selected>Year</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        <h2 class="fs-title">Skills and Interests</h2>
+                                    <div class="form-group" style="padding: 10px;">
+                                        <b>
+                                            @Html.LabelFor(model => model.ProgrammingLanguagesViewModelList,
+                                            htmlAttributes: new {Style = "color: black; margin-left: -40px; margin-bottom: 10px;", @class = "control-label", id="progLangsLabel" })
+                                        </b>
+                                        <br />
+                                        <ul style="list-style-type: none; -webkit-column-count: 2; -moz-column-count: 2; column-count: 2;">
+                                            @for (var i = 0; i < Model.ProgrammingLanguagesViewModelList!.Count(); i++)
+                                            {
+                                                <span style="white-space: nowrap; text-align: left; margin-left: -130px;">
+                                                    @Html.HiddenFor(model => model.ProgrammingLanguagesViewModelList![i])
+                                                    @Html.CheckBoxFor(model =>
+                                                model.ProgrammingLanguagesViewModelList![i].isSelected, new {
+                                                @class="prog-lang-checkbox"})
+                                                    @Html.Label(Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name,Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name,
+                                                htmlAttributes: new {Style = "color: black; margin-left: -50px;" })
+                                                </span>
+                                                <br />
+                                            }
+                                        </ul>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                                    <input type="button" name="make_payment" class="next action-button" value="Confirm" />
+                                    <div class="form-group" style="padding: 10px;">
+                                        <b>
+                                            @Html.LabelFor(model => model.CSInterestsViewModelList,
+                                            htmlAttributes: new {Style = "color: black; margin-left: -40px; margin-bottom: 10px;", @class = "control-label" })
+                                        </b>
+                                        <br />
+                                        <ul style="list-style-type: none; -webkit-column-count: 2; -moz-column-count: 2; column-count: 2;">
+                                            @for (var i = 0; i < Model.CSInterestsViewModelList!.Count(); i++)
+                                            {
+                                                <span style="white-space: nowrap; text-align: left; margin-left: -130px;">
+                                                    @Html.HiddenFor(model => model.CSInterestsViewModelList![i])
+                                                    @Html.CheckBoxFor(model =>
+                                                model.CSInterestsViewModelList![i].isSelected, new {
+                                                @class="cs-interest-checkbox"})
+                                                    @Html.Label(Model.CSInterestsViewModelList![i].CSInterest!.Name,Model.CSInterestsViewModelList![i].CSInterest!.Name,
+                                                htmlAttributes: new {Style = "color: black; margin-left: -50px;" })
+                                                </span>
+                                                <br />
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="form-group" style="padding: 10px;">
+                                        <b>
+                                            @Html.LabelFor(model => model.HobbiesViewModelList,
+                                            htmlAttributes: new {Style = "color: black; margin-left: -40px; margin-bottom: 10px;", @class = "control-label" })
+                                        </b>
+                                        <br />
+                                        <ul style="list-style-type: none; -webkit-column-count: 2; -moz-column-count: 2; column-count: 2;">
+                                            @for (var i = 0; i < Model.HobbiesViewModelList!.Count(); i++)
+                                            {
+                                                <span style="white-space: nowrap; text-align: left; margin-left: -130px;">
+                                                    @Html.HiddenFor(model => model.HobbiesViewModelList![i])
+                                                    @Html.CheckBoxFor(model =>
+                                                model.HobbiesViewModelList![i].isSelected, new {
+                                                @class="hobby-checkbox"})
+                                                    @Html.Label(Model.HobbiesViewModelList![i].Hobby!.Name,Model.HobbiesViewModelList![i].Hobby!.Name,
+                                                htmlAttributes: new {Style = "color: black; margin-left: -50px;" })
+                                                </span>
+                                                <br />
+                                            }
+                                        </ul>
+                                    </div>
+                                    </div>
+                                    <input type="button" name="previous" class="previous action-button-previous"
+                                        value="Previous" />
+                                    <input type="button" name="make_payment" class="next action-button" id="confirmation"
+                                        value="Confirm" />
                                 </fieldset>
                                 <fieldset>
                                     <div class="form-card">
@@ -173,7 +268,8 @@
                                         <br><br>
                                         <div class="row justify-content-center">
                                             <div class="col-3">
-                                                <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image">
+                                                <img src="https://img.icons8.com/color/96/000000/ok--v2.png"
+                                                    class="fit-image">
                                             </div>
                                         </div>
                                         <br><br>
