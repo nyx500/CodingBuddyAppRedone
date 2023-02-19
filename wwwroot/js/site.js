@@ -60,46 +60,64 @@ $(document).ready(function () {
         if (slackIdValue.length < 5 || slackIdValue.length > 50 || !slackIdValue.match(/^[0-9a-zA-Z]+$/) || !/\d/.test(slackIdValue)) {
             // Add error CSS class to SlackId input field
             firstPageErrors += 1;
+
             slackIdInputField.addClass("invalid-input");
+
+            $("#client-side-error-slack-id").css("display", "block");
         }
         else {
+
             if (slackIdInputField.hasClass("invalid-input")) {
                 slackIdInputField.removeClass("invalid-input");
             }
+
+            $("#client-side-error-slack-id").css("display", "none");
         }
+
+
 
         // Validate username
         if (usernameValue.length < 6 || !usernameValue.match(/^[0-9a-zA-Z]+$/) || usernameValue > 70) {
             firstPageErrors += 1;
             usernameInputField.addClass("invalid-input");
 
+            $("#client-side-error-username").css("display", "block");
+
         }
         else {
             if (usernameInputField.hasClass("invalid-input")) {
                 usernameInputField.removeClass("invalid-input");
             }
+
+            $("#client-side-error-username").css("display", "none");
         }
+
+
 
         // Validate password
         if (passwordValue.length < 10) {
             firstPageErrors += 1;
             passwordInputField.addClass("invalid-input");
+            $("#client-side-error-password").css("display", "block");
         }
         else {
             if (passwordInputField.hasClass("invalid-input")) {
                 passwordInputField.removeClass("invalid-input");
             }
+            $("#client-side-error-password").css("display", "none");
         }
 
         // Validation of passwords matching
         if (passwordValue != confirmPasswordValue) {
             firstPageErrors += 1;
             confirmPasswordInputField.addClass("invalid-input");
+            $("#client-side-error-confirm-password").css("display", "block");
         }
         else {
             if (confirmPasswordInputField.hasClass("invalid-input")) {
                 confirmPasswordInputField.removeClass("invalid-input");
             }
+            $("#client-side-error-confirm-password").css("display", "none");
         }
 
 
@@ -206,6 +224,46 @@ $(document).ready(function () {
         else {
             $("#progLangsLabel").removeClass("invalid-input");
         }
+
+
+        var csInterestCount = 0;
+
+        $(".cs-interest-checkbox").each(function (i, obj) {
+            if (obj.checked) {
+                csInterestCount++;
+            }
+        });
+
+        if (csInterestCount < 1) {
+            $("#csInterestsLabel").addClass("invalid-input");
+            thirdPageErrors++;
+        }
+        else {
+            $("#csInterestsLabel").removeClass("invalid-input");
+        }
+
+
+        var hobbyCount = 0;
+        $(".hobby-checkbox").each(function (i, obj) {
+           
+            if (obj.checked) {
+                hobbyCount++;
+            }
+        });
+
+        if (hobbyCount < 3 || hobbyCount > 10) {
+            $("#hobbiesLabel").addClass("invalid-input");
+            thirdPageErrors++;
+        }
+        else {
+            $("#hobbiesLabel").removeClass("invalid-input");
+        }
+
+        // If there are no errors, print Success message in JS console
+        if (thirdPageErrors == 0) {
+            console.log("Success!");
+        }
+
     });
 
 
