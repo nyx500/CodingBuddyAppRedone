@@ -24,7 +24,7 @@ $(document).ready(function () {
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
     // Regex for SlackID --> alphanumeric chars only + underscore
-    var usernameRegex = /^[A-Za-z0-9_]+/;
+    var usernameRegex = /^[a-zA-Z0-9_]+$/;
     var firstPageErrors;
     var secondPageErrors;
     var thirdPageErrors;
@@ -77,7 +77,7 @@ $(document).ready(function () {
 
 
         // Validate username
-        if (usernameValue.length < 6 || !usernameValue.match(/^[0-9a-zA-Z]+$/) || usernameValue > 70) {
+        if (usernameValue.length < 6 || !usernameValue.match(usernameRegex) || usernameValue > 70) {
             firstPageErrors += 1;
             usernameInputField.addClass("invalid-input");
 
@@ -108,7 +108,7 @@ $(document).ready(function () {
         }
 
         // Validation of passwords matching
-        if (passwordValue != confirmPasswordValue) {
+        if (passwordValue.length > 10 && passwordValue != confirmPasswordValue) {
             firstPageErrors += 1;
             confirmPasswordInputField.addClass("invalid-input");
             $("#client-side-error-confirm-password").css("display", "block");
@@ -158,22 +158,26 @@ $(document).ready(function () {
         if ($("#career-phases-dropdown").val() === "") {
             secondPageErrors += 1;
             $("#career-phases-dropdown").addClass("invalid-input");
+            $("#career-phase-label").css("color", "red");
         }
         else {
             if ($("#career-phases-dropdown").hasClass("invalid-input")) {
                 $("#career-phases-dropdown").removeClass("invalid-input");
             }
+            $("#career-phase-label").css("color", "black");
         }
 
         //Validate experience-level selected
         if ($("#experience-levels-dropdown").val() === "") {
             secondPageErrors += 1;
             $("#experience-levels-dropdown").addClass("invalid-input");
+            $("#experience-level-label").css("color", "red");
         }
         else {
             if ($("#experience-levels-dropdown").hasClass("invalid-input")) {
                 $("#experience-levels-dropdown").removeClass("invalid-input");
             }
+            $("#experience-level-label").css("color", "black");
         }
 
         if (secondPageErrors == 0) {
@@ -219,10 +223,12 @@ $(document).ready(function () {
 
         if (progLangCount < 1) {
             $("#progLangsLabel").addClass("invalid-input");
+            $("#progLangsLabel").css("color", "red");
             thirdPageErrors++;
         }
         else {
             $("#progLangsLabel").removeClass("invalid-input");
+            $("#progLangsLabel").css("color", "black");
         }
 
 
@@ -236,10 +242,12 @@ $(document).ready(function () {
 
         if (csInterestCount < 1) {
             $("#csInterestsLabel").addClass("invalid-input");
+            $("#csInterestsLabel").css("color", "red");
             thirdPageErrors++;
         }
         else {
             $("#csInterestsLabel").removeClass("invalid-input");
+            $("#csInterestsLabel").css("color", "black");
         }
 
 
@@ -253,15 +261,17 @@ $(document).ready(function () {
 
         if (hobbyCount < 3 || hobbyCount > 10) {
             $("#hobbiesLabel").addClass("invalid-input");
+            $("#hobbiesLabel").css("color", "red");
             thirdPageErrors++;
         }
         else {
             $("#hobbiesLabel").removeClass("invalid-input");
+            $("#hobbiesLabel").css("color", "black");
         }
 
         // If there are no errors, print Success message in JS console
         if (thirdPageErrors == 0) {
-            console.log("Success!");
+            $("#registration-form").submit();
         }
 
     });

@@ -303,17 +303,6 @@ namespace CBApp.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
         [HttpPost]
         public async Task<IActionResult> RegisterInSteps(RegisterViewModel model)
         {
@@ -493,7 +482,7 @@ namespace CBApp.Controllers
                 HttpContext.Session.SetInt32("RedirectToForm", 1);
 
                 // For testing purposes --> return Json with the errors
-                return RedirectToAction("Register");
+                return Content("ERRORS FOUND.");
             }
 
             if (ModelState.IsValid)
@@ -643,13 +632,6 @@ namespace CBApp.Controllers
             return Content("MODEL INVALID");
 
         }
-
-
-
-
-
-
-
 
 
 
@@ -832,7 +814,7 @@ namespace CBApp.Controllers
                 // of the method
                 HttpContext.Session.SetInt32("RedirectToForm", 1);
 
-                // For testing purposes --> return Json with the errors
+
                 return RedirectToAction("Register");
             }
 

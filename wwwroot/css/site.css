@@ -618,13 +618,13 @@ footer {
 }
 
 /*form styles*/
-#msform {
+#registration-form {
     text-align: center;
     position: relative;
     margin-top: 20px;
 }
 
-    #msform fieldset .form-card {
+    #registration-form fieldset .form-card {
         background: white;
         border: 0 none;
         border-radius: 0px;
@@ -637,7 +637,7 @@ footer {
         position: relative;
     }
 
-    #msform fieldset {
+    #registration-form fieldset {
         background: white;
         border: 0 none;
         border-radius: 0.5rem;
@@ -650,16 +650,16 @@ footer {
     }
 
         /*Hide all except first fieldset*/
-        #msform fieldset:not(:first-of-type) {
+        #registration-form fieldset:not(:first-of-type) {
             display: none;
         }
 
-        #msform fieldset .form-card {
+        #registration-form fieldset .form-card {
             text-align: left;
             color: #9E9E9E;
         }
 
-    #msform input, #msform textarea {
+    #registration-form input, #registration-form textarea {
         padding: 0px 8px 4px 8px;
         border: none;
         border-bottom: 1px solid #ccc;
@@ -673,7 +673,7 @@ footer {
         letter-spacing: 1px;
     }
 
-        #msform input:focus, #msform textarea:focus {
+        #registration-form input:focus, #registration-form textarea:focus {
             -moz-box-shadow: none !important;
             -webkit-box-shadow: none !important;
             box-shadow: none !important;
@@ -684,7 +684,7 @@ footer {
         }
 
     /*Blue Buttons*/
-    #msform .action-button {
+    #registration-form .action-button {
         width: 100px;
         background: skyblue;
         font-weight: bold;
@@ -696,12 +696,12 @@ footer {
         margin: 10px 5px;
     }
 
-        #msform .action-button:hover, #msform .action-button:focus {
+        #registration-form .action-button:hover, #registration-form .action-button:focus {
             box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
         }
 
     /*Previous Buttons*/
-    #msform .action-button-previous {
+    #registration-form .action-button-previous {
         width: 100px;
         background: #616161;
         font-weight: bold;
@@ -713,7 +713,7 @@ footer {
         margin: 10px 5px;
     }
 
-        #msform .action-button-previous:hover, #msform .action-button-previous:focus {
+        #registration-form .action-button-previous:hover, #registration-form .action-button-previous:focus {
             box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
         }
 
