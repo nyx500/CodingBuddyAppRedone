@@ -1031,18 +1031,38 @@ namespace CBApp.Controllers
         {
             List<User> users = userManager.Users.ToList();
 
-            var result = true;
+            var result = false;
 
             foreach(User user in users)
             {
                 if (user.UserName == username)
                 {
-                    result = false;
+                    result = true;
+                }
+            }
+
+            return Json(result);
+        }
+
+
+        [HttpPost]
+        public JsonResult CheckSlackId(string slackId = "")
+        {
+            List<User> users = userManager.Users.ToList();
+
+            var result = false;
+
+            foreach (User user in users)
+            {
+                if (user.SlackId == slackId)
+                {
+                    result = true;
                 }
             }
 
             return Json(result);
         }
     }
-
+    
 }
+

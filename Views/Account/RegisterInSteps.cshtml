@@ -64,6 +64,9 @@ var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
                                                                                                                             Invalid SlackID error: Must be between 5 and 50 chars, alphanumeric, and include
                                                                                                                             at least one digit.
                                                                                                                         </label>
+                                                                                                                         <label id="client-side-error-slack_id-taken" style="display: none; color: red;">
+                                                                                                                            SlackID is already taken!
+                                                                                                                        </label>
                                             //    <input id="slackId" asp-for="SlackId" class="form-control" type="text"
                                             //name="slackIdInput" placeholder="SlackId" />
                                                             @Html.EditorFor(model => model.SlackId, new { htmlAttributes = new {Style = "color: black;", @class = "form-control",
@@ -180,8 +183,7 @@ var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
                                             <div class="col-md-10">
                                                 @Html.DropDownListFor(model => model.SelectedCareerPhaseId, new
                                                 SelectList(Model.careerPhaseSelectList, "Value", "Text"),
-                                                "Select Career Phase", new { Style = "border: 1px solid black;", @class
-                                                = "form-control", @id = "career-phases-dropdown"})
+                                                "Select Career Phase", new { @class = "form-control", @id = "career-phases-dropdown"})
                                                 @Html.ValidationMessageFor(model => model.SelectedCareerPhaseId, "", new
                                                 { @class = "text-danger" })
                                             </div>
@@ -192,7 +194,7 @@ var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
                                             <div class="col-md-10">
                                                 @Html.DropDownListFor(model => model.SelectedExperienceLevelId, new
                                                 SelectList(Model.experienceLevelSelectList, "Value", "Text"),
-                                                "Select Your Experience Level", new { Style = "border: 1px solid black;", @class = "form-control", @id = "experience-levels-dropdown"})
+                                                "Select Your Experience Level", new { @class = "form-control", @id = "experience-levels-dropdown"})
                                                 @Html.ValidationMessageFor(model => model.SelectedExperienceLevelId, "",
                                                 new { @class = "text-danger" })
                                             </div>
@@ -203,32 +205,35 @@ var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
                                             <div class="col-md-10">
                                                 @Html.DropDownListFor(model => model.SelectedGenderId, new
                                                 SelectList(Model.genderSelectList, "Value", "Text"),
-                                                "Select Your Gender (optional)", new { Style = "border: 1px solid black;", @class = "form-control", @id = "gender-dropdown"})
+                                                "Select Your Gender (optional)", new { @class = "form-control", @id = "gender-dropdown"})
                                                 @Html.ValidationMessageFor(model => model.SelectedGenderId, "", new {
                                                 @class = "text-danger" })
                                             </div>
                                         </div>
 
-
+                                        <br />
+                                        <br />
                                         <div class="form-group" style="padding: 10px;">
                                             <b>@Html.LabelFor(model => model.NaturalLanguagesViewModelList,
-                                                htmlAttributes: new {Style = "color: black; margin-left: -40px; margin-bottom: 10px;", @class = "control-label" }) </b>
+                                                htmlAttributes: new {Style = "color: white; ", @class = "control-label" }) </b>
                                             <br />
-                                            <ul
-                                                style="list-style-type: none; -webkit-column-count: 2; -moz-column-count: 2; column-count: 2;">
-                                                @for (var i = 0; i < Model.NaturalLanguagesViewModelList!.Count(); i++)
-                                                    { <span
-                                                    style="white-space: nowrap; text-align: left; margin-left: -130px;">
-                                                    @Html.HiddenFor(model => model.NaturalLanguagesViewModelList![i])
-                                                    @Html.CheckBoxFor(model =>
-                                                    model.NaturalLanguagesViewModelList![i].isSelected, new {
-                                                    @class="lang-checkbox"})
-                                                    @Html.Label(Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,
-                                                    htmlAttributes: new {Style = "color: black; margin-left: -50px;" })
-                                                    </span>
-                                                    <br />
+                                            <div class="checkbox-container">
+                                                <ul class="checkbox-unordered-list">
+                                                    @for (var i = 0; i < Model.NaturalLanguagesViewModelList!.Count(); i++)
+                                                    {   
+                                                            // Create an ID property for each checkbox by concatenating a string with the index-number
+                                                            var checkboxId = "lang-checkbox-" + (i + 1).ToString();
+                                                            <li>
+                                                                @Html.HiddenFor(model => model.NaturalLanguagesViewModelList![i])
+                                                                @Html.CheckBoxFor(model =>
+                                                                model.NaturalLanguagesViewModelList![i].isSelected, new {
+                                                                @class="lang-checkbox", @id = checkboxId, @type="checkbox" })
+                                                                @Html.Label(Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,
+                                                                htmlAttributes: new { @for = checkboxId })
+                                                            </li>   
                                                     }
-                                            </ul>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                     <input type="button" name="previous" class="previous action-button-previous"

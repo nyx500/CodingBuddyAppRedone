@@ -5,6 +5,12 @@
 
 // Attribution: https://stackoverflow.com/questions/15944559/form-submit-using-jquery-and-mvc
 
+
+// Counts the errors for registration form to decide whether to move forwards to next step
+var firstPageErrors;
+var secondPageErrors;
+var thirdPageErrors;
+
 // Store the toggle button on the navbar
 const toggleButton = document.getElementById("toggle-button");
 // Store the lists of links inside the navbar
@@ -25,9 +31,6 @@ $(document).ready(function () {
     var opacity;
     // Regex for SlackID --> alphanumeric chars only + underscore
     var usernameRegex = /^[a-zA-Z0-9_]+$/;
-    var firstPageErrors;
-    var secondPageErrors;
-    var thirdPageErrors;
     var slackIdInputField;
     var slackIdValue;
     var usernameInputField;
@@ -74,6 +77,11 @@ $(document).ready(function () {
             }
 
             $("#client-side-error-slack-id").css("display", "none");
+
+            var slackIdNotAvailable = CheckIfSlackIdAvailable(slackIdValue);
+            if (slackIdNotAvailable) {
+                firstPageErrors++;
+            }
         }
 
 
@@ -94,20 +102,12 @@ $(document).ready(function () {
             $("#client-side-error-username").css("display", "none");
 
 
-            CheckIfUsernameAvailable(usernameValue);
+            var usernameNotAvailable = (CheckIfUsernameAvailable(usernameValue));
 
-            // Run this code to check if username already taken if the above checks are passed
-            // Controller validation using AJAX for username --> Controller returns true if username is not taken
-            // If already taken, the Controller returns 'false'
-            // If username is taken, this function displays an error message/hides the error message if not taken
+            if (usernameNotAvailable) {
+                firstPageErrors++;
+            }
 
-            //if (!isValid) {
-            //    firstPageErrors++;
-            //    $("#client-side-error-username-taken").css("display", "block");
-            //}
-            //else {
-            //    $("#client-side-error-username-taken").css("display", "none");
-            //}
         }
 
 
@@ -138,10 +138,10 @@ $(document).ready(function () {
             $("#client-side-error-confirm-password").css("display", "none");
         }
 
+        // Only let user continue if there are no errors
+        if (firstPageErrors == 0)
+        {
 
-        if (firstPageErrors == 0) {
-
-            console.log(firstPageErrors);
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
 
@@ -405,25 +405,71 @@ $(document).ready(function () {
     //})
 
 
+
 // Sends the username using Ajax to the CheckUsername method in the ActionController
-// Returns false if username already exists in database and true otherwise
+// The response is 'false' if username already exists in database and 'true' otherwise
 function CheckIfUsernameAvailable(usernameValue) {
 
     var username_data = { username: usernameValue };
 
-    var ajaxResult = $.ajax({
+    var result = false;
+
+    // Why it was necessary to use "async:false" which is generally BAD practice...
+    // There is no other way to block the user from continuing to the next page unless the firstPageErrors
+    // variable is incremented --> it is impossible to increment it for the form to validate properly
+    // umless async is set to false.
+    // Attribution: "Below is one case where one have to set async to false, for the code to work properly." on https://stackoverflow.com/questions/1478295/what-does-async-false-do-in-jquery-ajax
+    $.ajax({
         type: "POST",
         url: "/Account/CheckUsername",
         data: username_data,
+        async: false, 
         success: function (response) {
+            // Response from controller is 'true': username is taken already
             if (response) {
-                $("#client-side-error-username-taken").css("display", "none");
-                console.log('worked');
-            }
-            else {
+                // Display the 'username already taken' error-message in the view
                 $("#client-side-error-username-taken").css("display", "block");
-                console.log("already exists");
+                result = true;
+            }
+            // Response from controller is 'false': can accept the username
+            else {
+                // Hide the 'username already taken' error-message in the view
+                $("#client-side-error-username-taken").css("display", "none");
             }
         }
     });
+
+    return result;
+};
+
+    
+// Same logic for SlackId
+function CheckIfSlackIdAvailable(slackIdValue) {
+
+    var slackId_data = { slackId: slackIdValue };
+
+    var result = false;
+
+
+    $.ajax({
+        type: "POST",
+        url: "/Account/CheckSlackId",
+        data: slackId_data,
+        async: false, 
+        success: function (response) {
+            // Response from controller is 'true': can accept this username because it is unique
+            if (response) {
+                // Hide the 'username already taken' error-message in the view
+                $("#client-side-error-slack_id-taken").css("display", "block");
+                result = true;
+            }
+            // Response from controller is 'false': can accept the username
+            else {
+                // Display the 'username already taken' error-message in the view
+                $("#client-side-error-slack_id-taken").css("display", "none");
+            }
+        }
+    });
+
+    return result;
 }
