@@ -244,7 +244,42 @@ var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
                                 <fieldset>
                                     <div class="form-card">
                                         <h3 class="fs-title">Skills and Interests</h3>
-                                    <div class="form-group" style="padding: 10px;">
+
+
+
+
+                                        <br />
+                                        <br />
+                                        <div class="form-group" style="padding: 10px;">
+                                            <b>
+                                                @Html.LabelFor(model => model.ProgrammingLanguagesViewModelList,
+                                                htmlAttributes: new {Style = "color: white; ", @class = "control-label",id="progLangsLabel" })
+                                            </b>
+                                            <br />
+                                            <div class="checkbox-container">
+                                                <ul class="checkbox-unordered-list">
+                                                    @for (var i = 0; i < Model.ProgrammingLanguagesViewModelList!.Count(); i++)
+                                                    {
+                                                        // Create an ID property for each checkbox by concatenating a string with the index-number
+                                                        var checkboxId = "prog-lang-checkbox-" + (i + 1).ToString();
+                                                        <li>
+                                                            @Html.HiddenFor(model => model.ProgrammingLanguagesViewModelList![i])
+                                                            @Html.CheckBoxFor(model =>
+                                                        model.ProgrammingLanguagesViewModelList![i].isSelected, new {
+                                                        @class="prog-lang-checkbox", @id = checkboxId, @type="checkbox" })
+                                                            @Html.Label(Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name, Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name,
+                                                        htmlAttributes: new { @for = checkboxId })
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                   @* <div class="form-group" style="padding: 10px;">
                                         <b>
                                             @Html.LabelFor(model => model.ProgrammingLanguagesViewModelList,
                                             htmlAttributes: new {Style = "color: black; margin-left: -40px; margin-bottom: 10px;", @class = "control-label", id="progLangsLabel" })
@@ -264,7 +299,7 @@ var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
                                                 <br />
                                             }
                                         </ul>
-                                    </div>
+                                    </div>*@
                                     <div class="form-group" style="padding: 10px;">
                                         <b>
                                             @Html.LabelFor(model => model.CSInterestsViewModelList,

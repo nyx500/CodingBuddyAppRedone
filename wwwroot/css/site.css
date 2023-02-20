@@ -678,6 +678,11 @@ fieldset label{
     border: 4px solid var(--mediumBlue)!important;
 }
 
+.control-label
+{
+    color:white!important;
+}
+
 
 #registration-form input, #registration-form textarea {
     border: none;
