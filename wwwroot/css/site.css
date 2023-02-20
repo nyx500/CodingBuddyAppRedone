@@ -749,6 +749,15 @@ fieldset label{
     margin-right: 100px;
 }
 
+.previous {
+    background-color: var(--periwinkle) !important;
+    color: black!important;
+    border-radius: 6px !important;
+    width: fit-content;
+    float: left;
+    margin-left: 50px!important;
+}
+
 @media all and (max-width: 1200px)
 {
     .registration-container {
