@@ -204,3 +204,15 @@ C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\Microsoft.A
 C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\Castle.Core.dll
 C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\System.Web.Mvc.dll
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\System.Web.Razor.dll
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\System.Web.Optimization.dll
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\System.Web.Helpers.dll
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\System.Web.WebPages.dll
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\WebActivatorEx.dll
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\Antlr3.Runtime.dll
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\WebGrease.dll
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\libman.json

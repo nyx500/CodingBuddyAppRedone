@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using CBApp.Models;
 using CBApp.Data;
 using System.Text.RegularExpressions;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace CBApp.Controllers
 {
@@ -416,6 +418,8 @@ namespace CBApp.Controllers
                 errorsObject!.No_Experience_Level_Selected = true;
                 ++ErrorCounter;
             }
+
+
             /********************************End of Errors related to Dropdown Menus******************************************************/
 
 
@@ -484,6 +488,7 @@ namespace CBApp.Controllers
                 // For testing purposes --> return Json with the errors
                 return Content("ERRORS FOUND.");
             }
+
 
             if (ModelState.IsValid)
             {
@@ -624,12 +629,15 @@ namespace CBApp.Controllers
                     }
 
                     // Returns to the Registration page if the model is invalid - displays the errors in the form
-                    return Content("Model is valid but could NOT create User!");
+                    return Content("nothing will ever work.");
                 }
 
             }
 
-            return Content("MODEL INVALID");
+            var messages = string.Join(" | ", ModelState.Values
+              .SelectMany(v => v.Errors)
+              .Select(e => e.ErrorMessage));
+                    return Content(messages);
 
         }
 
@@ -1014,6 +1022,26 @@ namespace CBApp.Controllers
 
             ModelState.AddModelError("", "Invalid username/password.");
             return View(model);
+        }
+
+
+
+        [HttpPost]
+        public JsonResult CheckUsername(string username = "")
+        {
+            List<User> users = userManager.Users.ToList();
+
+            var result = true;
+
+            foreach(User user in users)
+            {
+                if (user.UserName == username)
+                {
+                    result = false;
+                }
+            }
+
+            return Json(result);
         }
     }
 

@@ -26,7 +26,9 @@
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">C:\Users\Ophelia\.nuget\packages\xunit.analyzers\1.0.0</Pkgxunit_analyzers>
+    <PkgWebGrease Condition=" '$(PkgWebGrease)' == '' ">C:\Users\Ophelia\.nuget\packages\webgrease\1.1.0</PkgWebGrease>
     <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\Ophelia\.nuget\packages\microsoft.entityframeworkcore.tools\7.0.2</PkgMicrosoft_EntityFrameworkCore_Tools>
     <PkgjQuery Condition=" '$(PkgjQuery)' == '' ">C:\Users\Ophelia\.nuget\packages\jquery\1.9.0</PkgjQuery>
+    <PkgFontAwesome Condition=" '$(PkgFontAwesome)' == '' ">C:\Users\Ophelia\.nuget\packages\fontawesome\4.0.3</PkgFontAwesome>
   </PropertyGroup>
 </Project>

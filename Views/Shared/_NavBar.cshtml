@@ -45,12 +45,12 @@
             // anonymous user - Register link and Log In button
             <li class="list-item @Html.ActiveClass("Account", "Register",
             "selected")">
-                <a asp-action="Register" asp-controller="Account"
-                asp-area="" class="nav-link" id="signup-button">Sign Up</a>
+                <a asp-action="RegisterInSteps" asp-controller="Account"
+                asp-area="" class="nav-link list-item" id="signup-button">Sign Up</a>
             </li>
             <li class="list-item">
                 <a asp-action="Login" asp-controller="Account"
-                asp-area="" class="btn btn-outline-light" id="login-button">Log In</a>
+                asp-area="" class="nav-link list-item" id="login-button">Log In</a>
             </li>
         }
     </ul>

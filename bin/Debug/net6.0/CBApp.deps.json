@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "CBApp/1.0.0": {
         "dependencies": {
+          "FontAwesome.MVC": "1.0.0",
           "Microsoft.AspNetCore.Diagnostics": "2.2.0",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.13",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.13",
@@ -102,6 +103,15 @@
           }
         }
       },
+      "FontAwesome/4.0.3": {},
+      "FontAwesome.MVC/1.0.0": {
+        "dependencies": {
+          "FontAwesome": "4.0.3",
+          "Microsoft.AspNet.Mvc": "3.0.20105.1",
+          "Microsoft.AspNet.Web.Optimization": "1.0.0",
+          "WebActivatorEx": "2.0.0"
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "runtime": {
           "lib/net6.0/Humanizer.dll": {
@@ -111,6 +121,62 @@
         }
       },
       "jQuery/1.9.0": {},
+      "Microsoft.AspNet.Mvc/3.0.20105.1": {
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "1.0.20105.408",
+          "Microsoft.AspNet.WebPages": "1.0.20105.408"
+        },
+        "runtime": {
+          "lib/net40/System.Web.Mvc.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.20105.0"
+          }
+        }
+      },
+      "Microsoft.AspNet.Razor/1.0.20105.408": {
+        "runtime": {
+          "lib/net40/System.Web.Razor.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.20105.407"
+          }
+        }
+      },
+      "Microsoft.AspNet.Web.Optimization/1.0.0": {
+        "dependencies": {
+          "Microsoft.Web.Infrastructure": "1.0.0",
+          "WebGrease": "1.1.0"
+        },
+        "runtime": {
+          "lib/net40/System.Web.Optimization.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Microsoft.AspNet.WebPages/1.0.20105.408": {
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "1.0.20105.408",
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "runtime": {
+          "lib/net40/System.Web.Helpers.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.20105.407"
+          },
+          "lib/net40/System.Web.WebPages.Deployment.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.20105.407"
+          },
+          "lib/net40/System.Web.WebPages.Razor.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.20105.407"
+          },
+          "lib/net40/System.Web.WebPages.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.20105.407"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/6.0.13": {
         "runtime": {
           "lib/net6.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {
@@ -1185,6 +1251,14 @@
           }
         }
       },
+      "Microsoft.Web.Infrastructure/1.0.0": {
+        "runtime": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.20105.407"
+          }
+        }
+      },
       "Microsoft.Win32.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.0",
@@ -2108,6 +2182,29 @@
         }
       },
       "twitter-bootstrap-wizard/1.4.2": {},
+      "WebActivatorEx/2.0.0": {
+        "dependencies": {
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "runtime": {
+          "lib/net40/WebActivatorEx.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "WebGrease/1.1.0": {
+        "runtime": {
+          "lib/Antlr3.Runtime.dll": {
+            "assemblyVersion": "3.3.1.7705",
+            "fileVersion": "3.3.1.7705"
+          },
+          "lib/WebGrease.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "xunit/2.4.2": {
         "dependencies": {
           "xunit.analyzers": "1.0.0",
@@ -2216,6 +2313,20 @@
       "path": "comparenetobjects/1.3.0",
       "hashPath": "comparenetobjects.1.3.0.nupkg.sha512"
     },
+    "FontAwesome/4.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JxIu3EimBbzoYWBbD5IDnXaQCRMsFGpFpy22QjIH3vSueCDgUDMsUk2sbLwnSj/KKWx7aXTCmg1o+GkXwMjPWA==",
+      "path": "fontawesome/4.0.3",
+      "hashPath": "fontawesome.4.0.3.nupkg.sha512"
+    },
+    "FontAwesome.MVC/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LCPon1MUBWEGIdflToR7R8RkuAPKOOb1MEDesA1flFuRRry81OQ9A0aCVNnuBTMG38+RYDxCLNi347+q+m900w==",
+      "path": "fontawesome.mvc/1.0.0",
+      "hashPath": "fontawesome.mvc.1.0.0.nupkg.sha512"
+    },
     "Humanizer.Core/2.14.1": {
       "type": "package",
       "serviceable": true,
@@ -2229,6 +2340,34 @@
       "sha512": "sha512-bS6OGSd/QL39vKKhATpeehgZDCzV6foRJ52EocEGAB29VetwXkQHN6KQIBlBbW9VJzuHr+rQxHYZ13MnPGQ/vw==",
       "path": "jquery/1.9.0",
       "hashPath": "jquery.1.9.0.nupkg.sha512"
+    },
+    "Microsoft.AspNet.Mvc/3.0.20105.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CjEb1ExBqe3DceDCg4EhdimdoDTMuBOmA490lRKgl3EN8L4G8+lBRHDF7Ho8QkFsY7C5Y4pTfqhD7Zl8VPOtWQ==",
+      "path": "microsoft.aspnet.mvc/3.0.20105.1",
+      "hashPath": "microsoft.aspnet.mvc.3.0.20105.1.nupkg.sha512"
+    },
+    "Microsoft.AspNet.Razor/1.0.20105.408": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vRmwL/G31Xc9DusVQUJXmDpTYEVB7xUoIjKqCyuOHrCyG9kzM66MadNjdPLzplSsDoWqiae35US8XiiI3e6SBw==",
+      "path": "microsoft.aspnet.razor/1.0.20105.408",
+      "hashPath": "microsoft.aspnet.razor.1.0.20105.408.nupkg.sha512"
+    },
+    "Microsoft.AspNet.Web.Optimization/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4pMO9b/F9A2iQHcom3ruqNxK023iynMTA621M7Hr0TWMxSxqM2g8Soc0FRRETTEhVVcKlOMPhA6yNtSXh+xikQ==",
+      "path": "microsoft.aspnet.web.optimization/1.0.0",
+      "hashPath": "microsoft.aspnet.web.optimization.1.0.0.nupkg.sha512"
+    },
+    "Microsoft.AspNet.WebPages/1.0.20105.408": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-da1//kx0b6GXJG6V8vGl7PmvhPJE/aNs2mK0QJ9bojgy059BDdYhmAwpTT1ucDgbImbFDdmNGi/XJj2SU0QJeA==",
+      "path": "microsoft.aspnet.webpages/1.0.20105.408",
+      "hashPath": "microsoft.aspnet.webpages.1.0.20105.408.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/6.0.13": {
       "type": "package",
@@ -2754,6 +2893,13 @@
       "sha512": "sha512-K7QXM4P4qrDKdPs/VSEKXR08QEru7daAK8vlIbhwENM3peXJwb9QgrAbtbYyyfVnX+F1m+1hntTH6aRX+h/f8g==",
       "path": "microsoft.testplatform.testhost/17.4.1",
       "hashPath": "microsoft.testplatform.testhost.17.4.1.nupkg.sha512"
+    },
+    "Microsoft.Web.Infrastructure/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FNmvLn5m2LTU/Rs2KWVo0SIIh9Ek+U0ojex7xeDaSHw/zgEP77A8vY5cVWgUtBGS8MJfDGNn8rpXJWEIQaPwTg==",
+      "path": "microsoft.web.infrastructure/1.0.0",
+      "hashPath": "microsoft.web.infrastructure.1.0.0.nupkg.sha512"
     },
     "Microsoft.Win32.Primitives/4.3.0": {
       "type": "package",
@@ -3454,6 +3600,20 @@
       "sha512": "sha512-mPwPnHvdfF+gCpELk3qssv9/VMkKmm5hs2qLp0syCgd8EY1k04NKryaoekht4C3gtVJfy0FfBSziP+OdHaf7QQ==",
       "path": "twitter-bootstrap-wizard/1.4.2",
       "hashPath": "twitter-bootstrap-wizard.1.4.2.nupkg.sha512"
+    },
+    "WebActivatorEx/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-B3ZbOEaGCqa7BLjZZw6wqprOJJMvP39h7Lr5ADkJOCPKHppAaCre34kR63/gfgpM4htzTfgm/pEw7r7qqqMgIA==",
+      "path": "webactivatorex/2.0.0",
+      "hashPath": "webactivatorex.2.0.0.nupkg.sha512"
+    },
+    "WebGrease/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Pg2FRRKLgcv6TjTJh/zJTLNICDdw638Z05eKEC/pBejBcvTDsUDB2dWjiXF4DWwfS5K7t2T2gbqO1/UNpMHsug==",
+      "path": "webgrease/1.1.0",
+      "hashPath": "webgrease.1.1.0.nupkg.sha512"
     },
     "xunit/2.4.2": {
       "type": "package",

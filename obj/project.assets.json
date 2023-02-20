@@ -86,6 +86,18 @@
           "lib/KellermanSoftware.Compare-NET-Objects.dll": {}
         }
       },
+      "FontAwesome/4.0.3": {
+        "type": "package"
+      },
+      "FontAwesome.MVC/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "FontAwesome": "4.0.3",
+          "Microsoft.AspNet.Mvc": "(, )",
+          "Microsoft.AspNet.Web.Optimization": "(, )",
+          "WebActivatorEx": "(, )"
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -101,6 +113,60 @@
       },
       "jQuery/1.9.0": {
         "type": "package"
+      },
+      "Microsoft.AspNet.Mvc/3.0.20105.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "1.0.20105.408",
+          "Microsoft.AspNet.WebPages": "1.0.20105.408"
+        },
+        "compile": {
+          "lib/net40/System.Web.Mvc.dll": {}
+        },
+        "runtime": {
+          "lib/net40/System.Web.Mvc.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Razor/1.0.20105.408": {
+        "type": "package",
+        "compile": {
+          "lib/net40/System.Web.Razor.dll": {}
+        },
+        "runtime": {
+          "lib/net40/System.Web.Razor.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Web.Optimization/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Web.Infrastructure": "1.0.0",
+          "WebGrease": "1.1.0"
+        },
+        "compile": {
+          "lib/net40/System.Web.Optimization.dll": {}
+        },
+        "runtime": {
+          "lib/net40/System.Web.Optimization.dll": {}
+        }
+      },
+      "Microsoft.AspNet.WebPages/1.0.20105.408": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "1.0.20105.408",
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "lib/net40/System.Web.Helpers.dll": {},
+          "lib/net40/System.Web.WebPages.Deployment.dll": {},
+          "lib/net40/System.Web.WebPages.Razor.dll": {},
+          "lib/net40/System.Web.WebPages.dll": {}
+        },
+        "runtime": {
+          "lib/net40/System.Web.Helpers.dll": {},
+          "lib/net40/System.Web.WebPages.Deployment.dll": {},
+          "lib/net40/System.Web.WebPages.Razor.dll": {},
+          "lib/net40/System.Web.WebPages.dll": {}
+        }
       },
       "Microsoft.AspNetCore.Cryptography.Internal/6.0.13": {
         "type": "package",
@@ -1719,6 +1785,15 @@
         },
         "build": {
           "build/netcoreapp3.1/Microsoft.TestPlatform.TestHost.props": {}
+        }
+      },
+      "Microsoft.Web.Infrastructure/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
         }
       },
       "Microsoft.Win32.Primitives/4.3.0": {
@@ -3448,6 +3523,29 @@
       "twitter-bootstrap-wizard/1.4.2": {
         "type": "package"
       },
+      "WebActivatorEx/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "lib/net40/WebActivatorEx.dll": {}
+        },
+        "runtime": {
+          "lib/net40/WebActivatorEx.dll": {}
+        }
+      },
+      "WebGrease/1.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/Antlr3.Runtime.dll": {},
+          "lib/WebGrease.dll": {}
+        },
+        "runtime": {
+          "lib/Antlr3.Runtime.dll": {},
+          "lib/WebGrease.dll": {}
+        }
+      },
       "xunit/2.4.2": {
         "type": "package",
         "dependencies": {
@@ -3662,6 +3760,39 @@
         "lib/KellermanSoftware.Compare-NET-Objects.dll"
       ]
     },
+    "FontAwesome/4.0.3": {
+      "sha512": "JxIu3EimBbzoYWBbD5IDnXaQCRMsFGpFpy22QjIH3vSueCDgUDMsUk2sbLwnSj/KKWx7aXTCmg1o+GkXwMjPWA==",
+      "type": "package",
+      "path": "fontawesome/4.0.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Content/fontawesome/font-awesome.css",
+        "Content/Content/fontawesome/font-awesome.min.css",
+        "Content/Content/fonts/FontAwesome.otf",
+        "Content/Content/fonts/fontawesome-webfont.eot",
+        "Content/Content/fonts/fontawesome-webfont.svg",
+        "Content/Content/fonts/fontawesome-webfont.ttf",
+        "Content/Content/fonts/fontawesome-webfont.woff",
+        "fontawesome.4.0.3.nupkg.sha512",
+        "fontawesome.nuspec",
+        "readme.txt",
+        "tools/install.ps1"
+      ]
+    },
+    "FontAwesome.MVC/1.0.0": {
+      "sha512": "LCPon1MUBWEGIdflToR7R8RkuAPKOOb1MEDesA1flFuRRry81OQ9A0aCVNnuBTMG38+RYDxCLNi347+q+m900w==",
+      "type": "package",
+      "path": "fontawesome.mvc/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/App_Start/FontAwesomeBundleConfig.cs.pp",
+        "fontawesome.mvc.1.0.0.nupkg.sha512",
+        "fontawesome.mvc.nuspec"
+      ]
+    },
     "Humanizer.Core/2.14.1": {
       "sha512": "lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "type": "package",
@@ -3698,6 +3829,57 @@
         "Tools/uninstall.ps1",
         "jquery.1.9.0.nupkg.sha512",
         "jquery.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Mvc/3.0.20105.1": {
+      "sha512": "CjEb1ExBqe3DceDCg4EhdimdoDTMuBOmA490lRKgl3EN8L4G8+lBRHDF7Ho8QkFsY7C5Y4pTfqhD7Zl8VPOtWQ==",
+      "type": "package",
+      "path": "microsoft.aspnet.mvc/3.0.20105.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/System.Web.Mvc.dll",
+        "microsoft.aspnet.mvc.3.0.20105.1.nupkg.sha512",
+        "microsoft.aspnet.mvc.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Razor/1.0.20105.408": {
+      "sha512": "vRmwL/G31Xc9DusVQUJXmDpTYEVB7xUoIjKqCyuOHrCyG9kzM66MadNjdPLzplSsDoWqiae35US8XiiI3e6SBw==",
+      "type": "package",
+      "path": "microsoft.aspnet.razor/1.0.20105.408",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/System.Web.Razor.dll",
+        "microsoft.aspnet.razor.1.0.20105.408.nupkg.sha512",
+        "microsoft.aspnet.razor.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Web.Optimization/1.0.0": {
+      "sha512": "4pMO9b/F9A2iQHcom3ruqNxK023iynMTA621M7Hr0TWMxSxqM2g8Soc0FRRETTEhVVcKlOMPhA6yNtSXh+xikQ==",
+      "type": "package",
+      "path": "microsoft.aspnet.web.optimization/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/System.Web.Optimization.dll",
+        "microsoft.aspnet.web.optimization.1.0.0.nupkg.sha512",
+        "microsoft.aspnet.web.optimization.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.WebPages/1.0.20105.408": {
+      "sha512": "da1//kx0b6GXJG6V8vGl7PmvhPJE/aNs2mK0QJ9bojgy059BDdYhmAwpTT1ucDgbImbFDdmNGi/XJj2SU0QJeA==",
+      "type": "package",
+      "path": "microsoft.aspnet.webpages/1.0.20105.408",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/System.Web.Helpers.dll",
+        "lib/net40/System.Web.WebPages.Deployment.dll",
+        "lib/net40/System.Web.WebPages.Razor.dll",
+        "lib/net40/System.Web.WebPages.dll",
+        "microsoft.aspnet.webpages.1.0.20105.408.nupkg.sha512",
+        "microsoft.aspnet.webpages.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/6.0.13": {
@@ -5707,6 +5889,18 @@
         "lib/netcoreapp3.1/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
         "microsoft.testplatform.testhost.17.4.1.nupkg.sha512",
         "microsoft.testplatform.testhost.nuspec"
+      ]
+    },
+    "Microsoft.Web.Infrastructure/1.0.0": {
+      "sha512": "FNmvLn5m2LTU/Rs2KWVo0SIIh9Ek+U0ojex7xeDaSHw/zgEP77A8vY5cVWgUtBGS8MJfDGNn8rpXJWEIQaPwTg==",
+      "type": "package",
+      "path": "microsoft.web.infrastructure/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/Microsoft.Web.Infrastructure.dll",
+        "microsoft.web.infrastructure.1.0.0.nupkg.sha512",
+        "microsoft.web.infrastructure.nuspec"
       ]
     },
     "Microsoft.Win32.Primitives/4.3.0": {
@@ -9911,6 +10105,33 @@
         "twitter-bootstrap-wizard.nuspec"
       ]
     },
+    "WebActivatorEx/2.0.0": {
+      "sha512": "B3ZbOEaGCqa7BLjZZw6wqprOJJMvP39h7Lr5ADkJOCPKHppAaCre34kR63/gfgpM4htzTfgm/pEw7r7qqqMgIA==",
+      "type": "package",
+      "path": "webactivatorex/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/WebActivatorEx.dll",
+        "webactivatorex.2.0.0.nupkg.sha512",
+        "webactivatorex.nuspec"
+      ]
+    },
+    "WebGrease/1.1.0": {
+      "sha512": "Pg2FRRKLgcv6TjTJh/zJTLNICDdw638Z05eKEC/pBejBcvTDsUDB2dWjiXF4DWwfS5K7t2T2gbqO1/UNpMHsug==",
+      "type": "package",
+      "path": "webgrease/1.1.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/Antlr3.Runtime.dll",
+        "lib/WebGrease.dll",
+        "tools/WG.exe",
+        "webgrease.1.1.0.nupkg.sha512",
+        "webgrease.nuspec"
+      ]
+    },
     "xunit/2.4.2": {
       "sha512": "6Mj73Ont3zj2CJuoykVJfE0ZmRwn7C+pTuRP8c4bnaaTFjwNG6tGe0prJ1yIbMe9AHrpDys63ctWacSsFJWK/w==",
       "type": "package",
@@ -10059,6 +10280,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "FontAwesome.MVC >= 1.0.0",
       "Microsoft.AspNetCore.Diagnostics >= 2.2.0",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 6.0.13",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.13",
@@ -10129,6 +10351,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "FontAwesome.MVC": {
+            "target": "Package",
+            "version": "[1.0.0, )"
+          },
           "Microsoft.AspNetCore.Diagnostics": {
             "target": "Package",
             "version": "[2.2.0, )"
@@ -10274,8 +10500,38 @@
       "code": "NU1602",
       "level": "Warning",
       "warningLevel": 1,
+      "message": "FontAwesome.MVC 1.0.0 does not provide an inclusive lower bound for dependency Microsoft.AspNet.Mvc. An approximate best match of Microsoft.AspNet.Mvc 3.0.20105.1 was resolved.",
+      "libraryId": "Microsoft.AspNet.Mvc",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1602",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "FontAwesome.MVC 1.0.0 does not provide an inclusive lower bound for dependency Microsoft.AspNet.Web.Optimization. An approximate best match of Microsoft.AspNet.Web.Optimization 1.0.0 was resolved.",
+      "libraryId": "Microsoft.AspNet.Web.Optimization",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1602",
+      "level": "Warning",
+      "warningLevel": 1,
       "message": "Repository 1.0.7.8 does not provide an inclusive lower bound for dependency Newtonsoft.Json. An approximate best match of Newtonsoft.Json 3.5.8 was resolved.",
       "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1602",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "FontAwesome.MVC 1.0.0 does not provide an inclusive lower bound for dependency WebActivatorEx. An approximate best match of WebActivatorEx 2.0.0 was resolved.",
+      "libraryId": "WebActivatorEx",
       "targetGraphs": [
         "net6.0"
       ]
@@ -10304,6 +10560,56 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Mvc 3.0.20105.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Mvc",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Razor 1.0.20105.408' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Razor",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Web.Optimization 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Web.Optimization",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.WebPages 1.0.20105.408' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.WebPages",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Web.Infrastructure 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.Web.Infrastructure",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
       "message": "Package 'NUnit 2.6.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
       "libraryId": "NUnit",
       "targetGraphs": [
@@ -10316,6 +10622,26 @@
       "warningLevel": 1,
       "message": "Package 'Repository 1.0.7.8' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
       "libraryId": "Repository",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WebActivatorEx 2.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "WebActivatorEx",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WebGrease 1.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "WebGrease",
       "targetGraphs": [
         "net6.0"
       ]

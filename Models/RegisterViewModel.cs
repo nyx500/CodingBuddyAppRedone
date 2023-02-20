@@ -49,7 +49,7 @@ namespace CBApp.Models
 
         // Gender selection is optional
         [Display(Name = "Gender: (optional)")]
-        public int SelectedGenderId { get; set; }
+        public int? SelectedGenderId { get; set; }
 
 
 

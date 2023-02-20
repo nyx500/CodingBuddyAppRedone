@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "aCJx08w/4U9zTCAiSYKU9IzuRzq/dViVzt6/JZCpviuad3aRZUhFZKjAUVzCMCkb8pZBRxLmrtC8naVSndpZuA==",
+  "dgSpecHash": "qcTxp9mGIezqsuXOlzk1xlcCEJftYwfWTk3uzxnmdoBVJJH0qKO46e4YZXgUF1dLUbwU0gmk42CwEEc8ptLqMA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\CBApp.csproj",
   "expectedPackageFiles": [
@@ -10,8 +10,14 @@
     "C:\\Users\\Ophelia\\.nuget\\packages\\bootstrap\\3.3.0\\bootstrap.3.3.0.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\comparenetobjects\\1.3.0\\comparenetobjects.1.3.0.nupkg.sha512",
+    "C:\\Users\\Ophelia\\.nuget\\packages\\fontawesome\\4.0.3\\fontawesome.4.0.3.nupkg.sha512",
+    "C:\\Users\\Ophelia\\.nuget\\packages\\fontawesome.mvc\\1.0.0\\fontawesome.mvc.1.0.0.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\jquery\\1.9.0\\jquery.1.9.0.nupkg.sha512",
+    "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.aspnet.mvc\\3.0.20105.1\\microsoft.aspnet.mvc.3.0.20105.1.nupkg.sha512",
+    "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.aspnet.razor\\1.0.20105.408\\microsoft.aspnet.razor.1.0.20105.408.nupkg.sha512",
+    "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.aspnet.web.optimization\\1.0.0\\microsoft.aspnet.web.optimization.1.0.0.nupkg.sha512",
+    "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.aspnet.webpages\\1.0.20105.408\\microsoft.aspnet.webpages.1.0.20105.408.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.13\\microsoft.aspnetcore.cryptography.internal.6.0.13.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.13\\microsoft.aspnetcore.cryptography.keyderivation.6.0.13.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.aspnetcore.diagnostics\\2.2.0\\microsoft.aspnetcore.diagnostics.2.2.0.nupkg.sha512",
@@ -87,6 +93,7 @@
     "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.testplatform.objectmodel\\17.4.1\\microsoft.testplatform.objectmodel.17.4.1.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.testplatform.testhost\\17.4.1\\microsoft.testplatform.testhost.17.4.1.nupkg.sha512",
+    "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.web.infrastructure\\1.0.0\\microsoft.web.infrastructure.1.0.0.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
@@ -187,6 +194,8 @@
     "C:\\Users\\Ophelia\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\twitter-bootstrap-wizard\\1.4.2\\twitter-bootstrap-wizard.1.4.2.nupkg.sha512",
+    "C:\\Users\\Ophelia\\.nuget\\packages\\webactivatorex\\2.0.0\\webactivatorex.2.0.0.nupkg.sha512",
+    "C:\\Users\\Ophelia\\.nuget\\packages\\webgrease\\1.1.0\\webgrease.1.1.0.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\xunit\\2.4.2\\xunit.2.4.2.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
     "C:\\Users\\Ophelia\\.nuget\\packages\\xunit.analyzers\\1.0.0\\xunit.analyzers.1.0.0.nupkg.sha512",
@@ -221,8 +230,38 @@
       "code": "NU1602",
       "level": "Warning",
       "warningLevel": 1,
+      "message": "FontAwesome.MVC 1.0.0 does not provide an inclusive lower bound for dependency Microsoft.AspNet.Mvc. An approximate best match of Microsoft.AspNet.Mvc 3.0.20105.1 was resolved.",
+      "libraryId": "Microsoft.AspNet.Mvc",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1602",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "FontAwesome.MVC 1.0.0 does not provide an inclusive lower bound for dependency Microsoft.AspNet.Web.Optimization. An approximate best match of Microsoft.AspNet.Web.Optimization 1.0.0 was resolved.",
+      "libraryId": "Microsoft.AspNet.Web.Optimization",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1602",
+      "level": "Warning",
+      "warningLevel": 1,
       "message": "Repository 1.0.7.8 does not provide an inclusive lower bound for dependency Newtonsoft.Json. An approximate best match of Newtonsoft.Json 3.5.8 was resolved.",
       "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1602",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "FontAwesome.MVC 1.0.0 does not provide an inclusive lower bound for dependency WebActivatorEx. An approximate best match of WebActivatorEx 2.0.0 was resolved.",
+      "libraryId": "WebActivatorEx",
       "targetGraphs": [
         "net6.0"
       ]
@@ -251,6 +290,56 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Mvc 3.0.20105.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Mvc",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Razor 1.0.20105.408' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Razor",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Web.Optimization 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Web.Optimization",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.WebPages 1.0.20105.408' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.WebPages",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Web.Infrastructure 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.Web.Infrastructure",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
       "message": "Package 'NUnit 2.6.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
       "libraryId": "NUnit",
       "targetGraphs": [
@@ -263,6 +352,26 @@
       "warningLevel": 1,
       "message": "Package 'Repository 1.0.7.8' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
       "libraryId": "Repository",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WebActivatorEx 2.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "WebActivatorEx",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WebGrease 1.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "WebGrease",
       "targetGraphs": [
         "net6.0"
       ]

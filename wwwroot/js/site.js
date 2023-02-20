@@ -40,6 +40,7 @@ $(document).ready(function () {
 
     $("#first").click(function () {
 
+
         // CLIENT-SIDE VALIDATION FOR ALL THE INPUT FIELDS ON THE FIRST PAGE (to put in separate functions later)
         firstPageErrors = 0;
 
@@ -52,6 +53,7 @@ $(document).ready(function () {
         passwordValue = $("#password-input").val();
         confirmPasswordInputField = $("#confirm-password-input");
         confirmPasswordValue = $("#confirm-password-input").val();
+
 
         // Highlight SlackId input field in red by adding error CSS class if invalid (not alphanumeric
         // or does not contain at least one digit, or is less than 5 characters), and do not
@@ -75,11 +77,11 @@ $(document).ready(function () {
         }
 
 
-
         // Validate username
         if (usernameValue.length < 6 || !usernameValue.match(usernameRegex) || usernameValue > 70) {
             firstPageErrors += 1;
             usernameInputField.addClass("invalid-input");
+
 
             $("#client-side-error-username").css("display", "block");
 
@@ -90,6 +92,22 @@ $(document).ready(function () {
             }
 
             $("#client-side-error-username").css("display", "none");
+
+
+            CheckIfUsernameAvailable(usernameValue);
+
+            // Run this code to check if username already taken if the above checks are passed
+            // Controller validation using AJAX for username --> Controller returns true if username is not taken
+            // If already taken, the Controller returns 'false'
+            // If username is taken, this function displays an error message/hides the error message if not taken
+
+            //if (!isValid) {
+            //    firstPageErrors++;
+            //    $("#client-side-error-username-taken").css("display", "block");
+            //}
+            //else {
+            //    $("#client-side-error-username-taken").css("display", "none");
+            //}
         }
 
 
@@ -385,3 +403,27 @@ $(document).ready(function () {
     //$(".submit").click(function () {
     //    return false;
     //})
+
+
+// Sends the username using Ajax to the CheckUsername method in the ActionController
+// Returns false if username already exists in database and true otherwise
+function CheckIfUsernameAvailable(usernameValue) {
+
+    var username_data = { username: usernameValue };
+
+    var ajaxResult = $.ajax({
+        type: "POST",
+        url: "/Account/CheckUsername",
+        data: username_data,
+        success: function (response) {
+            if (response) {
+                $("#client-side-error-username-taken").css("display", "none");
+                console.log('worked');
+            }
+            else {
+                $("#client-side-error-username-taken").css("display", "block");
+                console.log("already exists");
+            }
+        }
+    });
+}
