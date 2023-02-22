@@ -216,3 +216,8 @@ C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\WebActivato
 C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\Antlr3.Runtime.dll
 C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\WebGrease.dll
 C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\bin\Debug\net6.0\libman.json
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\obj\Debug\net6.0\staticwebassets\msbuild.CBApp.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\obj\Debug\net6.0\staticwebassets\msbuild.build.CBApp.props
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CBApp.props
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.CBApp.props
+C:\Users\Ophelia\OneDrive\Documents\ASP\Final\CBApp\obj\Debug\net6.0\staticwebassets.pack.json

@@ -1020,7 +1020,7 @@ namespace CBApp.Controllers
                 }
             }
 
-            ModelState.AddModelError("", "Invalid username/password.");
+            ModelState.AddModelError("invalidLogin", "Invalid username/password combination!");
             return View(model);
         }
 
@@ -1061,6 +1061,12 @@ namespace CBApp.Controllers
             }
 
             return Json(result);
+        }
+
+        [HttpGet]
+        public ActionResult ViewProfile(string id = "")
+        {
+            return Content("SlackID: " + id.ToString());
         }
     }
     

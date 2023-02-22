@@ -12,7 +12,7 @@ var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
 
     <!-- MultiStep Form -->
     <div class="registration-container justify-content-left p-0">
-        <div class="wizard-page w-100 m-0 container-fluid p-0 align-self:center" id="grad1">
+        <div class="wizard-page w-100 m-0 container-fluid p-0 align-self:center">
         @*Attribution for complex Bootstrap responsive wizard form structure: https://bbbootstrap.com/snippets/multi-step-form-wizard-30467045 /*@
         @*Attribution for how to move a Bootstrap element further down the page: https://stackoverflow.com/questions/31574775/move-a-bootstrap-input-element-further-down-the-page*@
         <div class="row justify-content-left align-items-center mx-0 px-0 py-0 h-100">
@@ -22,7 +22,7 @@ var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
                     <p>Fill in all the form fields to go to the next step...</p>
                     <div class="row">
                         <div class="col mx-0">
-                            <form id="registration-form" method="post" asp-action="RegisterInSteps" style="background-color: black;">
+                            <form id="registration-form" method="post" asp-action="RegisterInSteps">
                                 <!-- progressbar -->
                                 <ul id="progressbar">
                                     @*SlackId, Username, Passwords*@
@@ -359,5 +359,12 @@ var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+@*Code-Connect-Create Graphics/Logo on right-hand-side of the screen*@
+<div class="splitscreen right">
+    <div class="slogan-container">
+        <img id="slogan-graphics" src="~/assets/codeConnectCreate.svg" alt="White text in black bubble background saying Code, Connect Create." />
     </div>
 </div>

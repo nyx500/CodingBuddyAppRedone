@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using CBApp.Models;
 using CBApp.Data.ConfigurationFiles;
 using System.Reflection.Emit;
+using Microsoft.AspNetCore.Hosting.Server;
 
 
 namespace CBApp.Data
@@ -21,8 +22,8 @@ namespace CBApp.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
                 optionsBuilder
-                .UseLazyLoadingProxies().
-                UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-CBApp-0EFDC2CE-E197-4185-AEEB-8A5182EBB5B5;Trusted_Connection=True;MultipleActiveResultSets=true");
+            .UseLazyLoadingProxies().
+                UseSqlServer("Server = tcp:codingbuddyappserver.database.windows.net, 1433; Initial Catalog = cbappdb; Persist Security Info = False; User ID = ophelia; Password =Gniezno55; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30; ");
         }
 
         //public DbSet<User> Users { get; set; }

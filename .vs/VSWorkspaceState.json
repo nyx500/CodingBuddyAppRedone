@@ -4,8 +4,11 @@
     "\\Controllers",
     "\\Models",
     "\\Views",
-    "\\Views\\Test"
+    "\\Views\\Account",
+    "\\Views\\Test",
+    "\\wwwroot",
+    "\\wwwroot\\css"
   ],
-  "SelectedNode": "\\CBApp.sln",
+  "SelectedNode": "\\Views\\Account\\Register.cshtml",
   "PreviewInSolutionExplorer": false
 }

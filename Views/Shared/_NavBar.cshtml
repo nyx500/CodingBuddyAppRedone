@@ -19,21 +19,23 @@
         <li class="list-item">
             <a>@Html.ActionLink("FAQ", "FAQ", "Home")</a>
         </li>
-        <li class="list-item">
-            <a>@Html.ActionLink("Questions", "Random", "Questions")</a>
-        </li>
     </ul>
     <ul id="login-list" class="login-signup-list">
             @if (signInManager.IsSignedIn(User))
-            {
+        {
+                @*Displays the username if the user is logged in*@
+                <li class="list-item">
+                    <a style="color:blueviolet!important; text-decoration: underline;">@User.Identity!.Name</a>
+                </li>
+
                 <li class="list-item">
                     <form method="post" asp-action="LogOut" asp-controller="Account"
                     asp-area="">
                     <input type="submit" value="Log Out"
                         class="btn" id="logout-button">
                     </form>
-                    <span class="text-light">@User.Identity!.Name</span>
-            </li>
+                </li>
+
         }
         else
         {
