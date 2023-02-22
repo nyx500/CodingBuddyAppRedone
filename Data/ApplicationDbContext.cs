@@ -7,6 +7,7 @@ using CBApp.Models;
 using CBApp.Data.ConfigurationFiles;
 using System.Reflection.Emit;
 using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.Extensions.Hosting;
 
 
 namespace CBApp.Data
@@ -23,7 +24,7 @@ namespace CBApp.Data
         {
                 optionsBuilder
             .UseLazyLoadingProxies().
-                UseSqlServer("Server = tcp:codingbuddyappserver.database.windows.net, 1433; Initial Catalog = cbappdb; Persist Security Info = False; User ID = ophelia; Password =Gniezno55; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30; ");
+                UseSqlServer("Server = tcp:codingbuddyappserver.database.windows.net, 1433; Initial Catalog = cbappdb; Persist Security Info = False; User ID = ophelia; Password =Gniezno55; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
         }
 
         //public DbSet<User> Users { get; set; }

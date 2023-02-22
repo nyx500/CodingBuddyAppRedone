@@ -277,18 +277,15 @@ will truncate terms that are too long to fit in the left column
     position: absolute;
     left: 0;
     top: 0;
+    bottom: 5px;
     background-color: black;
     color: white;
     /*border-right: 4px solid var(--mediumBlue); --> disliked by users! */
     z-index: 0;
     width: 45%;
-    height: fit-content;
+    height: 100%;
     display: flex;
     flex-direction: column;
-}
-
-.left {
-    /*height: 100%;*/
 }
 
 .left .splitscreen-textbox {
@@ -498,43 +495,27 @@ footer {
 
     /*Attribution (centering a div): https://www.w3schools.com/howto/howto_css_center-vertical.asp */
     .left, .about, .fullwidth-div {
-        height: fit-content;
-        position: absolute;
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
+        height: fit-content !important;
+        /* Important: if position were to be "absolute", then the main div 
+            would constantly shift down the page depending on the size
+        */
+        position: relative;
+        /*-ms-transform: translateY(-50%);*/
+       /* transform: translateY(-50%);*/
         width: 90%;
+        top: 0px;
         left: 5%;
-        margin-top: 100px;
-        margin-bottom: 100px;
         justify-content: space-evenly;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         justify-items: flex-start;
-        padding: 50px 10px;
-        overflow-y: auto;
         border-radius: 8px;
+        overflow: auto;
     }
-
-
-    .left {
-        top: 55%;
-    }
-
 
     #welcome-heading {
         margin-top: 0;
-    }
-
-    .about {
-        transform: translateY(10%);
-        margin-top: 120px;
-        margin-bottom: 50px;
-    }
-
-    .fullwidth-div {
-        transform: translateY(16%);
-        margin-top: -100px;
     }
 
     .left:after, .about:after, .fullwidth-div:after {
@@ -764,15 +745,25 @@ fieldset label{
 .form-control
 {
     display: block;
-    padding: 12px!important;
-    width: 80%;
+    width: 70%!important;
+    padding: 10px;
     color:black;
     border-radius:8px!important;
     border: 4px solid var(--mediumBlue)!important;
 }
 
+
+#slack-id-label, #username-label, #password-label, #confirm-password-label {
+    color:white;
+    margin-bottom: 20px;
+    position: relative;
+    float: left!important;
+    display:block;
+}
+
 .control-label
 {
+    float:left!important;
     color:white!important;
 }
 
@@ -783,7 +774,6 @@ fieldset label{
     border-radius: 0px;
     margin-bottom: 25px;
     margin-top: 2px;
-    width: 100%;
     color: white;
     font-size: 16px;
     letter-spacing: 1px;

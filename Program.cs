@@ -14,26 +14,31 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString1 = builder.Configuration.GetConnectionString("ApplicationDbContext");
 var connectionString2 = builder.Configuration.GetConnectionString("ApplicationDbContextRemote");
 
-
-// Dependency injection for Questions DB context class
-if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
-{
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
    options.UseSqlServer(
        builder.Configuration.GetConnectionString("ApplicationDbContextRemote")
       )
    );
-}
-else
-{
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("ApplicationDbContext")
-       )
-    );
 
-    builder.Services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
-}// AddDbContext creates a DbContextOptions object with settings for database server/connection string
+//// Dependency injection for Questions DB context class
+//if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+//{
+//    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//   options.UseSqlServer(
+//       builder.Configuration.GetConnectionString("ApplicationDbContextRemote")
+//      )
+//   );
+//}
+//else
+//{
+//    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(
+//        builder.Configuration.GetConnectionString("ApplicationDbContext")
+//       )
+//    );
+
+//    builder.Services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
+//}// AddDbContext creates a DbContextOptions object with settings for database server/connection string
 
 
 // Set up password options so that this is easy to test --> when app is working and unit tested,

@@ -69,6 +69,7 @@ $(document).ready(function () {
             slackIdInputField.addClass("invalid-input");
 
             $("#client-side-error-slack-id").css("display", "block");
+            $("#slack-id-label").css("display", "none");
         }
         else {
 
@@ -77,6 +78,7 @@ $(document).ready(function () {
             }
 
             $("#client-side-error-slack-id").css("display", "none");
+            $("#slack-id-label").css("display", "block");
 
             var slackIdNotAvailable = CheckIfSlackIdAvailable(slackIdValue);
             if (slackIdNotAvailable) {
@@ -92,6 +94,7 @@ $(document).ready(function () {
 
 
             $("#client-side-error-username").css("display", "block");
+            $("#username-label").css("display", "none");
 
         }
         else {
@@ -100,6 +103,7 @@ $(document).ready(function () {
             }
 
             $("#client-side-error-username").css("display", "none");
+            $("#username-label").css("display", "block");
 
 
             var usernameNotAvailable = (CheckIfUsernameAvailable(usernameValue));
@@ -117,12 +121,14 @@ $(document).ready(function () {
             firstPageErrors += 1;
             passwordInputField.addClass("invalid-input");
             $("#client-side-error-password").css("display", "block");
+            $("#password-label").css("display", "none");
         }
         else {
             if (passwordInputField.hasClass("invalid-input")) {
                 passwordInputField.removeClass("invalid-input");
             }
             $("#client-side-error-password").css("display", "none");
+            $("#password-label").css("display", "block");
         }
 
         // Validation of passwords matching
@@ -130,12 +136,14 @@ $(document).ready(function () {
             firstPageErrors += 1;
             confirmPasswordInputField.addClass("invalid-input");
             $("#client-side-error-confirm-password").css("display", "block");
+            $("#confirm-password-label").css("display", "none");
         }
         else {
             if (confirmPasswordInputField.hasClass("invalid-input")) {
                 confirmPasswordInputField.removeClass("invalid-input");
             }
             $("#client-side-error-confirm-password").css("display", "none");
+            $("#confirm-password-label").css("display", "block");
         }
 
         // Only let user continue if there are no errors
