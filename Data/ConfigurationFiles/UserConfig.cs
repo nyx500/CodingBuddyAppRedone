@@ -25,6 +25,9 @@ namespace CBApp.Data.ConfigurationFiles
 
             entity.Property(u => u.UserName);
 
+            entity.Property(u => u.Picture);
+            entity.Property(u => u.PictureFormat);
+
             // Make UserName unique
             entity.HasIndex(u => u.UserName)
                 .IsUnique();

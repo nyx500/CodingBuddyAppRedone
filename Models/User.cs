@@ -49,11 +49,15 @@ namespace CBApp.Models
         //[Required(ErrorMessage = "Please select some hobbies and interests!")]
         public virtual ICollection<HobbyUser>? HobbyUsers { get; set; }
 
+
+        // Users' relationships with other users (many-to-many rels)
         public virtual ICollection<Likes>? UsersLiked { get; set; }
         public virtual ICollection<Likes>? LikedBy { get; set; }
 
         public virtual ICollection<Rejections>? UsersRejected { get; set; }
         public virtual ICollection<Rejections>? RejectedBy { get; set; }
+
+        // Users' questions & answers for "Random Question Generator"
         public virtual ICollection<QuestionAnswerBlock>? QuestionAnswerBlocks { get; set; }
 
 
@@ -62,6 +66,10 @@ namespace CBApp.Models
         public string? Bio { get; set; }
         public int? GenderId { get; set; } // foreign key
         public virtual Gender? Gender { get; set; } // navigation property
+
+        // Attribution: https://www.johansmarius.dev/2021/12/using-pictures-in-aspnet-mvc-core-with.html
+        public byte[]? Picture { get; set; }
+        public string? PictureFormat { get; set; }
 
 
     }

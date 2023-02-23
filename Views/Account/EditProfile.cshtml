@@ -1,0 +1,70 @@
+﻿@model EditUserViewModel
+
+@*Stylesheet link:*@
+<link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+
+@{
+ViewBag.Title = "My Profile";
+}
+
+<h2 class="profile-header"><strong>Edit Profile</strong></h2>
+<div class="profile-wrapper">
+    @* radio buttons will be hidden, are there just to enable
+        selection of correct tabs
+    *@
+    <input class="radio" id="radio-one" name="group" type="radio" checked>
+    <input class="radio" id="radio-two" name="group" type="radio">
+    <input class="radio" id="radio-three" name="group" type="radio">
+    <input class="radio" id="radio-four" name="group" type="radio">
+
+    @* The actual tabs *@
+    <div class="tabs">
+        <label class="tab" id="tab-one" for="radio-one">Account</label>
+        <label class="tab" id="tab-two" for="radio-two">Coding Preferences</label>
+        <label class="tab" id="tab-three" for="radio-three">Hobbies</label>
+        <label class="tab" id="tab-four" for="radio-four">Random Question Generator</label>
+    </div>
+
+    @* The actual tabs' screens containing the forms and information *@
+    <div class="panels">
+        <div class="panel" id="panel-one">
+            <div id="basic-info-first-col">
+                <div class="panel-title">@Html.DisplayFor(model => model.UserName)</div>
+                <div id="profile-picture-wrapper">
+                    @{
+                        if (Model.ImageSrc == null)
+                        {
+                            <img id="profile-picture" src="~/assets/user.png" />
+                        }
+                        else
+                        {
+                            <img id="profile-picture" src="@Model.ImageSrc" />
+                        }
+                    }
+                </div>
+                <div id="profile-picture-form-wrapper">
+                    <form id="profile-picture-form" method="post"  enctype="multipart/form-data">
+                        <label for="profile-picture-input">Update profile picture (only .png or .jpg files please):</label>
+                        @* File should only be an image, so use 'accept' syntax here *@
+                        <input id="profile-picture-input" name="profile-picture" accept="image/png, image/jpeg, image/jpg, image/x-png" type="file" size="1" />
+                    </form>
+                </div>
+            </div>
+            <div id="basic-info-second-col">
+                Lorem ipsum 2...
+            </div>
+        </div>
+        <div class="panel" id="panel-two">
+            <div class="panel-title">Coding Preferences</div>
+            <p>Content2</p>
+        </div>
+        <div class="panel" id="panel-three">
+            <div class="panel-title">Hobbies</div>
+            <p>Content3</p>
+        </div>
+        <div class="panel" id="panel-four">
+            <div class="panel-title">Random Question Generator</div>
+            <p>Content4</p>
+        </div>
+    </div>
+</div>

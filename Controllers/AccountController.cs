@@ -6,11 +6,21 @@ using CBApp.Data;
 using System.Text.RegularExpressions;
 using System.Net;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using System.Security.Claims;
 
 namespace CBApp.Controllers
 {
     public class AccountController : Controller
     {
+        // Needed for file uploads
+        // Attribution: https://www.aspsnippets.com/questions/130814/Upload-Form-data-and-File-in-ASPNet-Core-using-jQuery-Ajax/
+        private IWebHostEnvironment Environment;
+
 
         /**
          * Provides the Database Context object passed in through constructor’s parameter,
@@ -19,11 +29,12 @@ namespace CBApp.Controllers
       */
         private ApplicationDbContext? context;
         public AccountController(ApplicationDbContext _context, UserManager<User> _userManager,
-            SignInManager<User> _signInManager)
+            SignInManager<User> _signInManager, IWebHostEnvironment _environment)
         {
             context = _context;
             userManager = _userManager;
             signInManager = _signInManager;
+            Environment = _environment;
         }
 
         private UserManager<User> userManager;
@@ -1068,7 +1079,90 @@ namespace CBApp.Controllers
         {
             return Content("SlackID: " + id.ToString());
         }
-    }
-    
+
+        /** Make this route only accessible if user is logged in! */
+        [Authorize]
+        [HttpGet]
+        public ActionResult EditProfile()
+        {
+            // Get the current user
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+            EditUserViewModel model = new EditUserViewModel();
+            model.UserName = user.UserName;
+
+            if (user.PictureFormat != null)
+            {
+                // Attribution: converting bytes to image (https://stackoverflow.com/questions/17952514/asp-net-mvc-how-to-display-a-byte-array-image-from-model)
+                // Get the mime type
+                string picFormat = user.PictureFormat!.Substring(1);
+                string mimeType = "image/" + picFormat;
+                string base64 = Convert.ToBase64String(user!.Picture);
+                model.ImageSrc = string.Format("data:{0};base64,{1}", mimeType, base64);
+            }
+            else
+            {
+                model.ImageSrc = null;
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public JsonResult UploadPicture(IFormFile file)
+        {   
+            // Validate file exists
+            if (file != null)
+            {   
+                // Validate file is not empty
+                if (file.Length > 0)
+                {
+                    // Validation Attribution: https://stackoverflow.com/questions/11063900/determine-if-uploaded-file-is-image-any-format-on-mvc
+                    // Checks if the file uploaded is really an image
+                    if (file.ContentType.ToLower() != "image/jpg" &&
+                        file.ContentType.ToLower() !=  "image/png" &&
+                        file.ContentType.ToLower() != "image/x-png" &&
+                        file.ContentType.ToLower() != "image/jpeg")
+                    {
+                        return Json(new { error = "Bad image type!" });
+                    }
+
+                    if (Path.GetExtension(file.FileName).ToLower() != ".jpg"
+                        && Path.GetExtension(file.FileName).ToLower() != ".png"
+                        && Path.GetExtension(file.FileName).ToLower() != ".jpeg")
+                    {
+                        return Json(new { error = "Bad image extension!" });
+                    }
+
+                    // Attribution: how to upload files to database https://tutexchange.com/how-to-upload-files-and-save-in-database-in-asp-net-core-mvc/
+                    // Getting FileName
+                    var fileName = Path.GetFileName(file.FileName);
+                    // Get file extension
+                    string fileExtension = Path.GetExtension(fileName);
+                    // concatenating  FileName + FileExtension
+                    var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
+
+                    // Find the currently-logged in user by username
+                    var username = User.Identity!.Name;
+                    User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+                    user.PictureFormat = fileExtension;
+
+                    using (var target = new MemoryStream()) {
+                        file.CopyTo(target);
+                        user.Picture = target.ToArray();
+                    }
+
+                    context.SaveChanges();
+
+                    return Json(new { success = "New file selected!", didItWork = user.Picture.ToString() });
+                }
+
+            }
+
+            return Json(new { error = "No file chosen/invalid file!" });
+        }     
+    } 
 }
 

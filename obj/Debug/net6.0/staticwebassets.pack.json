@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\CBApp.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\Photos\\Photos",
+      "PackagePath": "staticwebassets\\Photos"
+    },
+    {
       "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\assets\\background.png",
       "PackagePath": "staticwebassets\\assets\\background.png"
     },
@@ -19,6 +23,10 @@
     {
       "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\assets\\logo_icon.png",
       "PackagePath": "staticwebassets\\assets\\logo_icon.png"
+    },
+    {
+      "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\assets\\user.png",
+      "PackagePath": "staticwebassets\\assets\\user.png"
     },
     {
       "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\css\\fonts\\Anton\\Anton-Regular.ttf",
@@ -53,12 +61,20 @@
       "PackagePath": "staticwebassets\\css\\fonts\\glyphicons-halflings-regular.woff2"
     },
     {
+      "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\css\\profile.css",
+      "PackagePath": "staticwebassets\\css\\profile.css"
+    },
+    {
       "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\js\\profile.js",
+      "PackagePath": "staticwebassets\\js\\profile.js"
     },
     {
       "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\js\\site.js",
