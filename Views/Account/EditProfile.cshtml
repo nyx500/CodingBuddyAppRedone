@@ -29,7 +29,6 @@ ViewBag.Title = "My Profile";
     <div class="panels">
         <div class="panel" id="panel-one">
             <div id="basic-info-first-col">
-                <div class="panel-title">@Html.DisplayFor(model => model.UserName)</div>
                 <div id="profile-picture-wrapper">
                     @{
                         if (Model.ImageSrc == null)
@@ -49,9 +48,33 @@ ViewBag.Title = "My Profile";
                         <input id="profile-picture-input" name="profile-picture" accept="image/png, image/jpeg, image/jpg, image/x-png" type="file" size="1" />
                     </form>
                 </div>
+                <div id="career-phase-wrapper">
+                    @{
+                        if (Model.CareerPhase.Name == "Starter")
+                        {
+                            <div>Career Starter</div>
+                        }
+                        else if (Model.CareerPhase.Name == "Changer")
+                        {
+                            <div>Career Changer</div>
+                        }
+                        else
+                        {
+                            <div>Career Developer</div>
+                        }
+                    }
+                </div>
+                <div id="experience-level-wrapper">
+                    <div>
+                        @Html.DisplayFor(model => model.ExperienceLevel.Name)
+                    </div>
+                </div>
             </div>
             <div id="basic-info-second-col">
-                Lorem ipsum 2...
+                <h3 id="username-title"><b>@Html.DisplayFor(model => model.UserName)</b></h3>
+                <h5 id="slack-id-subtitle">
+                    SlackId: @Html.DisplayFor(model => model.SlackId)
+                </h5>
             </div>
         </div>
         <div class="panel" id="panel-two">

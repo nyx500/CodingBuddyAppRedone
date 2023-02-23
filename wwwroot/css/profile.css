@@ -41,7 +41,7 @@
     left: 0;
     right: 0;
     margin-top: 80px;
-    height: 100%;
+    height: 120%;
     color: black;
 }
 
@@ -70,7 +70,7 @@
     width: 100%;
     border-radius: 3px;
     overflow: auto;
-    padding: 20px;
+    padding-top: 20px;
 }
 
 /* Style for each panel: hide unless clicked on the corresponding tab! */
@@ -130,15 +130,15 @@
     gap: 40px;
 }
 
+/* Styling for panel heading */
 .panel-title{
     margin-bottom: 40px;
 }
 
+/* Panel 1 layout */
 #panel-one div{
     margin-left: 30px;
 }
-
-
 #basic-info-first-col, #basic-info-second-col {
     display: flex;
     flex-direction: column;
@@ -146,34 +146,27 @@
     justify-items: flex-start;
     align-items: flex-start;
 }
-
 #basic-info-first-col {
     width: 35%;
 }
 
-#basic-info-second-col {
-    margin-top: 80px;
-}
-
+/* Profile picture styling (form and image) */
 #profile-picture {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
+    border-radius: 10%;
+    width: 180px;
+    height: auto;
     border: 4px solid black;
 }
-
 #profile-picture-form-wrapper{
     margin: 20px;
 }
-
 #profile-picture-form label {
     width: 250px;
 }
-
 #profile-picture-input {
     margin-top: 20px;
 }
-
+/* Styling for the "Choose file..." button to select a file from local disk*/
 #profile-picture-input::file-selector-button {
     border-radius: 12px;
     background-color: var(--mediumBlue);
@@ -182,8 +175,23 @@
     padding: 10px;
     margin-right: 10px;
 }
-
+/* Change colour of "Choose file..." button when move over it */
 #profile-picture-input::file-selector-button:hover {
     background-color: var(--palePurple);
     color: black;
+}
+
+#career-phase-wrapper, #experience-level-wrapper, #career-phase-wrapper div, #experience-level-wrapper div{
+    margin:0;
+    margin-bottom: 10px;
+    padding:0;
+}
+
+#career-phase-wrapper div, #experience-level-wrapper div {
+    background-color: var(--palePurple);
+    padding: 10px;
+    border: 4px solid black;
+    border-radius: 20px;
+    width: 180px;
+    text-align: center;
 }

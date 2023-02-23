@@ -1090,6 +1090,16 @@ namespace CBApp.Controllers
             User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
             EditUserViewModel model = new EditUserViewModel();
             model.UserName = user.UserName;
+            model.SlackId = user.SlackId;
+            model.CareerPhase = user.CareerPhase;
+            model.ExperienceLevel = user.ExperienceLevel;
+            model.LanguageNames = new List<string>();
+
+            foreach (NaturalLanguageUser n in user.NaturalLanguageUsers)
+            {
+                string languageName = n.NaturalLanguage.Name;
+                model.LanguageNames.Add(languageName);
+            }
 
             if (user.PictureFormat != null)
             {
@@ -1097,7 +1107,7 @@ namespace CBApp.Controllers
                 // Get the mime type
                 string picFormat = user.PictureFormat!.Substring(1);
                 string mimeType = "image/" + picFormat;
-                string base64 = Convert.ToBase64String(user!.Picture);
+                string base64 = Convert.ToBase64String(user.Picture);
                 model.ImageSrc = string.Format("data:{0};base64,{1}", mimeType, base64);
             }
             else
