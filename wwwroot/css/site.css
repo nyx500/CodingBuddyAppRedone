@@ -1033,7 +1033,7 @@ select.list-dt {
 }
 
 .edit-profile-checkbox-container{
-    width: 80%;
+    width: 100%;
     margin-bottom: 100px;
 }
 
@@ -1161,8 +1161,9 @@ select.list-dt {
 /* The container for all the 4 separate panels here: */
 .panels {
     background-color: var(--periwinkle);
-    height: 120%;
-    width: 100%;
+    height: fit-content;
+    padding-bottom: 50px;
+    padding-right: 200px !important;
     border-radius: 3px;
     overflow: initial;
     padding-top: 20px;
