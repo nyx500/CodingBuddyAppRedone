@@ -6,6 +6,7 @@
     "\\Models",
     "\\Views",
     "\\Views\\Account",
+    "\\Views\\Shared",
     "\\Views\\Test",
     "\\wwwroot",
     "\\wwwroot\\css"

@@ -48,7 +48,9 @@ ViewBag.Title = "My Profile";
                         <input id="profile-picture-input" name="profile-picture" accept="image/png, image/jpeg, image/jpg, image/x-png" type="file" size="1" />
                     </form>
                 </div>
-                <div id="career-phase-wrapper">
+                @* User's experience level and career phase elements*@
+                @* Wrap each section in a flexbox form row to put 'change/edit' button INLINE next to the information section *@
+                <div class="edit-profile-form-row" id="career-phase-wrapper">
                     @{
                         if (Model.CareerPhase.Name == "Starter")
                         {
@@ -63,18 +65,64 @@ ViewBag.Title = "My Profile";
                             <div>Career Developer</div>
                         }
                     }
+                    <button class="edit-button" id="edit-career-phase">Edit</button>
                 </div>
-                <div id="experience-level-wrapper">
+                <div class="edit-profile-form-row" id="experience-level-wrapper">
                     <div>
                         @Html.DisplayFor(model => model.ExperienceLevel.Name)
                     </div>
+                    <button class="edit-button" id="edit-experience-level">Edit</button>
                 </div>
             </div>
+            @* Second column of data *@
             <div id="basic-info-second-col">
-                <h3 id="username-title"><b>@Html.DisplayFor(model => model.UserName)</b></h3>
-                <h5 id="slack-id-subtitle">
-                    SlackId: @Html.DisplayFor(model => model.SlackId)
-                </h5>
+                @* Username?SlackId data + form *@
+                <div class="edit-profile-form-row">
+                    @* Edit Username Form *@
+                    <form class="hidden" id="edit-username-form">
+                        @* Hidden error message: display only if bad input *@
+                        @* Label for username text input *@
+                        <label id="username-input-label" for="edit-username-input">Change username:</label>
+                        @* File should only be an image, so use 'accept' syntax here *@
+                        <input id="edit-username-input" name="edit-username" type="text" placeholder="@Html.DisplayFor(model => model.UserName)" />
+                        <button id="save-username-input-button" class="save-button" type="submit">Save</button>
+                    </form>
+                    <h2 id="username-title"><b>@Html.DisplayFor(model => model.UserName)</b></h2>
+                    <button class="edit-button" id="edit-username">Change</button>
+                </div>
+                <div class="edit-profile-form-row">
+                    <h5 id="slack-id-subtitle">
+                        SlackId: @Html.DisplayFor(model => model.SlackId)
+                    </h5>
+                </div>
+                @* Bio data + form *@
+                <div class="edit-profile-form-row">
+                    @{
+                        if (Model.Bio == null)
+                        {
+                            <button class="add-button">Add Bio</button>
+                        }
+                        else
+                        {   <h5>Bio:</h5>
+                            <p>@Html.DisplayFor(model => model.Bio)</p>
+                        }
+                    }
+                </div>
+                @* Languages spoken data and form *@
+                <div id="languages-wrapper" class="edit-profile-form-column">
+                    <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Languages Spoken:</p>
+                    <ul class="preference-list">
+                    @for (var i = 0; i < Model.LanguageNames!.Count(); i++)
+                    {   
+                        <li>
+                            <div class="preference-container">
+                                @Html.DisplayFor(model=>model.LanguageNames![i])
+                            </div>
+                        </li>
+                    }
+                    </ul>
+                    <button class="edit-button" id="edit-languages-spoken">Edit</button>
+                </div>
             </div>
         </div>
         <div class="panel" id="panel-two">

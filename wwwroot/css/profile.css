@@ -127,7 +127,7 @@
 */
 #panel-one {
     justify-content: flex-start;
-    gap: 40px;
+    gap: 20px;
 }
 
 /* Styling for panel heading */
@@ -137,7 +137,7 @@
 
 /* Panel 1 layout */
 #panel-one div{
-    margin-left: 30px;
+    margin-left: 20px;
 }
 #basic-info-first-col, #basic-info-second-col {
     display: flex;
@@ -150,6 +150,54 @@
     width: 35%;
 }
 
+/* Code to put "edit" button next to the item of data shown */
+.edit-profile-form-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    justify-items: flex-start;
+    align-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.edit-profile-form-column {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    justify-items: center;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+
+.edit-button {
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 2px solid white;
+}
+
+.edit-button:hover {
+    background-color: var(--mediumBlue);
+}
+
+.add-button {
+    background-color: black;
+    color: var(--peachyYellow);
+    border-radius: 10px;
+    border: 2px solid var(--peachyYellow);
+    padding: 10px 20px;
+}
+
+.add-button:hover {
+    background-color: blue;
+}
+
+/**************First Column in Panel One*****************************/
 /* Profile picture styling (form and image) */
 #profile-picture {
     border-radius: 10%;
@@ -181,12 +229,12 @@
     color: black;
 }
 
+/* Career-Phase and Experience-Level text styling */
 #career-phase-wrapper, #experience-level-wrapper, #career-phase-wrapper div, #experience-level-wrapper div{
     margin:0;
     margin-bottom: 10px;
     padding:0;
 }
-
 #career-phase-wrapper div, #experience-level-wrapper div {
     background-color: var(--palePurple);
     padding: 10px;
@@ -194,4 +242,96 @@
     border-radius: 20px;
     width: 180px;
     text-align: center;
+}
+/**************Second Column in Panel One*****************************/
+#username-title{
+    margin-bottom: 20px;
+}
+
+#slack-id-subtitle{
+    margin-bottom: 20px;
+}
+
+
+/** For lists for langs/interests*/
+
+#languages-wrapper {
+    margin-top: 50px;
+}
+
+.interests-skills-subtitle {
+    font-weight: bolder;
+}
+
+.preference-list {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+
+}
+
+.preference-list li {
+    display: inline-block;
+}
+
+.preference-container {
+    background-color: var(--palePurple);
+    padding: 10px 20px;
+    border: 2px solid black;
+    color: black;
+    border-radius: 40px;
+}
+
+/* Button to edit languages */
+#edit-languages-spoken
+{
+    padding: 10px 20px;
+    width: 200px;
+    margin-bottom: 100px;
+}
+
+/*****************Hidden Forms******************/
+.hidden {
+    display: none;
+}
+
+.save-button {
+   background-color: var(--mediumBlue);
+   color: white;
+   padding: 5px 10px;
+   border-radius: 10px;
+   border: 2px solid black;
+}
+
+.save-button:hover {
+    background-color: var(--palePurple);
+    color: black;
+    border: 2px solid black;
+}
+
+.error-label {
+    color: red;
+}
+
+#edit-username-form {
+    margin: 20px; 
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+}
+
+#edit-username-form input {
+    margin-left: 20px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+/* Highlight username input when selected */
+#edit-username-form input:focus {
+    background-color: var(--palePurple);
+}
+
+#edit-username-form label {
+    font-weight: bolder;
 }
