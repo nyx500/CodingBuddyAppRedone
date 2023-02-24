@@ -1189,6 +1189,7 @@ select.list-dt {
 .panel-title {
     font-size: 1.5em;
     font-weight: bold;
+    padding: 10px;
 }
 
 /* If the corresponding radio-button is checked for that panel, then display the panel
@@ -1227,6 +1228,11 @@ select.list-dt {
     gap: 20px;
 }
 
+#panel-two {
+    justify-content: center;
+    gap: 20px;
+}
+
 /* Styling for panel heading */
 .panel-title {
     margin-bottom: 40px;
@@ -1237,6 +1243,8 @@ select.list-dt {
     margin-left: 20px;
 }
 
+
+/* Panel 1 cols */
 #basic-info-first-col, #basic-info-second-col {
     display: flex;
     flex-direction: column;
@@ -1247,6 +1255,18 @@ select.list-dt {
 
 #basic-info-first-col {
     width: 35%;
+}
+
+/* Panels 2 and 3 cols*/
+#panel-two-col {
+    display: flex;
+    flex-direction: column!important;
+    flex-wrap: nowrap!important;
+    justify-content: flex-start;
+    justify-items: flex-start;
+    align-items: flex-start;
+    margin-bottom: 60px;
+    margin-left: 20%;
 }
 
 /* Code to put "edit" button next to the item of data shown */
@@ -1376,9 +1396,18 @@ select.list-dt {
 
 /** For lists for langs/interests*/
 
-#languages-wrapper {
-    margin-top: 50px;
+#languages-wrapper, #programming-languages-wrapper, #interests-wrapper {
+    margin-top: 0px;
 }
+
+#programming-languages-wrapper, #interests-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+ #programming-languages-wrapper {
+     margin-bottom: 40px;
+ }
 
 .interests-skills-subtitle {
     font-weight: bolder;
@@ -1390,9 +1419,9 @@ select.list-dt {
     padding-left: 0;
 }
 
-    .preference-list li {
-        display: inline-block;
-    }
+.preference-list li {
+    display: inline-block;
+}
 
 .preference-container {
     background-color: var(--palePurple);
@@ -1400,6 +1429,7 @@ select.list-dt {
     border: 2px solid black;
     color: black;
     border-radius: 40px;
+    margin: 10px;
 }
 
 /* Button to edit languages */

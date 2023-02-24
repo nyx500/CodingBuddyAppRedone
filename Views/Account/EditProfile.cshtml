@@ -29,6 +29,8 @@ ViewBag.Title = "My Profile";
     <div class="panels">
         <div class="panel" id="panel-one">
             <div id="basic-info-first-col">
+
+                 @*Start of profile picture section*@
                 <div id="profile-picture-wrapper">
                     @{
                         if (Model.ImageSrc == null)
@@ -41,6 +43,7 @@ ViewBag.Title = "My Profile";
                         }
                     }
                 </div>
+                  @*Profile picture upload form*@
                 <div id="profile-picture-form-wrapper">
                     <form id="profile-picture-form" method="post"  enctype="multipart/form-data">
                         <label for="profile-picture-input">Update profile picture (only .png or .jpg files please):</label>
@@ -48,7 +51,9 @@ ViewBag.Title = "My Profile";
                         <input id="profile-picture-input" name="profile-picture" accept="image/png, image/jpeg, image/jpg, image/x-png" type="file" size="1" />
                     </form>
                 </div>
-                @* User's experience level and career phase elements*@
+                @*End of profile picture section*@
+
+                @*Career Phase and Experience Level Section*@
                 @* Wrap each section in a flexbox form row to put 'change/edit' button INLINE next to the information section *@
                 <div class="edit-profile-form-row" id="career-phase-wrapper">
                     @{
@@ -67,7 +72,8 @@ ViewBag.Title = "My Profile";
                     }
                     <button class="edit-button" id="edit-career-button">Edit</button>
                 </div>
-
+                
+                @*Career Phase Dropdown*@
                 <div id="career-dropdown" class="hidden" style="display: none;">
                     <label id="career-error-label"></label>
                     @Html.DropDownListFor(model => model.SelectedCareerPhaseId, new
@@ -78,6 +84,7 @@ ViewBag.Title = "My Profile";
                         <button class="cancel-button" id="cancel-career-button">Cancel</button>
                     </div>
                 </div>
+                @*End of Career Phase Dropdown*@
 
                 @*Experience Level*@
                 <div class="edit-profile-form-row" id="experience-level-wrapper">
@@ -86,7 +93,7 @@ ViewBag.Title = "My Profile";
                     </div>
                     <button class="edit-button" id="edit-experience-level">Edit</button>
                 </div>
-
+                @*Experience Level Dropdown*@
                 <div id="experience-dropdown" class="hidden" style="display: none;">
                     <label id="experience-error-label"></label>
                     @Html.DropDownListFor(model => model.SelectedExperienceLevelId, new
@@ -97,12 +104,17 @@ ViewBag.Title = "My Profile";
                         <button class="cancel-button" id="cancel-experience-button">Cancel</button>
                     </div>
                 </div>
+                @*End of Experience Level Dropdown*@
+                 @*End of Career Phase and Experience Level Section*@
+            </div> 
+            @*End of left column*@
 
-            </div>
-            @* Second column of data *@
+            @* Second column on the right *@
             <div id="basic-info-second-col">
-                @* Username?SlackId data + form *@
+
+                @* Username and SlackId data + form *@
                 <div class="edit-profile-form-row">
+
                     @* Edit Username Form *@
                     <form class="hidden" id="edit-username-form">
                         @* Hidden error message: display only if bad input *@
@@ -116,12 +128,18 @@ ViewBag.Title = "My Profile";
                     <h2 id="username-title"><b>@Html.DisplayFor(model => model.UserName)</b></h2>
                     <button class="edit-button" id="edit-username">Change</button>
                 </div>
+                 @* End of Edit Username Form *@
+
+                 
+                 @*Slack ID Section *@
                 <div class="edit-profile-form-row">
                     <h5 id="slack-id-subtitle">
                         <b>SlackId:</b> @Html.DisplayFor(model => model.SlackId)
                     </h5>
                 </div>
-                @* Bio data + form *@
+                 @*End of Slack ID Section *@
+
+                @* Bio data + form section *@
                 <div class="edit-profile-form-row">
                     <div id="bio-section">
                     @{
@@ -137,7 +155,7 @@ ViewBag.Title = "My Profile";
                         }
                     }
                     </div>
-
+                        @*Bio form*@
                         <form class="hidden" id="edit-bio-form">
                             <div>
                                 @* Hidden error message: display only if bad input *@
@@ -151,6 +169,7 @@ ViewBag.Title = "My Profile";
                             </div>
                         </form>
                         <br />
+                        @*End of Bio form*@
                 </div>
                 @* Bio buttons (in a separate row: MUST go below the textarea form!)*@
                 <div class="edit-profile-form-row">
@@ -159,8 +178,10 @@ ViewBag.Title = "My Profile";
                         <button class="cancel-button" id="cancel-bio-button">Cancel</button>
                     </div>
                 </div>
+                @* End of Bio section*@
 
-                @* Languages spoken data and form *@
+                @* Languages Spoken data and form *@
+                @*Languages spoken data*@
                 <div id="languages-wrapper" class="edit-profile-form-column">
                     <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Languages Spoken:</p>
                     <ul class="preference-list">
@@ -175,7 +196,8 @@ ViewBag.Title = "My Profile";
                     </ul>
                     <button class="edit-button" id="edit-languages-spoken">Edit</button>
                 </div>
-
+                 @*End of languages spoken data*@
+                  @*Languages spoken form*@
                  <div class="form-group edit-profile-form-column hidden" id="language-selection-container">
 
                     <span class="flex-row"><label id="lang-label"><b>Reset languages:</b></label> 
@@ -199,15 +221,125 @@ ViewBag.Title = "My Profile";
                                   </li>
                             }
                         </ul>
-                        </div>
-                        
+                    </div>    
                  </div>
+                  @*End of languages spoken form*@
+
+            </div>
+            @* End of natural languages section*@
+
+        </div>
+        @* End of first page/panel of the whole EditProfile View*@
+
+        @* Start of second panel*@
+        <div class="panel" id="panel-two">
+            <div id="panel-two-col">
+                
+                <div class="panel-title">Coding Preferences</div>
+                    
+                 @* Programming Languages *@
+                <div id="programming-languages-wrapper" class="edit-profile-form-column">
+
+                    @* Programming Languages Data*@
+                    <div id="programming-languages-data">
+                        <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Favourite Programming Languages:</p>
+                        <ul class="preference-list">
+                        @for (var i = 0; i < Model.ProgrammingLanguageNames!.Count(); i++)
+                        {   
+                            <li>
+                                <div class="preference-container">
+                                    @Html.DisplayFor(model=>model.ProgrammingLanguageNames![i])
+                                </div>
+                            </li>
+                        }
+                        </ul>
+                        <div>
+                            <button class="edit-button" id="edit-programming-languages">Edit</button>
+                        </div> 
+                    </div>
+
+
+                    @*Form to change programming languages*@
+                     <div class="form-group edit-profile-form-column hidden" id="programming-language-selection-container">
+
+                        <span class="flex-row"><label id="programming-lang-label"><b>Change programming languages:</b></label> 
+                            <div id="programming-lang-buttons">
+                                <button class="save-button" id="save-programming-lang-button">Save</button>
+                                <button class="cancel-button" id="cancel-programming-lang-button">Cancel</button>
+                            </div>
+                        </span>
+                 
+                         <div class="checkbox-container edit-profile-checkbox-container">
+                            <ul class="checkbox-unordered-list">
+                                @for (var i = 0; i < Model.ProgrammingLanguagesViewModelList!.Count(); i++)
+                                {     
+                                      // Create an ID property for each checkbox by concatenating a string with the index-number
+                                      var checkboxId = "edit-programming-lang-checkbox-" + (i + 1).ToString();
+                                      <li>
+                                           <input class="edit-programming-lang-checkbox" type="checkbox" id=@checkboxId>
+                                            @Html.Label(Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name,Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name,
+                                            htmlAttributes: new { @for = checkboxId })
+                                      </li>
+                                }
+                            </ul>
+                        </div>   
+                    </div>
+                 @*End of form to change programming languages*@
+                </div>
+                 @*End of form to change programming languages section*@
+
+
+                @* CS Interests *@
+                <div id="interests-wrapper" class="edit-profile-form-column">
+                    @* CS Interests User Data *@
+                    <div id="cs-interests-data">
+                        <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Computer Science Interests:</p>
+                        <ul class="preference-list">
+                        @for (var i = 0; i < Model.CSInterestNames!.Count(); i++)
+                        {   
+                            <li>
+                                <div class="preference-container">
+                                    @Html.DisplayFor(model=>model.CSInterestNames![i])
+                                </div>
+                            </li>
+                        }
+                        </ul>
+                        <button class="edit-button" id="edit-cs-interests">Edit</button>
+                    </div>
+
+
+                    @*Form to change CS interests*@
+                     <div class="form-group edit-profile-form-column hidden" id="cs-interest-selection-container">
+
+                        <span class="flex-row"><label id="cs-interest-label"><b>Change Computer Science interests:</b></label> 
+                            <div id="cs-interest-buttons">
+                                <button class="save-button" id="save-cs-interest-button">Save</button>
+                                <button class="cancel-button" id="cancel-cs-interest-button">Cancel</button>
+                            </div>
+                        </span>
+                 
+                         <div class="checkbox-container edit-profile-checkbox-container">
+                            <ul class="checkbox-unordered-list">
+                                @for (var i = 0; i < Model.CSInterestsViewModelList!.Count(); i++)
+                                {     
+                                      // Create an ID property for each checkbox by concatenating a string with the index-number
+                                      var checkboxId = "edit-cs-interest-checkbox-" + (i + 1).ToString();
+                                      <li>
+                                           <input class="edit-cs-interest-checkbox" type="checkbox" id=@checkboxId>
+                                            @Html.Label(Model.CSInterestsViewModelList![i].CSInterest!.Name,Model.CSInterestsViewModelList![i].CSInterest!.Name,
+                                            htmlAttributes: new { @for = checkboxId })
+                                      </li>
+                                }
+                            </ul>
+                        </div>   
+                    
+                 </div>
+                  @*End of Form to change CS interests*@
+                </div>
+                @*End of CS Interest Section*@
             </div>
         </div>
-        <div class="panel" id="panel-two">
-            <div class="panel-title">Coding Preferences</div>
-            <p>Content2</p>
-        </div>
+        @* End of second panel *@
         <div class="panel" id="panel-three">
             <div class="panel-title">Hobbies</div>
             <p>Content3</p>

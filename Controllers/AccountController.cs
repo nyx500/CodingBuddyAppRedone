@@ -1154,7 +1154,7 @@ namespace CBApp.Controllers
                 model.HobbyNames.Add(hobbyName);
             }
 
-            // Configure list of all spoken languages
+            // Configure lists of options
             List<NaturalLanguage> nlangs = context.NaturalLanguages.ToList();
             model.NaturalLanguagesViewModelList = new List<NaturalLanguageViewModel>();
             foreach (var language in nlangs)
@@ -1163,6 +1163,45 @@ namespace CBApp.Controllers
                     new NaturalLanguageViewModel
                     {
                         naturalLanguage = language,
+                        isSelected = false
+                    }
+                );
+            }
+
+            List<ProgrammingLanguage> plangs = context.ProgrammingLanguages.ToList();
+            model.ProgrammingLanguagesViewModelList = new List<ProgrammingLanguageViewModel>();
+            foreach (var language in plangs)
+            {
+                model.ProgrammingLanguagesViewModelList.Add(
+                    new ProgrammingLanguageViewModel
+                    {
+                        programmingLanguage = language,
+                        isSelected = false
+                    }
+                );
+            }
+
+            List<CSInterest> interests = context.CSInterests.ToList();
+            model.CSInterestsViewModelList = new List<CSInterestViewModel>();
+            foreach (var interest in interests)
+            {
+                model.CSInterestsViewModelList.Add(
+                    new CSInterestViewModel
+                    {
+                        CSInterest = interest,
+                        isSelected = false
+                    }
+                );
+            }
+
+            List<Hobby> hobbies = context.Hobbies.ToList();
+            model.HobbiesViewModelList = new List<HobbyViewModel>();
+            foreach (var hobby in hobbies)
+            {
+                model.HobbiesViewModelList.Add(
+                    new HobbyViewModel
+                    {
+                        Hobby = hobby,
                         isSelected = false
                     }
                 );
@@ -1385,6 +1424,102 @@ namespace CBApp.Controllers
                         SlackId = user.SlackId!,
                         NaturalLanguageId = id,
                         NaturalLanguage = n,
+                        User = user
+                    });
+                }
+            }
+
+
+            // Update the user properties
+            var result = await userManager.UpdateAsync(user);
+
+            // If the IdentityResult object is true, then sign the user in using a session cookie
+            if (result.Succeeded)
+            {
+                // Update the dtabase
+                context.SaveChanges();
+
+                return Json("updated");
+            }
+            else
+            {
+                return Json("failed");
+            }
+        }
+
+        // Update user's languages
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> UpdateProgrammingLanguages(int[] ids)
+        {
+
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            List<ProgrammingLanguage> planguages = context.ProgrammingLanguages.ToList();
+
+            user.ProgrammingLanguageUsers.Clear();
+
+            foreach (ProgrammingLanguage p in planguages)
+            {
+                int id = p.ProgrammingLanguageId;
+
+                if (ids.Contains(id))
+                {
+                    user.ProgrammingLanguageUsers!.Add(new ProgrammingLanguageUser
+                    {
+                        SlackId = user.SlackId!,
+                        ProgrammingLanguageId = id,
+                        ProgrammingLanguage = p,
+                        User = user
+                    });
+                }
+            }
+
+
+            // Update the user properties
+            var result = await userManager.UpdateAsync(user);
+
+            // If the IdentityResult object is true, then sign the user in using a session cookie
+            if (result.Succeeded)
+            {
+                // Update the dtabase
+                context.SaveChanges();
+
+                return Json("updated");
+            }
+            else
+            {
+                return Json("failed");
+            }
+        }
+
+        // Update user's languages
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> UpdateCSInterests(int[] ids)
+        {
+
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            List<CSInterest> interests = context.CSInterests.ToList();
+
+            user.CSInterestUsers.Clear();
+
+            foreach (CSInterest i in interests)
+            {
+                int id = i.CSInterestId;
+
+                if (ids.Contains(id))
+                {
+                    user.CSInterestUsers!.Add(new CSInterestUser
+                    {
+                        SlackId = user.SlackId!,
+                        CSInterestId = id,
+                        CSInterest = i,
                         User = user
                     });
                 }

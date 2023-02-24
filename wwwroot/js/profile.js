@@ -1,6 +1,20 @@
 // Start code running when DOM is fully-loaded:
 $(document).ready(function () {
 
+    // If document is reloading after a save, go to the last-seen panel
+    if (sessionStorage.panel == 2)
+    {
+        console.log('yesssssssss');
+        if (sessionStorage.redirect) {
+            console.log('redirect is true');
+
+            $("#radio-two").attr('checked', 'checked');
+
+            sessionStorage.setItem("redirect", false);
+            sessionStorage.setItem("panel", 1);
+        }
+    };
+
     $(".lang-checkbox").each(function () {
         $(this).on("change", function (e) {
             if ($(this).is(":checked"))
@@ -26,6 +40,8 @@ $(document).ready(function () {
     updateCareerPhaseFunctionality();
     updateExperienceLevelFunctionality();
     updateLanguages();
+    updateProgrammingLanguages();
+    updateCSInterests();
         
 });
 
@@ -341,6 +357,113 @@ function updateLanguages() {
                 else {
                     $("#lang-label").text("An error occurred when trying to update the database.");
                     $("#lang-label").css("color", "red");
+                }
+            }
+        });
+    })
+}
+
+
+function updateProgrammingLanguages() {
+
+    // Toggle data storing languages spoken and the editing form for the languages
+    $("#edit-programming-languages").click(function () {
+
+        $("#programming-language-selection-container").css("display", "flex");
+        $("#programming-language-selection-container").removeClass("hidden");
+        $("#programming-languages-data").addClass("hidden");
+        
+    })
+
+    $("#cancel-programming-lang-button").click(function () {
+        $("#programming-language-selection-container").css("display", "none");
+        $("#programming-language-selection-container").addClass("hidden");
+        $("#programming-languages-data").removeClass("hidden");
+    })
+
+    $("#save-programming-lang-button").click(function () {
+
+        var selectedIds = [];
+
+        $(".edit-programming-lang-checkbox").each(function (i, obj) {
+            // Attribution: https://stackoverflow.com/questions/901712/how-do-i-check-whether-a-checkbox-is-checked-in-jquery
+            if (obj.checked) {
+                selectedIds.push(i + 1);
+            }
+        });
+
+        // Do Ajax Upload
+        var programmingLangData = { ids: selectedIds };
+
+        sessionStorage.setItem("panel", 2);
+        sessionStorage.setItem("redirect", true);
+
+
+        $.ajax({
+            type: "POST",
+            url: "/Account/UpdateProgrammingLanguages",
+            data: programmingLangData,
+            success: function (response) {
+                if (response == "updated") {
+                    window.location.replace("/account/EditProfile");
+                }
+                // Did not manage to update: display error above dropdown in red
+                else {
+                    $("#programming-lang-label").text("An error occurred when trying to update the database.");
+                    $("#programming-lang-label").css("color", "red");
+                }
+            }
+        });
+    })
+}
+
+function updateCSInterests() {
+
+    // Toggle data storing languages spoken and the editing form for the languages
+    $("#edit-cs-interests").click(function () {
+
+        $("#cs-interest-selection-container").css("display", "flex");
+        $("#cs-interest-selection-container").removeClass("hidden");
+        $("#cs-interests-data").addClass("hidden");
+
+    })
+
+    $("#cancel-cs-interest-button").click(function () {
+        $("#cs-interest-selection-container").css("display", "none");
+        $("#cs-interest-selection-container").addClass("hidden");
+        $("#cs-interests-data").removeClass("hidden");
+    })
+
+    $("#save-cs-interest-button").click(function () {
+
+        var selectedIds = [];
+
+        $(".edit-cs-interest-checkbox").each(function (i, obj) {
+           
+            if (obj.checked) {
+                selectedIds.push(i + 1);
+            }
+        });
+
+        // Do Ajax Upload
+        var csInterestData = { ids: selectedIds };
+
+        sessionStorage.setItem("panel", 2);
+        sessionStorage.setItem("redirect", true);
+
+
+        $.ajax({
+            type: "POST",
+            url: "/Account/UpdateCSInterests",
+            data: csInterestData,
+            success: function (response) {
+                if (response == "updated") {
+                    window.location.replace("/Account/EditProfile");
+                }
+                // Did not manage to update: display error above dropdown in red
+                else {
+                    $("#cs-interest-label").text("An error occurred when trying to update the database.");
+                    $("#cs-interest-label").css("color", "red");
                 }
             }
         });
