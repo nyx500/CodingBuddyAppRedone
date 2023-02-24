@@ -82,10 +82,22 @@ ViewBag.Title = "My Profile";
                 @*Experience Level*@
                 <div class="edit-profile-form-row" id="experience-level-wrapper">
                     <div>
-                        @Html.DisplayFor(model => model.ExperienceLevel.Name)
+                        @Html.DisplayFor(model => model.ExperienceLevel!.Name)
                     </div>
                     <button class="edit-button" id="edit-experience-level">Edit</button>
                 </div>
+
+                <div id="experience-dropdown" class="hidden" style="display: none;">
+                    <label id="experience-error-label"></label>
+                    @Html.DropDownListFor(model => model.SelectedExperienceLevelId, new
+                    SelectList(Model.experienceLevelSelectList, "Value", "Text"),
+                    "Select Experience Level", new { @class = "form-control", @id = "experience-levels-dropdown"})
+                    <div id="experience-level-buttons">
+                        <button class="save-button" id="save-experience-button">Save</button>
+                        <button class="cancel-button" id="cancel-experience-button">Cancel</button>
+                    </div>
+                </div>
+
             </div>
             @* Second column of data *@
             <div id="basic-info-second-col">

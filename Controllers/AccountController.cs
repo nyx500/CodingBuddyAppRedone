@@ -1289,6 +1289,40 @@ namespace CBApp.Controllers
                 return Json("failed");
             }
         }
+
+        // Update user's experience level
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> UpdateExperienceLevel(string id)
+        {
+            int experienceLevelId = Convert.ToInt32(id);
+
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            // Update the logged-in user's careerPhaseId (foreign key)
+            user.ExperienceLevelId = experienceLevelId;
+
+            // Update the logged-in user's careerPhase Navigation Property
+            ExperienceLevel el = context!.ExperienceLevels.Where(e => e.ExperienceLevelId == experienceLevelId).FirstOrDefault<ExperienceLevel>()!;
+            user.ExperienceLevel = el;
+
+            // Update the user properties
+            var result = await userManager.UpdateAsync(user);
+
+            // If the IdentityResult object is true, then sign the user in using a session cookie
+            if (result.Succeeded)
+            {
+                // Update the dtabase
+                context.SaveChanges();
+                return Json("updated");
+            }
+            else
+            {
+                return Json("failed");
+            }
+        }
     } 
 }
 

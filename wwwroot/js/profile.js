@@ -14,6 +14,7 @@ $(document).ready(function () {
     updateUsernameFunctionality();
     updateBioFunctionality();
     updateCareerPhaseFunctionality();
+    updateExperienceLevelFunctionality();
         
 });
 
@@ -217,7 +218,8 @@ function updateCareerPhaseFunctionality() {
     saveButton.click(function () {
         // Validate career-phase selected
         if ($("#career-phases-dropdown").val() === "") {
-            console.log('invalid input');
+            $("#career-error-label").text("Please select a choice!");
+            $("#career-error-label").text("Please select a choice!").css("color", "red");
         }
         // If career-phase IS selected, do Ajax call to Controller
         else {
@@ -233,6 +235,56 @@ function updateCareerPhaseFunctionality() {
                     else {
                         $("#career-error-label").text("An error occurred when trying to update the database.");
                         $("#career-error-label").css("color", "red");
+                    }
+                }
+            });
+        }
+    })
+}
+
+function updateExperienceLevelFunctionality() {
+
+    var editButton = $("#edit-experience-level");
+
+    editButton.click(function () {
+        // For some reason, adding class called "hidden" to
+        // element with Id "career-dropdown" doesn't work,
+        // so act directly on CSS here:
+        $("#experience-dropdown").css("display", "block");
+        // hide the data + edit button
+        $("#experience-level-wrapper").addClass("hidden");
+    })
+
+    var cancelButton = $("#cancel-experience-button");
+    cancelButton.click(function () {
+        // Hide the dropdown
+        $("#experience-dropdown").css("display", "none");
+        // Show the data + edit button again
+        $("#experience-level-wrapper").removeClass("hidden");
+    });
+
+    var saveButton = $("#save-experience-button");
+    saveButton.click(function () {
+        // Validate exp-level is selected
+        if ($("#experience-levels-dropdown").val() === "") {
+            $("#experience-error-label").text("Please select a choice!");
+            $("#experience-error-label").text("Please select a choice!").css("color", "red");
+        }
+        // If exp-level IS selected, do Ajax call to Controller
+        else {
+            var experience_level_data = { id: $("#experience-levels-dropdown").val() };
+            $.ajax({
+                type: "POST",
+                url: "/Account/UpdateExperienceLevel",
+                data: experience_level_data,
+                success: function (response) {
+                    if (response == "updated") {
+                        window.location.replace("/account/EditProfile");
+                    }
+                    // Did not manage to update: display error above dropdown in red
+                    else {
+                        $("#experience-error-label").text("An error occurred when trying to update the database.");
+                        $("#experience-error-label").css("color", "red");
                     }
                 }
             });
