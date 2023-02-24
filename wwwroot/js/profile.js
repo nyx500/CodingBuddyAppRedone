@@ -13,6 +13,7 @@ $(document).ready(function () {
 
     updateUsernameFunctionality();
     updateBioFunctionality();
+    updateCareerPhaseFunctionality();
         
 });
 
@@ -182,9 +183,59 @@ function updateBioFunctionality() {
 
     //Close the Bio form if cancel button is clicked
     var cancelBioInputButton = $("#cancel-bio-button");
+
     cancelBioInputButton.click(function () {
         $('#edit-bio-form').addClass("hidden");
         $('#bio-buttons').addClass("hidden");
         $("#bio-section").removeClass("hidden")
     });
+}
+
+function updateCareerPhaseFunctionality() {
+
+    var editButton = $("#edit-career-button");
+
+    editButton.click(function () {
+        // For some reason, adding class called "hidden" to
+        // element with Id "career-dropdown" doesn't work,
+        // so act directly on CSS here:
+        $("#career-dropdown").css("display", "block");
+        // hide the data + edit button
+        $("#career-phase-wrapper").addClass("hidden");
+    })
+
+    var cancelButton = $("#cancel-career-button");
+    cancelButton.click(function () {
+        console.log('clicked');
+        // Hide the dropdown
+        $("#career-dropdown").css("display", "none");
+        // Show the data + edit button again
+        $("#career-phase-wrapper").removeClass("hidden");
+    });
+
+    var saveButton = $("#save-career-button");
+    saveButton.click(function () {
+        // Validate career-phase selected
+        if ($("#career-phases-dropdown").val() === "") {
+            console.log('invalid input');
+        }
+        // If career-phase IS selected, do Ajax call to Controller
+        else {
+            var career_phase_data = { id: $("#career-phases-dropdown").val() };
+            $.ajax({
+                type: "POST",
+                url: "/Account/UpdateCareerPhase",
+                data: career_phase_data,
+                success: function (response) {
+                    if (response == "updated") {
+                        window.location.replace("/account/EditProfile");
+                    }
+                    else {
+                        $("#career-error-label").text("An error occurred when trying to update the database.");
+                        $("#career-error-label").css("color", "red");
+                    }
+                }
+            });
+        }
+    })
 }

@@ -1255,6 +1255,40 @@ namespace CBApp.Controllers
                 return Json("failed");
             }
         }
+
+        // Update user's career phase
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> UpdateCareerPhase(string id)
+        {
+            int careerPhaseId = Convert.ToInt32(id);
+
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            // Update the logged-in user's careerPhaseId (foreign key)
+            user.CareerPhaseId = careerPhaseId;
+
+            // Update the logged-in user's careerPhase Navigation Property
+            CareerPhase cp = context!.CareerPhases.Where(c => c.CareerPhaseId == careerPhaseId).FirstOrDefault<CareerPhase>()!;
+            user.CareerPhase = cp;
+
+            // Update the user properties
+            var result = await userManager.UpdateAsync(user);
+
+            // If the IdentityResult object is true, then sign the user in using a session cookie
+            if (result.Succeeded)
+            {   
+                // Update the dtabase
+                context.SaveChanges();
+                return Json("updated");
+            }
+            else
+            {
+                return Json("failed");
+            }
+        }
     } 
 }
 

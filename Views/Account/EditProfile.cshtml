@@ -65,8 +65,21 @@ ViewBag.Title = "My Profile";
                             <div>Career Developer</div>
                         }
                     }
-                    <button class="edit-button" id="edit-career-phase">Edit</button>
+                    <button class="edit-button" id="edit-career-button">Edit</button>
                 </div>
+
+                <div id="career-dropdown" class="hidden" style="display: none;">
+                    <label id="career-error-label"></label>
+                    @Html.DropDownListFor(model => model.SelectedCareerPhaseId, new
+                    SelectList(Model.careerPhaseSelectList, "Value", "Text"),
+                    "Select Career Phase", new { @class = "form-control", @id = "career-phases-dropdown"})
+                    <div id="career-phase-buttons">
+                        <button class="save-button" id="save-career-button">Save</button>
+                        <button class="cancel-button" id="cancel-career-button">Cancel</button>
+                    </div>
+                </div>
+
+                @*Experience Level*@
                 <div class="edit-profile-form-row" id="experience-level-wrapper">
                     <div>
                         @Html.DisplayFor(model => model.ExperienceLevel.Name)
