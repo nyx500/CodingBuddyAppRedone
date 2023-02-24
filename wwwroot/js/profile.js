@@ -11,7 +11,37 @@ $(document).ready(function () {
         uploadImageFile(profilePictureInput);
     });
 
+    updateUsernameFunctionality();
+    updateBioFunctionality();
+        
+});
 
+function uploadImageFile(inputId) {
+
+
+    var formData = new FormData();
+    formData.append("file", $("#profile-picture-input")[0].files[0]);
+
+    $.ajax({
+        url: "/Account/UploadPicture",
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            if (result.success) {
+                window.location.replace("/account/editprofile");
+            }
+            else {
+                alert(result.error);
+            }
+        }
+    });
+
+}
+
+
+function updateUsernameFunctionality() {
     // Edit Username stuff
     var editUsernameButton = $("#edit-username");
     // Display Edit Username form when button is clicked
@@ -27,6 +57,13 @@ $(document).ready(function () {
 
         // Hide the button (submit button replaces it)
         editUsernameButton.addClass("hidden");
+    });
+
+    // Close username form if cancelled
+    var cancelUsernameInputButton = $("#cancel-update-username");
+    cancelUsernameInputButton.click(function () {
+        $('#edit-username-form').addClass("hidden");
+        $("#username-title").removeClass("hidden")
     });
 
     var saveUsernameButton = $("#save-username-input-button");
@@ -87,49 +124,67 @@ $(document).ready(function () {
             }
         }
     });
-        
-});
+}
 
-function uploadImageFile(inputId) {
+function updateBioFunctionality() {
+    var editBioButton = $("#update-bio-button");
 
+    // Display Edit Bio form when button is clicked
+    editBioButton.click(function () {
+        // Remove the hidden class for the form when corresponding button clicked
+        if ($("#edit-bio-form").hasClass("hidden")) {
+            $("#edit-bio-form").removeClass("hidden");
+            $("#bio-buttons").removeClass("hidden");
+        }
 
-    var formData = new FormData();
-    formData.append("file", $("#profile-picture-input")[0].files[0]);
+        // Place cursor on top left-corner of textarea input
+        // Attribution: https://stackoverflow.com/questions/17158802/using-jquery-selector-and-setselectionrange-is-not-a-function
+        var textarea = $('#edit-bio-input')[0];
+        $('#edit-bio-input').focus(function () {
+            textarea.setSelectionRange(0, 0);
+        });
+        textarea.focus();
 
-    $.ajax({
-        url: "/Account/UploadPicture",
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (result) {
-            if (result.success) {
-                window.location.replace("/account/editprofile");
-            }
-            else {
-                alert(result.error);
-            }
+        if (!$("#bio-section").hasClass("hidden")) {
+            $("#bio-section").addClass("hidden");
         }
     });
 
-}
 
+    var saveButton = $("#save-bio-button");
 
-function validateUsername(usernameValue) {
-    var username_data = { username: usernameValue };
-
-    // Upload the client-side validated username to DB
-    $.ajax({
-        type: "POST",
-        url: "/Account/UpdateUsername",
-        data: username_data,
-        async: false,
-        success: function (response) {
-            // Response from controller is 'true': username is taken already
-            if (response == "updated") {
-                // Reload the page to display new username
-                window.location.replace("/account/editprofile");
-            }
+    saveButton.click(function () {
+        console.log($("#edit-bio-input").val().length);
+        if ($("#edit-bio-input").val().length > 500) {
+            $("#bio-input-label").text("Invalid: Too long!");
+            $("#bio-input-label").css("color", "red");
         }
+        // Bio is valid --> upload with Ajax request
+        else {
+            var bio_data = { bio: $("#edit-bio-input").val() };
+            $.ajax({
+                type: "POST",
+                url: "/Account/UpdateBio",
+                data: bio_data,
+                success: function (response) {
+                    if (response == "updated") {
+                        window.location.replace("/account/EditProfile");
+                    }
+                    else {
+                        $("#bio-input-label").text("An error occurred when trying to update the database.");
+                        $("#bio-input-label").css("color", "red");
+                    }
+                }
+            });
+}
+    });
+
+
+    //Close the Bio form if cancel button is clicked
+    var cancelBioInputButton = $("#cancel-bio-button");
+    cancelBioInputButton.click(function () {
+        $('#edit-bio-form').addClass("hidden");
+        $('#bio-buttons').addClass("hidden");
+        $("#bio-section").removeClass("hidden")
     });
 }

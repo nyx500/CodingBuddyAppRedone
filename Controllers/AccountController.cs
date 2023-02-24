@@ -1094,12 +1094,37 @@ namespace CBApp.Controllers
             model.CareerPhase = user.CareerPhase;
             model.ExperienceLevel = user.ExperienceLevel;
             model.LanguageNames = new List<string>();
+            model.Bio = user.Bio;
 
-            // Do this if Bio in profile (default when register) is not yet filled in
-            if (user.Bio == null)
+
+            // Dropdown configuration to change Career Phase/Experience Level Options
+            // Populate the view model with CareerPhases
+            model.careerPhaseSelectList = new List<SelectListItem>();
+            List<CareerPhase> careerPhases = context.CareerPhases.ToList();
+            foreach (var cp in careerPhases)
             {
-                model.Bio = null;
+                model.careerPhaseSelectList.Add(
+                    new SelectListItem
+                    {
+                        Text = cp.Name,
+                        Value = cp.CareerPhaseId.ToString()
+                    }
+                ); ;
             }
+            // Populate the view model with ExperienceLevels
+            model.experienceLevelSelectList = new List<SelectListItem>();
+            List<ExperienceLevel> experienceLevels = context.ExperienceLevels.ToList();
+            foreach (var e in experienceLevels)
+            {
+                model.experienceLevelSelectList.Add(
+                    new SelectListItem
+                    {
+                        Text = e.Name,
+                        Value = e.ExperienceLevelId.ToString()
+                    }
+                ); ;
+            }
+
 
             foreach (NaturalLanguageUser n in user.NaturalLanguageUsers)
             {
@@ -1198,6 +1223,30 @@ namespace CBApp.Controllers
             if (result.Succeeded)
             {
                 await signInManager.SignInAsync(user, isPersistent: false);
+                context.SaveChanges();
+                return Json("updated");
+            }
+            else
+            {
+                return Json("failed");
+            }
+        }
+
+        // Update username
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> UpdateBio(string bio)
+        {
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            user.Bio = bio;
+            var result = await userManager.UpdateAsync(user);
+
+            // If the IdentityResult object is true, then sign the user in using a session cookie
+            if (result.Succeeded)
+            {
                 context.SaveChanges();
                 return Json("updated");
             }

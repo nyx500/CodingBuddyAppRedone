@@ -86,27 +86,53 @@ ViewBag.Title = "My Profile";
                         @* File should only be an image, so use 'accept' syntax here *@
                         <input id="edit-username-input" name="edit-username" type="text" placeholder="@Html.DisplayFor(model => model.UserName)" />
                         <button id="save-username-input-button" class="save-button" type="submit">Save</button>
+                        <button id="cancel-update-username" class="cancel-button" type="submit">Cancel</button>
                     </form>
                     <h2 id="username-title"><b>@Html.DisplayFor(model => model.UserName)</b></h2>
                     <button class="edit-button" id="edit-username">Change</button>
                 </div>
                 <div class="edit-profile-form-row">
                     <h5 id="slack-id-subtitle">
-                        SlackId: @Html.DisplayFor(model => model.SlackId)
+                        <b>SlackId:</b> @Html.DisplayFor(model => model.SlackId)
                     </h5>
                 </div>
                 @* Bio data + form *@
                 <div class="edit-profile-form-row">
+                    <div id="bio-section">
                     @{
                         if (Model.Bio == null)
                         {
-                            <button class="add-button">Add Bio</button>
+                            <button id="update-bio-button" class="add-button">Add Bio</button>
                         }
                         else
-                        {   <h5>Bio:</h5>
-                            <p>@Html.DisplayFor(model => model.Bio)</p>
+                            {
+                                <h5 id="bio-title"><b>Bio:</b></h5>
+                                <p id="bio">@Html.DisplayFor(model => model.Bio)</p>
+                                <button id="update-bio-button" class="add-button">Edit Bio</button>
                         }
                     }
+                    </div>
+
+                        <form class="hidden" id="edit-bio-form">
+                            <div>
+                                @* Hidden error message: display only if bad input *@
+                                @* Label for username text input *@
+                                <label id="bio-input-label" for="edit-bio-input"><b>Bio:</b></label>
+                                <br />
+                                @* File should only be an image, so use 'accept' syntax here *@
+                                <textarea wrap="soft" rows="10" cols="40" id="edit-bio-input" name="edit-bio" type="text">
+                                </textarea>
+                                <br />
+                            </div>
+                        </form>
+                        <br />
+                </div>
+                @* Bio buttons (in a separate row: MUST go below the textarea form!)*@
+                <div class="edit-profile-form-row">
+                    <div class="hidden" id="bio-buttons">
+                        <button class="save-button" id="save-bio-button">Save</button>
+                        <button class="cancel-button" id="cancel-bio-button">Cancel</button>
+                    </div>
                 </div>
                 @* Languages spoken data and form *@
                 <div id="languages-wrapper" class="edit-profile-form-column">

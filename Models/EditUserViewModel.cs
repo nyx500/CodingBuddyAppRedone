@@ -16,6 +16,11 @@ namespace CBApp.Models
         public List<String>? LanguageNames { get; set; }
 
 
+        // Dropdowns and selections (single-option) for editing the choices
+        public List<SelectListItem>? careerPhaseSelectList;
+        public List<SelectListItem>? experienceLevelSelectList;
+        public int SelectedCareerPhaseId { get; set; }
+        public int SelectedExperienceLevelId { get; set; }
 
     }
 }

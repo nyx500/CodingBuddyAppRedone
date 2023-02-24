@@ -105,8 +105,9 @@
 #radio-four:checked ~ .panels #panel-four {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
+
 
 /* If the corresponding radio-button is checked for that tab, then style the tab
     in a different colour and highlight the text with bold and underline
@@ -179,6 +180,7 @@
     padding: 5px 10px;
     border-radius: 10px;
     border: 2px solid white;
+    margin: 10px;
 }
 
 .edit-button:hover {
@@ -309,12 +311,20 @@
     border: 2px solid black;
 }
 
+.cancel-button {
+    background-color: red;
+    color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
 .error-label {
     color: red;
 }
 
 #edit-username-form {
-    margin: 20px; 
+    margin-bottom: 20px; 
     padding: 20px;
     border: 2px solid black;
     border-radius: 10px;
@@ -334,4 +344,43 @@
 
 #edit-username-form label {
     font-weight: bolder;
+}
+
+/*Bio form*/
+/* Try to make textarea put cursor on left hand top corner: REALLY hard! */
+#edit-bio-form textarea {
+    vertical-align: top;
+    text-align: left;
+    text-align:start;
+    padding: 5px;
+    border: 2px solid black;
+}
+#bio-input-label {
+    display: block;
+}
+
+#bio-buttons {
+    margin-top: 20px;
+}
+
+#bio {
+    width: 500px;
+}
+
+/** Media queries */
+/* Wrap content on smaller screens */
+@media all and (max-width: 600px) {
+    #radio-one:checked ~ .panels #panel-one,
+    #radio-two:checked ~ .panels #panel-two,
+    #radio-three:checked ~ .panels #panel-three,
+    #radio-four:checked ~ .panels #panel-four {
+        flex-wrap: wrap;
+    }
+}
+/* Adjust bio width */
+@media all and (max-width: 1000px)
+{
+    #bio {
+        width: 300px;
+    }
 }
