@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ir314yAeCi9vR2i2RXXsFqRKPMerhImXwNmByH/apC4=",
+  "Hash": "gGpgjzh6ul8JnO8DKteGCf9z0/TZuzQ8xrXoEWQisjQ=",
   "Source": "CBApp",
   "BasePath": "_content/CBApp",
   "Mode": "Default",
@@ -1290,23 +1290,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\fonts\\Gordita\\Gordita Regular.otf"
-    },
-    {
-      "Identity": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\css\\profile.css",
-      "SourceId": "CBApp",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\",
-      "BasePath": "_content/CBApp",
-      "RelativePath": "css/profile.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\profile.css"
     },
     {
       "Identity": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\css\\site.css",

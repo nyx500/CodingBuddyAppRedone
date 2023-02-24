@@ -1125,11 +1125,25 @@ namespace CBApp.Controllers
                 ); ;
             }
 
-
+            model.LanguageNames = new List<String>();
             foreach (NaturalLanguageUser n in user.NaturalLanguageUsers)
             {
                 string languageName = n.NaturalLanguage.Name;
                 model.LanguageNames.Add(languageName);
+            }
+
+            // Configure list of all spoken languages
+            List<NaturalLanguage> nlangs = context.NaturalLanguages.ToList();
+            model.NaturalLanguagesViewModelList = new List<NaturalLanguageViewModel>();
+            foreach (var language in nlangs)
+            {
+                model.NaturalLanguagesViewModelList.Add(
+                    new NaturalLanguageViewModel
+                    {
+                        naturalLanguage = language,
+                        isSelected = false
+                    }
+                );
             }
 
             if (user.PictureFormat != null)

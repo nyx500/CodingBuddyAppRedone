@@ -1,7 +1,7 @@
 ﻿@model EditUserViewModel
 
 @*Stylesheet link:*@
-<link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
 @{
 ViewBag.Title = "My Profile";
@@ -159,6 +159,7 @@ ViewBag.Title = "My Profile";
                         <button class="cancel-button" id="cancel-bio-button">Cancel</button>
                     </div>
                 </div>
+
                 @* Languages spoken data and form *@
                 <div id="languages-wrapper" class="edit-profile-form-column">
                     <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Languages Spoken:</p>
@@ -174,6 +175,33 @@ ViewBag.Title = "My Profile";
                     </ul>
                     <button class="edit-button" id="edit-languages-spoken">Edit</button>
                 </div>
+
+                 <div class="form-group edit-profile-form-column hidden" id="language-selection-container">
+
+                    <span class="flex-row"><label><b>Select Languages Spoken</b></label> 
+                        <div id="lang-buttons">
+                            <button class="save-button" id="save-lang-button">Save</button>
+                            <button class="cancel-button" id="cancel-lang-button">Cancel</button>
+                        </div>
+                    </span>
+                 
+
+                     <div class="checkbox-container edit-profile-checkbox-container">
+                        <ul class="checkbox-unordered-list">
+                            @for (var i = 0; i < Model.NaturalLanguagesViewModelList!.Count(); i++)
+                            {     
+                                  // Create an ID property for each checkbox by concatenating a string with the index-number
+                                  var checkboxId = "edit-lang-checkbox-" + (i + 1).ToString();
+                                  <li>
+                                       <input class="edit-lang-checkbox" type="checkbox" id=@checkboxId>
+                                        @Html.Label(Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,
+                                        htmlAttributes: new { @for = checkboxId })
+                                  </li>
+                            }
+                        </ul>
+                        </div>
+                        
+                 </div>
             </div>
         </div>
         <div class="panel" id="panel-two">

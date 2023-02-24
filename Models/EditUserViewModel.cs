@@ -14,6 +14,7 @@ namespace CBApp.Models
         public CareerPhase? CareerPhase { get; set; }
         public ExperienceLevel? ExperienceLevel { get; set; }
         public List<String>? LanguageNames { get; set; }
+        public List<NaturalLanguageViewModel>? NaturalLanguagesViewModelList { get; set; }
 
 
         // Dropdowns and selections (single-option) for editing the choices

@@ -1,6 +1,16 @@
 // Start code running when DOM is fully-loaded:
 $(document).ready(function () {
 
+    $(".lang-checkbox").each(function () {
+        $(this).on("change", function (e) {
+            if ($(this).is(":checked"))
+                console.log("true");
+            else
+                console.log("false");
+        })
+    })
+
+
     // Profile picture uploading process...
     var profilePictureInput = $("#profile-picture-input");
 
@@ -15,6 +25,7 @@ $(document).ready(function () {
     updateBioFunctionality();
     updateCareerPhaseFunctionality();
     updateExperienceLevelFunctionality();
+    updateLanguages();
         
 });
 
@@ -289,5 +300,33 @@ function updateExperienceLevelFunctionality() {
                 }
             });
         }
+    })
+}
+
+function updateLanguages() {
+
+    // Toggle data storing languages spoken and the editing form for the languages
+    $("#edit-languages-spoken").click(function () {
+        $("#language-selection-container").css("display", "flex");
+
+        $("#languages-wrapper").css("display", "none");
+    })
+
+    $("#cancel-lang-button").click(function () {
+        $("#language-selection-container").css("display", "none");
+        $("#languages-wrapper").css("display", "flex");
+    })
+
+    $("#save-lang-button").click(function () {
+        console.log('clicked important');
+
+        var selectedIds = [];
+
+        $(".edit-lang-checkbox").each(function (i, obj) {
+            // Attribution: https://stackoverflow.com/questions/901712/how-do-i-check-whether-a-checkbox-is-checked-in-jquery
+            if (obj.checked) {
+                selectedIds.push(i + 1);
+            }
+        });
     })
 }
