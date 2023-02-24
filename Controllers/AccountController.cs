@@ -1337,6 +1337,54 @@ namespace CBApp.Controllers
                 return Json("failed");
             }
         }
+
+
+        // Update user's languages
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> UpdateLanguages(int[] ids)
+        {
+            
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            List<NaturalLanguage> nlanguages = context.NaturalLanguages.ToList();
+
+            user.NaturalLanguageUsers.Clear();
+
+            foreach(NaturalLanguage n in nlanguages)
+            {
+                int id = n.NaturalLanguageId;
+                if (ids.Contains(id))
+                {
+                    user.NaturalLanguageUsers!.Add(new NaturalLanguageUser
+                    {
+                        SlackId = user.SlackId!,
+                        NaturalLanguageId = id,
+                        NaturalLanguage = n,
+                        User = user
+                    });
+                }
+            }
+
+
+            // Update the user properties
+            var result = await userManager.UpdateAsync(user);
+
+            // If the IdentityResult object is true, then sign the user in using a session cookie
+            if (result.Succeeded)
+            {
+                // Update the dtabase
+                context.SaveChanges();
+
+                return Json("updated");
+            }
+            else
+            {
+                return Json("failed");
+            }
+        }
     } 
 }
 

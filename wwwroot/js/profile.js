@@ -167,7 +167,6 @@ function updateBioFunctionality() {
     var saveButton = $("#save-bio-button");
 
     saveButton.click(function () {
-        console.log($("#edit-bio-input").val().length);
         if ($("#edit-bio-input").val().length > 500) {
             $("#bio-input-label").text("Invalid: Too long!");
             $("#bio-input-label").css("color", "red");
@@ -218,7 +217,6 @@ function updateCareerPhaseFunctionality() {
 
     var cancelButton = $("#cancel-career-button");
     cancelButton.click(function () {
-        console.log('clicked');
         // Hide the dropdown
         $("#career-dropdown").css("display", "none");
         // Show the data + edit button again
@@ -318,7 +316,6 @@ function updateLanguages() {
     })
 
     $("#save-lang-button").click(function () {
-        console.log('clicked important');
 
         var selectedIds = [];
 
@@ -326,6 +323,25 @@ function updateLanguages() {
             // Attribution: https://stackoverflow.com/questions/901712/how-do-i-check-whether-a-checkbox-is-checked-in-jquery
             if (obj.checked) {
                 selectedIds.push(i + 1);
+            }
+        });
+
+        // Do Ajax Upload
+        var langData = { ids: selectedIds };
+        
+        $.ajax({
+            type: "POST",
+            url: "/Account/UpdateLanguages",
+            data: langData,
+            success: function (response) {
+                if (response== "updated") {
+                    window.location.replace("/account/EditProfile");
+                }
+                // Did not manage to update: display error above dropdown in red
+                else {
+                    $("#lang-label").text("An error occurred when trying to update the database.");
+                    $("#lang-label").css("color", "red");
+                }
             }
         });
     })
