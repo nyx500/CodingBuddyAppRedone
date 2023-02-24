@@ -1125,11 +1125,33 @@ namespace CBApp.Controllers
                 ); ;
             }
 
+            // Get user preferences
             model.LanguageNames = new List<String>();
             foreach (NaturalLanguageUser n in user.NaturalLanguageUsers)
             {
                 string languageName = n.NaturalLanguage.Name;
                 model.LanguageNames.Add(languageName);
+            }
+
+            model.ProgrammingLanguageNames = new List<String>();
+            foreach (ProgrammingLanguageUser p in user.ProgrammingLanguageUsers)
+            {
+                string languageName = p.ProgrammingLanguage.Name;
+                model.ProgrammingLanguageNames.Add(languageName);
+            }
+
+            model.CSInterestNames = new List<String>();
+            foreach (CSInterestUser c in user.CSInterestUsers)
+            {
+                string interest = c.CSInterest.Name;
+                model.CSInterestNames.Add(interest);
+            }
+
+            model.HobbyNames = new List<String>();
+            foreach (HobbyUser h in user.HobbyUsers)
+            {
+                string hobbyName = h.Hobby.Name;
+                model.HobbyNames.Add(hobbyName);
             }
 
             // Configure list of all spoken languages
