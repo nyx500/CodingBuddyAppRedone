@@ -1,14 +1,36 @@
 // Start code running when DOM is fully-loaded:
 $(document).ready(function () {
 
+    // NB - CLEAN THIS CODE UP WITH A SWITCH STATEMENT LATER IF TIME!!!!s
     // If document is reloading after a save, go to the last-seen panel
     if (sessionStorage.panel == 2)
     {
-        console.log('yesssssssss');
+    
         if (sessionStorage.redirect) {
-            console.log('redirect is true');
 
             $("#radio-two").attr('checked', 'checked');
+
+            sessionStorage.setItem("redirect", false);
+            sessionStorage.setItem("panel", 1);
+        }
+    };
+    // If document is reloading after a save, go to the last-seen panel
+    if (sessionStorage.panel == 3) {
+
+        if (sessionStorage.redirect) {
+
+            $("#radio-three").attr('checked', 'checked');
+
+            sessionStorage.setItem("redirect", false);
+            sessionStorage.setItem("panel", 1);
+        }
+    };
+    // If document is reloading after a save, go to the last-seen panel
+    if (sessionStorage.panel == 4) {
+
+        if (sessionStorage.redirect) {
+
+            $("#radio-four").attr('checked', 'checked');
 
             sessionStorage.setItem("redirect", false);
             sessionStorage.setItem("panel", 1);
@@ -22,7 +44,7 @@ $(document).ready(function () {
             else
                 console.log("false");
         })
-    })
+    });
 
 
     // Profile picture uploading process...
@@ -42,6 +64,11 @@ $(document).ready(function () {
     updateLanguages();
     updateProgrammingLanguages();
     updateCSInterests();
+    updateHobbies();
+    generateRandomQuestion();
+    uploadAnswer();
+    deleteQuestion();
+    editQuestion();
         
 });
 
@@ -392,28 +419,37 @@ function updateProgrammingLanguages() {
             }
         });
 
-        // Do Ajax Upload
-        var programmingLangData = { ids: selectedIds };
+        if (selectedIds.length < 1) {
+            $("#programming-lang-label").text("You have to select at least one programming language!");
+            $("#programming-lang-label").addClass("error-options-label");
+        }
+        else {
+            // Do Ajax Upload for new programming languages
+            var programmingLangData = { ids: selectedIds };
 
-        sessionStorage.setItem("panel", 2);
-        sessionStorage.setItem("redirect", true);
+            // Set session to go to correct tab/panel when the data reloads after updating
+            sessionStorage.setItem("panel", 2);
+            sessionStorage.setItem("redirect", true);
 
 
-        $.ajax({
-            type: "POST",
-            url: "/Account/UpdateProgrammingLanguages",
-            data: programmingLangData,
-            success: function (response) {
-                if (response == "updated") {
-                    window.location.replace("/account/EditProfile");
+            $.ajax({
+                type: "POST",
+                url: "/Account/UpdateProgrammingLanguages",
+                data: programmingLangData,
+                success: function (response) {
+                    if (response == "updated") {
+                        window.location.replace("/account/EditProfile");
+                    }
+                    // Did not manage to update: display error above dropdown in red
+                    else {
+                        $("#programming-lang-label").text("An error occurred when trying to update the database.");
+                        $("#programming-lang-label").addClass("error-options-label");
+                    }
                 }
-                // Did not manage to update: display error above dropdown in red
-                else {
-                    $("#programming-lang-label").text("An error occurred when trying to update the database.");
-                    $("#programming-lang-label").css("color", "red");
-                }
-            }
-        });
+            });
+        }
+
+        
     })
 }
 
@@ -445,27 +481,292 @@ function updateCSInterests() {
             }
         });
 
-        // Do Ajax Upload
-        var csInterestData = { ids: selectedIds };
+        if (selectedIds.length < 1) {
+            $("#cs-interest-label").text("You have to select at least one Computer Science interest!");
+            $("#cs-interest-label").addClass("error-options-label");
+        }
+        else {
+            // Do Ajax Upload
+            var csInterestData = { ids: selectedIds };
 
-        sessionStorage.setItem("panel", 2);
-        sessionStorage.setItem("redirect", true);
+            sessionStorage.setItem("panel", 2);
+            sessionStorage.setItem("redirect", true);
 
 
+            $.ajax({
+                type: "POST",
+                url: "/Account/UpdateCSInterests",
+                data: csInterestData,
+                success: function (response) {
+                    if (response == "updated") {
+                        window.location.replace("/Account/EditProfile");
+                    }
+                    // Did not manage to update: display error above dropdown in red
+                    else {
+                        $("#cs-interest-label").text("An error occurred when trying to update the database.");
+                        $("#cs-interest-label").addClass("error-options-label");
+                    }
+                }
+            });
+        }
+       
+    })
+}
+
+function updateHobbies() {
+
+    // Toggle data storing languages spoken and the editing form for the languages
+    $("#edit-hobbies").click(function () {
+
+        $("#hobbies-selection-container").css("display", "flex");
+        $("#hobbies-selection-container").removeClass("hidden");
+        $("#hobbies-data").addClass("hidden");
+
+    })
+
+    $("#cancel-hobby-button").click(function () {
+        $("#hobbies-selection-container").css("display", "none");
+        $("#hobbies-selection-container").addClass("hidden");
+        $("#hobbies-data").removeClass("hidden");
+    })
+
+    $("#save-hobby-button").click(function () {
+
+        var selectedIds = [];
+
+        $(".edit-hobby-checkbox").each(function (i, obj) {
+
+            if (obj.checked) {
+                selectedIds.push(i + 1);
+            }
+        });
+
+        if (selectedIds.length < 3 || selectedIds.length > 10) {
+            $("#hobby-label").text("Please select between 3-10 hobbies and interests!");
+            $("#hobby-label").addClass("error-options-label");
+        }
+        else {
+            // Do Ajax Upload to update hobbies and interests
+            var hobbyData = { ids: selectedIds };
+
+            sessionStorage.setItem("panel", 3);
+            sessionStorage.setItem("redirect", true);
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Account/UpdateHobbies",
+                data: hobbyData,
+                success: function (response) {
+                    if (response == "updated") {
+                        window.location.replace("/Account/EditProfile");
+                    }
+                    // Did not manage to update: display error above dropdown in red
+                    else {
+                        $("#hobby-label").text("An error occurred when trying to update the database.");
+                        $("#hobby-label").addClass("error-options-label");
+                    }
+                }
+            });
+        }
+    })
+}
+
+function generateRandomQuestion() {
+    $("#random-question-generator").click(function () {
         $.ajax({
-            type: "POST",
-            url: "/Account/UpdateCSInterests",
-            data: csInterestData,
+            type: "GET",
+            url: "/Account/GenerateRandomQuestion",
             success: function (response) {
-                if (response == "updated") {
-                    window.location.replace("/Account/EditProfile");
+                if (response.output.length > 0) {
+
+                    // Attribution: https://mkyong.com/javascript/how-to-access-json-object-in-javascript/
+                    var json = JSON.parse(response.output);
+                    var questionId = json["QuestionId"];
+                    var questionString = json["QuestionString"];
+
+                    var questionElement = $("#random-question");
+                    questionElement.text(questionString);
+
+
+                    // Show the input field for the answer
+                    $("#answer-inputs").removeClass("hidden");
+
+                    var hiddenInput = $("#hidden-input");
+                    hiddenInput.val(questionId);
+
                 }
                 // Did not manage to update: display error above dropdown in red
                 else {
-                    $("#cs-interest-label").text("An error occurred when trying to update the database.");
-                    $("#cs-interest-label").css("color", "red");
+                    console.log('nope');
                 }
             }
         });
+    });
+}
+
+function uploadAnswer() {
+    $("#save-answer-button").click(function () {
+
+        // Display and highlight an error msg if the answer is over 200 chars
+        if ($("#answer-input").val().length > 250 || $("#answer-input").val().length < 1) {
+            $("#error-label-for-answer").addClass("error-options-label");
+            $("#error-label-for-answer").text("Answer must be more than 1 and less than 200 chars.");
+        }
+        else
+        {
+            var qaData = { id: $("#hidden-input").val(), answer: $("#answer-input").val() };
+
+            sessionStorage.setItem("panel", 4);
+            sessionStorage.setItem("redirect", true);
+
+            $.ajax({
+                type: "POST",
+                url: "/Account/UpdateRandomQuestion",
+                data: qaData,
+                success: function (response) {
+                    if (response == "updated") {
+                        console.log('success');
+                        console.log(response);
+                        window.location.replace("/Account/EditProfile");
+                    }
+                    // Did not manage to update: display error above dropdown in red
+                    else {
+                        console.log('fail');
+                        console.log(response);
+                        $("#error-label-for-answer").addClass("error-options-label");
+                        $("#error-label-for-answer").text("An error occurred - could not update database.");
+                    }
+                },
+                error: function () {
+                    console.log('ERROR');
+                    $("#error-label-for-answer").addClass("error-options-label");
+                    $("#error-label-for-answer").text("An error occurred - could not update database.");
+                }
+            });
+        }
+    });
+}
+
+function deleteQuestion() {
+    $(".delete-button").each(function () {
+        $(this).on("click", function (e) {
+
+            // Get last number/char of id of the delete button
+            var id = $(this).attr('id');
+            id = id.charAt(id.length - 1);
+
+            // Concatenate the hidden input corresponding to that delete button
+            // Stores the ID of the question-answer block as a value
+            var hiddenInputId = "#hidden-" + id;
+            var hiddenInput = $(hiddenInputId);
+
+            var errorLabelId = "#error-label-" + id;
+            var errorLabel = $(errorLabelId);
+
+            // Get the ID of the question answer block to delete
+            var questionAnswerBlockId = hiddenInput.val();
+
+            var qaData = { id: questionAnswerBlockId };
+
+            // Redirect to same panel
+            sessionStorage.setItem("panel", 4);
+            sessionStorage.setItem("redirect", true);
+
+            $.ajax({
+                type: "POST",
+                url: "/Account/DeleteRandomQuestion",
+                data: qaData,
+                success: function (response) {
+                    if (response == "updated") {
+                        console.log('success');
+                        console.log(response);
+                        window.location.replace("/Account/EditProfile");
+                    }
+                    // Did not manage to update: display error above dropdown in red
+                    else {
+                        console.log('fail');
+                        console.log(response);
+                    }
+                },
+                error: function () {    
+                    console.log('ERROR');
+                }
+            });
+
+
+        })
     })
+}
+
+function editQuestion() {
+
+    $(".edit-answer-button").each(function () {
+        $(this).on("click", function (e) {
+
+            // Get last number/char of id of the editbutton
+            var id = $(this).attr('id');
+            id = id.charAt(id.length - 1);
+
+            // Corresponding text input block
+            var editInputWrapperId = "#edit-input-wrapper-" + id;
+            var editInputWrapper = $(editInputWrapperId);
+            editInputWrapper.removeClass("hidden");
+
+
+            $(".save-answer-button").each(function () {
+                $(this).on("click", function (e) {
+
+                    // Get the last number/char/id
+                    var id = $(this).attr('id');
+                    id = id.charAt(id.length - 1);
+
+                    // Concatenate the hidden input corresponding to that delete button
+                    // Stores the ID of the question-answer block as a value
+                    var hiddenInputId = "#hidden-" + id;
+                    var hiddenInput = $(hiddenInputId);
+                    var qaId = hiddenInput.val();
+
+                    var inputId = "#edit-input-" + id;
+                    var input = $(inputId);
+                    var inputString = input.val();
+
+                    var qaData = { questionAnswerBlockId: qaId, newAnswer: inputString };
+
+                    // Redirect to same panel
+                    sessionStorage.setItem("panel", 4);
+                    sessionStorage.setItem("redirect", true);
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Account/EditRandomQuestion",
+                        data: qaData,
+                        success: function (response) {
+                            if (response == "updated") {
+                                console.log('success');
+                                console.log(response);
+                                window.location.replace("/Account/EditProfile");
+                            }
+                            // Did not manage to update: display error above dropdown in red
+                            else {
+                                console.log('failllll');
+                                console.log(response);
+                            }
+                        },
+                        error: function () {
+                            console.log('ERROR');
+                        }
+                    });
+
+                });
+            });
+
+
+
+        });
+    });
+
+
+   
 }

@@ -262,7 +262,7 @@ ViewBag.Title = "My Profile";
                     @*Form to change programming languages*@
                      <div class="form-group edit-profile-form-column hidden" id="programming-language-selection-container">
 
-                        <span class="flex-row"><label id="programming-lang-label"><b>Change programming languages:</b></label> 
+                        <span class="flex-row"><label class="options-label" id="programming-lang-label"><b>Change programming languages:</b></label> 
                             <div id="programming-lang-buttons">
                                 <button class="save-button" id="save-programming-lang-button">Save</button>
                                 <button class="cancel-button" id="cancel-programming-lang-button">Cancel</button>
@@ -311,7 +311,7 @@ ViewBag.Title = "My Profile";
                     @*Form to change CS interests*@
                      <div class="form-group edit-profile-form-column hidden" id="cs-interest-selection-container">
 
-                        <span class="flex-row"><label id="cs-interest-label"><b>Change Computer Science interests:</b></label> 
+                        <span class="flex-row"><label  class="options-label"  id="cs-interest-label"><b>Change Computer Science interests:</b></label> 
                             <div id="cs-interest-buttons">
                                 <button class="save-button" id="save-cs-interest-button">Save</button>
                                 <button class="cancel-button" id="cancel-cs-interest-button">Cancel</button>
@@ -340,13 +340,126 @@ ViewBag.Title = "My Profile";
             </div>
         </div>
         @* End of second panel *@
+        @* Start of third panel *@
         <div class="panel" id="panel-three">
-            <div class="panel-title">Hobbies</div>
-            <p>Content3</p>
+            @* Third panel's main column *@
+             <div id="panel-three-col">
+                @* Hobbies Section *@
+                <div class="panel-title">Hobbies</div>
+                @* Hobbies Section Main COntainer*@
+                <div id="hobbies-wrapper" class="edit-profile-form-column">
+
+                    @* Hobbies Data*@
+                    <div id="hobbies-data">
+                        <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Hobbies and Interests:</p>
+                        <ul class="preference-list">
+                        @for (var i = 0; i < Model.HobbyNames!.Count(); i++)
+                        {   
+                            <li>
+                                <div class="preference-container">
+                                    @Html.DisplayFor(model=>model.HobbyNames![i])
+                                </div>
+                            </li>
+                        }
+                        </ul>
+                        <div>
+                            <button class="edit-button" id="edit-hobbies">Edit</button>
+                        </div> 
+                    </div>
+
+
+                    @*Form to change programming languages*@
+                     <div class="form-group edit-profile-form-column hidden" id="hobbies-selection-container">
+
+                        <span class="flex-row"><label  class="options-label"  id="hobby-label"><b>Change hobbies:</b></label> 
+                            <div id="hobby-buttons">
+                                <button class="save-button" id="save-hobby-button">Save</button>
+                                <button class="cancel-button" id="cancel-hobby-button">Cancel</button>
+                            </div>
+                        </span>
+                 
+                         <div class="checkbox-container edit-profile-checkbox-container">
+                            <ul class="checkbox-unordered-list">
+                                @for (var i = 0; i < Model.HobbiesViewModelList!.Count(); i++)
+                                {     
+                                      // Create an ID property for each checkbox by concatenating a string with the index-number
+                                      var checkboxId = "edit-hobby-checkbox-" + (i + 1).ToString();
+                                      <li>
+                                           <input class="edit-hobby-checkbox" type="checkbox" id=@checkboxId>
+                                            @Html.Label(Model.HobbiesViewModelList![i].Hobby!.Name,Model.HobbiesViewModelList![i].Hobby!.Name,
+                                            htmlAttributes: new { @for = checkboxId })
+                                      </li>
+                                }
+                            </ul>
+                        </div>   
+                    </div>
+                 @*End of form to change hobbies*@
+                </div>
+                 @*End of hobbies section*@
+            </div>
         </div>
+        @* End of third panel *@
+        @* Start of fourth panel *@
         <div class="panel" id="panel-four">
-            <div class="panel-title">Random Question Generator</div>
-            <p>Content4</p>
+             @* Fourth panel's main column *@
+             <div id="panel-four-col">
+                <div class="panel-title">Random "About You" Questions</div>
+                 @* Random Question Generator*@
+                <div id="random-question-wrapper" class="edit-profile-form-column">
+                    <div id="questions-data"  class="edit-profile-form-column">
+                        <ul id="questions-list">
+                        @for (var i = 0; i < Model.QuestionAnswerBlocks!.Count(); i++)
+                        {    
+                            var hiddenInputId = "hidden-" + i;
+                            var buttonId = "delete-button-" + i;
+                            var editButtonId = "edit-button-" + i;
+                            var saveButtonId = "save-button-" + i;
+                            var editInputId = "edit-input-" + i;
+                            var editInputIdWrapper = "edit-input-wrapper-" + i;
+                            <li class="question-answer-block">
+                                @Html.HiddenFor(m => m.QuestionAnswerBlocks![i].QuestionAnswerBlockId, htmlAttributes: new { @id = hiddenInputId})
+                                <div><b>@Html.DisplayFor(model => model.QuestionAnswerBlocks[i].QuestionString)</b></div>
+                                <br>
+                                <div>@Html.DisplayFor(model => model.QuestionAnswerBlocks[i].AnswerString)</div>
+                                <div id=@editInputIdWrapper class="hidden"><input class="edit-answer-input" type="text" id=@editInputId><button class="save-answer-button" id=@saveButtonId>Save</button></div>
+                                <br>
+                                <div><button class="delete-button" id=@buttonId>Delete</button><button class="edit-answer-button" id=@editButtonId>Edit</button></div>
+                            </li>
+                            <br/>
+                            <br/>
+                        }
+                        </ul>
+                    </div>
+                    <div class="edit-profile-form-row"><label><b>Click on the button to answer questions 
+                        about yourself, to increase your chances of getting a match with a similar buddy.</b></label></div>
+                     <div class="edit-profile-form-center-row">
+                         @* Click this button to get a random question *@
+                         <button class="random-button" id="random-question-generator">Generate Random Question</button>
+                     </div>
+                     @* Put the question to-be-answered here *@
+                     <div class="edit-profile-form-center-row">
+                         <p id="random-question" class="question"></p>
+                     </div>
+                     <div>
+                         <label id="error-label-for-answer"></label>
+                     </div>
+                     @* Hidden input field for the answer - appears when question is generated *@
+                     <div id="answer-inputs" class="answer-input-fields edit-profile-form-center-row hidden">
+                         @* QuestionId goes in the hidder field*@
+                         <input id="hidden-input" type="hidden" value="x">
+                         @* User's answer goes here *@
+                         <div class="flex-row">
+                             <label id="answer-label" for="answer-input">Answer:</label>
+                             <input id="answer-input" type="text">
+                         <div/>
+                         <div>
+                             <button class="save-button" id="save-answer-button">Save</button>
+                         </div>
+                     </div>
+                 </div>
+                  @* End of Random Question Generator*@
+            </div>
         </div>
     </div>
+     @* End  of fourth panel *@
 </div>

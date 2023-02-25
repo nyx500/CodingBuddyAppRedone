@@ -1094,8 +1094,13 @@ namespace CBApp.Controllers
             model.CareerPhase = user.CareerPhase;
             model.ExperienceLevel = user.ExperienceLevel;
             model.LanguageNames = new List<string>();
+            model.QuestionAnswerBlocks = new List<QuestionAnswerBlock>();
             model.Bio = user.Bio;
 
+            foreach (QuestionAnswerBlock qaBlock in user.QuestionAnswerBlocks)
+            {
+                model.QuestionAnswerBlocks.Add(qaBlock);
+            }
 
             // Dropdown configuration to change Career Phase/Experience Level Options
             // Populate the view model with CareerPhases
@@ -1495,7 +1500,7 @@ namespace CBApp.Controllers
             }
         }
 
-        // Update user's languages
+        // Update user's Computer Science Interests
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> UpdateCSInterests(int[] ids)
@@ -1542,6 +1547,231 @@ namespace CBApp.Controllers
                 return Json("failed");
             }
         }
+
+        // Update user's hobbies and interests
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> UpdateHobbies(int[] ids)
+        {
+
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            List<Hobby> hobbies = context.Hobbies.ToList();
+
+            user.HobbyUsers.Clear();
+
+            foreach (Hobby h in hobbies)
+            {
+                int id = h.HobbyId;
+
+                if (ids.Contains(id))
+                {
+                    user.HobbyUsers!.Add(new HobbyUser
+                    {
+                        SlackId = user.SlackId!,
+                        HobbyId = id,
+                        Hobby = h,
+                        User = user
+                    });
+                }
+            }
+
+
+            // Update the user properties
+            var result = await userManager.UpdateAsync(user);
+
+            // If the IdentityResult object is true, then sign the user in using a session cookie
+            if (result.Succeeded)
+            {
+                // Update the dtabase
+                context.SaveChanges();
+
+                return Json("updated");
+            }
+            else
+            {
+                return Json("failed");
+            }
+        }
+
+        // Generate a random question that the user hasn't answered yet
+        [Authorize]
+        [HttpGet]
+        public IActionResult GenerateRandomQuestion()
+        {
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            List<Question> questions = context.Questions.ToList();
+
+            // User's QA-blocks consisting of questions and answers that user has typed in
+            List<QuestionAnswerBlock> userQABlocks = user.QuestionAnswerBlocks.ToList();
+
+            // Will store the strings of the questions that the user has already answered
+            List<string> usersQuestionStrings = new List<string>();
+
+            foreach (QuestionAnswerBlock qaBlock in userQABlocks)
+            {
+                usersQuestionStrings.Add(qaBlock.QuestionString);
+            }
+
+            // Stores questions user has not answered yet
+            List<Question> notYetAnswered = new List<Question>();
+
+            // Iterates through the questions in the database
+            foreach (Question q in questions)
+            {   
+                // If the user's question-strings do not contain the current question
+                // add the question to the returned list
+                if (!usersQuestionStrings.Contains(q.QuestionString))
+                {
+                    notYetAnswered.Add(q);
+                }
+            }
+
+
+            // Now pick a random question from those not yet answered
+            var random = new Random();
+            int index = random.Next(notYetAnswered.Count);
+
+            // Check if there are any questions left unanswered first
+            if (notYetAnswered.Count > 0)
+            {
+                Question randomQuestion = notYetAnswered[index];
+                //string randomQuestionString = randomQuestion.QuestionString;
+
+                return Json(new { output = JsonConvert.SerializeObject(randomQuestion) });
+            }
+            else
+            {
+                return Json(new { output = "" });
+            }
+
+        }
+
+
+        // Update random question-answer block for the logged-in user
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> UpdateRandomQuestion(string id, string answer)
+        {
+            int questionId = Convert.ToInt32(id);
+            Question q = context!.Questions.Where(q => q.QuestionId == questionId).FirstOrDefault<Question>()!;
+
+
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            // Create a new Question-Answer block
+            QuestionAnswerBlock qaBlock = new QuestionAnswerBlock
+            {
+                SlackId = user.SlackId,
+                User = user,
+                QuestionString = q.QuestionString,
+                AnswerString = answer
+            };
+
+            // Add it to the database
+            context.QuestionAnswerBlocks.Add(qaBlock);
+
+            // Add it to the user
+            user.QuestionAnswerBlocks!.Add(qaBlock);
+
+            var result = await userManager.UpdateAsync(user);
+
+            // If the IdentityResult object is true, then sign the user in using a session cookie
+            if (result.Succeeded)
+            {
+                context.SaveChanges();
+                return Json("updated");
+            }
+            else
+            {
+                return Json("failed");
+            }
+
+        }
+        
+        // Delete random question-answer block for the logged-in user
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> DeleteRandomQuestion(string id)
+        {  
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+
+            int qaId = Convert.ToInt32(id);
+            // Get the correct Question Answer Block
+            QuestionAnswerBlock qaBlock = context!.QuestionAnswerBlocks.Where(q => q.QuestionAnswerBlockId == qaId).FirstOrDefault<QuestionAnswerBlock>()!;
+
+            context.QuestionAnswerBlocks.Remove(qaBlock);
+
+            var result = await userManager.UpdateAsync(user);
+
+            // If the IdentityResult object is true, then sign the user in using a session cookie
+            if (result.Succeeded)
+            {
+                context.SaveChanges();
+                return Json("updated");
+            }
+            else
+            {
+                return Json("failed");
+            }
+
+        }
+
+
+
+        // Delete random question-answer block for the logged-in user
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EditRandomQuestion(string questionAnswerBlockId, string newAnswer)
+        {
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            int qaId = Convert.ToInt32(questionAnswerBlockId);
+
+            // Get the correct Question Answer Block
+            QuestionAnswerBlock qaBlock = context!.QuestionAnswerBlocks.Where(q => q.QuestionAnswerBlockId == qaId).FirstOrDefault<QuestionAnswerBlock>()!;
+
+            qaBlock.AnswerString = newAnswer;
+
+            var result = await userManager.UpdateAsync(user);
+
+            // If the IdentityResult object is true, then sign the user in using a session cookie
+            if (result.Succeeded)
+            {
+                context.SaveChanges();
+                return Json("updated");
+            }
+            else
+            {
+                return Json("failed");
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
     } 
 }
 

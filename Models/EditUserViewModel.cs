@@ -17,6 +17,7 @@ namespace CBApp.Models
         public List<String>? ProgrammingLanguageNames { get; set; }
         public List<String>? CSInterestNames { get; set; }
         public List<String>? HobbyNames { get; set; }
+        public List<QuestionAnswerBlock>? QuestionAnswerBlocks { get; set; }
         public List<NaturalLanguageViewModel>? NaturalLanguagesViewModelList { get; set; }
         public List<ProgrammingLanguageViewModel>? ProgrammingLanguagesViewModelList { get; set; }
         public List<CSInterestViewModel>? CSInterestsViewModelList { get; set; }
