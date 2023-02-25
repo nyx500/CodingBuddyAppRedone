@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "oHA5URjxusCFNDGfFYCpb1EyZbOglbaYJvyOuByUu/U=",
+  "Hash": "zOwL3tSyKczD8l/UDptmbEt8gDsrAXRTFQzhWCUH7EU=",
   "Source": "CBApp",
   "BasePath": "_content/CBApp",
   "Mode": "Default",
@@ -1139,6 +1139,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\logo_icon.png"
     },
     {
+      "Identity": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\assets\\user.png",
+      "SourceId": "CBApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\",
+      "BasePath": "_content/CBApp",
+      "RelativePath": "assets/user.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\user.png"
+    },
+    {
       "Identity": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\css\\fonts\\Anton\\Anton-Regular.ttf",
       "SourceId": "CBApp",
       "SourceType": "Discovered",
@@ -1307,6 +1324,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\js\\profile.js",
+      "SourceId": "CBApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\",
+      "BasePath": "_content/CBApp",
+      "RelativePath": "js/profile.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\profile.js"
     },
     {
       "Identity": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\js\\site.js",
@@ -3024,6 +3058,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\Photos\\Photos",
+      "SourceId": "CBApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\",
+      "BasePath": "_content/CBApp",
+      "RelativePath": "Photos/Photos",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Photos\\Photos"
     }
   ]
 }

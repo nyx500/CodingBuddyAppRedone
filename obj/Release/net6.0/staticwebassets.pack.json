@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\CBApp.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\Photos\\Photos",
+      "PackagePath": "staticwebassets\\Photos"
+    },
+    {
       "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\assets\\background.png",
       "PackagePath": "staticwebassets\\assets\\background.png"
     },
@@ -19,6 +23,10 @@
     {
       "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\assets\\logo_icon.png",
       "PackagePath": "staticwebassets\\assets\\logo_icon.png"
+    },
+    {
+      "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\assets\\user.png",
+      "PackagePath": "staticwebassets\\assets\\user.png"
     },
     {
       "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\css\\fonts\\Anton\\Anton-Regular.ttf",
@@ -59,6 +67,10 @@
     {
       "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\js\\profile.js",
+      "PackagePath": "staticwebassets\\js\\profile.js"
     },
     {
       "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\js\\site.js",

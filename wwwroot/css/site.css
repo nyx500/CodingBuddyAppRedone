@@ -1138,9 +1138,6 @@ select.list-dt {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    margin: 0px;
-    padding: 0px;
-    margin-top: -100px;
 }
 
 /*Hide radio buttons that allow for tab-selection*/
@@ -1505,6 +1502,10 @@ select.list-dt {
     border: 1px solid black;
     box-shadow: 1rem 1rem 0.5rem #00000080;;
     padding: 20px;
+}
+.question {
+    padding: 20px;
+    margin-bottom: 10px;
 }
 
 /* Button to cancel/stop editing profile option or delete-button to delete

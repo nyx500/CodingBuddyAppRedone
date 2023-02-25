@@ -432,30 +432,30 @@ ViewBag.Title = "My Profile";
                     </div>
                     <div class="edit-profile-form-row"><label><b>Click on the button to answer questions 
                         about yourself, to increase your chances of getting a match with a similar buddy.</b></label></div>
-                     <div class="edit-profile-form-center-row">
+                     <div>
                          @* Click this button to get a random question *@
                          <button class="random-button" id="random-question-generator">Generate Random Question</button>
                      </div>
                      @* Put the question to-be-answered here *@
                      <div class="edit-profile-form-center-row">
-                         <p id="random-question" class="question"></p>
-                     </div>
-                     <div>
-                         <label id="error-label-for-answer"></label>
-                     </div>
-                     @* Hidden input field for the answer - appears when question is generated *@
-                     <div id="answer-inputs" class="answer-input-fields edit-profile-form-center-row hidden">
-                         @* QuestionId goes in the hidder field*@
-                         <input id="hidden-input" type="hidden" value="x">
-                         @* User's answer goes here *@
-                         <div class="flex-row">
-                             <label id="answer-label" for="answer-input">Answer:</label>
-                             <input id="answer-input" type="text">
-                         <div/>
-                         <div>
-                             <button class="save-button" id="save-answer-button">Save</button>
+                         <div><p id="random-question" class="question"></p></div>
+                         <br/>
+                          <label id="error-label-for-answer"></label>
+                          @* Hidden input field for the answer - appears when question is generated *@
+                         <div id="answer-inputs" class="answer-input-fields edit-profile-form-center-row hidden">
+                             @* QuestionId goes in the hidder field*@
+                             <input id="hidden-input" type="hidden" value="x">
+                             @* User's answer goes here *@
+                             <div class="flex-row">
+                                 <label id="answer-label" for="answer-input">Answer:</label>
+                                 <input id="answer-input" type="text">
+                             <div/>
+                             <div>
+                                 <button class="save-button" id="save-answer-button">Save</button>
+                             </div>
                          </div>
-                     </div>
+                    </div>
+
                  </div>
                   @* End of Random Question Generator*@
             </div>

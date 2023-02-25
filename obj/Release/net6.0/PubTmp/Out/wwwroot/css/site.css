@@ -44,6 +44,8 @@ body {
 .body-content {
     vertical-align: middle;
     overflow: auto;
+    margin:0;
+    padding:0;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -60,6 +62,7 @@ will truncate terms that are too long to fit in the left column
     --periwinkle: #856BC2;
     --palePurple: #DED6E6;
     --mediumBlue: #1627A3;
+    --veryDarkBlue: #050A30;
 }
 
 
@@ -892,9 +895,9 @@ fieldset label{
         margin: 10px 20px;
     }
 
-        #registration-form .action-button:hover, #registration-form .action-button:focus {
-            box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
-        }
+    #registration-form .action-button:hover, #registration-form .action-button:focus {
+        box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
+    }
 
     /*Previous Buttons*/
     #registration-form .action-button-previous {
@@ -909,9 +912,9 @@ fieldset label{
         margin: 10px 5px;
     }
 
-        #registration-form .action-button-previous:hover, #registration-form .action-button-previous:focus {
-            box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
-        }
+    #registration-form .action-button-previous:hover, #registration-form .action-button-previous:focus {
+        box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
+    }
 
 /*Dropdown List Exp Date*/
 select.list-dt {
@@ -1030,6 +1033,11 @@ select.list-dt {
     border-radius: 8px;
 }
 
+.edit-profile-checkbox-container{
+    width: 100%;
+    margin-bottom: 100px;
+}
+
 .checkbox-unordered-list {
     list-style-type:none;
     padding: 30px;
@@ -1090,9 +1098,556 @@ select.list-dt {
     display: absolute;
     position: absolute;
     opacity: 0;
+    z-index:20;
+    margin: 40px;
+}
+
+.langCheckbox:checked + label {
+    color: red;
 }
 
 .checkbox-unordered-list li input[type="checkbox"]:focus + label
 {
     border: 2px solid var(--peachyYellow);
+}
+
+
+
+/*Rdit Profile Page*/
+.profile-header {
+    color: white;
+    font-family: Anton, Verdana, Arial, sans-serif;
+    font-weight: 100;
+    margin-left: 70px;
+    font-size: 2.5rem;
+}
+
+.profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    font-family: Gordita, Verdana, Arial, sans-serif;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-top: 80px;
+    height: fit-content;
+    color: black;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+/*Hide radio buttons that allow for tab-selection*/
+.radio {
+    display: none;
+}
+
+/** Style for the tabs */
+.tab {
+    cursor: pointer;
+    padding: 10px 50px;
+    margin: 0px 20px;
+    background-color: var(--palePurple);
+    display: inline-block;
+    color: black;
+    border-radius: 10px 10px 0px 0px;
+    /* Put some shadow under the tabs for a pleasing effect */
+    box-shadow: 0 0.5rem 0.5rem #00000080;
+}
+
+/* The container for all the 4 separate panels here: */
+.panels {
+    background-color: var(--periwinkle);
+    height: fit-content;
+    padding-bottom: 50px;
+    padding-right: 200px !important;
+    border-radius: 3px;
+    overflow: initial;
+    padding-top: 20px;
+}
+
+/* Style for each panel: hide unless clicked on the corresponding tab! */
+.panel {
+    display: none;
+    animation: fadein 0.8s;
+}
+
+/* Configure panel-change animation (fade in/out) */
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.panel-title {
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 10px;
+}
+
+/* If the corresponding radio-button is checked for that panel, then display the panel
+    Use flexbox to make panel responsive (columns of data next to each other,
+    wrap if screen-size becomes to small to accomodate the columns)
+*/
+#radio-one:checked ~ .panels #panel-one,
+#radio-two:checked ~ .panels #panel-two,
+#radio-three:checked ~ .panels #panel-three,
+#radio-four:checked ~ .panels #panel-four {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+
+/* If the corresponding radio-button is checked for that tab, then style the tab
+    in a different colour and highlight the text with bold and underline
+*/
+#radio-one:checked ~ .tabs #tab-one,
+#radio-two:checked ~ .tabs #tab-two,
+#radio-three:checked ~ .tabs #tab-three,
+#radio-four:checked ~ .tabs #tab-four {
+    background: var(--periwinkle);
+    color: black;
+    border-top: 4px solid var(--peachyYellow);
+    text-decoration: underline;
+    font-weight: bolder;
+}
+
+/** Set column widths and layout for the first panel (account/basic info)
+    Column on the left is to take up less space than the column on the right
+*/
+#panel-one {
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+#panel-two {
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Styling for panel heading */
+.panel-title {
+    margin-bottom: 40px;
+}
+
+/* Panel 1 layout */
+#panel-one div {
+    margin-left: 20px;
+}
+
+
+/* Panel 1 cols */
+#basic-info-first-col, #basic-info-second-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    justify-items: flex-start;
+    align-items: flex-start;
+}
+
+
+/* Panels 2 and 3 cols*/
+#panel-two-col, #panel-three-col, #panel-four-col {
+    display: flex;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start;
+    justify-items: flex-start;
+    align-items: flex-start;
+    margin-bottom: 60px;
+    margin-left: 20%;
+    border: 1px ridge black;
+    box-shadow: 0 0.5rem 0.5rem #00000080;
+    padding: 20px 20px;
+    border-radius: 8px;
+    margin-top: 50px;
+}
+
+#panel-four-col{
+    width: 100%;
+}
+
+/* Code to put "edit" button next to the item of data shown */
+.edit-profile-form-row, .edit-profile-form-center-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.edit-profile-form-row {
+    justify-content: flex-start;
+    justify-items: flex-start;
+}
+
+.edit-profile-form-center-row {
+    justify-content: center;
+    justify-items: center;
+}
+
+.edit-profile-form-column {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    justify-items: center;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+
+.edit-button {
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 2px solid white;
+    margin: 10px;
+}
+
+.edit-button:hover {
+    background-color: var(--mediumBlue);
+}
+
+.add-button {
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    border: 2px solid white;
+    padding: 10px 20px;
+}
+
+.add-button:hover {
+    background-color: var(--mediumBlue);
+}
+
+.options-label {
+    margin-right: 10px;
+}
+
+.error-options-label{
+    background-color: black;
+    color: red;
+    padding: 10px;
+    border: 2px solid red;
+    border-radius: 6px;
+    margin-right: 20px!important;
+}
+
+/**************First Column in Panel One*****************************/
+/* Profile picture styling (form and image) */
+#profile-picture {
+    border-radius: 10%;
+    width: 200px;
+    height: auto;
+    border: 4px solid black;
+}
+
+#profile-picture-form-wrapper {
+    margin: 20px;
+}
+
+#profile-picture-form label {
+    width: 250px;
+}
+
+#profile-picture-input {
+    margin-top: 20px;
+}
+    /* Styling for the "Choose file..." button to select a file from local disk*/
+    #profile-picture-input::file-selector-button {
+        border-radius: 12px;
+        background-color: var(--mediumBlue);
+        color: white;
+        cursor: pointer;
+        padding: 10px;
+        margin-right: 10px;
+    }
+        /* Change colour of "Choose file..." button when move over it */
+        #profile-picture-input::file-selector-button:hover {
+            background-color: var(--palePurple);
+            color: black;
+        }
+
+/* Career-Phase and Experience-Level text styling */
+#career-phase-wrapper, #experience-level-wrapper, #career-phase-wrapper div, #experience-level-wrapper div {
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+    #career-phase-wrapper div, #experience-level-wrapper div {
+        background-color: var(--palePurple);
+        padding: 10px;
+        border: 4px solid black;
+        border-radius: 20px;
+        width: 180px;
+        text-align: center;
+    }
+
+#career-dropdown, #experience-dropdown {
+    width: 390px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap
+}
+
+#career-phase-buttons, #experience-level-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+/**************Second Column in Panel One*****************************/
+#username-title {
+    margin-bottom: 20px;
+}
+
+#slack-id-subtitle {
+    margin-bottom: 20px;
+}
+
+
+/** For lists for langs/interests*/
+
+#languages-wrapper, #programming-languages-wrapper, #interests-wrapper {
+    margin-top: 0px;
+}
+
+#programming-languages-wrapper, #interests-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+ #programming-languages-wrapper {
+     margin-bottom: 40px;
+ }
+
+
+.interests-skills-subtitle {
+    font-weight: bolder;
+}
+
+.preference-list {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.preference-list li {
+    display: inline-block;
+}
+
+.preference-container {
+    background-color: var(--palePurple);
+    padding: 10px 20px;
+    border: 2px solid black;
+    color: black;
+    border-radius: 40px;
+    margin: 10px;
+}
+
+/* Button to edit languages */
+#edit-languages-spoken {
+    padding: 10px 20px;
+    width: 200px;
+    margin-bottom: 100px;
+}
+
+
+
+/*****************Hidden Forms******************/
+/* Toggle JS class to add/remove in order to hide elements */
+.hidden {
+    display: none;
+}
+
+/* Button to upload updated choices to DB */
+.save-button {
+    background-color: var(--mediumBlue);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+.save-button:hover {
+    background-color: var(--palePurple);
+    color: black;
+    border: 2px solid black;
+}
+
+/* Button to upload the answer to a random question from 
+    the random-question-generator
+*/
+#save-answer-button {
+    margin-left: 30px;
+}
+
+/* Displays user's questions and answers*/
+.question-answer-block {
+    border: 1px solid black;
+    box-shadow: 1rem 1rem 0.5rem #00000080;;
+    padding: 20px;
+}
+.question {
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+/* Button to cancel/stop editing profile option or delete-button to delete
+    a random question from the random-question generator
+*/
+.cancel-button, .delete-button {
+    background-color: red;
+    color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+.delete-button:hover {
+    box-shadow: 0 0.5rem 0.5rem #00000080;
+}
+
+.edit-answer-button {
+    background-color: var(--mediumBlue);
+    color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-left: 10px;
+}
+
+.edit-answer-button:hover {
+    box-shadow: 0 0.5rem 0.5rem #00000080;
+}
+
+
+.save-answer-button {
+    background-color: black;
+    color: var(--palePurple);
+    border: 2px solid var(--mediumBlue);
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-left: 10px;
+}
+.save-answer-button:hover {
+    box-shadow: 0 0.5rem 0.5rem #00000080;
+}
+
+
+/* Button for rsandom question generator */
+.random-button {
+    background-color: var(--peachyYellow);
+    color: var(--veryDarkBlue);
+    border: 4px solid var(--veryDarkBlue);
+    border-radius: 10px;
+    padding: 5px 20px;
+}
+
+.random-button:hover {
+    box-shadow: 0 0.5rem 0.5rem #00000080;
+}
+
+/* Answer input field for the random question */
+#answer-label {
+    margin-top: 10px;
+    text-align: left;
+}
+#answer-input {
+    padding: 0px 0px!important;
+    border-radius: 8px;
+    margin-left: 20px;
+    width: 100%;
+}
+
+#questions-list {
+    list-style-type: none!important;
+}
+
+/* Make error text appear red by adding this class in JQUery*/
+.error-label {
+    color: red;
+}
+
+#edit-username-form {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+}
+
+    #edit-username-form input {
+        margin-left: 20px;
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+        /* Highlight username input when selected */
+        #edit-username-form input:focus {
+            background-color: var(--palePurple);
+        }
+
+    #edit-username-form label {
+        font-weight: bolder;
+    }
+
+/*Bio form*/
+/* Try to make textarea put cursor on left hand top corner: REALLY hard! */
+#edit-bio-form textarea {
+    vertical-align: top;
+    text-align: left;
+    text-align: start;
+    padding: 5px;
+    border: 2px solid black;
+}
+
+#bio-input-label {
+    display: block;
+}
+
+#bio-buttons {
+    margin-top: 20px;
+}
+
+#bio {
+    width: 500px;
+}
+
+/** Media queries */
+/* Wrap content on smaller screens */
+@media all and (max-width: 600px) {
+    #radio-one:checked ~ .panels #panel-one,
+    #radio-two:checked ~ .panels #panel-two,
+    #radio-three:checked ~ .panels #panel-three,
+    #radio-four:checked ~ .panels #panel-four {
+        flex-wrap: wrap;
+    }
+}
+/* Wrap the buttons next to careerphase/experience level*/
+@media all and (max-width: 1200px) {
+    #career-dropdown {
+        flex-wrap: wrap;
+    }
+}
+/* Adjust bio width */
+@media all and (max-width: 1000px) {
+    #bio {
+        width: 300px;
+    }
 }
