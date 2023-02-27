@@ -162,11 +162,88 @@
                        value="Next Step" />
             </fieldset>
             @* End of first fieldset (career phase and experience level) *@
+            @* Second fieldset (programming languages) *@
             <fieldset>
                 <div class="form-card" id="prog-skills-form-card">
                     <h3 class="fs-title">Programming Languages</h3>
+                    <div>
+                        <h4>
+                            Filter by Programming Language
+                        </h4>
+                        <h5>
+                            <em>Select as many as you want:</em>
+                        </h5>
+                        <div class="form-group">
+                            <div class="checkbox-container find-a-buddy-checkbox-container">
+                                <ul class="checkbox-unordered-list find-buddy-proglangs-checkboxes">
+                                    @for (var i = 0; i < Model.ProgrammingLanguagesViewModelList!.Count(); i++)
+                                    {
+                                        // Create an ID property for each checkbox by concatenating a string with the index-number
+                                        var checkboxId = "prog-lang-checkbox-" + (i + 1).ToString();
+
+                                        <li>
+                                            @Html.HiddenFor(model => model.ProgrammingLanguagesViewModelList![i])
+                                            @Html.CheckBoxFor(model =>
+                                        model.ProgrammingLanguagesViewModelList![i].isSelected, new {
+                                        @class="proglang-checkbox", @id = checkboxId, @type="checkbox" })
+                                            @Html.Label("Career " + Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name, Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name,
+                                        htmlAttributes: new { @for = checkboxId })
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <input type="button" name="previous" class="previous action-button-previous" id="find-buddy-previous-first"
+                       value="Previous" />
+                <input type="button" name="next" class="next action-button" id="find-buddy-second"
+                       value="Next Step" />
             </fieldset>
+            @* End of second fieldset (programming languages) *@
+            @* Third fieldset (CS Interests) *@
+            <fieldset>
+                <div class="form-card" id="cs-interests-form-card">
+                    <h3 class="fs-title">Computer Science Interests</h3>
+                    <div>
+                        <h4>
+                            Filter by interest
+                        </h4>
+                        <h5>
+                            <em>Select as many as you want:</em>
+                        </h5>
+                        <div class="form-group">
+                            <div class="checkbox-container find-a-buddy-checkbox-container">
+                                <ul class="checkbox-unordered-list find-buddy-cs-interests-checkboxes">
+                                    @for (var i = 0; i < Model.CSInterestsViewModelList!.Count(); i++)
+                                    {
+                                        // Create an ID property for each checkbox by concatenating a string with the index-number
+                                        var checkboxId = "cs-interest-checkbox-" + (i + 1).ToString();
+
+                                        <li>
+                                            @Html.HiddenFor(model => model.CSInterestsViewModelList![i])
+                                            @Html.CheckBoxFor(model =>
+                                        model.CSInterestsViewModelList![i].isSelected, new {
+                                        @class="cs-interest-checkbox", @id = checkboxId, @type="checkbox" })
+                                            @Html.Label("Career " + Model.CSInterestsViewModelList![i].CSInterest!.Name, Model.CSInterestsViewModelList![i].CSInterest!.Name,
+                                        htmlAttributes: new { @for = checkboxId })
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="button" name="previous" class="previous action-button-previous" id="find-buddy-previous-second"
+                       value="Previous" />
+                <input type="button" name="next" class="next action-button" id="find-buddy-third"
+                       value="Next Step" />
+            </fieldset>
+            @* End of third fieldset (CS Interests) *@
+            @* Fourth fieldset (Hobbies) *@
+            <fieldset>
+            </fieldset>
+            @* End of fourth fieldset (Hobbies) *@
         </form>
     </div>
 </div>

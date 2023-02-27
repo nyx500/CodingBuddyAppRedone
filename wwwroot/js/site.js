@@ -31,6 +31,8 @@ $(document).ready(function () {
     hideWelcomeScreen();
     // On Find-a-Buddy form: go to next page when next-buttons are clicked
     goToNextPageOnFindABuddyForm($("#find-buddy-first"));
+    goToNextPageOnFindABuddyForm($("#find-buddy-second"));
+    goToNextPageOnFindABuddyForm($("#find-buddy-third"));
 
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;

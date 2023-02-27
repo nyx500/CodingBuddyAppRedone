@@ -1763,8 +1763,8 @@ select.list-dt {
     content: "\f86d";
 }
 
-/* Section for career phase and experience level*/
-#prog-skills-form-card {
+
+#prog-skills-form-card, #cs-interests-form-card {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -1772,7 +1772,7 @@ select.list-dt {
     margin: 20px;
 }
 
-#prog-skills-form-card div {
+#prog-skills-form-card div, #cs-interests-form-card div {
     align-self: flex-start;
     text-align: left;
 }
@@ -1789,11 +1789,24 @@ select.list-dt {
 }
 
 /* Next button MUST go on the right!!! */
-#find-buddy-first {
+#find-buddy-first, #find-buddy-second, #find-buddy-third {
     align-self: flex-end;
     font-weight: 600;
     font-size: 1.2rem;
 }
-#find-buddy-first:hover {
+
+#find-buddy-first:hover, #find-buddy-second:hover, #find-buddy-third:hover,
+#find-buddy-previous-first:hover, #find-buddy-previous-second,
+{
     border: 4px solid white;
+}
+
+/* Previous button must go on the left */
+#find-buddy-previous-first, #find-buddy-previous-second {
+    align-self: flex-start;
+    font-weight: 600;
+    font-size: 1.2rem;
+    background-color: var(--periwinkle);
+    color: white !important;
+    padding: 10px;
 }
