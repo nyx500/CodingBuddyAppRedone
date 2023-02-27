@@ -19,6 +19,12 @@
         <li class="list-item">
             <a>@Html.ActionLink("FAQ", "FAQ", "Home")</a>
         </li>
+        @if (signInManager.IsSignedIn(User))
+        {
+            <li class="list-item">
+                <a>@Html.ActionLink("Find-a-Buddy!", "FindABuddy", "Matches")</a>
+            </li>
+        }
     </ul>
     <ul id="login-list" class="login-signup-list">
             @if (signInManager.IsSignedIn(User))

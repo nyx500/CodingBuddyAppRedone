@@ -834,10 +834,12 @@ fieldset label{
 .next
 {
     background-color: var(--mediumBlue)!important;
+    color: white;
     border-radius: 6px!important;
     width: fit-content;
     float: right;
     margin-right: 100px;
+    padding: 10px;
 }
 
 .previous {
@@ -1038,8 +1040,16 @@ select.list-dt {
     margin-bottom: 100px;
 }
 
+/* Some checkbox containers (e.g. Career Phase and Experience Level on Find-a-Buddy process view)
+    should not have a background
+*/
+.no-background-checkbox-container
+{
+    background: none!important;
+}
+
 .checkbox-unordered-list {
-    list-style-type:none;
+    list-style-type: none;
     padding: 30px;
 }
 
@@ -1098,7 +1108,7 @@ select.list-dt {
     display: absolute;
     position: absolute;
     opacity: 0;
-    z-index:20;
+    z-index: 20;
     margin: 40px;
 }
 
@@ -1472,7 +1482,7 @@ select.list-dt {
 /*****************Hidden Forms******************/
 /* Toggle JS class to add/remove in order to hide elements */
 .hidden {
-    display: none;
+    display: none!important;
 }
 
 /* Button to upload updated choices to DB */
@@ -1650,4 +1660,140 @@ select.list-dt {
     #bio {
         width: 300px;
     }
+}
+
+
+
+/**************************************Find-a-Buddy Form****************************************************/
+
+#find-a-buddy-container {
+    border: 4px solid var(--mediumBlue);
+    position: relative;
+    border-radius: 4px;
+    padding: 10px;
+    width: 90%;
+    background-color: black;
+    color: white;
+    margin-bottom: 10%;
+    margin-left: 10%;
+    margin-right: auto;
+}
+
+/* Welcome page div before 'start' button is clicked to go to form */
+#find-a-buddy-welcome-page-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 30px;
+    justify-content: space-between;
+    align-content: center!important;
+    align-items: center!important;
+}
+#find-a-buddy-welcome-page-container h1,
+#find-a-buddy-welcome-page-container h2,
+#find-a-buddy-welcome-page-container div
+{
+    margin: 20px 10px;
+    padding: 20px 10px;
+}
+
+/* Welcome header impact-font*/
+#find-a-buddy-welcome-page-container h1{
+    font-family: Anton, Verdana, Arial, sans-serif;
+}
+
+/* Subheading in ordinary selected sans-serif font */
+#find-a-buddy-welcome-page-container h2 {
+    font-family: Gordita, Verdana, Arial, sans-serif;
+}
+
+#find-a-buddy-welcome-page-container button
+{
+    background-color: slateblue;
+    padding: 10px;
+    width: 30vw;
+    border-radius: 30px;
+    color: white;
+    font-weight: 500;
+    font-size: 1.8rem;
+}
+
+#find-a-buddy-welcome-page-container button:hover {
+    background-color: var(--mediumBlue);
+}
+
+/* Form container for the "Find-a-Buddy Process */
+#find-a-buddy-form-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+#find-a-buddy-form {
+    letter-spacing: 1px;
+    /* Positions the progress bar icons centrally above the labels for them*/
+    text-align: center;
+    position: relative;
+    margin-top: 10px;
+}
+
+
+/*Icons in the ProgressBar for the Find-a-Buddy Page*/
+#progressbar #career-experience:before {
+    font-family: FontAwesome;
+    /* Wrench icon */
+    content: "\f0ad";
+}
+
+#progressbar #prog-langs:before {
+    font-family: FontAwesome;
+    /* Code </> icon */
+    content: "\f121";
+}
+
+#progressbar #cs-interests:before {
+    font-family: FontAwesome;
+    /* Desktop computer screen icon */
+    content: "\f108";
+}
+
+#progressbar #hobbies:before {
+    font-family: FontAwesome;
+    /* Music/camera/heart icons */
+    content: "\f86d";
+}
+
+/* Section for career phase and experience level*/
+#prog-skills-form-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    margin: 20px;
+}
+
+#prog-skills-form-card div {
+    align-self: flex-start;
+    text-align: left;
+}
+
+/*Hide all except first fieldset*/
+#find-a-buddy-form fieldset:not(:first-of-type) {
+    display: none;
+}
+
+/* When option for career phase is selected, highlight it in yellow */
+.find-buddy-careers-checkboxes li input[type="checkbox"]:checked + label,
+.find-buddy-experience-checkboxes li input[type="checkbox"]:checked + label {
+    border: 6px solid var(--peachyYellow);
+}
+
+/* Next button MUST go on the right!!! */
+#find-buddy-first {
+    align-self: flex-end;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+#find-buddy-first:hover {
+    border: 4px solid white;
 }

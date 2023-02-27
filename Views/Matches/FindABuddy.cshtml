@@ -1,0 +1,172 @@
+﻿@model FindBuddyViewModel
+
+@{
+    ViewBag.Title = "Find-a-Buddy Process";
+}
+
+@* Store the errors from the session FormErrors instance *@
+@{
+    var errors = Context.Session.GetObject<FormErrors>("FindABuddyErrors");
+}
+
+
+<div id="find-a-buddy-container">
+    <div id="find-a-buddy-welcome-page-container">
+        <h1>
+           WELCOME TO THE FIND-A-BUDDY PROCESS!
+        </h1>
+        <h2>
+            Apply filters to tailor your Matches in just 4 quick steps...
+        </h2>
+        <div id="large-button-start-process">
+            <button id="start-matching">Get Started</button>
+        </div>
+    </div>
+
+    <div id="find-a-buddy-form-container" class="hidden"> 
+        <form id="find-a-buddy-form" method="post">
+            <!--Feedback for users: progress bar-->
+            <ul id="progressbar">
+                @* Career Phase and Experience Level *@
+                <li class="active fa" id="career-experience"><strong>Skills</strong></li>
+                @* Favourite programming languages *@
+                <li class="fa" id="prog-langs"><strong>Programming Languages</strong></li>
+                @* Computer Science interests *@
+                <li class="fa" id="cs-interests"><strong>CS Interests</strong></li>
+                @* Hobbies *@
+                <li class="fa" id="hobbies"><strong>Hobbies</strong></li>
+            </ul>
+            <fieldset>
+                <div class="form-card" id="prog-skills-form-card">
+                    <h3 class="fs-title">Programming Skills</h3>
+                    @* Career Phase filter section *@
+                    <div>
+                        <h4>
+                            Filter by Career Phase
+                        </h4>
+                        <h5>
+                            <em>Select as many as you want:</em>
+                        </h5>
+                        <div class="form-group">
+                            <div class="checkbox-container no-background-checkbox-container">
+                                <ul class="checkbox-unordered-list find-buddy-careers-checkboxes">
+                                    @for (var i = 0; i < Model.CareerPhasesViewModelList!.Count(); i++)
+                                    {
+                                        // Create an ID property for each checkbox by concatenating a string with the index-number
+                                        var checkboxId = "career-checkbox-" + (i + 1).ToString();
+
+                                        // Set diff colour for checkbox dep. on the career phase's value
+                                        string style;
+
+                                        if (Model.CareerPhasesViewModelList[i].careerPhase.CareerPhaseId == 1)
+                                        {
+                                            // Starter: Pale purple background, black text
+                                            style = "background-color: #ded6e6; color: black;";
+                                        }
+                                        else if (Model.CareerPhasesViewModelList[i].careerPhase.CareerPhaseId == 2)
+                                        {
+                                            // Changer: medium purple/blue background, black text
+                                            style = "background-color: #6a5acd; color: black;";
+                                        }
+                                        else
+                                        {
+                                            // Developer: darker indigo and white text
+                                            style = "background-color: #3d03ac; color: white;";
+                                        }
+
+                                        /* Override CSS styling here (usually checkboxes for the other forms of this type were small and close together,
+                                        these are larger and fewer in number, so make margins slightly bigger) */
+                                        <li style="margin: 20px;">
+                                            @Html.HiddenFor(model => model.CareerPhasesViewModelList![i])
+                                            @Html.CheckBoxFor(model =>
+                                        model.CareerPhasesViewModelList![i].isSelected, new {
+                                        @class="cp-checkbox", @id = checkboxId, @type="checkbox" })
+                                            @Html.Label("Career " + Model.CareerPhasesViewModelList![i].careerPhase!.Name, Model.CareerPhasesViewModelList![i].careerPhase!.Name,
+                                        htmlAttributes: new { @for = checkboxId, @style=style })
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    @* End of Career Phase filter section *@
+                    @* Experience Level filter section *@
+                    <div>
+                        <h4>
+                            Filter by Experience Level
+                        </h4>
+                        <h5>
+                            <em>Select as many as you want:</em>
+                        </h5>
+                        <div class="form-group">
+                            <div class="checkbox-container no-background-checkbox-container">
+                                <ul class="checkbox-unordered-list find-buddy-experience-checkboxes">
+                                    @for (var i = 0; i < Model.ExperienceLevelsViewModelList!.Count(); i++)
+                                    {
+                                        // Create an ID property for each checkbox by concatenating a string with the index-number
+                                        var checkboxId = "experience-checkbox-" + (i + 1).ToString();
+
+                                        string style = "";
+
+                                        switch (Model.ExperienceLevelsViewModelList[i].experienceLevel.ExperienceLevelId)
+                                        {   
+                                            // Beginner
+                                            case 1:
+                                                // Very pale (almost white) purple background, black text
+                                                style = "background-color: #ded6e6; color: black;";
+                                                break;
+                                            // Novice
+                                            case 2:
+                                                // Light purple background, black text
+                                                style = "background-color: #9b7fdd; color: black;";
+                                                break;
+                                            // Intermediate
+                                            case 3:
+                                                // Medium purplish blue background, black text
+                                                style = "background-color: #6a5acd; color: black;";
+                                                break;
+                                            // Advanced:
+                                            case 4:
+                                                // Dark purplish blue background, white text
+                                                style = "background-color: #3d03ac; color: white;";
+                                                break;
+                                            // Expert:
+                                            case 5:
+                                                // Dark purplish blue background, white text
+                                                style = "background-color: #28026b; color: white;";
+                                                break;
+                                            default:
+                                                break;
+                                        }
+
+
+                                        /* Override CSS styling here (usually checkboxes for the other forms of this type were small and close together,
+                                        these are larger and fewer in number, so make margins slightly bigger) */
+                                        <li style="margin: 20px;">
+                                            @Html.HiddenFor(model => model.ExperienceLevelsViewModelList![i])
+                                            @Html.CheckBoxFor(model =>
+                                        model.ExperienceLevelsViewModelList![i].isSelected, new {
+                                        @class="exp-checkbox", @id = checkboxId, @type="checkbox"})
+                                            @Html.Label(Model.ExperienceLevelsViewModelList![i].experienceLevel!.Name, Model.ExperienceLevelsViewModelList![i].experienceLevel!.Name,
+                                            htmlAttributes: new { @for = checkboxId, @style=style })
+                                        </li>
+
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* End of Experience Level filter section *@
+                <input type="button" name="next" class="next action-button" id="find-buddy-first"
+                       value="Next Step" />
+            </fieldset>
+            @* End of first fieldset (career phase and experience level) *@
+            <fieldset>
+                <div class="form-card" id="prog-skills-form-card">
+                    <h3 class="fs-title">Programming Languages</h3>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

@@ -44,15 +44,15 @@ namespace CBApp.Controllers
         public IActionResult Register()
         {
             // Logic to clear error list if user refreshes the page (to not highlight fields with bad input in red)
-            if (HttpContext.Session.GetInt32("RedirectToForm") != null)
+            if (HttpContext.Session.GetInt32("RedirectToRegistrationForm") != null)
             {
                 // If this is not a redirect from unsuccessful POST method, then the errors list should be cleared out
-                if (HttpContext.Session.GetInt32("RedirectToForm") != 1)
+                if (HttpContext.Session.GetInt32("RedirectToRegistrationForm") != 1)
                 {
                     // Clear the error list if action method is not being called due to redirect from HttpPost method because of bad input
-                    if (HttpContext.Session.GetObject<CreateUserErrors>("InputErrors") != null)
+                    if (HttpContext.Session.GetObject<FormErrors>("InputErrors") != null)
                     {
-                        CreateUserErrors emptyErrorList = new CreateUserErrors();
+                        FormErrors emptyErrorList = new FormErrors();
                         HttpContext.Session.SetObject("InputErrors", emptyErrorList);
                     }
                 }
@@ -170,12 +170,10 @@ namespace CBApp.Controllers
                 );
             }
 
-            HttpContext.Session.SetInt32("RedirectToForm", 0);
+            HttpContext.Session.SetInt32("RedirectToRegistrationForm", 0);
 
             return View(model);
         }
-
-
 
 
 
@@ -184,15 +182,15 @@ namespace CBApp.Controllers
         public IActionResult RegisterInSteps()
         {
             // Logic to clear error list if user refreshes the page (to not highlight fields with bad input in red)
-            if (HttpContext.Session.GetInt32("RedirectToForm") != null)
+            if (HttpContext.Session.GetInt32("RedirectToRegistrationForm") != null)
             {
                 // If this is not a redirect from unsuccessful POST method, then the errors list should be cleared out
-                if (HttpContext.Session.GetInt32("RedirectToForm") != 1)
+                if (HttpContext.Session.GetInt32("RedirectToRegistrationForm") != 1)
                 {
                     // Clear the error list if action method is not being called due to redirect from HttpPost method because of bad input
-                    if (HttpContext.Session.GetObject<CreateUserErrors>("InputErrors") != null)
+                    if (HttpContext.Session.GetObject<FormErrors>("InputErrors") != null)
                     {
-                        CreateUserErrors emptyErrorList = new CreateUserErrors();
+                        FormErrors emptyErrorList = new FormErrors();
                         HttpContext.Session.SetObject("InputErrors", emptyErrorList);
                     }
                 }
@@ -310,7 +308,7 @@ namespace CBApp.Controllers
                 );
             }
 
-            HttpContext.Session.SetInt32("RedirectToForm", 0);
+            HttpContext.Session.SetInt32("RedirectToRegistrationForm", 0);
 
             return View(model);
         }
@@ -321,7 +319,7 @@ namespace CBApp.Controllers
         {
 
             // Create a new object storing values for different types of errors possible for the form input
-            CreateUserErrors errorsObject = new CreateUserErrors();
+            FormErrors errorsObject = new FormErrors();
             // Records number of errors in the user input
             int ErrorCounter = 0;
 
@@ -427,7 +425,7 @@ namespace CBApp.Controllers
             if (model!.SelectedExperienceLevelId < 1 || model!.SelectedExperienceLevelId > 5)
             {
                 errorsObject!.No_Experience_Level_Selected = true;
-                ++ErrorCounter;
+                ++ErrorCounter; 
             }
 
 
@@ -494,7 +492,7 @@ namespace CBApp.Controllers
                 // The 1 value in session means "true", as bools cannot be set in C# with HttpContext.Session
                 // 1 means that the GET request for the same form will be a redirect from the POST method --> errors are not cleared in HttpGet version
                 // of the method
-                HttpContext.Session.SetInt32("RedirectToForm", 1);
+                HttpContext.Session.SetInt32("RedirectToRegistrationForm", 1);
 
                 // For testing purposes --> return Json with the errors
                 return Content("ERRORS FOUND.");
@@ -660,7 +658,7 @@ namespace CBApp.Controllers
         {
 
             // Create a new object storing values for different types of errors possible for the form input
-            CreateUserErrors errorsObject = new CreateUserErrors();
+            FormErrors errorsObject = new FormErrors();
             // Records number of errors in the user input
             int ErrorCounter = 0;
 
@@ -831,7 +829,7 @@ namespace CBApp.Controllers
                 // The 1 value in session means "true", as bools cannot be set in C# with HttpContext.Session
                 // 1 means that the GET request for the same form will be a redirect from the POST method --> errors are not cleared in HttpGet version
                 // of the method
-                HttpContext.Session.SetInt32("RedirectToForm", 1);
+                HttpContext.Session.SetInt32("RedirectToRegistrationForm", 1);
 
 
                 return RedirectToAction("Register");

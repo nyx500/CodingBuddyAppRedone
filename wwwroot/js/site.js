@@ -27,6 +27,11 @@ toggleButton.addEventListener("click", () => {
 // Attribution: https://bbbootstrap.com/snippets/multi-step-form-wizard-30467045
 $(document).ready(function () {
 
+    // Hides form welcome screen on Find-a-Buddy View when the Start button is pressed
+    hideWelcomeScreen();
+    // On Find-a-Buddy form: go to next page when next-buttons are clicked
+    goToNextPageOnFindABuddyForm($("#find-buddy-first"));
+
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
     // Regex for SlackID --> alphanumeric chars only + underscore
@@ -173,6 +178,8 @@ $(document).ready(function () {
                 duration: 600
             });
         }
+
+
     });
 
 
@@ -480,4 +487,44 @@ function CheckIfSlackIdAvailable(slackIdValue) {
     });
 
     return result;
+}
+
+function hideWelcomeScreen() {
+    // Hide the welcome screen and display the form when start button is clicked on the "Find-a-Buddy" view
+    $("#start-matching").click(function () {
+        $("#find-a-buddy-welcome-page-container").css("display", "none");
+        // Display the hidden form
+        $("#find-a-buddy-form-container").removeClass("hidden");
+    })
+}
+
+function goToNextPageOnFindABuddyForm(nextButton) {
+    nextButton.click(function () {
+
+        console.log('clicked next');
+        current_fs = $(this).parent();
+        next_fs = $(this).parent().next();
+
+        //Add Class Active
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+        console.log(current_fs);
+
+        //show the next fieldset
+        next_fs.show();
+
+        //hide the current fieldset with style
+        current_fs.animate({ opacity: 0 }, {
+            step: function (now) {
+                // for making fielset appear animation
+                opacity = 1 - now;
+
+                current_fs.css({
+                    'display': 'none',
+                    'position': 'relative'
+                });
+                next_fs.css({ 'opacity': opacity });
+            },
+            duration: 600
+        });
+    });
 }

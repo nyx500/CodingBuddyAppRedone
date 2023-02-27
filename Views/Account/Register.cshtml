@@ -7,7 +7,7 @@
 <h1 style="color: white; margin: 20px">Sign Up</h1>
 
 @{  
-    var errors = Context.Session.GetObject<CreateUserErrors>("InputErrors");
+    var errors = Context.Session.GetObject<FormErrors>("InputErrors");
 }
 
 @using (Html.BeginForm())

@@ -1,6 +1,6 @@
 ﻿namespace CBApp.Models
 {
-    public class CreateUserErrors
+    public class FormErrors
     {
         // By default set error values to 'false', only set to 'true' if wrong input is returned in the Controller's http-post method
         // for this view model
