@@ -11,6 +11,6 @@
     "\\wwwroot",
     "\\wwwroot\\css"
   ],
-  "SelectedNode": "\\Data\\ApplicationDbContext.cs",
+  "SelectedNode": "\\Views\\Account\\EditProfile.cshtml",
   "PreviewInSolutionExplorer": false
 }

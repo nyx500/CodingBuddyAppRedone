@@ -35,11 +35,12 @@ ViewBag.Title = "My Profile";
                     @{
                         if (Model.ImageSrc == null)
                         {
-                            <img id="profile-picture" src="~/assets/user.png" />
+                            <img id="profile-picture" src="~/assets/user.png" alt="blue and white graphical drawing of a person representing a user for when user has not uploaded a profile picture" />
                         }
                         else
-                        {
-                            <img id="profile-picture" src="@Model.ImageSrc" />
+                        {   
+                            @* If time do later - make the user type in what the picture describes for accessibility purposes *@
+                            <img id="profile-picture" src="@Model.ImageSrc" alt="user's profile picture - content depends on what the user has uploaded"/>
                         }
                     }
                 </div>
