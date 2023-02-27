@@ -33,6 +33,9 @@ $(document).ready(function () {
     goToNextPageOnFindABuddyForm($("#find-buddy-first"));
     goToNextPageOnFindABuddyForm($("#find-buddy-second"));
     goToNextPageOnFindABuddyForm($("#find-buddy-third"));
+    // Functions to like/pass users
+    likeUsers();
+    passUsers();
 
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
@@ -530,3 +533,77 @@ function goToNextPageOnFindABuddyForm(nextButton) {
         });
     });
 }
+
+function likeUsers() {
+    $(".like-button").click(function () {
+        // post user id from hidden input field before the button
+        var user_data = { id: $(this).prev().val() };
+
+        // get container id
+        var divId = $(this).next().val();
+        divId = "#" + divId;
+
+        $.ajax({
+            type: "POST",
+            url: "/Matches/LikeUser",
+            data: user_data,
+            success: function (response) {
+                if (response) {
+                    console.log("like: worked");
+                    // Show the next match
+                    if ($(divId).next().attr("id") != undefined && $(divId).next().attr("id").includes("container")) {
+                        $(divId).next().addClass("potential-match-container");
+                        $(divId).next().removeClass("hidden");
+                    }
+                    else {
+                        $("#no-matches-left").removeClass("hidden");
+                    }
+                    // Remove the match
+                    $(divId).remove();
+                }
+                else {
+                    console.log("like: didn't work");
+                }
+            }
+        });
+
+    });
+}
+
+
+function passUsers() {
+    $(".pass-button").click(function () {
+
+        // post user id from hidden input field before the button
+        var user_data = { id: $(this).prev().val() };
+
+        // get container id
+        var divId = $(this).next().val();
+        divId = "#" + divId;
+
+        $.ajax({
+            type: "POST",
+            url: "/Matches/PassUser",
+            data: user_data,
+            success: function (response) {
+                if (response) {
+                    console.log("rejection: worked");
+                    // Show the next match
+                    if ($(divId).next().attr("id") != undefined && $(divId).next().attr("id").includes("container")) {
+                        $(divId).next().addClass("potential-match-container");
+                        $(divId).next().removeClass("hidden");
+                    }
+                    else {
+                        $("#no-matches-left").removeClass("hidden");
+                    }
+                    // Remove the match
+                    $(divId).remove();
+                }
+                else {
+                    console.log("rejection: didn't work");
+                }
+            }
+        });
+    });
+}
+

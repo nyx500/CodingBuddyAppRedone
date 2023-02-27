@@ -15,6 +15,7 @@ namespace CBApp.Models
         // Profile picture data properties
         public byte[]? Picture { get; set; }
         public string? PictureFormat { get; set; }
+        public string? PictureStringForHtml { get; set; }
 
 
         // Selected data: career phase, experience level, Computer Science interests
@@ -37,6 +38,19 @@ namespace CBApp.Models
                 CareerPhaseName = user.CareerPhase.Name,
                 ExperienceLevelName = user.ExperienceLevel.Name
             };
+
+            // Convert picture to string that can be displayed in HTML file
+            if (thisUser.PictureFormat  != null) 
+            {
+                string picFormat = user.PictureFormat!.Substring(1);
+                string mimeType = "image/" + picFormat;
+                string base64 = Convert.ToBase64String(user.Picture);
+                thisUser.PictureStringForHtml = string.Format("data:{0};base64,{1}", mimeType, base64);
+            }
+            else
+            {
+                thisUser.PictureStringForHtml = null;
+            }
 
             return thisUser;
         }

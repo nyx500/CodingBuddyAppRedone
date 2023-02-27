@@ -132,8 +132,6 @@ namespace CBApp.Controllers
         }
 
 
-
-
         [Authorize]
         [HttpPost]
         // Goes to the Find-a-Buddy form
@@ -143,6 +141,10 @@ namespace CBApp.Controllers
 
             // List of selected career phase Ids
             List<int> SelectedCareerPhaseIds = new List<int>();
+
+            // Find the currently-logged in user by current username
+            var currentUsername = User.Identity!.Name;
+            User currentUser = context!.Users.Where(u => u.UserName == currentUsername).FirstOrDefault<User>()!;
 
             // Model will never return actual careerPhase field (just isSelected bool value),
             // so store the id in a separate int
@@ -212,14 +214,68 @@ namespace CBApp.Controllers
             }
 
             // Now find potential matches from users in database
-            List<User> users = context.Users.ToList();
+            List<User> users = new List<User>();
+            // Use a bool to keep track of which users to add because apparently List.Remove() throws a massive error
+            bool shouldIAddTheUser;
+
+            // Only add users that have not already been passed on / rejected or already liked
+            foreach(User user in context.Users.ToList())
+            {
+                shouldIAddTheUser = true;
+                foreach (Rejections rej in context.Rejections.ToList())
+                {
+                    // If current user has already passed this user / this user has passed the current user
+                    if (((rej.SlackId1 == currentUser.SlackId && rej.SlackId2 == user.SlackId)
+                        || (rej.SlackId1 == user.SlackId && rej.SlackId2 == currentUser.SlackId)))
+                    {
+                        shouldIAddTheUser = false;
+                    }
+                }
+
+                // Check if user has been liked already
+                foreach (Likes like in context.Likes.ToList())
+                {
+                    if ((like.SlackId1 == currentUser.SlackId && like.SlackId2 == user.SlackId))
+                    {
+                        shouldIAddTheUser = false;
+                    }
+                }
+
+                // Finally check if the user is the currently logged-in user and don't add them if they are
+                if ((currentUser == user))
+                {
+                    shouldIAddTheUser = false;
+                }
+
+                if (shouldIAddTheUser)
+                {   
+                    users.Add(user);
+                }
+
+            }
 
             // If all the inputs were empty, just return all the users
             if (SelectedCareerPhaseIds.Count == 0 && SelectedExperienceLevelIds.Count == 0
                 && SelectedProgrammingLanguageIds.Count == 0 && SelectedCSInterestsIds.Count == 0
                 && SelectedHobbyIds.Count == 0)
             {
-                return Content(users.Count.ToString());
+                // Add all users to the model
+                foreach (User user in users)
+                {
+                    // Turn user into a PotentialMatchUserViewModel to add them to the model
+                    PotentialMatchUserViewModel potentialMatch = PotentialMatchUserViewModel.parseUser(user);
+                    // Add CS interests to the potentialMatch
+                    foreach (CSInterestUser csiu in user.CSInterestUsers)
+                    {
+                        potentialMatch.Interests.Add(csiu.CSInterest);
+                    }
+
+                    // Add 1 to the potential user's match-score (all will have one if no options have been selected)
+                    potentialMatch.score = 1;
+                    unsortedModel.matches.Add(potentialMatch);
+
+                }
+                return View("PotentialMatches", unsortedModel);
             }
 
 
@@ -408,5 +464,118 @@ namespace CBApp.Controllers
 
             return View("PotentialMatches", sortedModel);
         }
+
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> LikeUser(string id)
+        {
+
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            // Find the liked user
+            User likedUser = context.Users.Where(u => u.Id == id).FirstOrDefault<User>();
+
+            List<Likes> likes = context.Likes.ToList();
+
+            Likes like = new Likes { SlackId1 = user.SlackId, User1 = user, SlackId2 = likedUser.SlackId, User2 = likedUser };
+
+            // Add likes to database
+            likes.Add(like);
+            user.UsersLiked.Add(like);
+            likedUser.LikedBy.Add(like);
+
+
+            // Update the user properties
+            var result = await userManager.UpdateAsync(user);
+            
+            // Check if the update succeeded
+            if (result.Succeeded)
+            {
+                // Update the user properties
+                var result2 = await userManager.UpdateAsync(likedUser);
+                if (result2.Succeeded)
+                {
+                    context.SaveChanges();
+                    return Json(true);
+                }
+                else
+                { 
+                    return Json(false); 
+                }
+            }
+
+            return Json(false);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> PassUser(string id)
+        {
+
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            // Find the passed user
+            User passedUser = context.Users.Where(u => u.Id == id).FirstOrDefault<User>();
+
+            List<Rejections> rejections = context.Rejections.ToList();
+
+            Rejections rejection = new Rejections { SlackId1 = user.SlackId, User1 = user, SlackId2 = passedUser.SlackId, User2 = passedUser };
+
+            // Add rejections to database
+            rejections.Add(rejection);
+            user.UsersRejected.Add(rejection);
+            passedUser.RejectedBy.Add(rejection);
+
+
+            // Update the user properties
+            var result = await userManager.UpdateAsync(user);
+
+            // Check if the update succeeded
+            if (result.Succeeded)
+            {
+                // Update the user properties
+                var result2 = await userManager.UpdateAsync(passedUser);
+                if (result2.Succeeded)
+                {
+                    context.SaveChanges();
+                    return Json(true);
+                }
+                else
+                {
+                    return Json(false);
+                }
+            }
+
+            return Json(false);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> ResetPasses()
+        {
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            user.UsersRejected.Clear();
+            // Update the user properties
+            var result = await userManager.UpdateAsync(user);
+
+            // Check if the update succeeded
+            if (result.Succeeded)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
+        }
+
     }
 }

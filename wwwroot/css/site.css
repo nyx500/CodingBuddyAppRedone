@@ -1372,6 +1372,7 @@ select.list-dt {
     width: 200px;
     height: auto;
     border: 4px solid black;
+    background-color: var(--palePurple);
 }
 
 #profile-picture-form-wrapper {
@@ -1834,3 +1835,193 @@ select.list-dt {
 #submit-filters:hover {
     border: 4px solid blue;
 }
+
+/*End of the Find-a-Buddy process*/
+
+/*Suggested Matches styling*/
+.matches-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    padding: 0;
+    /* Put the matched user in the center */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.no-matches-error-message {
+    color: white;
+    padding: 20px;
+    background-color: black;
+    border: 4px solid var(--palePurple);
+    border-radius: 8px;
+    margin-left: 15%;
+    margin-right: auto;
+    margin-top: 4%;
+    width: 80%;
+    font-family: Gordita, Verdana, Arial, sans-serif;
+    text-align: center;
+}
+.no-matches-error-message h1 {
+    padding: 20px;
+    font-size: 1.8rem;
+    font-weight: bolder;
+}
+.no-matches-error-message h2 {
+    padding: 20px;
+    font-size: 1.2rem;
+}
+
+/* Styling for the link to go back to Find-a-Buddy process*/
+.return-to-page-link {
+    /* Same colour as sign-up link on login page for consistency */
+    color: var(--peachyYellow);
+}
+
+.potential-match-container {
+    position: relative;
+    height: 100%;
+    width: 80%;
+    margin-left: 10%;
+    background-color: black;
+    border: 4px solid var(--periwinkle);
+    /* Keeping border radius consistent, with 8px for divs, 6px for smaller elements such as buttons */
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 20px;
+    justify-content: flex-start;
+    justify-items: flex-start;
+    align-content: center!important;
+    align-items: center!important;
+    margin-bottom: 10%;
+}
+
+/* Username displayed in the header*/
+.match-header-row h1
+{
+    font-family: Anton, Verdana, Arial, sans-serif;
+    color: white;
+    text-align: center;
+}
+
+/* Div for profile picture and text*/
+.match-body-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+/* Column on left with profile picture*/
+.match-profile-picture {
+    width: fit-content;
+    margin-top: auto;
+    align-self: center;
+    justify-self: center;
+}
+
+.match-image-column img {
+    width: 75%;
+    max-width: 500px;
+    border: 4px solid var(--periwinkle);
+    border-radius: 20px;
+}
+
+/* Column displaying information about the user */
+.match-body-content-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* Like/Pass form */
+.match-likes-div {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+}
+
+.like-button, .pass-button {
+    width: fit-content;
+    background-color: transparent;
+    border: none;
+    width: fit-content;
+    margin-right: 20px;
+    padding:0;
+}
+
+/* Heart icon */
+.like-button i, .pass-button i {
+    color: var(--periwinkle);
+}
+
+
+/* Column displaying Career Phase and Experience Level */
+.match-body-coding-skills-column 
+{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: fit-content;
+    position:relative;
+    margin-top: 3%;
+}
+
+.match-body-coding-skills-column .data-item {
+    padding: 10px;
+    background-color: var(--palePurple);
+    border: 4px solid var(--mediumBlue);
+    border-radius: 30px;
+    color: black;
+    width: 200px;
+    text-align: center;
+    font-weight: bolder;
+    margin-bottom: 10px!important;
+}
+
+/* CS Interests */
+.match-body-cs-interests-column {
+    margin-left: 5vw;
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-content: center;
+}
+.match-body-cs-interests-column p {
+    color: var(--palePurple);
+    font-weight: 700;
+    text-align: center;
+}
+.match-body-cs-interests-column div {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--mediumBlue);
+    border: 4px solid;
+    border-radius: 30px;
+    color: var(--palePurple);
+    width: fit-content;
+    text-align: center;
+    font-weight: bolder;
+    align-self: center!important;
+}
+
+/* Media queries for matches*/
+@media all and (max-width: 1200px)
+{
+    .match-body-cs-interests-column {
+        margin-left: 0;
+    }
+}
+
+/*End of suggested Matches styling*/
