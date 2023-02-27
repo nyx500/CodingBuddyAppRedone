@@ -1263,6 +1263,15 @@ select.list-dt {
     align-items: flex-start;
 }
 
+/* Set column widths for the first (Basics) panel*/
+#basic-info-first-col{
+   width: 30%
+}
+#basic-info-second-col
+{
+    width: 70%; 
+}
+
 
 /* Panels 2 and 3 cols*/
 #panel-two-col, #panel-three-col, #panel-four-col {
@@ -1764,7 +1773,7 @@ select.list-dt {
 }
 
 
-#prog-skills-form-card, #cs-interests-form-card {
+#prog-skills-form-card, #cs-interests-form-card, #hobbies-form-card {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -1772,7 +1781,7 @@ select.list-dt {
     margin: 20px;
 }
 
-#prog-skills-form-card div, #cs-interests-form-card div {
+#prog-skills-form-card div, #cs-interests-form-card div, hobbies-form-card div {
     align-self: flex-start;
     text-align: left;
 }
@@ -1789,24 +1798,39 @@ select.list-dt {
 }
 
 /* Next button MUST go on the right!!! */
-#find-buddy-first, #find-buddy-second, #find-buddy-third {
+#find-buddy-first, #find-buddy-second, #find-buddy-third, #submit-filters {
     align-self: flex-end;
     font-weight: 600;
     font-size: 1.2rem;
 }
 
 #find-buddy-first:hover, #find-buddy-second:hover, #find-buddy-third:hover,
-#find-buddy-previous-first:hover, #find-buddy-previous-second,
-{
+#find-buddy-previous-first:hover, #find-buddy-previous-second:hover, find-buddy-previous-third:hover{
     border: 4px solid white;
 }
 
 /* Previous button must go on the left */
-#find-buddy-previous-first, #find-buddy-previous-second {
+#find-buddy-previous-first, #find-buddy-previous-second, #find-buddy-previous-third {
     align-self: flex-start;
     font-weight: 600;
     font-size: 1.2rem;
     background-color: var(--periwinkle);
     color: white !important;
     padding: 10px;
+}
+/* Make submit button different colour so the user doesn't confuse it for 'next' */
+#submit-filters {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: black;
+    padding: 10px;
+    background-color:var(--peachyYellow);
+    align-self: flex-end;
+    float: right;
+    margin-right: 50px;
+    border-radius: 6px;
+}
+
+#submit-filters:hover {
+    border: 4px solid blue;
 }

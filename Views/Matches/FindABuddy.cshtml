@@ -4,10 +4,6 @@
     ViewBag.Title = "Find-a-Buddy Process";
 }
 
-@* Store the errors from the session FormErrors instance *@
-@{
-    var errors = Context.Session.GetObject<FormErrors>("FindABuddyErrors");
-}
 
 
 <div id="find-a-buddy-container">
@@ -242,6 +238,40 @@
             @* End of third fieldset (CS Interests) *@
             @* Fourth fieldset (Hobbies) *@
             <fieldset>
+                <div class="form-card" id="hobbies-form-card">
+                    <h3 class="fs-title">Hobbies and Leisure Interests</h3>
+                    <div>
+                        <h4>
+                            Filter by hobbby
+                        </h4>
+                        <h5>
+                            <em>Select as many as you want:</em>
+                        </h5>
+                        <div class="form-group">
+                            <div class="checkbox-container find-a-buddy-checkbox-container">
+                                <ul class="checkbox-unordered-list find-buddy-hobbies-checkboxes">
+                                    @for (var i = 0; i < Model.HobbiesViewModelList!.Count(); i++)
+                                    {
+                                        // Create an ID property for each checkbox by concatenating a string with the index-number
+                                        var checkboxId = "hobby-checkbox-" + (i + 1).ToString();
+
+                                        <li>
+                                            @Html.HiddenFor(model => model.HobbiesViewModelList![i])
+                                            @Html.CheckBoxFor(model =>
+                                        model.HobbiesViewModelList![i].isSelected, new {
+                                        @class="hobby-checkbox", @id = checkboxId, @type="checkbox" })
+                                            @Html.Label("Career " + Model.HobbiesViewModelList![i].Hobby!.Name, Model.HobbiesViewModelList![i].Hobby!.Name,
+                                        htmlAttributes: new { @for = checkboxId })
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="button" name="previous" class="previous action-button-previous" id="find-buddy-previous-third"
+                       value="Previous" />
+                <button type="submit" name="next" value="submit" id="submit-filters">Submit</button>
             </fieldset>
             @* End of fourth fieldset (Hobbies) *@
         </form>

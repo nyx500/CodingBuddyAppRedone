@@ -45,22 +45,6 @@ namespace CBApp.Controllers
         public IActionResult FindABuddy()
         {
 
-            // Error-reporting functionality based on the "FormErrors" class which stores Booleans for different error types
-            // Clears the error list if the user refreshes the form or navigates from a different section of the website
-            if (HttpContext.Session.GetInt32("RedirectToFindABuddyForm") != null)
-            {
-                // Check if the current action is being called because of an invalid POST request for the same action
-                if (HttpContext.Session.GetInt32("RedirectToFindABuddyForm") != 1)
-                {
-                    // Clear the error object if the current httpget action is not being executed due to an invalid form request
-                    if (HttpContext.Session.GetObject<FormErrors>("FindABuddyErrors") != null)
-                    {
-                        FormErrors emptyErrorList = new FormErrors();
-                        HttpContext.Session.SetObject("FindABuddyErrors", emptyErrorList);
-                    }
-                }
-            }
-
             // Creates a new Find-a-Buddy View Model
             FindBuddyViewModel model = new FindBuddyViewModel();
 
@@ -143,11 +127,286 @@ namespace CBApp.Controllers
                 );
             }
 
-            // Set the session variable that tracks if this was a redirect due to an invalid form submit to 0 (means false in this context)
-            HttpContext.Session.SetInt32("RedirectToFindABuddyForm", 0);
-
             return View(model);
 
+        }
+
+
+
+
+        [Authorize]
+        [HttpPost]
+        // Goes to the Find-a-Buddy form
+        public IActionResult FindABuddy(FindBuddyViewModel model)
+        {
+            PotentialMatchesViewModel unsortedModel = new PotentialMatchesViewModel();
+
+            // List of selected career phase Ids
+            List<int> SelectedCareerPhaseIds = new List<int>();
+
+            // Model will never return actual careerPhase field (just isSelected bool value),
+            // so store the id in a separate int
+            int careerId = 1;
+            foreach (var career_phase_view_model in model.CareerPhasesViewModelList!)
+            {
+                if (career_phase_view_model.isSelected)
+                {
+                        //Add selected career phase Id to filter list
+                        SelectedCareerPhaseIds.Add(careerId);
+                }
+                // Increment to get the next careerPhase Id
+                ++careerId;
+            }
+
+            // List of selected experience level Ids
+            List<int> SelectedExperienceLevelIds = new List<int>();
+            int experienceLevelId = 1;
+            foreach (var exp_view_model in model.ExperienceLevelsViewModelList!)
+            {
+                if (exp_view_model.isSelected)
+                {
+                    // Add selected experience level Id to filter list
+                    SelectedExperienceLevelIds.Add(experienceLevelId);
+                }
+                ++experienceLevelId;
+            }
+
+            // List of selected programming language Ids
+            List<int> SelectedProgrammingLanguageIds = new List<int>();
+            int progLangId = 1;
+            foreach (var p_lang_view_model in model.ProgrammingLanguagesViewModelList!)
+            {
+                if (p_lang_view_model.isSelected)
+                {
+                    // Add selected programming language Id to filter list
+                    SelectedProgrammingLanguageIds.Add(progLangId);
+                }
+                ++progLangId;
+            }
+
+            // List of selected CS Interest Ids
+            List<int> SelectedCSInterestsIds = new List<int>();
+            int csInterestId = 1;
+            foreach (var cs_view_model in model.CSInterestsViewModelList!)
+            {
+                if (cs_view_model.isSelected)
+                {
+                    // Add selected CS Interest Id to filter list
+                    SelectedCSInterestsIds.Add(csInterestId);
+                }
+                ++csInterestId;
+            }
+
+
+            // List of selected hobby Ids
+            List<int> SelectedHobbyIds = new List<int>();
+            int hobbyId = 1;
+            foreach (var hobby_view_model in model.HobbiesViewModelList!)
+            {
+                if (hobby_view_model.isSelected)
+                {
+                    // Add selected programming language Id to filter list
+                    SelectedHobbyIds.Add(hobbyId);
+                }
+                ++hobbyId;
+            }
+
+            // Now find potential matches from users in database
+            List<User> users = context.Users.ToList();
+
+            // If all the inputs were empty, just return all the users
+            if (SelectedCareerPhaseIds.Count == 0 && SelectedExperienceLevelIds.Count == 0
+                && SelectedProgrammingLanguageIds.Count == 0 && SelectedCSInterestsIds.Count == 0
+                && SelectedHobbyIds.Count == 0)
+            {
+                return Content(users.Count.ToString());
+            }
+
+
+            // Go through the user's selected career phase ids and add the users who match to the model
+            if (SelectedCareerPhaseIds.Count > 0)
+            {
+                foreach (User user in users)
+                {
+                    // Add the user to 'users' if their careerPhaseId is one of the ones selected
+                    if (SelectedCareerPhaseIds.Contains(user.CareerPhaseId))
+                    {
+
+                        // Check if the potentialMatch has already been added to the list of matches by comparing Ids that have been added
+                        // findIndex List method returns -1 if it doesn't find the object with the predicate specified, otherwise returns its index
+                        var userIndex = unsortedModel.matches.FindIndex(m => m.Username == user.UserName);
+                        // If user has not been added to model list yet, then add the user
+                        if (userIndex == -1)
+                        {    
+                            // Turn user into a PotentialMatchUserViewModel to add them to the model
+                            PotentialMatchUserViewModel potentialMatch = PotentialMatchUserViewModel.parseUser(user);
+                            // Add CS interests to the potentialMatch
+                            foreach (CSInterestUser csiu in user.CSInterestUsers)
+                            {
+                                potentialMatch.Interests.Add(csiu.CSInterest);
+                            }
+
+                            // Add 1 to the potential user's match-score
+                            potentialMatch.score = 1;
+                            unsortedModel.matches.Add(potentialMatch);
+                        }
+                        // User is found in the model already --> increment their score by 1
+                        else
+                        {
+                            unsortedModel.matches[userIndex].score += 1;
+                        }
+
+                    }
+                }
+            }
+
+            // Go through the user's selected experience level ids and add the users who match to the model
+            if (SelectedExperienceLevelIds.Count > 0)
+            {
+                foreach (User user in users)
+                {
+                    // Add the user to 'users' if their careerPhaseId is one of the ones selected
+                    if (SelectedExperienceLevelIds.Contains(user.ExperienceLevelId))
+                    {
+
+                        // Check if the potentialMatch has already been added to the list of matches by comparing Ids that have been added
+                        // findIndex List method returns -1 if it doesn't find the object with the predicate specified, otherwise returns its index
+                        var userIndex = unsortedModel.matches.FindIndex(m => m.Id == user.Id);
+                        // If user has not been added to model list yet, then add the user
+                        if (userIndex == -1)
+                        {
+                            // Turn user into a PotentialMatchUserViewModel to add them to the model
+                            PotentialMatchUserViewModel potentialMatch = PotentialMatchUserViewModel.parseUser(user);
+                            // Add CS interests to the potentialMatch
+                            foreach (CSInterestUser csiu in user.CSInterestUsers)
+                            {
+                                potentialMatch.Interests.Add(csiu.CSInterest);
+                            }
+
+                            // Add 1 to the potential user's match-score
+                            potentialMatch.score = 1;
+                            unsortedModel.matches.Add(potentialMatch);
+                        }
+                        // If the user is found in the model list already, then increment their score by 1
+                        else
+                        {
+                            unsortedModel.matches[userIndex].score += 1;
+                        }
+
+                    }
+                }
+            }
+
+
+            // Now for more complex fields: see if a user matches with programming languages
+            // Go through the user's selected experience level ids and add the users who match to the model
+            if (SelectedProgrammingLanguageIds.Count > 0)
+            {
+                foreach (User user in users)
+                {
+                    // One more step compared to single-value properties: have to also loop through a user's many programming languages
+                    foreach (ProgrammingLanguageUser u in user.ProgrammingLanguageUsers)
+                    {
+                        if (SelectedProgrammingLanguageIds.Contains(u.ProgrammingLanguageId))
+                        {
+                            // Check if the potentialMatch has already been added to the list of matches by comparing Ids that have been added
+                            // findIndex List method returns -1 if it doesn't find the object with the predicate specified, otherwise returns its index
+                            var userIndex = unsortedModel.matches.FindIndex(m => m.Id == user.Id);
+
+                            // If user has not been added to model list yet, then add the user
+                            if (userIndex == -1)
+                            {
+                                PotentialMatchUserViewModel potentialMatch = PotentialMatchUserViewModel.parseUser(user);
+                                foreach (CSInterestUser csiu in user.CSInterestUsers)
+                                {
+                                    potentialMatch.Interests.Add(csiu.CSInterest);
+                                }
+                                potentialMatch.score = 1;
+                                unsortedModel.matches.Add(potentialMatch);
+                            }
+                            else
+                            {
+                                unsortedModel.matches[userIndex].score += 1;
+                            }
+
+                        }
+                    }
+                }
+            }
+            if (SelectedCSInterestsIds.Count > 0)
+            {
+                foreach (User user in users)
+                {
+                    // One more step compared to single-value properties: have to also loop through a user's many programming languages
+                    foreach (CSInterestUser u in user.CSInterestUsers)
+                    {
+                        if (SelectedCSInterestsIds.Contains(u.CSInterestId))
+                        {
+                            // Check if the potentialMatch has already been added to the list of matches by comparing Ids that have been added
+                            // findIndex List method returns -1 if it doesn't find the object with the predicate specified, otherwise returns its index
+                            var userIndex = unsortedModel.matches.FindIndex(m => m.Id == user.Id);
+
+                            // If user has not been added to model list yet, then add the user
+                            if (userIndex == -1)
+                            {
+                                PotentialMatchUserViewModel potentialMatch = PotentialMatchUserViewModel.parseUser(user);
+                                foreach (CSInterestUser csiu in user.CSInterestUsers)
+                                {
+                                    potentialMatch.Interests.Add(csiu.CSInterest);
+                                }
+                                potentialMatch.score = 1;
+                                unsortedModel.matches.Add(potentialMatch);
+                            }
+                            else
+                            {
+                                unsortedModel.matches[userIndex].score += 1;
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            if (SelectedHobbyIds.Count > 0)
+            {
+                foreach (User user in users)
+                {
+                    // One more step compared to single-value properties: have to also loop through a user's many programming languages
+                    foreach (HobbyUser u in user.HobbyUsers)
+                    {
+                        if (SelectedHobbyIds.Contains(u.HobbyId))
+                        {
+                            // Check if the potentialMatch has already been added to the list of matches by comparing Ids that have been added
+                            // findIndex List method returns -1 if it doesn't find the object with the predicate specified, otherwise returns its index
+                            var userIndex = unsortedModel.matches.FindIndex(m => m.Id == user.Id);
+
+                            // If user has not been added to model list yet, then add the user
+                            if (userIndex == -1)
+                            {
+                                PotentialMatchUserViewModel potentialMatch = PotentialMatchUserViewModel.parseUser(user);
+                                foreach (CSInterestUser csiu in user.CSInterestUsers)
+                                {
+                                    potentialMatch.Interests.Add(csiu.CSInterest);
+                                }
+                                potentialMatch.score = 1;
+                                unsortedModel.matches.Add(potentialMatch);
+                            }
+                            else
+                            {
+                                unsortedModel.matches[userIndex].score += 1;
+                            }
+
+                        }
+                    }
+                }
+            }
+
+
+            PotentialMatchesViewModel sortedModel = new PotentialMatchesViewModel();
+            // Sort the list of matches by score, so better-matched user appear first
+            sortedModel.matches = unsortedModel.matches.OrderBy(u => u.score).ToList();
+
+            return View("PotentialMatches", sortedModel);
         }
     }
 }
