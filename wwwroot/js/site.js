@@ -33,12 +33,11 @@ $(document).ready(function () {
     goToNextPageOnFindABuddyForm($("#find-buddy-first"));
     goToNextPageOnFindABuddyForm($("#find-buddy-second"));
     goToNextPageOnFindABuddyForm($("#find-buddy-third"));
-    // Functions to like/pass users
+    // Functions to like/pass users when browsing through filter results (potential matches)
     likeUsers();
     passUsers();
-    // Functions to like/pass user when actually viewing their profile page
-    likeUserOnTheirProfile();
-    passUserOnTheirProfile();
+    // Calls functions to like/unlike user when actually viewing their profile page
+    toggleLikeUnlikeOnProfile();
 
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
@@ -610,14 +609,88 @@ function passUsers() {
     });
 }
 
-function likeUserOnTheirProfile() {
-    $("#view-profile-like-user-button").click(function () {
+// Allows logged-in user to like/unlike a user when viewing their profile page
+function toggleLikeUnlikeOnProfile() {
+
+    var likeToggleButton = $("#view-profile-like-user-button");
+    var likeToggleIcon = $("#like-icon");
+
+    $(likeToggleButton).click(function () {
         console.log("clicked LIKE user");
+
+
+        // Data from hidden field (target user's unique ID)
+        // get container id
+        var targetId = $("#hidden-user-id").val();
+        console.log("User Id: " + targetId);
+
+        // If button is blue, means logged-in user likes the viewed user but wants to "unlike"
+        if (likeToggleIcon.hasClass("fas")) {
+            console.log("Heart icon is solid");
+
+            // Send request to Controller to unlike the user
+            unlikeUserOnTheirProfile(likeToggleIcon, targetId);
+        }
+        // If button is black, means logged-in user does not like the viewed user but wants to "like"
+        else {
+            console.log("button is just an outline");
+            // Send request to Controller to like the user
+            likeUserOnTheirProfile(likeToggleIcon, targetId);
+        }
     });
 }
 
-function passUserOnTheirProfile() {
-    $("#view-profile-pass-user-button").click(function () {
-        console.log("clicked PASS user");
+
+function likeUserOnTheirProfile(likeToggleIcon, targetUserId) {
+
+    var user_data = { id: targetUserId };
+
+    $.ajax({
+            type: "POST",
+            url: "/Matches/LikeUser",
+            data: user_data,
+            success: function (response) {
+                if (response) {
+                    console.log("like: it worked!");
+
+                    // Change the heart colour from black to blue if the user managed to like the viewed user
+                    likeToggleIcon.removeClass("far");
+                    likeToggleIcon.addClass("fas");
+                    // Change the text from Like to Unlike
+                    $("#like-unlike-text").text("Unlike");
+                }
+                else {
+                    // Display error message
+                    $("#could-not-like-error").removeClass("hidden");
+                }
+            }
+        });
+}
+
+function unlikeUserOnTheirProfile(likeToggleIcon, targetUserId) {
+
+    var user_data = { id: targetUserId };
+
+    $.ajax({
+        type: "POST",
+        url: "/Matches/UnlikeUser",
+        data: user_data,
+        success: function (response) {
+            if (response) {
+                console.log("unlike: it worked!");
+
+                // Change the heart colour from blue to black if the user managed to unlike the viewed user
+                likeToggleIcon.removeClass("fas");
+                likeToggleIcon.addClass("far");
+
+                // Change the text from Unlike to Like
+                $("#like-unlike-text").text("Like");
+            }
+            else {
+                // Display error message
+                $("#could-not-like-error").removeClass("hidden");
+            }
+        }
     });
 }
+

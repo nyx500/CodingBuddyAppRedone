@@ -1177,7 +1177,7 @@ select.list-dt {
 .panels {
     background-color: var(--periwinkle);
     height: fit-content!important;
-    padding-right: 200px !important;
+    padding-right: 200px;
     border-radius: 3px;
     overflow: initial;
     padding-top: 20px;
@@ -1243,7 +1243,6 @@ select.list-dt {
 */
 #panel-one {
     justify-content: flex-start;
-    gap: 20px;
 }
 
 #panel-two {
@@ -1257,13 +1256,13 @@ select.list-dt {
 }
 
 /* Panel 1 layout */
-#panel-one div {
+#panel-one:first-child {
     margin-left: 20px;
 }
 
 
 /* Panel 1 cols */
-#basic-info-first-col, #basic-info-second-col {
+#basic-info-first-col, #basic-info-second-col, #basic-info-third-col {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -1271,17 +1270,12 @@ select.list-dt {
     align-items: flex-start;
 }
 
-/* Set column widths for the first (Basics) panel*/
-#basic-info-first-col{
-   width: 30%
-}
-#basic-info-second-col
-{
-    width: 70%; 
+/* Only do this on view profile page (no third column!) */
+.view-version-second-col {
+    margin-left: 10%;
 }
 
-
-/* Panels 2 and 3 cols*/
+/* Panels 2, 3 and 4 central cols*/
 #panel-two-col, #panel-three-col, #panel-four-col {
     display: flex;
     flex-direction: column !important;
@@ -1495,7 +1489,10 @@ select.list-dt {
     margin-bottom: 100px;
 }
 
-
+/* Button to reset the rejections*/
+#reset-rejections-button {
+   width: 100%;
+}
 
 /*****************Hidden Forms******************/
 /* Toggle JS class to add/remove in order to hide elements */
@@ -1960,23 +1957,38 @@ select.list-dt {
 }
 
 /* Like and Pass Buttons on the "Suggested Matches" view and on the "ViewProfile view */
-.like-button, .pass-button, .view-profile-like-button, .view-profile-pass-button {
+.like-button, .pass-button, .view-profile-like-button {
     width: fit-content;
     background-color: transparent;
     border: none;
-    width: fit-content;
-    margin-right: 20px;
     padding: 0;
+    margin: 10px;
 }
 
+/* Difference in margins depending on View */
+.like-button, .pass-button{
+    margin-right: 20px;
+}
+
+.view-profile-like-button {
+    margin-right: 0px;
+}
 
 /* Heart and cross icons for like/pass in the "Suggested Matches" view */
 .like-button i, .pass-button i {
     color: var(--periwinkle);
 }
 
+/* Text displaying like/unlike*/
+#like-unlike-text{
+    justify-self: flex-end;
+    align-self:flex-end;
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+
 /* Heart and cross icons for like/pass in the "ViewProfile" view */
-.view-profile-like-button i, .view-profile-pass-button {
+.view-profile-like-button i {
     color: black;
 }
 

@@ -512,6 +512,47 @@ namespace CBApp.Controllers
 
         [Authorize]
         [HttpPost]
+        /** If a user has "liked" a user, then "unlike" them */
+        public async Task <IActionResult> UnlikeUser(string id)
+        {
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User currentUser = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            // Find the unliked user
+            User likedUser = context.Users.Where(u => u.Id == id).FirstOrDefault<User>();
+
+            // Find the like-relationship to remove
+            Likes targetedLike = context.Likes.Where(like => like.SlackId1 == currentUser.SlackId).Where(like => like.SlackId2 == likedUser.SlackId).FirstOrDefault<Likes>()!;
+
+            context.Likes.Remove(targetedLike);
+            context.SaveChanges();
+
+            // Update the user properties
+            var result = await userManager.UpdateAsync(currentUser);
+
+            // Check if the update succeeded
+            if (result.Succeeded)
+            {
+                // Update the user properties
+                var result2 = await userManager.UpdateAsync(likedUser);
+                if (result2.Succeeded)
+                {
+                    context.SaveChanges();
+                    return Json(true);
+                }
+                else
+                {
+                    return Json(false);
+                }
+            }
+            return Json(false);
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        /** Pass/Rejects a user */
         public async Task<IActionResult> PassUser(string id)
         {
 
@@ -556,7 +597,7 @@ namespace CBApp.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> ResetPasses()
+        public async Task<IActionResult> ResetRejections()
         {
             // Find the currently-logged in user by username
             var username = User.Identity!.Name;
@@ -592,9 +633,15 @@ namespace CBApp.Controllers
 
 
             if (user != null)
-            {
+            {   
+                // Set the long unique Id for the user (to do things in AJAX with hidden inputs)
+                model.Id = user.Id;
+                // Set the username for the user view model
                 model.UserName = user.UserName;
+                // Set the biography for the user view model
                 model.Bio = user.Bio;
+
+                // Set picture data if there is some in the database for that user
                 if (user.PictureFormat != null)
                 {
                     model.ImageSrc = PotentialMatchUserViewModel.BytesToString_Picture(user.Picture, user.PictureFormat);
@@ -612,9 +659,37 @@ namespace CBApp.Controllers
                 {
                     model.SlackId = "";
                 }
+                
+                // Default: set the field that determines if the logged-in user likes the viewed user to "false", so that it's never "null"
+                model.hasBeenLiked = false;
+
+                // Determines if the current(logged-in) user has liked this user and sets the ViewModel "hasBeenLiked" field
+                foreach (Likes l in context.Likes.ToList())
+                {   
+                    // Check if there exists a "likes" many-to-many entry where the currentUser has "liked" the viewed user...
+                    if (l.SlackId1 == currentUser.SlackId && l.SlackId2 == user.SlackId)
+                    {
+                        // If the current user has liked the view user, set the hasBeenLiked property to true
+                        model.hasBeenLiked = true;
+                    }
+                }
+
+                // Default: set the field that determines if the logged-in user has rejected the viewed user to "false", so that it's never "null"
+                model.hasBeenRejected = false;
+                // Determines if the current(logged-in) user has rejected this user and sets the ViewModel "hasBeenRejected" field
+                foreach (Rejections r in context.Rejections.ToList())
+                {
+                    // Check if there exists a "rejections" many-to-many entry where the currentUser has "rejected" the viewed user...
+                    if (r.SlackId1 == currentUser.SlackId && r.SlackId2 == user.SlackId)
+                    {
+                        // If the current user has rejected the view user, set the hasBeenLiked property to true
+                        model.hasBeenLiked = true;
+                    }
+                }
+
 
                 // Get names of preferences
-                foreach(NaturalLanguageUser languser in user.NaturalLanguageUsers)
+                foreach (NaturalLanguageUser languser in user.NaturalLanguageUsers)
                 {
                     model.LanguageNames.Add(languser.NaturalLanguage.Name);
                 }

@@ -77,24 +77,49 @@
             @*End of left column*@
 
             @* Second column on the right *@
-            <div id="basic-info-second-col">
+            <div id="basic-info-second-col" class="view-version-second-col">
 
                 @* Username and SlackId data *@
                 <div class="edit-profile-form-row">
+                    @* Username and "Like"/"Dislike" heart row *@
                     <h2 id="username-title"><b>@Html.DisplayFor(model => model.UserName)</b></h2>
                     @* Form to like/pass on the user*@
                     <div class="match-likes-div">
+
                         <div class="like-div">
-                            <input type="hidden" value=@Model.UserName>
-                            <button id="view-profile-like-user-button" class="view-profile-like-button"><i class="fas fa-heart fa-3x"></i></button>
+                            <div id="could-not-like-error" class="error-label hidden">We are sorry! The database could not be updated. Please try again later.</div>
+                            @* Hidden field: user's long ID, so can redirect with Ajax if Like is updated/changed*@
+                            <input id="hidden-user-id" type="hidden" value=@Model.Id>
+                            @* Colour of the heart button is blue if logged-in user has liked the viewed user, else set it to black using an added class *@
+                            @if (Model.hasBeenLiked)
+                            {   
+                                @* ARIA LABELS on the heart icon buttons for accessibility*@
+                                <button aria-label="click on this button to unlike this user" id="view-profile-like-user-button" class="view-profile-like-button">
+                                    <i aria-label="solid heart icon meaning the current user likes the viewed user" id="like-icon" class="fas fa-heart fa-3x"></i>
+                                </button>
+                                <br />
+                            }
+                            else
+                            {
+                                <button aria-label="click on this button to like the user" id="view-profile-like-user-button" class="view-profile-like-button">
+                                    <i aria-label="solid heart icon meaning the current user has not liked the viewed user"   id="like-icon" class="far fa-heart fa-3x"></i>
+                                </button>
+                                <br />
+                            }
                         </div>
-                        <div class="pass-div">
-                            <input type="hidden" value=@Model.UserName>
-                            <button id="view-profile-pass-user-button" class="view-profile-pass-button"><i class="fas fa-circle-xmark fa-3x"></i></button>
-                        </div>
+                        @if (Model.hasBeenLiked)
+                        {
+                            <div id="like-unlike-text">Unlike</div>
+                        }
+                        else
+                        {
+                            <div id="like-unlike-text">Like</div>
+                        }
+
                     </div>
+                    @* End of "like" heart section *@
                 </div>
-                @* End of Username Section *@
+                @* End of Username / Like Section *@
 
 
                 @*Slack ID Section: show SlackID only if the viewed user 'liked' the current user (is not set to null in the View Model) *@
@@ -132,16 +157,23 @@
                 @*Languages spoken data*@
                 <div id="languages-wrapper" class="edit-profile-form-column">
                     <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Languages Spoken:</p>
-                    <ul class="preference-list">
-                        @for (var i = 0; i < Model.LanguageNames!.Count(); i++)
+                    @if (Model.LanguageNames.Count == 0)
                     {
-                        <li>
-                            <div class="preference-container">
-                                @Html.DisplayFor(model=>model.LanguageNames![i])
-                            </div>
-                        </li>
+                        <p><em>This user has not selected any languages.</em></p>
                     }
-                    </ul>
+                    else
+                    {
+                        <ul class="preference-list">
+                            @for (var i = 0; i < Model.LanguageNames!.Count(); i++)
+                            {
+                                <li>
+                                    <div class="preference-container">
+                                        @Html.DisplayFor(model=>model.LanguageNames![i])
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
                 </div>
             </div>
             @* End of natural languages section*@

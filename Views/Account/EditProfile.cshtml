@@ -228,7 +228,12 @@ ViewBag.Title = "My Profile";
                   @*End of languages spoken form*@
 
             </div>
-            @* End of natural languages section*@
+            @* End of second col*@
+            <div id="basic-info-third-col">
+                <button id="reset-rejections-button" class="add-button">Reset Passed Users/Rejections</button>
+                <label id="could-not-reset" class="hidden error-label" for="reset-rejections-button">Sorry! Database error - could not reset.</label>
+                <label id="could-reset" class="hidden" for="reset-rejections-button">Success! Reset the rejections.</label>
+            </div>
 
         </div>
         @* End of first page/panel of the whole EditProfile View*@
