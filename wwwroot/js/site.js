@@ -36,6 +36,9 @@ $(document).ready(function () {
     // Functions to like/pass users
     likeUsers();
     passUsers();
+    // Functions to like/pass user when actually viewing their profile page
+    likeUserOnTheirProfile();
+    passUserOnTheirProfile();
 
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
@@ -607,3 +610,14 @@ function passUsers() {
     });
 }
 
+function likeUserOnTheirProfile() {
+    $("#view-profile-like-user-button").click(function () {
+        console.log("clicked LIKE user");
+    });
+}
+
+function passUserOnTheirProfile() {
+    $("#view-profile-pass-user-button").click(function () {
+        console.log("clicked PASS user");
+    });
+}

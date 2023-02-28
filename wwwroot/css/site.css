@@ -3,6 +3,8 @@
 /* Font Settings */
 html {
     font-size: 16px;
+    height: 100%;
+    width: 100%;
 }
 
 /*Header font*/
@@ -44,8 +46,10 @@ body {
 .body-content {
     vertical-align: middle;
     overflow: auto;
-    margin:0;
-    padding:0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -1140,7 +1144,8 @@ select.list-dt {
     left: 0;
     right: 0;
     margin-top: 80px;
-    height: fit-content;
+    height: 100%;
+    padding-bottom: 20px;
     color: black;
 }
 
@@ -1171,13 +1176,16 @@ select.list-dt {
 /* The container for all the 4 separate panels here: */
 .panels {
     background-color: var(--periwinkle);
-    height: fit-content;
-    padding-bottom: 50px;
+    height: fit-content!important;
     padding-right: 200px !important;
     border-radius: 3px;
     overflow: initial;
     padding-top: 20px;
+    display: table;
+    min-height: 100%;
+    padding-bottom: 50px;
 }
+
 
 /* Style for each panel: hide unless clicked on the corresponding tab! */
 .panel {
@@ -1951,20 +1959,26 @@ select.list-dt {
     margin-bottom: 30px;
 }
 
-.like-button, .pass-button {
+/* Like and Pass Buttons on the "Suggested Matches" view and on the "ViewProfile view */
+.like-button, .pass-button, .view-profile-like-button, .view-profile-pass-button {
     width: fit-content;
     background-color: transparent;
     border: none;
     width: fit-content;
     margin-right: 20px;
-    padding:0;
+    padding: 0;
 }
 
-/* Heart icon */
+
+/* Heart and cross icons for like/pass in the "Suggested Matches" view */
 .like-button i, .pass-button i {
     color: var(--periwinkle);
 }
 
+/* Heart and cross icons for like/pass in the "ViewProfile" view */
+.view-profile-like-button i, .view-profile-pass-button {
+    color: black;
+}
 
 /* Column displaying Career Phase and Experience Level */
 .match-body-coding-skills-column 
