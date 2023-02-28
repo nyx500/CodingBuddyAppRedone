@@ -63,6 +63,6 @@ namespace CBApp.Models
             string pictureString = string.Format("data:{0};base64,{1}", mimeType, base64);
             return pictureString;
         }
-
+        
     }
 }

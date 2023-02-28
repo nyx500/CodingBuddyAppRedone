@@ -478,7 +478,16 @@ namespace CBApp.Controllers
             // Find the liked user
             User likedUser = context.Users.Where(u => u.Id == id).FirstOrDefault<User>();
 
+            // Check if like-relationship already exists in the database
+            if (context.Likes.Any(l => l.SlackId1 == user.SlackId && l.SlackId2 == likedUser.SlackId))
+            {   
+                // If it exists, we don't have to do anything --> exit the method
+                return Json(true);
+            }
+
+
             List<Likes> likes = context.Likes.ToList();
+
 
             // Generate the new like-relationship
             Likes like = new Likes { SlackId1 = user.SlackId, User1 = user, SlackId2 = likedUser.SlackId, User2 = likedUser };
@@ -787,7 +796,69 @@ namespace CBApp.Controllers
         [Authorize]
         public IActionResult Matches()
         {
-            return View();
+            MatchesPageViewModel model = new MatchesPageViewModel();
+
+            // Get the logged-in user
+            var username = User.Identity!.Name;
+            User currentUser = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            // Get the list of users the logged in user has matched withn or liked and put them in the model lists
+            foreach (Likes like in context.Likes.ToList())
+            {   
+                // If isMatch is true for a like-relationship the current use is involved with, add the second user to the matchedUsers list
+                if (like.SlackId1 == currentUser.SlackId && like.IsMatch)
+                {
+                    MatchedUserViewModel matchedUser = new MatchedUserViewModel
+                    {
+                        UserName = like.User2.UserName,
+                        Id = like.User2.Id,
+                        SlackId = like.User2.SlackId,
+                    };
+
+                    // Add picture field only if the user has a profile picture
+                    if (like.User2.PictureFormat != null && like.User2.Picture != null)
+                    {
+                        matchedUser.PictureString = PotentialMatchUserViewModel.BytesToString_Picture(like.User2.Picture, like.User2.PictureFormat);
+                    }
+
+                    model.matchedUsers.Add(matchedUser);
+                }
+                // User has liked this user but they haven't liked them back
+                else if (like.SlackId1 == currentUser.SlackId && !like.IsMatch)
+                {
+                    LikedButNotMatchedUserViewModel likedUser = new LikedButNotMatchedUserViewModel
+                    {
+                        UserName = like.User2.UserName,
+                        Id = like.User2.Id
+                    };
+
+                    if (like.User2.PictureFormat != null && like.User2.Picture != null)
+                    {
+                        likedUser.PictureString = PotentialMatchUserViewModel.BytesToString_Picture(like.User2.Picture, like.User2.PictureFormat);
+                    }
+
+                    model.likedButNotMatchedUsers.Add(likedUser);
+                }
+                // The other user has liked the current user but the current user has not liked them back
+                else if (like.SlackId2 == currentUser.SlackId && !like.IsMatch)
+                {
+                    UserWhoLikedTheUserViewModel likerUser = new UserWhoLikedTheUserViewModel
+                    {
+                        UserName = like.User1.UserName,
+                        Id = like.User1.Id,
+                        SlackId = like.User1.SlackId,
+                    };
+
+                    if (like.User1.PictureFormat != null && like.User1.Picture != null)
+                    {
+                        likerUser.PictureString = PotentialMatchUserViewModel.BytesToString_Picture(like.User1.Picture, like.User1.PictureFormat);
+                    }
+
+                    model.likers.Add(likerUser);
+                }
+            }
+
+            return View(model);
         }
 
     }

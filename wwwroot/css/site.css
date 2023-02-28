@@ -1136,7 +1136,8 @@ select.list-dt {
     font-size: 2.5rem;
 }
 
-.profile-wrapper {
+/* Main wrapper/container for profile pages and My Matches page*/
+.profile-wrapper, .matchpage-wrapper {
     display: flex;
     flex-direction: column;
     font-family: Gordita, Verdana, Arial, sans-serif;
@@ -1241,11 +1242,11 @@ select.list-dt {
 /** Set column widths and layout for the first panel (account/basic info)
     Column on the left is to take up less space than the column on the right
 */
-#panel-one {
+.profile-wrapper panel #panel-one {
     justify-content: flex-start;
 }
 
-#panel-two {
+.profile-wrapper panel #panel-two {
     justify-content: center;
     gap: 20px;
 }
@@ -1256,10 +1257,11 @@ select.list-dt {
 }
 
 /* Panel 1 layout */
-#panel-one:first-child {
-    margin-left: 20px;
-}
 
+#basic-info-first-col
+{
+    margin-left: 70px;
+}
 
 /* Panel 1 cols */
 #basic-info-first-col, #basic-info-second-col, #basic-info-third-col {
@@ -2051,3 +2053,77 @@ select.list-dt {
 }
 
 /*End of suggested Matches styling*/
+
+
+/* My Matches styling  */
+
+
+.matches-panels
+{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+
+.matches-columns {
+    column-count: 2;
+}
+
+@media all and (max-width: 900px)
+{
+    .matches-columns {
+        column-count: 1;
+    }
+}
+
+/* Wrapper around each user's div*/
+.match-wrapper {
+    margin-left: 50px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 18px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+}
+
+.match-wrapper div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+
+/* Tiny snapshot of user's profike picture*/
+.small-profile-picture {
+    width: 100px;
+    border: 4px solid black;
+    background-color: var(--palePurple);
+    border-radius: 8px;
+}
+
+/* Link cannot be blue: cannot see it against the background*/
+.username-wrapper{
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.username-wrapper a
+{
+    color: black!important;
+}
+
+.username-wrapper a:hover {
+    color:white!important;
+}
+
+.username-wrapper a:visited {
+    color: navy!important;
+}
+
+/* My Matches page styling */
+/* End of My Matches page styling */

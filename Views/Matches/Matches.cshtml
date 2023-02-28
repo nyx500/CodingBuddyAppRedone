@@ -1,1 +1,174 @@
-﻿
+﻿@model MatchesPageViewModel
+
+@{
+    ViewBag.Title = "My Matches";
+}
+
+
+
+<h2 class="profile-header"><strong>My Matches</strong></h2>
+
+@* Use the same tabs/panels structure as in ViewProfile and EditProfile *@
+@* Container for all the panels and tabs *@
+<div class="matchpage-wrapper">
+
+
+    @* radio buttons will be hidden, are there just to enable
+    selection of correct tabs. Only 3 panels this time (unlike Profile pages)
+    *@
+    <input class="radio" id="radio-one" name="group" type="radio" checked>
+    <input class="radio" id="radio-two" name="group" type="radio">
+    <input class="radio" id="radio-three" name="group" type="radio">
+
+    @* The actual tabs *@
+    <div class="tabs">
+        <label class="tab" id="tab-one" for="radio-one">My Matches</label>
+        <label class="tab" id="tab-two" for="radio-two">My Likes</label>
+        <label class="tab" id="tab-three" for="radio-three">People who liked me</label>
+    </div>
+
+    <div class="panels matches-panels">
+        <div class="panel" id="panel-one">
+            @if (Model.matchedUsers.Count == 0)
+            {
+                <div>
+                    <em>You do not have any matches.</em>
+                </div>
+            }
+            else
+            {   
+               <div class="matches-columns">
+                   @foreach (MatchedUserViewModel match in Model.matchedUsers)
+                    {   
+                        <div class="match-wrapper">
+
+                            <div class="small-picture-wrapper match-left-col">
+                                @* Check if user has a profile picture, otherwise display no-picture icon from the assets folder *@
+                                @if (match.PictureString != null )
+                                {
+                                    <img class="small-profile-picture" src="@match.PictureString" alt="user's profile picture - content depends on what the user has uploaded" />
+                                    
+                                }
+                                else
+                                {
+                                    <img class="small-profile-picture" src="~/assets/user.png" alt="blue and white graphical drawing of a person representing a user for when user has not uploaded a profile picture" />
+                                }
+                            </div>
+                                
+                            <div class="match-right-col">
+                                <div class="username-wrapper">
+                                        @Html.ActionLink(@match.UserName, "ViewProfile", "Matches",
+                                            new { id = @match.Id, @class="name-link" },
+                                            null
+                                        )
+                                </div>
+                                <div class="slack-wrapper">
+                                    @match.SlackId
+                                </div>
+                                <div class="unlike-section">
+                                    <input type="hidden" value=@match.Id>
+                                    <button class="remove-button"><i aria-label="remove cross symbol click to remove this user from matches "class="fas fa-remove"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="panel" id="panel-two">
+            @if (Model.likedButNotMatchedUsers.Count == 0)
+            {
+                <div>
+                    <em>You do not like any users.</em>
+                </div>
+            }
+            else
+            {
+                <div class="matches-columns">
+                    @foreach (LikedButNotMatchedUserViewModel user in Model.likedButNotMatchedUsers)
+                    {
+                        <div class="match-wrapper">
+
+                            <div class="small-picture-wrapper match-left-col">
+                                @* Check if user has a profile picture, otherwise display no-picture icon from the assets folder *@
+                                @if (user.PictureString != null)
+                                {
+                                    <img class="small-profile-picture" src="@user.PictureString" alt="user's profile picture - content depends on what the user has uploaded" />
+
+                                }
+                                else
+                                {
+                                    <img class="small-profile-picture" src="~/assets/user.png" alt="blue and white graphical drawing of a person representing a user for when user has not uploaded a profile picture" />
+                                }
+                            </div>
+
+                                <div class="match-right-col">
+                                    <div class="username-wrapper">
+                                        @Html.ActionLink(@user.UserName, "ViewProfile", "Matches",
+                                new { id = @user.Id, @class="name-link" },
+                                null
+                                )
+                                </div>
+                                <div class="unlike-section">
+                                    <input type="hidden" value=@user.Id>
+                                    <button class="remove-button"><i aria-label="remove cross symbol click to remove this user from matches " class="fas fa-remove"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="panel" id="panel-three">
+            @if (Model.likers.Count == 0)
+            {
+                <div>
+                    <em>You do not have any likes yet.</em>
+                </div>
+            }
+            else
+            {
+                <div class="matches-columns">
+                    @foreach (UserWhoLikedTheUserViewModel user in Model.likers)
+                    {
+                        <div class="match-wrapper">
+
+                            <div class="small-picture-wrapper match-left-col">
+                                @* Check if user has a profile picture, otherwise display no-picture icon from the assets folder *@
+                                @if (user.PictureString != null)
+                                {
+                                    <img class="small-profile-picture" src="@user.PictureString" alt="user's profile picture - content depends on what the user has uploaded" />
+
+                                }
+                                else
+                                {
+                                    <img class="small-profile-picture" src="~/assets/user.png" alt="blue and white graphical drawing of a person representing a user for when user has not uploaded a profile picture" />
+                                }
+                            </div>
+
+                            <div class="match-right-col">
+                                <div class="username-wrapper">
+                                    @Html.ActionLink(@user.UserName, "ViewProfile", "Matches",
+                            new { id = @user.Id, @class="name-link" },
+                            null
+                            )
+                                </div>
+                                <div class="slack-wrapper">
+                                    @user.SlackId
+                                </div>
+                                <div class="unlike-section">
+                                    <input type="hidden" value=@user.Id>
+                                    <button class="remove-button"><i aria-label="remove cross symbol click to remove this user from matches " class="far fa-heart"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
