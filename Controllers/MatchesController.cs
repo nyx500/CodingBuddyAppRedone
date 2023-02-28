@@ -577,5 +577,73 @@ namespace CBApp.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        public IActionResult ViewProfile(string id)
+        {
+
+            ProfileViewModel model = new ProfileViewModel();
+
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User currentUser = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            User user = context.Users.Where(u => u.Id == id).FirstOrDefault();
+
+
+            if (user != null)
+            {
+                model.UserName = user.UserName;
+                model.Bio = user.Bio;
+                if (user.PictureFormat != null)
+                {
+                    model.ImageSrc = PotentialMatchUserViewModel.BytesToString_Picture(user.Picture, user.PictureFormat);
+                }
+                model.CareerPhase = user.CareerPhase;
+                model.ExperienceLevel = user.ExperienceLevel;
+                
+                // Only display the user's slackID if they liked the current user
+                if ((context.Likes.ToList().FindIndex(f => f.SlackId1 == user.SlackId) != -1) &&
+                        (context.Likes.ToList().FindIndex(f => f.SlackId2 == currentUser.SlackId) != -1))
+                {
+                    model.SlackId = user.SlackId;
+                }
+                else
+                {
+                    model.SlackId = "";
+                }
+
+                // Get names of preferences
+                foreach(NaturalLanguageUser languser in user.NaturalLanguageUsers)
+                {
+                    model.LanguageNames.Add(languser.NaturalLanguage.Name);
+                }
+                foreach (ProgrammingLanguageUser languser in user.ProgrammingLanguageUsers)
+                {
+                    model.ProgrammingLanguageNames.Add(languser.ProgrammingLanguage.Name);
+                }
+                foreach (CSInterestUser c in user.CSInterestUsers)
+                {
+                    model.CSInterestNames.Add(c.CSInterest.Name);
+                }
+                foreach (HobbyUser h in user.HobbyUsers)
+                {
+                    model.HobbyNames.Add(h.Hobby.Name);
+                }
+                // Get QuestionAnswer blocks
+                foreach(QuestionAnswerBlock qb in user.QuestionAnswerBlocks)
+                {
+                    model.QuestionAnswerBlocks.Add(qb);
+                }
+
+                return View("ViewProfile", model);
+            }
+            else
+            {
+                return Content("No such user!");
+            }
+
+        }
+
     }
 }

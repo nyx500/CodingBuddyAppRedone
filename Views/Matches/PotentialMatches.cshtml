@@ -38,7 +38,13 @@
         <div id=@DivId class=@className>
             @* Three sections: username header, profile picture, body with details about the user *@
             <div class="match-header-row">
-                <h1>@Html.DisplayFor(model=>model.matches[i].Username)</h1>
+                <h1>
+
+                    @Html.ActionLink(@Model.matches[i].Username, "ViewProfile", "Matches", 
+                    new { id = @Model.matches[i].Id}, 
+                    null
+                   )
+                </h1>
             </div>
             @* Body of the container under the username *@
             <div class="match-body-row">

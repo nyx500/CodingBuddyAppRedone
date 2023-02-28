@@ -40,12 +40,10 @@ namespace CBApp.Models
             };
 
             // Convert picture to string that can be displayed in HTML file
-            if (thisUser.PictureFormat  != null) 
-            {
-                string picFormat = user.PictureFormat!.Substring(1);
-                string mimeType = "image/" + picFormat;
-                string base64 = Convert.ToBase64String(user.Picture);
-                thisUser.PictureStringForHtml = string.Format("data:{0};base64,{1}", mimeType, base64);
+            if (thisUser.PictureFormat  != null)
+            { 
+            
+                thisUser.PictureStringForHtml = BytesToString_Picture(user.Picture, user.PictureFormat);
             }
             else
             {
@@ -53,6 +51,17 @@ namespace CBApp.Models
             }
 
             return thisUser;
+        }
+
+
+        /** Turns a byte array storing a picture into a string for HTML display and returns it */
+        public static string BytesToString_Picture(byte[] picture, string pictureFormat)
+        {
+            string picFormat = pictureFormat!.Substring(1);
+            string mimeType = "image/" + picFormat;
+            string base64 = Convert.ToBase64String(picture);
+            string pictureString = string.Format("data:{0};base64,{1}", mimeType, base64);
+            return pictureString;
         }
 
     }
