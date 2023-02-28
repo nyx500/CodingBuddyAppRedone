@@ -146,6 +146,13 @@ will truncate terms that are too long to fit in the left column
     font-family: Gordita, Arial, Verdana, sans-serif;
 }
 
+/* Navbar link highlighted if there is a notification*/
+.highlighted a
+{
+    color: red!important;
+    text-decoration: underline!important;
+}
+
 /* List for SignUp/Login options on right-hand side of navbar */
 .login-signup-list {
     margin-left: auto;

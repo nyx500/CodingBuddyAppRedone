@@ -497,6 +497,7 @@ namespace CBApp.Controllers
             user.UsersLiked.Add(like);
             likedUser.LikedBy.Add(like);
 
+            likedUser.HasNotification = true;
 
             // Update the user properties
             var result = await userManager.UpdateAsync(user);
@@ -548,6 +549,10 @@ namespace CBApp.Controllers
                 {
                     likeRelationship2.IsMatch = true;
                 }
+
+                // Notify the users of the match
+                currentUser.HasNotification = true;
+                targetUser.HasNotification = true;
 
                 context.SaveChanges();
             }
@@ -801,6 +806,9 @@ namespace CBApp.Controllers
             // Get the logged-in user
             var username = User.Identity!.Name;
             User currentUser = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            // Get rid of notification once matches clicked
+            currentUser.HasNotification = false;
 
             // Get the list of users the logged in user has matched withn or liked and put them in the model lists
             foreach (Likes like in context.Likes.ToList())

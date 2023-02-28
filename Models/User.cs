@@ -71,6 +71,8 @@ namespace CBApp.Models
         public byte[]? Picture { get; set; }
         public string? PictureFormat { get; set; }
 
+        // Determines if the user has a notification or not
+        public bool HasNotification = false;
 
     }
 }

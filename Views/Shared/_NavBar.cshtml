@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> signInManager
+@inject UserManager<User> userManager
 
 
 <nav id="my-nav" class="navbar">
@@ -21,37 +22,54 @@
         </li>
         @if (signInManager.IsSignedIn(User))
         {
+
+            @* Checks for notification *@
+            string username = User.Identity.Name;
+            bool notification = userManager.Users.ToList().Where(u => u.UserName == username).FirstOrDefault<User>().HasNotification;
+
             <li class="list-item">
                 <a>@Html.ActionLink("Find-a-Buddy!", "FindABuddy", "Matches")</a>
             </li>
-            <li class="list-item">
-                <a>@Html.ActionLink("Matches", "Matches", "Matches")</a>
-            </li>
+            @if (notification)
+            {
+                <li class="list-item highlighted">
+                    <i style="color: red;" class="fas fa-bell"></i>
+                    <a>@Html.ActionLink("My Matches", "Matches", "Matches")</a>
+                </li>
+            }
+            else
+            {
+                <li class="list-item">
+                    <a>@Html.ActionLink("My Matches", "Matches", "Matches")</a>
+                </li>
+            }
+
+
         }
     </ul>
     <ul id="login-list" class="login-signup-list">
-            @if (signInManager.IsSignedIn(User))
+        @if (signInManager.IsSignedIn(User))
         {
-                @*Displays the username if the user is logged in*@
-                <li class="list-item">
-                    @*Links to the edit user page when click on username*@
-                    <a asp-action="EditProfile" asp-controller="Account"
-                asp-area="" style="color:blueviolet!important; text-decoration: underline;">@User.Identity!.Name</a>
-                </li>
+            @*Displays the username if the user is logged in*@
+            <li class="list-item">
+                @*Links to the edit user page when click on username*@
+                <a asp-action="EditProfile" asp-controller="Account"
+               asp-area="" style="color:blueviolet!important; text-decoration: underline;">@User.Identity!.Name</a>
+            </li>
 
-                <li class="list-item">
-                    <form method="post" asp-action="LogOut" asp-controller="Account"
-                    asp-area="">
+            <li class="list-item">
+                <form method="post" asp-action="LogOut" asp-controller="Account"
+                  asp-area="">
                     <input type="submit" value="Log Out"
-                        class="btn" id="logout-button">
-                    </form>
-                </li>
+                           class="btn" id="logout-button">
+                </form>
+            </li>
 
         }
         else
         {
             // get current action
-           
+
             var action = ViewContext.RouteData.Values["action"];
             action = action!.ToString();
 
@@ -59,11 +77,11 @@
             <li class="list-item @Html.ActiveClass("Account", "Register",
             "selected")">
                 <a asp-action="RegisterInSteps" asp-controller="Account"
-                asp-area="" class="nav-link list-item" id="signup-button">Sign Up</a>
+               asp-area="" class="nav-link list-item" id="signup-button">Sign Up</a>
             </li>
             <li class="list-item">
                 <a asp-action="Login" asp-controller="Account"
-                asp-area="" class="nav-link list-item" id="login-button">Log In</a>
+               asp-area="" class="nav-link list-item" id="login-button">Log In</a>
             </li>
         }
     </ul>

@@ -24,15 +24,16 @@ namespace CBApp.Data.ConfigurationFiles
                 .IsUnique();
 
             entity.Property(u => u.UserName);
-
             entity.Property(u => u.Picture);
             entity.Property(u => u.PictureFormat);
+            entity.Property(u => u.HasNotification);
 
             // Make UserName unique
             entity.HasIndex(u => u.UserName)
                 .IsUnique();
 
             entity.Property(u => u.Bio);
+
 
             // Set up many-to-one relationships
             entity.HasOne(u => u.Gender).WithMany(g => g.Users).OnDelete(DeleteBehavior.Cascade);
