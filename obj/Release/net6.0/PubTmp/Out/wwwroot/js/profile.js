@@ -69,6 +69,7 @@ $(document).ready(function () {
     uploadAnswer();
     deleteQuestion();
     editQuestion();
+    resetRejections();
         
 });
 
@@ -766,7 +767,24 @@ function editQuestion() {
 
         });
     });
+}
 
-
-   
+function resetRejections() {
+    $("#reset-rejections-button").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/Matches/ResetRejections",
+            data: {},
+            success: function (response) {
+                if (response) {
+                    $("#could-reset").removeClass("hidden");
+                }
+                else {
+                    // Display error message if could not do it
+                    $("#could-not-reset").removeClass("hidden");
+                    $("#could-reset").addClass("hidden");
+                }
+            }
+        });
+    });
 }

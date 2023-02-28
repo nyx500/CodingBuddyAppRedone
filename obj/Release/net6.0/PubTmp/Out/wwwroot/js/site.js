@@ -27,6 +27,24 @@ toggleButton.addEventListener("click", () => {
 // Attribution: https://bbbootstrap.com/snippets/multi-step-form-wizard-30467045
 $(document).ready(function () {
 
+    // Hides form welcome screen on Find-a-Buddy View when the Start button is pressed
+    hideWelcomeScreen();
+    // On Find-a-Buddy form: go to next page when next-buttons are clicked
+    goToNextPageOnFindABuddyForm($("#find-buddy-first"));
+    goToNextPageOnFindABuddyForm($("#find-buddy-second"));
+    goToNextPageOnFindABuddyForm($("#find-buddy-third"));
+    // Functions to like/pass users when browsing through filter results (potential matches)
+    likeUsers();
+    passUsers();
+    // Calls functions to like/unlike user when actually viewing their profile page
+    toggleLikeUnlikeOnProfile();
+    // On Matches page, remove a match
+    matchPageRemoveUser();
+    // On Matches page, like a user who liked you
+    matchPageLikeUser();
+    // Go to the last-visited panel
+    getTheRightPanel();
+
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
     // Regex for SlackID --> alphanumeric chars only + underscore
@@ -173,6 +191,8 @@ $(document).ready(function () {
                 duration: 600
             });
         }
+
+
     });
 
 
@@ -480,4 +500,292 @@ function CheckIfSlackIdAvailable(slackIdValue) {
     });
 
     return result;
+}
+
+function hideWelcomeScreen() {
+    // Hide the welcome screen and display the form when start button is clicked on the "Find-a-Buddy" view
+    $("#start-matching").click(function () {
+        $("#find-a-buddy-welcome-page-container").css("display", "none");
+        // Display the hidden form
+        $("#find-a-buddy-form-container").removeClass("hidden");
+    })
+}
+
+function goToNextPageOnFindABuddyForm(nextButton) {
+    nextButton.click(function () {
+
+        console.log('clicked next');
+        current_fs = $(this).parent();
+        next_fs = $(this).parent().next();
+
+        //Add Class Active
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+        console.log(current_fs);
+
+        //show the next fieldset
+        next_fs.show();
+
+        //hide the current fieldset with style
+        current_fs.animate({ opacity: 0 }, {
+            step: function (now) {
+                // for making fielset appear animation
+                opacity = 1 - now;
+
+                current_fs.css({
+                    'display': 'none',
+                    'position': 'relative'
+                });
+                next_fs.css({ 'opacity': opacity });
+            },
+            duration: 600
+        });
+    });
+}
+
+function likeUsers() {
+    $(".like-button").click(function () {
+        // post user id from hidden input field before the button
+        var user_data = { id: $(this).prev().val() };
+
+        // get container id
+        var divId = $(this).next().val();
+        divId = "#" + divId;
+
+        $.ajax({
+            type: "POST",
+            url: "/Matches/LikeUser",
+            data: user_data,
+            success: function (response) {
+                if (response) {
+                    console.log("like: worked");
+                    // Show the next match
+                    if ($(divId).next().attr("id") != undefined && $(divId).next().attr("id").includes("container")) {
+                        $(divId).next().addClass("potential-match-container");
+                        $(divId).next().removeClass("hidden");
+                    }
+                    else {
+                        $("#no-matches-left").removeClass("hidden");
+                    }
+                    // Remove the match
+                    $(divId).remove();
+                }
+                else {
+                    console.log("like: didn't work");
+                }
+            }
+        });
+
+    });
+}
+
+
+function passUsers() {
+    $(".pass-button").click(function () {
+
+        // post user id from hidden input field before the button
+        var user_data = { id: $(this).prev().val() };
+
+        // get container id
+        var divId = $(this).next().val();
+        divId = "#" + divId;
+
+        $.ajax({
+            type: "POST",
+            url: "/Matches/PassUser",
+            data: user_data,
+            success: function (response) {
+                if (response) {
+                    console.log("rejection: worked");
+                    // Show the next match
+                    if ($(divId).next().attr("id") != undefined && $(divId).next().attr("id").includes("container")) {
+                        $(divId).next().addClass("potential-match-container");
+                        $(divId).next().removeClass("hidden");
+                    }
+                    else {
+                        $("#no-matches-left").removeClass("hidden");
+                    }
+                    // Remove the match
+                    $(divId).remove();
+                }
+                else {
+                    console.log("rejection: didn't work");
+                }
+            }
+        });
+    });
+}
+
+// Allows logged-in user to like/unlike a user when viewing their profile page
+function toggleLikeUnlikeOnProfile() {
+
+    var likeToggleButton = $("#view-profile-like-user-button");
+    var likeToggleIcon = $("#like-icon");
+
+    $(likeToggleButton).click(function () {
+        console.log("clicked LIKE user");
+
+
+        // Data from hidden field (target user's unique ID)
+        // get container id
+        var targetId = $("#hidden-user-id").val();
+        console.log("User Id: " + targetId);
+
+        // If button is blue, means logged-in user likes the viewed user but wants to "unlike"
+        if (likeToggleIcon.hasClass("fas")) {
+            console.log("Heart icon is solid");
+
+            // Send request to Controller to unlike the user
+            unlikeUserOnTheirProfile(likeToggleIcon, targetId);
+        }
+        // If button is black, means logged-in user does not like the viewed user but wants to "like"
+        else {
+            console.log("button is just an outline");
+            // Send request to Controller to like the user
+            likeUserOnTheirProfile(likeToggleIcon, targetId);
+        }
+    });
+}
+
+
+function likeUserOnTheirProfile(likeToggleIcon, targetUserId) {
+
+    var user_data = { id: targetUserId };
+
+    $.ajax({
+            type: "POST",
+            url: "/Matches/LikeUser",
+            data: user_data,
+            success: function (response) {
+                if (response) {
+                    console.log("like: it worked!");
+
+                    // Change the heart colour from black to blue if the user managed to like the viewed user
+                    likeToggleIcon.removeClass("far");
+                    likeToggleIcon.addClass("fas");
+                    // Change the text from Like to Unlike
+                    $("#like-unlike-text").text("Unlike");
+                }
+                else {
+                    // Display error message
+                    $("#could-not-like-error").removeClass("hidden");
+                }
+            }
+        });
+}
+
+function unlikeUserOnTheirProfile(likeToggleIcon, targetUserId) {
+
+    var user_data = { id: targetUserId };
+
+    $.ajax({
+        type: "POST",
+        url: "/Matches/UnlikeUser",
+        data: user_data,
+        success: function (response) {
+            if (response) {
+                console.log("unlike: it worked!");
+
+                // Change the heart colour from blue to black if the user managed to unlike the viewed user
+                likeToggleIcon.removeClass("fas");
+                likeToggleIcon.addClass("far");
+
+                // Change the text from Unlike to Like
+                $("#like-unlike-text").text("Like");
+            }
+            else {
+                // Display error message
+                $("#could-not-like-error").removeClass("hidden");
+            }
+        }
+    });
+}
+
+
+function matchPageRemoveUser() {
+    $(".remove-button").each(function () {
+        $(this).on("click", function (e) {
+
+            var user_data = { id: $(this).prev().val() };
+
+            var panelNumber = $(this).next().val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Matches/UnlikeUser",
+                data: user_data,
+                success: function (response) {
+                    if (response) {
+
+                        setPanelSession(panelNumber);
+
+                        window.location.replace("/Matches/Matches");       
+                    }
+                }
+            });
+        });
+    });
+}
+
+function matchPageLikeUser() {
+    $(".heart-button").each(function () {
+        $(this).on("click", function (e) {
+
+            var user_data = { id: $(this).prev().val() };
+
+            var panelNumber = $(this).next().val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Matches/LikeUser",
+                data: user_data,
+                success: function (response) {
+                    if (response) {
+
+                        window.location.replace("/Matches/Matches");
+                    }
+                }
+            });
+        });
+    });
+}
+
+// Uses session storage to redirect to the correct panel when the page is reloaded
+function setPanelSession(panelNumber) {
+
+    if (panelNumber == "panel-one") {
+        sessionStorage.setItem("matches-panel", 1);
+    } else if (panelNumber == "panel-two") {
+        sessionStorage.setItem("matches-panel", 2);
+    } else {
+        sessionStorage.setItem("matches-panel", 3);
+    }
+    sessionStorage.setItem("redirectToMatchesPage", true);
+}
+
+// Makes the correct panel visible
+function getTheRightPanel() {
+    // Useful hint on how to check location:
+    // Attribution: https://linuxhint.com/check-if-current-url-contains-string-javascript/#:~:text=Conclusion-,To%20check%20if%20the%20current%20URL%20contains%20a%20string%20in,value%20in%20the%20specified%20string.
+    if (window.location.href.indexOf("Matches/Matches") > -1)
+    {
+        if (sessionStorage.getItem("redirectToMatchesPage"))
+        {
+            var panelNum =sessionStorage.getItem("matches-panel")
+
+            if (panelNum == 1) {
+                $("#radio-one").attr('checked', 'checked');
+            }
+            else if (panelNum == 2) {
+                $("#radio-two").attr('checked', 'checked');
+            }
+            else {
+                $("#radio-three").attr('checked', 'checked');
+            }
+
+
+            sessionStorage.setItem("redirectToMatchesPage", false);
+
+        }
+    }
+
 }

@@ -809,6 +809,7 @@ namespace CBApp.Controllers
 
             // Get rid of notification once matches clicked
             currentUser.HasNotification = false;
+            context.SaveChanges();
 
             // Get the list of users the logged in user has matched withn or liked and put them in the model lists
             foreach (Likes like in context.Likes.ToList())
