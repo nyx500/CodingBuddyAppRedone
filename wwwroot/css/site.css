@@ -1175,7 +1175,7 @@ select.list-dt {
 }
 
 /* The container for all the 4 separate panels here: */
-.panels {
+.profile-panels, .matches-panels {
     background-color: var(--periwinkle);
     height: fit-content!important;
     padding-right: 200px;
@@ -1215,10 +1215,10 @@ select.list-dt {
     Use flexbox to make panel responsive (columns of data next to each other,
     wrap if screen-size becomes to small to accomodate the columns)
 */
-#radio-one:checked ~ .panels #panel-one,
-#radio-two:checked ~ .panels #panel-two,
-#radio-three:checked ~ .panels #panel-three,
-#radio-four:checked ~ .panels #panel-four {
+#radio-one:checked ~ .profile-panels #panel-one,
+#radio-two:checked ~ .profile-panels #panel-two,
+#radio-three:checked ~ .profile-panels #panel-three,
+#radio-four:checked ~ .profile-panels #panel-four {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -1527,7 +1527,7 @@ select.list-dt {
 /* Displays user's questions and answers*/
 .question-answer-block {
     border: 1px solid black;
-    box-shadow: 1rem 1rem 0.5rem #00000080;;
+    box-shadow: 1rem 1rem 0.5rem #00000080;
     padding: 20px;
 }
 .question {
@@ -1659,10 +1659,10 @@ select.list-dt {
 /** Media queries */
 /* Wrap content on smaller screens */
 @media all and (max-width: 600px) {
-    #radio-one:checked ~ .panels #panel-one,
-    #radio-two:checked ~ .panels #panel-two,
-    #radio-three:checked ~ .panels #panel-three,
-    #radio-four:checked ~ .panels #panel-four {
+    #radio-one:checked ~ .profile-panels #panel-one,
+    #radio-two:checked ~ .profile-panels #panel-two,
+    #radio-three:checked ~ .profile-panels #panel-three,
+    #radio-four:checked ~ .profile-panels #panel-four {
         flex-wrap: wrap;
     }
 }
@@ -2058,17 +2058,20 @@ select.list-dt {
 /* My Matches styling  */
 
 
-.matches-panels
-{
+#radio-one:checked ~ .matches-panels #panel-one,
+#radio-two:checked ~ .matches-panels #panel-two,
+#radio-three:checked ~ .matches-panels #panel-three,
+#radio-four:checked ~ .matches-panels #panel-four {
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
     align-content: center;
-    align-items: center;
 }
 
 
 .matches-columns {
-    column-count: 2;
+    height: 100%;
+    margin-bottom: 10%;
 }
 
 @media all and (max-width: 900px)
@@ -2085,10 +2088,19 @@ select.list-dt {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 18px;
-    border: 1px solid black;
-    margin-bottom: 20px;
+    border: 1px double black;
+    box-shadow: 0.8rem 0.8rem 0.5rem #00000080;
+    border-radius: 4px;
+    margin-bottom: 100px;
+}
+
+.explanation {
+    text-align: center;
+    padding:0px;
+    margin:0px;
+    height: fit-content!important;
 }
 
 .match-wrapper div {
@@ -2101,6 +2113,7 @@ select.list-dt {
 /* Tiny snapshot of user's profike picture*/
 .small-profile-picture {
     width: 100px;
+    height: 100px;
     border: 4px solid black;
     background-color: var(--palePurple);
     border-radius: 8px;
@@ -2123,6 +2136,27 @@ select.list-dt {
 
 .username-wrapper a:visited {
     color: navy!important;
+}
+
+/* X-button to remove user from Likes */
+.remove-button, .heart-button {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 4px;
+    color: white;
+    background-color: black;
+    border: 2px solid var(--palePurple);
+    align-self: flex-end;
+    justify-self: flex-end;
+    box-shadow: 0.2rem 0.2rem 0.2rem #00000080;
+    /* Put a margin, so user does not click the button by accident when trying to click on the link to the user's profile */
+    margin-top: 30px;
+}
+
+.remove-button:hover, .heart-button:hover {
+    border: 2px solid blue;
+    color: blue;
+
 }
 
 /* My Matches page styling */

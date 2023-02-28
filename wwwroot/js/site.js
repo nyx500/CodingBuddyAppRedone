@@ -38,6 +38,12 @@ $(document).ready(function () {
     passUsers();
     // Calls functions to like/unlike user when actually viewing their profile page
     toggleLikeUnlikeOnProfile();
+    // On Matches page, remove a match
+    matchPageRemoveUser();
+    // On Matches page, like a user who liked you
+    matchPageLikeUser();
+    // Go to the last-visited panel
+    getTheRightPanel();
 
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
@@ -694,3 +700,92 @@ function unlikeUserOnTheirProfile(likeToggleIcon, targetUserId) {
     });
 }
 
+
+function matchPageRemoveUser() {
+    $(".remove-button").each(function () {
+        $(this).on("click", function (e) {
+
+            var user_data = { id: $(this).prev().val() };
+
+            var panelNumber = $(this).next().val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Matches/UnlikeUser",
+                data: user_data,
+                success: function (response) {
+                    if (response) {
+
+                        setPanelSession(panelNumber);
+
+                        window.location.replace("/Matches/Matches");       
+                    }
+                }
+            });
+        });
+    });
+}
+
+function matchPageLikeUser() {
+    $(".heart-button").each(function () {
+        $(this).on("click", function (e) {
+
+            var user_data = { id: $(this).prev().val() };
+
+            var panelNumber = $(this).next().val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Matches/LikeUser",
+                data: user_data,
+                success: function (response) {
+                    if (response) {
+
+                        window.location.replace("/Matches/Matches");
+                    }
+                }
+            });
+        });
+    });
+}
+
+// Uses session storage to redirect to the correct panel when the page is reloaded
+function setPanelSession(panelNumber) {
+
+    if (panelNumber == "panel-one") {
+        sessionStorage.setItem("matches-panel", 1);
+    } else if (panelNumber == "panel-two") {
+        sessionStorage.setItem("matches-panel", 2);
+    } else {
+        sessionStorage.setItem("matches-panel", 3);
+    }
+    sessionStorage.setItem("redirectToMatchesPage", true);
+}
+
+// Makes the correct panel visible
+function getTheRightPanel() {
+    // Useful hint on how to check location:
+    // Attribution: https://linuxhint.com/check-if-current-url-contains-string-javascript/#:~:text=Conclusion-,To%20check%20if%20the%20current%20URL%20contains%20a%20string%20in,value%20in%20the%20specified%20string.
+    if (window.location.href.indexOf("Matches/Matches") > -1)
+    {
+        if (sessionStorage.getItem("redirectToMatchesPage"))
+        {
+            var panelNum =sessionStorage.getItem("matches-panel")
+
+            if (panelNum == 1) {
+                $("#radio-one").attr('checked', 'checked');
+            }
+            else if (panelNum == 2) {
+                $("#radio-two").attr('checked', 'checked');
+            }
+            else {
+                $("#radio-three").attr('checked', 'checked');
+            }
+
+
+            sessionStorage.setItem("redirectToMatchesPage", false);
+
+        }
+    }
+
+}

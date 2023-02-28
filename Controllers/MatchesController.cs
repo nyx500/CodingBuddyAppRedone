@@ -605,7 +605,7 @@ namespace CBApp.Controllers
                 {
                     context.SaveChanges();
 
-                    // Changes isMatched field for the users' relationship to "false" if it was true
+                    // Changes isMatched field for the users' relationship to "false" if it was true before the "unlike" event happened
                     checkForAndSetMatch(currentUser, unlikedUser, context);
                     return Json(true);
                 }

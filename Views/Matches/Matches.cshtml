@@ -27,17 +27,27 @@
         <label class="tab" id="tab-three" for="radio-three">People who liked me</label>
     </div>
 
-    <div class="panels matches-panels">
+    <div class="matches-panels">
         <div class="panel" id="panel-one">
+
+            <p class="explanation"><b>People you have "liked" who have "liked" you back.</b></p>
+            <br/>
             @if (Model.matchedUsers.Count == 0)
             {
-                <div>
-                    <em>You do not have any matches.</em>
-                </div>
+
+                <p class="explanation"><em>You do not have any "matches".</em></p>
             }
             else
-            {   
-               <div class="matches-columns">
+            {
+                var columnCountStyleMatches = "column-count : 2;";
+
+                @if (Model.matchedUsers.Count < 2)
+                {
+                    columnCountStyleMatches = "column-count : 1;";
+                }
+
+
+               <div class="matches-columns" style="@columnCountStyleMatches">
                    @foreach (MatchedUserViewModel match in Model.matchedUsers)
                     {   
                         <div class="match-wrapper">
@@ -68,6 +78,7 @@
                                 <div class="unlike-section">
                                     <input type="hidden" value=@match.Id>
                                     <button class="remove-button"><i aria-label="remove cross symbol click to remove this user from matches "class="fas fa-remove"></i></button>
+                                    <input type="hidden" value="panel-one">
                                 </div>
                             </div>
 
@@ -76,16 +87,27 @@
                 </div>
             }
         </div>
+
         <div class="panel" id="panel-two">
+
+            <p class="explanation"><b>People you have "liked" who have not "liked" you back.</b></p>
+            <br/>
             @if (Model.likedButNotMatchedUsers.Count == 0)
             {
-                <div>
-                    <em>You do not like any users.</em>
-                </div>
+
+                <p class="explanation"><em>You have not "liked" any users.</em></p>
             }
             else
             {
-                <div class="matches-columns">
+                var columnCountStyleLikes = "column-count : 2;";
+
+                @if (Model.likedButNotMatchedUsers.Count < 2)
+                {
+                    columnCountStyleLikes = "column-count : 1;";
+                }
+
+                <div class="matches-columns" style="@columnCountStyleLikes">
+
                     @foreach (LikedButNotMatchedUserViewModel user in Model.likedButNotMatchedUsers)
                     {
                         <div class="match-wrapper">
@@ -113,6 +135,7 @@
                                 <div class="unlike-section">
                                     <input type="hidden" value=@user.Id>
                                     <button class="remove-button"><i aria-label="remove cross symbol click to remove this user from matches " class="fas fa-remove"></i></button>
+                                    <input type="hidden" value="panel-two">
                                 </div>
                             </div>
 
@@ -122,15 +145,25 @@
             }
         </div>
         <div class="panel" id="panel-three">
+
+            <p class="explanation"><b>People who have "liked" you whom you have not "liked" back.</b></p>
+            <br />
+
             @if (Model.likers.Count == 0)
             {
-                <div>
-                    <em>You do not have any likes yet.</em>
-                </div>
+                <p class="explanation"><em>You do not have any "likes" yet.</em></p>
             }
             else
             {
-                <div class="matches-columns">
+
+                var columnCountStyleLikers = "column-count : 2;";
+
+                @if (Model.likers.Count < 2)
+                {
+                    columnCountStyleLikers = "column-count : 1;";
+                }
+
+                <div class="matches-columns" style="@columnCountStyleLikers">
                     @foreach (UserWhoLikedTheUserViewModel user in Model.likers)
                     {
                         <div class="match-wrapper">
@@ -160,7 +193,8 @@
                                 </div>
                                 <div class="unlike-section">
                                     <input type="hidden" value=@user.Id>
-                                    <button class="remove-button"><i aria-label="remove cross symbol click to remove this user from matches " class="far fa-heart"></i></button>
+                                    <button class="heart-button"><i aria-label="like heart symbol click to add this user to matches " class="far fa-heart"></i></button>
+                                    <input type="hidden" value="panel-three">
                                 </div>
                             </div>
 
