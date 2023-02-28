@@ -542,7 +542,27 @@ namespace CBApp.Controllers
 
                 context.SaveChanges();
             }
-            // Otherwise the default is already set false
+            // The likes are not mutual, because the current user likes the target user but the "like" is not returned: find the relationship and set its "isMatched" property to false
+            else if (doesCurrentUserLikeTargetUser && !doesTargetUserLikeCurrentUser)
+            {
+                Likes likeRelationship = context.Likes.Where(l => l.SlackId1 == currentUser.SlackId && l.SlackId2 == targetUser.SlackId).FirstOrDefault<Likes>();
+
+                if (!likeRelationship.IsMatch)
+                {
+                    likeRelationship.IsMatch = false;
+                }
+
+            }
+            // The likes are not mutual, because the target user likes the current user but the "like" is not returned: find the relationship and set its "isMatched" property to false
+            else if (!doesCurrentUserLikeTargetUser && doesTargetUserLikeCurrentUser)
+            {
+                Likes likeRelationship = context.Likes.Where(l => l.SlackId1 == targetUser.SlackId && l.SlackId2 == currentUser.SlackId).FirstOrDefault<Likes>();
+
+                if (!likeRelationship.IsMatch)
+                {
+                    likeRelationship.IsMatch = false;
+                }
+            }
         }
 
 
@@ -556,10 +576,10 @@ namespace CBApp.Controllers
             User currentUser = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
 
             // Find the unliked user
-            User likedUser = context.Users.Where(u => u.Id == id).FirstOrDefault<User>();
+            User unlikedUser = context.Users.Where(u => u.Id == id).FirstOrDefault<User>();
 
             // Find the like-relationship to remove
-            Likes targetedLike = context.Likes.Where(like => like.SlackId1 == currentUser.SlackId).Where(like => like.SlackId2 == likedUser.SlackId).FirstOrDefault<Likes>()!;
+            Likes targetedLike = context.Likes.Where(like => like.SlackId1 == currentUser.SlackId).Where(like => like.SlackId2 == unlikedUser.SlackId).FirstOrDefault<Likes>()!;
 
             context.Likes.Remove(targetedLike);
             context.SaveChanges();
@@ -571,10 +591,13 @@ namespace CBApp.Controllers
             if (result.Succeeded)
             {
                 // Update the user properties
-                var result2 = await userManager.UpdateAsync(likedUser);
+                var result2 = await userManager.UpdateAsync(unlikedUser);
                 if (result2.Succeeded)
                 {
                     context.SaveChanges();
+
+                    // Changes isMatched field for the users' relationship to "false" if it was true
+                    checkForAndSetMatch(currentUser, unlikedUser, context);
                     return Json(true);
                 }
                 else
@@ -620,6 +643,10 @@ namespace CBApp.Controllers
                 if (result2.Succeeded)
                 {
                     context.SaveChanges();
+
+                    // If one of the users liked the other and there has been a rejection from either side, set "isMatched" in the Likes table to false
+                    checkForAndSetMatch(user, passedUser, context);
+
                     return Json(true);
                 }
                 else
