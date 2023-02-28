@@ -480,6 +480,7 @@ namespace CBApp.Controllers
 
             List<Likes> likes = context.Likes.ToList();
 
+            // Generate the new like-relationship
             Likes like = new Likes { SlackId1 = user.SlackId, User1 = user, SlackId2 = likedUser.SlackId, User2 = likedUser };
 
             // Add likes to database
@@ -499,6 +500,10 @@ namespace CBApp.Controllers
                 if (result2.Succeeded)
                 {
                     context.SaveChanges();
+
+                    // Checks if the like is mutual and sets the isMatched property of the likes to "true" if this is the case
+                    checkForAndSetMatch(user, likedUser, context);
+
                     return Json(true);
                 }
                 else
@@ -509,6 +514,37 @@ namespace CBApp.Controllers
 
             return Json(false);
         }
+
+
+        // A helper method for the above "LikeUser" method in this controller than determines whether two users have mutually liked one another and if so sets the isMatched property
+        // in the context "Likes" table to "true"
+        public void checkForAndSetMatch(User currentUser, User targetUser, ApplicationDbContext context)
+        {
+            bool doesCurrentUserLikeTargetUser = context.Likes.Any(l => l.SlackId1 == currentUser.SlackId && l.SlackId2 == targetUser.SlackId);
+            bool doesTargetUserLikeCurrentUser = context.Likes.Any(l => l.SlackId1 == targetUser.SlackId && l.SlackId2 == currentUser.SlackId);
+
+            // If the users have liked each other, set the isMatched property to true
+            if (doesCurrentUserLikeTargetUser && doesTargetUserLikeCurrentUser)
+            {
+                Likes likeRelationship1 = context.Likes.Where(l => l.SlackId1 == currentUser.SlackId && l.SlackId2 == targetUser.SlackId).FirstOrDefault<Likes>();
+
+                if (!likeRelationship1.IsMatch)
+                {
+                    likeRelationship1.IsMatch = true;
+                }
+
+                Likes likeRelationship2 = context.Likes.Where(l => l.SlackId1 == targetUser.SlackId && l.SlackId2 == currentUser.SlackId).FirstOrDefault<Likes>();
+
+                if (!likeRelationship2.IsMatch)
+                {
+                    likeRelationship2.IsMatch = true;
+                }
+
+                context.SaveChanges();
+            }
+            // Otherwise the default is already set false
+        }
+
 
         [Authorize]
         [HttpPost]
@@ -649,7 +685,7 @@ namespace CBApp.Controllers
                 model.CareerPhase = user.CareerPhase;
                 model.ExperienceLevel = user.ExperienceLevel;
                 
-                // Only display the user's slackID if they liked the current user
+                // Only display the user's slackID if they have liked the currently logged-in user
                 if ((context.Likes.ToList().FindIndex(f => f.SlackId1 == user.SlackId) != -1) &&
                         (context.Likes.ToList().FindIndex(f => f.SlackId2 == currentUser.SlackId) != -1))
                 {
@@ -718,6 +754,13 @@ namespace CBApp.Controllers
                 return Content("No such user!");
             }
 
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Matches()
+        {
+            return View();
         }
 
     }
