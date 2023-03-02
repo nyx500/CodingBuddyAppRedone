@@ -1492,10 +1492,12 @@ select.list-dt {
 }
 
 /* Change Password field on first panel of Edit Profile*/
-#change-password-button
+#change-password-button, #delete-account
 {
     margin-left: 0;
 }
+
+
 /* Input (type text) to validate current password */
 #confirm-current-password-input, #enter-new-password-input, #enter-new-password-confirm-input {
 border-radius: 10px;
@@ -1550,6 +1552,28 @@ margin-bottom: 5px;
 }
 #logout-after-password-change:hover {
     color: white;
+}
+
+
+
+/* Delete Account button: make it stand out and place it further down, to avoid user clicking this by accident! */
+#delete-account {
+    background-color: red;
+    margin-top: 40px;
+}
+
+/* Container which contains message asking user to verify if they really want to delete all their data, or cancel otherwise */
+#delete-confirmation-container {
+    margin: 10px;
+}
+#delete-confirmation-container label {
+    color: black;
+    font-weight: 900;
+    padding: 10px;
+    border-radius: 4px;
+}
+#delete-confirmation-container button {
+    margin: 10px 0px;
 }
 
 /*****************Hidden Forms******************/

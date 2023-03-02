@@ -70,6 +70,8 @@ $(document).ready(function () {
     deleteQuestion();
     editQuestion();
     resetRejections();
+    // Delete the user when button clicked and confirmed
+    deleteUserAccountFunctionality();
 
    editPassword();
         
@@ -952,4 +954,26 @@ function submitNewPassword(password, oldPassword) {
             }
         }
     });
+}
+
+// Functions for deleting account
+function deleteUserAccountFunctionality() {
+    deleteButtonPressed();
+    doNotDeleteButtonPressed();
+}
+
+function deleteButtonPressed() {
+    $("#delete-account").click(function () {
+        $(this).next().removeClass("hidden");
+        $(this).addClass("hidden");
+
+        doNotDeleteButtonPressed();
+    })
+}
+
+function doNotDeleteButtonPressed() {
+    $("#cancel-delete-button").click(function () {
+        $("#delete-account").removeClass("hidden");
+        $("#delete-confirmation-container").addClass("hidden");
+    })
 }

@@ -236,14 +236,17 @@ ViewBag.Title = "My Profile";
                     <label id="could-reset" class="hidden" for="reset-rejections-button">Success! Reset the rejections.</label>
                 </div>
                 <br />
+                @* CHANGE PASSWORD SECTION *@
                 <div>
                     <button id="change-password-button" class="edit-button">Change Password</button>
+                    @* Hidden form allowing user to verify current password; opens on  above button click*@
                     <div id="confirm-current-password-container" class="hidden">
                         @* Label: changes 'text' attribute if the password is incorrect *@
                         <label id="confirm-current-password-label" for="enter-current-password">Please enter your current password:</label>
                         <input id="confirm-current-password-input" type="password" />
                         <button id="submit-current-password" class="save-button">Submit</button><button id="cancel-submit-current-password" class="cancel-button">Cancel</button>
                     </div>
+                    @* Hidden form enabling user to change to a new password: only opens when the old password has been confirmed *@
                     <div id="password-change-container" class="hidden">
                         @* Will store the old password because controller needs this to change password with Identity library *@
                         <input id="old-password" type="hidden"/>
@@ -255,12 +258,22 @@ ViewBag.Title = "My Profile";
                         <button id="submit-new-password" class="save-button">Save</button>
                         <button id="cancel-submit-new-password" class="cancel-button">Cancel</button>
                     </div>
+                    @* Success message and Logout link that is hidden until user successfully updates a new password *@
                     <div id="password-change-success" class="hidden">
                         <label id="successfully-changed-password">Password changed successfully! Please click on the link below to log out and back in.</label>
                         <form method="post" asp-action="LogOut" asp-controller="Account"
                               asp-area="">
                             <input id="logout-after-password-change" type="submit" value="Log Out"/>
                         </form>
+                    </div>
+                </div>
+                @* End of change password section *@
+                <div>
+                    <button id="delete-account" class="edit-button">Delete Account</button>
+                     @* Hidden div showing warning asking if user really wants to continue: error avoidance Nielson principle!*@
+                    <div id="delete-confirmation-container" class="hidden">
+                        <label>Are you sure you want to continue? Your data will be lost.</label>
+                        <button id="cancel-delete-button" class="save-button"> Don't delete! </button> <button id="confirm-delete-button" class="delete-button">Delete</button>
                     </div>
                 </div>
             </div>
