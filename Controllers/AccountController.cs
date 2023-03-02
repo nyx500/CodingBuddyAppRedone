@@ -393,8 +393,8 @@ namespace CBApp.Controllers
             }
             else
             {
-                // Error: password is under 8 characters
-                if (model.Password.Length < 8)
+                // Error: password is under 10 characters
+                if (model.Password.Length < 10)
                 {
                     errorsObject!.Bad_Password_Length = true;
                     ++ErrorCounter;
@@ -495,7 +495,7 @@ namespace CBApp.Controllers
                 HttpContext.Session.SetInt32("RedirectToRegistrationForm", 1);
 
                 // For testing purposes --> return Json with the errors
-                return Content("ERRORS FOUND.");
+                return Content("Errors found - could not register");
             }
 
 
@@ -511,7 +511,7 @@ namespace CBApp.Controllers
                     CareerPhase = context!.CareerPhases.Find(model.SelectedCareerPhaseId),
                     ExperienceLevelId = model.SelectedExperienceLevelId,
                     ExperienceLevel = context.ExperienceLevels.Find(model.SelectedExperienceLevelId),
-                    GenderId = model.SelectedGenderId
+                    GenderId = 0
                 };
 
 
@@ -534,7 +534,7 @@ namespace CBApp.Controllers
                         // Create many-to-many relationship called "NaturalLanguageUser"
                         NaturalLanguageUser nlUser = new NaturalLanguageUser
                         {
-                            NaturalLanguageId = i + 1,
+                            NaturalLanguageId = (i + 1),
                             SlackId = model.SlackId!,
                             User = user,
                             NaturalLanguage = nLang
@@ -620,6 +620,7 @@ namespace CBApp.Controllers
                     }
                 }
 
+                context.Users.Add(user);
 
                 var result = await userManager.CreateAsync(user, model.Password);
 
@@ -632,13 +633,12 @@ namespace CBApp.Controllers
                 // If create user operation fails, code adds errors to form
                 else
                 {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
+                    var errors = result.Errors;
+                    var message = string.Join(", ", errors);
+                    ModelState.AddModelError("", message);
 
                     // Returns to the Registration page if the model is invalid - displays the errors in the form
-                    return Content ("We are very sorry: the server experienced a problem and the user account could not be created.");
+                    return View(model);
                 }
 
             }

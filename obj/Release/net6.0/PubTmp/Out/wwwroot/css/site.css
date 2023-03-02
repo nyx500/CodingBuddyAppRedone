@@ -1289,6 +1289,11 @@ select.list-dt {
     align-items: flex-start;
 }
 
+/* Third column on first panel: buttons that you don't want user to click by accident!*/
+#basic-info-third-col div {
+    margin-bottom: 20px !important;
+}
+
 /* Only do this on view profile page (no third column!) */
 .view-version-second-col {
     margin-left: 10%;
@@ -1323,7 +1328,7 @@ select.list-dt {
     align-content: center;
     align-items: center;
     gap: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 10px!important;
     margin-top: 10px;
 }
 
@@ -1515,17 +1520,20 @@ select.list-dt {
 }
 
 /* Change Password field on first panel of Edit Profile*/
-#change-password-button, #delete-account
+#change-password-button
 {
     margin-left: 0;
 }
-
+#delete-account
+{
+    margin-left: 10px;
+}
 
 /* Input (type text) to validate current password */
 #confirm-current-password-input, #enter-new-password-input, #enter-new-password-confirm-input {
-border-radius: 10px;
-padding: 5px;
-margin-bottom: 5px;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 5px;
 }
 
 /* Input text field for current password */
