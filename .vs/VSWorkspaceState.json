@@ -1,13 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controllers",
-    "\\Views",
     "\\Views\\Account",
     "\\Views\\Matches",
     "\\wwwroot",
-    "\\wwwroot\\css"
+    "\\wwwroot\\css",
+    "\\wwwroot\\js"
   ],
-  "SelectedNode": "\\Controllers\\MatchesController.cs",
+  "SelectedNode": "\\wwwroot\\css\\site.css",
   "PreviewInSolutionExplorer": false
 }
