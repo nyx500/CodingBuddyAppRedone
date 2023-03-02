@@ -147,10 +147,9 @@ will truncate terms that are too long to fit in the left column
 }
 
 /* Navbar link highlighted if there is a notification*/
-.highlighted a
-{
-    color: red!important;
-    text-decoration: underline!important;
+.highlighted a {
+    color: red !important;
+    text-decoration: underline !important;
 }
 
 /* List for SignUp/Login options on right-hand side of navbar */
@@ -270,8 +269,6 @@ will truncate terms that are too long to fit in the left column
     .active {
         display: block;
     }
-
-
 }
 
 .selected {
@@ -302,12 +299,12 @@ will truncate terms that are too long to fit in the left column
     flex-direction: column;
 }
 
-.left .splitscreen-textbox {
-    margin-top: 5%;
-    padding: 40px 30px;
-    display: flex;
-    flex-direction: column;
-}
+    .left .splitscreen-textbox {
+        margin-top: 5%;
+        padding: 40px 30px;
+        display: flex;
+        flex-direction: column;
+    }
 
 /* Welcome to CodingBuddy heading styling */
 #welcome-heading {
@@ -375,7 +372,7 @@ will truncate terms that are too long to fit in the left column
 .fullwidth-div {
     text-align: center;
     width: 90%;
-   /* height: 100%;*/
+    /* height: 100%;*/
     /*Attribution (centering divs): https://blog.hubspot.com/website/center-div-css#:~:text=To%20center%20a%20div%20horizontally,the%20margins%20on%20either%20side.*/
     margin: auto;
     background-color: black;
@@ -515,7 +512,7 @@ footer {
         */
         position: relative;
         /*-ms-transform: translateY(-50%);*/
-       /* transform: translateY(-50%);*/
+        /* transform: translateY(-50%);*/
         width: 90%;
         top: 0px;
         left: 5%;
@@ -587,21 +584,18 @@ footer {
 
 /*********************************Login Page*******************************************/
 
-.login-form-card
-{
-    display:flex;
+.login-form-card {
+    display: flex;
     flex-direction: column;
-    justify-content:center;
+    justify-content: center;
 }
 
-.login-form-group .label
-{
-    color: white!important;
+.login-form-group .label {
+    color: white !important;
 }
 
-.login-form-group input
-{
-    color:black!important;
+.login-form-group input {
+    color: black !important;
 }
 
 .login-form-group .label, .login-form-group input {
@@ -610,43 +604,38 @@ footer {
 }
 
 /*Validation messages (span) under inputs must be in red here*/
-.login-form-group span
-{
+.login-form-group span {
     color: red;
 }
 
-.login-form-group input
-{
+.login-form-group input {
     width: 60%;
 }
 
-#login-error-message
-{
+#login-error-message {
     color: red;
     text-align: center;
     margin-left: 40px;
 }
 
-#checkbox-form-group
-{
+#checkbox-form-group {
     align-self: flex-start;
     display: flex;
-    flex-direction: row;    
+    flex-direction: row;
     width: 100%;
-    padding:0px;
-    margin-left:20px;
+    padding: 0px;
+    margin-left: 20px;
     justify-content: flex-start;
 }
 
-#checkbox-form-group input, 
-#checkbox-form-group label
-{
-    vertical-align:middle;
-    padding: 10px;
-}
+    #checkbox-form-group input,
+    #checkbox-form-group label {
+        vertical-align: middle;
+        padding: 10px;
+    }
 
 /**Submit button*/
-#login-form-submit{
+#login-form-submit {
     background-color: var(--palePurple);
     color: black;
     border-radius: 8px;
@@ -656,31 +645,28 @@ footer {
     width: 30%;
 }
 
-#login-form-submit:focus
-{
-    background-color:var(--mediumBlue);
-    color: white;
-}
+    #login-form-submit:focus {
+        background-color: var(--mediumBlue);
+        color: white;
+    }
 
-#submit-button-wrapper, #not-registered-wrapper
-{
+#submit-button-wrapper, #not-registered-wrapper {
     margin: 20px;
     align-self: center;
 }
 
 /**"Not registered? Link to registration section*/
-#not-registered-label{
+#not-registered-label {
     color: white;
 }
 
-#not-registered-link{
-    color: var(--peachyYellow)!important;
+#not-registered-link {
+    color: var(--peachyYellow) !important;
 }
 
-#not-registered-link:hover
-{
-    color: var(--mediumBlue)!important;
-}
+    #not-registered-link:hover {
+        color: var(--mediumBlue) !important;
+    }
 
 /**********************************Registration Page**********************************/
 /*Attribution for this complex JS and CSS: https://bbbootstrap.com/snippets/multi-step-form-wizard-30467045*/
@@ -706,79 +692,75 @@ footer {
 
 /**The whole div in which the registration title and form is wrapped*/
 .wizard-page, .login-page {
-    font-family: Gordita, Arial, Verdana, sans-serif!important;
+    font-family: Gordita, Arial, Verdana, sans-serif !important;
     /*    padding: 0!important;*/
     /*    margin: 0!important;*/
     margin-top: 120px !important;
-    margin-bottom: 80px!important;
-
+    margin-bottom: 80px !important;
 }
 
-.wizard-page .row, .login-page .row
-{
-    background-color: black;
-}
+    .wizard-page .row, .login-page .row {
+        background-color: black;
+    }
 
 
-fieldset
-{
-    background-color: black!important;
+fieldset {
+    background-color: black !important;
     width: 100%;
     padding: 0;
     margin: 0;
 }
-.card, .form-card{
-    background-color: black!important;
+
+.card, .form-card {
+    background-color: black !important;
 }
 
-/*Padding above thead "Sign Up" title on smaller screens*/
-.card h2 {
-    padding-top: 20px !important;
-    margin-top: 20px !important;
-    color:white;
-    font-family: Anton, Impact, Arial,Verdana, sans-serif;
-    font-weight: 100;
-    font-size: 2.5rem;
-    text-align: center;
-}
+    /*Padding above thead "Sign Up" title on smaller screens*/
+    .card h2 {
+        padding-top: 20px !important;
+        margin-top: 20px !important;
+        color: white;
+        font-family: Anton, Impact, Arial,Verdana, sans-serif;
+        font-weight: 100;
+        font-size: 2.5rem;
+        text-align: center;
+    }
 
-.card p{
-    color: white;
-    font-family: Gordita, Verdana, Arial, sans-serif;
-}
+    .card p {
+        color: white;
+        font-family: Gordita, Verdana, Arial, sans-serif;
+    }
 
 fieldset h3 {
     font-family: Gordita, Verdana, Arial, sans-serif;
-    color: white!important;
+    color: white !important;
 }
 
-fieldset label{
+fieldset label {
     text-align: left;
 }
 
-.form-control
-{
+.form-control {
     display: block;
-    width: 70%!important;
+    width: 70% !important;
     padding: 10px;
-    color:black;
-    border-radius:8px!important;
-    border: 4px solid var(--mediumBlue)!important;
+    color: black;
+    border-radius: 8px !important;
+    border: 4px solid var(--mediumBlue) !important;
 }
 
 
 #slack-id-label, #username-label, #password-label, #confirm-password-label {
-    color:white;
+    color: white;
     margin-bottom: 20px;
     position: relative;
-    float: left!important;
-    display:block;
+    float: left !important;
+    display: block;
 }
 
-.control-label
-{
-    float:left!important;
-    color:white!important;
+.control-label {
+    float: left !important;
+    color: white !important;
 }
 
 
@@ -801,52 +783,51 @@ fieldset label{
 }
 
 
-#registration-form fieldset .form-card {
-    background: white;
-    border-radius: 0px;
-    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
-    margin: 0 3% 20px 3%;
-    /*stacking fieldsets above each other*/
-    position: relative;
-}
+    #registration-form fieldset .form-card {
+        background: white;
+        border-radius: 0px;
+        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+        margin: 0 3% 20px 3%;
+        /*stacking fieldsets above each other*/
+        position: relative;
+    }
 
-#registration-form fieldset {
-    background: white;
-    border: 5px solid;
-    border: 0 none;
-    border-radius: 0.5rem;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    /*stacking fieldsets above each other*/
-    position: relative;
-}
+    #registration-form fieldset {
+        background: white;
+        border: 5px solid;
+        border: 0 none;
+        border-radius: 0.5rem;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        /*stacking fieldsets above each other*/
+        position: relative;
+    }
 
 
-#registration-form input:focus, #registration-form textarea:focus, #career-phases-dropdown:focus, #experience-levels-dropdown:focus,
-#gender-dropdown:focus {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    border: 4px solid var(--peachyYellow) !important;
-    font-weight: bold;
-    outline-width: 0;
-}
+    #registration-form input:focus, #registration-form textarea:focus, #career-phases-dropdown:focus, #experience-levels-dropdown:focus,
+    #gender-dropdown:focus {
+        -moz-box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        border: 4px solid var(--peachyYellow) !important;
+        font-weight: bold;
+        outline-width: 0;
+    }
 
-/*Hide all except first fieldset*/
-#registration-form fieldset:not(:first-of-type) {
-    display: none;
-}
+    /*Hide all except first fieldset*/
+    #registration-form fieldset:not(:first-of-type) {
+        display: none;
+    }
 
-#registration-form fieldset .form-card {
-    text-align: center;
-    color: black;
-}
+    #registration-form fieldset .form-card {
+        text-align: center;
+        color: black;
+    }
 
-.next
-{
-    background-color: var(--mediumBlue)!important;
+.next {
+    background-color: var(--mediumBlue) !important;
     color: white;
-    border-radius: 6px!important;
+    border-radius: 6px !important;
     width: fit-content;
     float: right;
     margin-right: 100px;
@@ -855,15 +836,14 @@ fieldset label{
 
 .previous {
     background-color: var(--periwinkle) !important;
-    color: black!important;
+    color: black !important;
     border-radius: 6px !important;
     width: fit-content;
     float: left;
-    margin-left: 50px!important;
+    margin-left: 50px !important;
 }
 
-@media all and (max-width: 1200px)
-{
+@media all and (max-width: 1200px) {
     .registration-container, .login-container {
         position: absolute;
         left: 5%;
@@ -871,7 +851,7 @@ fieldset label{
         margin-bottom: 80%;
         z-index: 0;
         width: 90%;
-       /* height: 280%;*/
+        /* height: 280%;*/
         padding-top: 100px;
         display: flex;
         flex-direction: column;
@@ -883,47 +863,45 @@ fieldset label{
         padding: 0 !important;
         margin: 0 !important;
         margin-top: 150px !important;
-        margin-bottom: 200px!important;
+        margin-bottom: 200px !important;
     }
 
     /*Padding above thead "Sign Up" title on smaller screens*/
     .card h2 {
         padding-top: 25px !important;
     }
-
-
 }
 
 
-    /*Blue Buttons*/
-    #registration-form .action-button {
-        width: fit-content;
-        background: skyblue;
-        font-weight: bold;
-        color: white;
-        border: 0 none;
-        border-radius: 0px;
-        cursor: pointer;
-        padding: 10px 30px;
-        margin: 10px 20px;
-    }
+/*Blue Buttons*/
+#registration-form .action-button {
+    width: fit-content;
+    background: skyblue;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 30px;
+    margin: 10px 20px;
+}
 
     #registration-form .action-button:hover, #registration-form .action-button:focus {
         box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
     }
 
-    /*Previous Buttons*/
-    #registration-form .action-button-previous {
-        width: 100px;
-        background: #616161;
-        font-weight: bold;
-        color: white;
-        border: 0 none;
-        border-radius: 0px;
-        cursor: pointer;
-        padding: 10px 5px;
-        margin: 10px 5px;
-    }
+/*Previous Buttons*/
+#registration-form .action-button-previous {
+    width: 100px;
+    background: #616161;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
 
     #registration-form .action-button-previous:hover, #registration-form .action-button-previous:focus {
         box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
@@ -1042,11 +1020,11 @@ select.list-dt {
     align-items: center;
     justify-content: center;
     margin-top: 20px;
-    background-color:white;
+    background-color: white;
     border-radius: 8px;
 }
 
-.edit-profile-checkbox-container{
+.edit-profile-checkbox-container {
     width: 100%;
     margin-bottom: 100px;
 }
@@ -1054,9 +1032,8 @@ select.list-dt {
 /* Some checkbox containers (e.g. Career Phase and Experience Level on Find-a-Buddy process view)
     should not have a background
 */
-.no-background-checkbox-container
-{
-    background: none!important;
+.no-background-checkbox-container {
+    background: none !important;
 }
 
 .checkbox-unordered-list {
@@ -1064,71 +1041,70 @@ select.list-dt {
     padding: 30px;
 }
 
-.checkbox-unordered-list li {
-    display: inline!important;
-}
+    .checkbox-unordered-list li {
+        display: inline !important;
+    }
 
 
-.checkbox-unordered-list li label {
-    display: inline-block;
-    background-color: var(--mediumBlue);
-    border: 2px solid var(--periwinkle);
-    color: white;
-    border-radius: 25px;
-    white-space: nowrap;
-    margin: 3px 0px;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    transition: all .2s;
-    padding: 8px 12px;
-    cursor: pointer;
-}
+        .checkbox-unordered-list li label {
+            display: inline-block;
+            background-color: var(--mediumBlue);
+            border: 2px solid var(--periwinkle);
+            color: white;
+            border-radius: 25px;
+            white-space: nowrap;
+            margin: 3px 0px;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: all .2s;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
 
-.checkbox-unordered-list li label::before {
-    display: inline-block;
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 12px;
-    padding: 2px 6px 2px 2px;
-    content: "\f067";
-    transition: transform .3s ease-in-out;
-}
+            .checkbox-unordered-list li label::before {
+                display: inline-block;
+                font-style: normal;
+                font-variant: normal;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                font-size: 12px;
+                padding: 2px 6px 2px 2px;
+                content: "\f067";
+                transition: transform .3s ease-in-out;
+            }
 
-.checkbox-unordered-list li input[type="checkbox"]:checked + label:before {
-    content: "\f00c";
-    transform: rotate(-360deg);
-    transition: transform .3s ease-in-out;
-}
+        .checkbox-unordered-list li input[type="checkbox"]:checked + label:before {
+            content: "\f00c";
+            transform: rotate(-360deg);
+            transition: transform .3s ease-in-out;
+        }
 
-.checkbox-unordered-list li input[type="checkbox"]:checked + label {
-    border: 2px solid var(--palePurple);
-    background-color: var(--periwinkle);
-    color: black;
-    transition: all .2s;
-}
+        .checkbox-unordered-list li input[type="checkbox"]:checked + label {
+            border: 2px solid var(--palePurple);
+            background-color: var(--periwinkle);
+            color: black;
+            transition: all .2s;
+        }
 
-.checkbox-unordered-list li input[type="checkbox"] {
-    display: absolute;
-    position: absolute;
-    opacity: 0;
-    z-index: 20;
-    margin: 40px;
-}
+        .checkbox-unordered-list li input[type="checkbox"] {
+            display: absolute;
+            position: absolute;
+            opacity: 0;
+            z-index: 20;
+            margin: 40px;
+        }
 
 .langCheckbox:checked + label {
     color: red;
 }
 
-.checkbox-unordered-list li input[type="checkbox"]:focus + label
-{
+.checkbox-unordered-list li input[type="checkbox"]:focus + label {
     border: 2px solid var(--peachyYellow);
 }
 
@@ -1157,7 +1133,7 @@ select.list-dt {
     color: black;
 }
 
-.flex-row{
+.flex-row {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -1184,7 +1160,7 @@ select.list-dt {
 /* The container for all the 4 separate panels here: */
 .profile-panels, .matches-panels {
     background-color: var(--periwinkle);
-    height: fit-content!important;
+    height: fit-content !important;
     padding-right: 200px;
     border-radius: 3px;
     overflow: initial;
@@ -1265,8 +1241,7 @@ select.list-dt {
 
 /* Panel 1 layout */
 
-#basic-info-first-col
-{
+#basic-info-first-col {
     margin-left: 70px;
 }
 
@@ -1301,7 +1276,7 @@ select.list-dt {
     margin-top: 50px;
 }
 
-#panel-four-col{
+#panel-four-col {
     width: 100%;
 }
 
@@ -1347,9 +1322,9 @@ select.list-dt {
     margin: 10px;
 }
 
-.edit-button:hover {
-    background-color: var(--mediumBlue);
-}
+    .edit-button:hover {
+        background-color: var(--mediumBlue);
+    }
 
 .add-button {
     background-color: black;
@@ -1359,21 +1334,21 @@ select.list-dt {
     padding: 10px 20px;
 }
 
-.add-button:hover {
-    background-color: var(--mediumBlue);
-}
+    .add-button:hover {
+        background-color: var(--mediumBlue);
+    }
 
 .options-label {
     margin-right: 10px;
 }
 
-.error-options-label{
+.error-options-label {
     background-color: black;
     color: red;
     padding: 10px;
     border: 2px solid red;
     border-radius: 6px;
-    margin-right: 20px!important;
+    margin-right: 20px !important;
 }
 
 /**************First Column in Panel One*****************************/
@@ -1463,9 +1438,9 @@ select.list-dt {
     flex-direction: column;
 }
 
- #programming-languages-wrapper {
-     margin-bottom: 40px;
- }
+#programming-languages-wrapper {
+    margin-bottom: 40px;
+}
 
 
 .interests-skills-subtitle {
@@ -1478,9 +1453,9 @@ select.list-dt {
     padding-left: 0;
 }
 
-.preference-list li {
-    display: inline-block;
-}
+    .preference-list li {
+        display: inline-block;
+    }
 
 .preference-container {
     background-color: var(--palePurple);
@@ -1500,13 +1475,13 @@ select.list-dt {
 
 /* Button to reset the rejections*/
 #reset-rejections-button {
-   width: 100%;
+    width: 100%;
 }
 
 /*****************Hidden Forms******************/
 /* Toggle JS class to add/remove in order to hide elements */
 .hidden {
-    display: none!important;
+    display: none !important;
 }
 
 /* Button to upload updated choices to DB */
@@ -1518,11 +1493,11 @@ select.list-dt {
     border: 2px solid black;
 }
 
-.save-button:hover {
-    background-color: var(--palePurple);
-    color: black;
-    border: 2px solid black;
-}
+    .save-button:hover {
+        background-color: var(--palePurple);
+        color: black;
+        border: 2px solid black;
+    }
 
 /* Button to upload the answer to a random question from 
     the random-question-generator
@@ -1537,6 +1512,7 @@ select.list-dt {
     box-shadow: 1rem 1rem 0.5rem #00000080;
     padding: 20px;
 }
+
 .question {
     padding: 20px;
     margin-bottom: 10px;
@@ -1553,9 +1529,9 @@ select.list-dt {
     padding: 5px 10px;
 }
 
-.delete-button:hover {
-    box-shadow: 0 0.5rem 0.5rem #00000080;
-}
+    .delete-button:hover {
+        box-shadow: 0 0.5rem 0.5rem #00000080;
+    }
 
 .edit-answer-button {
     background-color: var(--mediumBlue);
@@ -1566,9 +1542,9 @@ select.list-dt {
     margin-left: 10px;
 }
 
-.edit-answer-button:hover {
-    box-shadow: 0 0.5rem 0.5rem #00000080;
-}
+    .edit-answer-button:hover {
+        box-shadow: 0 0.5rem 0.5rem #00000080;
+    }
 
 
 .save-answer-button {
@@ -1579,9 +1555,10 @@ select.list-dt {
     padding: 5px 10px;
     margin-left: 10px;
 }
-.save-answer-button:hover {
-    box-shadow: 0 0.5rem 0.5rem #00000080;
-}
+
+    .save-answer-button:hover {
+        box-shadow: 0 0.5rem 0.5rem #00000080;
+    }
 
 
 /* Button for rsandom question generator */
@@ -1593,24 +1570,25 @@ select.list-dt {
     padding: 5px 20px;
 }
 
-.random-button:hover {
-    box-shadow: 0 0.5rem 0.5rem #00000080;
-}
+    .random-button:hover {
+        box-shadow: 0 0.5rem 0.5rem #00000080;
+    }
 
 /* Answer input field for the random question */
 #answer-label {
     margin-top: 10px;
     text-align: left;
 }
+
 #answer-input {
-    padding: 0px 0px!important;
+    padding: 0px 0px !important;
     border-radius: 8px;
     margin-left: 20px;
     width: 100%;
 }
 
 #questions-list {
-    list-style-type: none!important;
+    list-style-type: none !important;
 }
 
 /* Make error text appear red by adding this class in JQUery*/
@@ -1710,41 +1688,40 @@ select.list-dt {
     flex-wrap: nowrap;
     gap: 30px;
     justify-content: space-between;
-    align-content: center!important;
-    align-items: center!important;
-}
-#find-a-buddy-welcome-page-container h1,
-#find-a-buddy-welcome-page-container h2,
-#find-a-buddy-welcome-page-container div
-{
-    margin: 20px 10px;
-    padding: 20px 10px;
+    align-content: center !important;
+    align-items: center !important;
 }
 
-/* Welcome header impact-font*/
-#find-a-buddy-welcome-page-container h1{
-    font-family: Anton, Verdana, Arial, sans-serif;
-}
+    #find-a-buddy-welcome-page-container h1,
+    #find-a-buddy-welcome-page-container h2,
+    #find-a-buddy-welcome-page-container div {
+        margin: 20px 10px;
+        padding: 20px 10px;
+    }
 
-/* Subheading in ordinary selected sans-serif font */
-#find-a-buddy-welcome-page-container h2 {
-    font-family: Gordita, Verdana, Arial, sans-serif;
-}
+    /* Welcome header impact-font*/
+    #find-a-buddy-welcome-page-container h1 {
+        font-family: Anton, Verdana, Arial, sans-serif;
+    }
 
-#find-a-buddy-welcome-page-container button
-{
-    background-color: slateblue;
-    padding: 10px;
-    width: 30vw;
-    border-radius: 30px;
-    color: white;
-    font-weight: 500;
-    font-size: 1.8rem;
-}
+    /* Subheading in ordinary selected sans-serif font */
+    #find-a-buddy-welcome-page-container h2 {
+        font-family: Gordita, Verdana, Arial, sans-serif;
+    }
 
-#find-a-buddy-welcome-page-container button:hover {
-    background-color: var(--mediumBlue);
-}
+    #find-a-buddy-welcome-page-container button {
+        background-color: slateblue;
+        padding: 10px;
+        width: 30vw;
+        border-radius: 30px;
+        color: white;
+        font-weight: 500;
+        font-size: 1.8rem;
+    }
+
+        #find-a-buddy-welcome-page-container button:hover {
+            background-color: var(--mediumBlue);
+        }
 
 /* Form container for the "Find-a-Buddy Process */
 #find-a-buddy-form-container {
@@ -1796,10 +1773,10 @@ select.list-dt {
     margin: 20px;
 }
 
-#prog-skills-form-card div, #cs-interests-form-card div, hobbies-form-card div {
-    align-self: flex-start;
-    text-align: left;
-}
+    #prog-skills-form-card div, #cs-interests-form-card div, hobbies-form-card div {
+        align-self: flex-start;
+        text-align: left;
+    }
 
 /*Hide all except first fieldset*/
 #find-a-buddy-form fieldset:not(:first-of-type) {
@@ -1819,10 +1796,10 @@ select.list-dt {
     font-size: 1.2rem;
 }
 
-#find-buddy-first:hover, #find-buddy-second:hover, #find-buddy-third:hover,
-#find-buddy-previous-first:hover, #find-buddy-previous-second:hover, find-buddy-previous-third:hover{
-    border: 4px solid white;
-}
+    #find-buddy-first:hover, #find-buddy-second:hover, #find-buddy-third:hover,
+    #find-buddy-previous-first:hover, #find-buddy-previous-second:hover, find-buddy-previous-third:hover {
+        border: 4px solid white;
+    }
 
 /* Previous button must go on the left */
 #find-buddy-previous-first, #find-buddy-previous-second, #find-buddy-previous-third {
@@ -1839,16 +1816,16 @@ select.list-dt {
     font-size: 1.2rem;
     color: black;
     padding: 10px;
-    background-color:var(--peachyYellow);
+    background-color: var(--peachyYellow);
     align-self: flex-end;
     float: right;
     margin-right: 50px;
     border-radius: 6px;
 }
 
-#submit-filters:hover {
-    border: 4px solid blue;
-}
+    #submit-filters:hover {
+        border: 4px solid blue;
+    }
 
 /*End of the Find-a-Buddy process*/
 
@@ -1882,15 +1859,17 @@ select.list-dt {
     font-family: Gordita, Verdana, Arial, sans-serif;
     text-align: center;
 }
-.no-matches-error-message h1 {
-    padding: 20px;
-    font-size: 1.8rem;
-    font-weight: bolder;
-}
-.no-matches-error-message h2 {
-    padding: 20px;
-    font-size: 1.2rem;
-}
+
+    .no-matches-error-message h1 {
+        padding: 20px;
+        font-size: 1.8rem;
+        font-weight: bolder;
+    }
+
+    .no-matches-error-message h2 {
+        padding: 20px;
+        font-size: 1.2rem;
+    }
 
 /* Styling for the link to go back to Find-a-Buddy process*/
 .return-to-page-link {
@@ -1913,14 +1892,13 @@ select.list-dt {
     padding: 20px;
     justify-content: flex-start;
     justify-items: flex-start;
-    align-content: center!important;
-    align-items: center!important;
+    align-content: center !important;
+    align-items: center !important;
     margin-bottom: 10%;
 }
 
 /* Username displayed in the header*/
-.match-header-row h1
-{
+.match-header-row h1 {
     font-family: Anton, Verdana, Arial, sans-serif;
     color: white;
     text-align: center;
@@ -1975,7 +1953,7 @@ select.list-dt {
 }
 
 /* Difference in margins depending on View */
-.like-button, .pass-button{
+.like-button, .pass-button {
     margin-right: 20px;
 }
 
@@ -1989,9 +1967,9 @@ select.list-dt {
 }
 
 /* Text displaying like/unlike*/
-#like-unlike-text{
+#like-unlike-text {
     justify-self: flex-end;
-    align-self:flex-end;
+    align-self: flex-end;
     font-weight: 900;
     font-size: 0.9rem;
 }
@@ -2002,58 +1980,58 @@ select.list-dt {
 }
 
 /* Column displaying Career Phase and Experience Level */
-.match-body-coding-skills-column 
-{
+.match-body-coding-skills-column {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     width: fit-content;
-    position:relative;
+    position: relative;
     margin-top: 3%;
 }
 
-.match-body-coding-skills-column .data-item {
-    padding: 10px;
-    background-color: var(--palePurple);
-    border: 4px solid var(--mediumBlue);
-    border-radius: 30px;
-    color: black;
-    width: 200px;
-    text-align: center;
-    font-weight: bolder;
-    margin-bottom: 10px!important;
-}
+    .match-body-coding-skills-column .data-item {
+        padding: 10px;
+        background-color: var(--palePurple);
+        border: 4px solid var(--mediumBlue);
+        border-radius: 30px;
+        color: black;
+        width: 200px;
+        text-align: center;
+        font-weight: bolder;
+        margin-bottom: 10px !important;
+    }
 
 /* CS Interests */
 .match-body-cs-interests-column {
     margin-left: 5vw;
-   display: flex;
-   flex-direction: column;
-   flex-wrap: wrap;
-   justify-content: center;
-   align-content: center;
-}
-.match-body-cs-interests-column p {
-    color: var(--palePurple);
-    font-weight: 700;
-    text-align: center;
-}
-.match-body-cs-interests-column div {
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: var(--mediumBlue);
-    border: 4px solid;
-    border-radius: 30px;
-    color: var(--palePurple);
-    width: fit-content;
-    text-align: center;
-    font-weight: bolder;
-    align-self: center!important;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
 }
 
+    .match-body-cs-interests-column p {
+        color: var(--palePurple);
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .match-body-cs-interests-column div {
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: var(--mediumBlue);
+        border: 4px solid;
+        border-radius: 30px;
+        color: var(--palePurple);
+        width: fit-content;
+        text-align: center;
+        font-weight: bolder;
+        align-self: center !important;
+    }
+
 /* Media queries for matches*/
-@media all and (max-width: 1200px)
-{
+@media all and (max-width: 1200px) {
     .match-body-cs-interests-column {
         margin-left: 0;
     }
@@ -2081,8 +2059,7 @@ select.list-dt {
     margin-bottom: 10%;
 }
 
-@media all and (max-width: 900px)
-{
+@media all and (max-width: 900px) {
     .matches-columns {
         column-count: 1;
     }
@@ -2101,13 +2078,14 @@ select.list-dt {
     box-shadow: 0.8rem 0.8rem 0.5rem #00000080;
     border-radius: 4px;
     margin-bottom: 100px;
+    break-inside: avoid;
 }
 
 .explanation {
     text-align: center;
-    padding:0px;
-    margin:0px;
-    height: fit-content!important;
+    padding: 0px;
+    margin: 0px;
+    height: fit-content !important;
 }
 
 .match-wrapper div {
@@ -2127,22 +2105,21 @@ select.list-dt {
 }
 
 /* Link cannot be blue: cannot see it against the background*/
-.username-wrapper{
+.username-wrapper {
     font-size: 1.2rem;
     font-weight: 900;
 }
 
-.username-wrapper a
-{
-    color: black!important;
+.username-wrapper a {
+    color: black !important;
 }
 
 .username-wrapper a:hover {
-    color:white!important;
+    color: white !important;
 }
 
 .username-wrapper a:visited {
-    color: navy!important;
+    color: navy !important;
 }
 
 /* X-button to remove user from Likes */
@@ -2160,11 +2137,10 @@ select.list-dt {
     margin-top: 30px;
 }
 
-.remove-button:hover, .heart-button:hover {
-    border: 2px solid blue;
-    color: blue;
-
-}
+    .remove-button:hover, .heart-button:hover {
+        border: 2px solid blue;
+        color: blue;
+    }
 
 /* My Matches page styling */
 /* End of My Matches page styling */

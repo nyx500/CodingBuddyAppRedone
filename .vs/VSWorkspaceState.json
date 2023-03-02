@@ -1,13 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controllers",
-    "\\Data",
-    "\\Models",
     "\\Views",
     "\\Views\\Account",
-    "\\Views\\Shared",
-    "\\Views\\Test",
+    "\\Views\\Matches",
     "\\wwwroot",
     "\\wwwroot\\css"
   ],
