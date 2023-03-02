@@ -638,7 +638,7 @@ namespace CBApp.Controllers
                     }
 
                     // Returns to the Registration page if the model is invalid - displays the errors in the form
-                    return Content("nothing will ever work.");
+                    return Content ("We are very sorry: the server experienced a problem and the user account could not be created.");
                 }
 
             }

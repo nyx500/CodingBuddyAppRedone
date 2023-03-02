@@ -69,10 +69,12 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                                                                                                         </label>
                                             //    <input id="slackId" asp-for="SlackId" class="form-control" type="text"
                                             //name="slackIdInput" placeholder="SlackId" />
-                                            <label id="slack-id-label">Please enter a Slack ID (alphanumeric chars only, at least 5 chars):</label>
+                                            <label id="slack-id-label">Please enter your Slack ID (alphanumeric chars only, at least 5 chars, enter at least one number!):</label>
+                                            <label id="slack-id-label-instructions"><em>To find your Slack member ID: go into your Slack workspace. Then click your profile icon on the top-right of the page.
+                                            Click on the three-dots bar next to "View As", and then on click "Copy Member Id!"
+                                            </em></label>
                                                             @Html.EditorFor(model => model.SlackId, new { htmlAttributes = new {Style = "color: black;", @class = "form-control",
-                                            id = "slackId", placeholder="Slack ID"} })
-                                                                                                                        @Html.ValidationMessageFor(model => model.SlackId, "", new { @class = "text-danger" })
+                                            id = "slackId", placeholder="Slack ID"} }) @Html.ValidationMessageFor(model => model.SlackId, "", new { @class = "text-danger" })
 
                                         }
                                         }

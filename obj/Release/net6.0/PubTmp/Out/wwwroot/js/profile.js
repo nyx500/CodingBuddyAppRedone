@@ -70,6 +70,10 @@ $(document).ready(function () {
     deleteQuestion();
     editQuestion();
     resetRejections();
+    // Delete the user when button clicked and confirmed
+    deleteUserAccountFunctionality();
+
+   editPassword();
         
 });
 
@@ -787,4 +791,215 @@ function resetRejections() {
             }
         });
     });
+}
+
+
+// CHANGE THE USER PASSWORD FUNCTIONS!
+
+// Functionality for edit Password form
+function editPassword() {
+    // Display the "Confirm Old Password" hidden change password form
+    showChangePasswordForm();
+    // On clicking cancel button, hide the "Confirm Old Password" form
+    cancelSubmitCurrentPassword();
+    // On clicking the second cancel button (on "new password" form), hide the form
+    cancelSubmitNewPassword();
+    // Checks old password in DB and displays error if current password is incorrect
+    currentPasswordFormSubmit();
+    // Validates the new password and updates it if valid, then shows user a Logout link if successfully changed password
+    validateNewPassword();
+}
+
+// Show the edit Password "Confirm current password" form when "Change Password" is clicked
+function showChangePasswordForm() {
+    $("#change-password-button").click(function () {
+        $(this).next().removeClass("hidden");
+    })
+}
+
+// Submit the current password to controller
+function currentPasswordFormSubmit() {
+    $("#submit-current-password").click(function () {
+        var passwordInput = $("#confirm-current-password-input").val();
+
+        checkPassword(passwordInput);
+    })
+}
+
+// Cancel changing the password: hide the form
+function cancelSubmitCurrentPassword() {
+    $("#cancel-submit-current-password").click(function () {
+        $(this).parent().addClass("hidden");
+    })
+}
+
+// Checks the current password in Account controller
+function checkPassword(passwordInput) {
+    var currentPasswordData = { password: passwordInput };
+
+    $.ajax({
+        type: "POST",
+        url: "/Account/CheckPassword",
+        data: currentPasswordData,
+        success: function (response) {
+            // Json result is true
+            if (response) {
+                // Show password change container by removing "hidden" class
+                $("#password-change-container").removeClass("hidden");
+                // Hide the Confirm Old Password form
+                $("#confirm-current-password-container").addClass("hidden");
+                $("#old-password").val(passwordInput);
+            }
+            // Password was incorrect json result is false (incorrect password)
+            else {
+                // Change label to error message
+                $("#confirm-current-password-label").text("This password is incorrect.");
+                $("#confirm-current-password-label").addClass("error-label");
+            }
+        },
+        error: function () {
+            $("#confirm-current-password-label").addClass("error-label");
+            $("#confirm-current-password-label").text("Sorry! Could not verify: database error");
+        }
+    });
+    
+}
+
+// Cancels the password change and exits the form
+function cancelSubmitNewPassword() {
+
+    $("#cancel-submit-new-password").click(function () {
+        $("#password-change-container").addClass("hidden");
+    })
+
+}
+
+
+// Checks if the new password has been retyped correctly, if it is at least 10 characters, and if so, uploads new password to controller
+function validateNewPassword() {
+    $("#submit-new-password").click(function () {
+
+        // Gets new password, new password confirmation, and old password from hidden input field
+        var input1 = $("#enter-new-password-input").val();
+        var input2 = $("#enter-new-password-confirm-input").val();
+        var oldPassword = $("#old-password").val();
+
+        // Error: New password does not match new password confirmation field!
+        if (input1 != input2) {
+            if ($("#label-reporting-the-state").hasClass("input-confirmation-message")) {
+                $("#label-reporting-the-state").removeClass("input-confirmation-message");
+            }
+            $("#label-reporting-the-state").addClass("error-label");
+            $("#label-reporting-the-state").text("Passwords do not match!");
+        }
+        // Error: New password is too short!
+        else if (input1.length < 10) {
+            if ($("#label-reporting-the-state").hasClass("input-confirmation-message")) {
+                $("#label-reporting-the-state").removeClass("input-confirmation-message");
+            }
+
+            $("#label-reporting-the-state").addClass("error-label");
+            $("#label-reporting-the-state").text("Password must be at least 10 chars!");
+        }
+        // Error: User inputted the old password!
+        else if (input1 == oldPassword)
+        {
+            if ($("#label-reporting-the-state").hasClass("input-confirmation-message")) {
+                $("#label-reporting-the-state").removeClass("input-confirmation-message");
+            }
+            $("#label-reporting-the-state").addClass("error-label");
+            $("#label-reporting-the-state").text("Please select a *new* password!");
+        }
+        else {
+            submitNewPassword(input1, oldPassword);
+        }
+
+    });
+}
+
+// Ajax request to upload new password to controller that displays errors if could not update
+function submitNewPassword(password, oldPassword) {
+
+    // Pass old and new passwords to controller action called ChangePassword
+    var passwordData = { currentPassword : oldPassword, newPassword : password };
+
+    $.ajax({
+        type: "POST",
+        url: "/Account/ChangePassword",
+        data: passwordData,
+        success: function (response) {
+            // Json result is true
+            if (response) {
+                // Hide the password-change form
+                $("#password-change-container").addClass("hidden");
+                // Display the Success Message and Logout link
+                $("#password-change-success").removeClass("hidden");
+            }
+            // Password was incorrect json result is false (incorrect password)
+            else {
+                // Change error message in label to tell user that there was a back-end error
+                if ($("#label-reporting-the-state").hasClass("input-confirmation-message")) {
+                    $("#label-reporting-the-state").removeClass("input-confirmation-message");
+                    $("#label-reporting-the-state").addClass("error-label");
+                    $("#label-reporting-the-state").text("Server error - could not change the password.");
+                }
+            }
+        },
+        error: function () {
+            // Display error message in label that could not upload to db (but not user's fault')
+            if ($("#label-reporting-the-state").hasClass("input-confirmation-message")) {
+                $("#label-reporting-the-state").removeClass("input-confirmation-message");
+                $("#label-reporting-the-state").addClass("error-label");
+                $("#label-reporting-the-state").text("Sorry! A database error occurred - could not change the password.");
+            }
+        }
+    });
+}
+
+// Functions for deleting account
+function deleteUserAccountFunctionality() {
+    deleteButtonPressed();
+    doNotDeleteButtonPressed();
+    confirmDeleteButtonPressed();
+}
+
+function deleteButtonPressed() {
+    $("#delete-account").click(function () {
+        $(this).next().removeClass("hidden");
+        $(this).addClass("hidden");
+
+        doNotDeleteButtonPressed();
+    })
+}
+
+function doNotDeleteButtonPressed() {
+    $("#cancel-delete-button").click(function () {
+        $("#delete-account").removeClass("hidden");
+        $("#delete-confirmation-container").addClass("hidden");
+    })
+}
+
+// User confirms the deletion - delete the user from DB and redirect to Homepage
+function confirmDeleteButtonPressed() {
+    $("#confirm-delete-button").click(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "/Account/DeleteUser/",
+            data: {},
+            success: function (response) {
+                if (response) {
+                    window.location.replace("/home/index");
+                }
+                // Did not manage to delete: display error in red
+                else {
+                    $("#delete-label").text("Sorry, could not delete! Try later.")
+                }
+            }, 
+            error: function () {
+                $("#delete-label").text("Sorry, could not delete - server error! Try later.")
+            }
+        });
+
+    })
 }

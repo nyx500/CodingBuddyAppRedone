@@ -1,5 +1,7 @@
 ﻿/**Attribution: font awesome codes https://astronautweb.co/snippet/font-awesome/*/
-﻿
+
+
+/******************************* General settings for the whole site ****************************/﻿
 /* Font Settings */
 html {
     font-size: 16px;
@@ -33,7 +35,6 @@ html {
     }
 }
 
-/************************End of General Font Settings**********************/
 
 body {
     background-image: url("../assets/background.png");
@@ -69,11 +70,10 @@ will truncate terms that are too long to fit in the left column
     --veryDarkBlue: #050A30;
 }
 
-
-
 /*****************************End of General Settings*********************************/
 
-/* Top Navigation Bar Settings */
+
+/****************************** Top Navigation Bar Settings **************************/
 .navbar {
     background: black;
     color: white;
@@ -81,12 +81,12 @@ will truncate terms that are too long to fit in the left column
     align-items: center;
     border-bottom: 2px solid var(--mediumBlue);
     padding: 2px;
-    z-index: 99; /* Make the navbar in front of rest of page */
+    z-index: 99; /* Make the navbar always appear in front of rest of page */
 }
 
 
 /* Logo styling */
-/* Sizes of images and font relative to root-size (16px on larger screens, 14px on smaller) of html elem */
+/* make izes of images and font relative to root-size (16px on larger screens, 14px on smaller) of html elem */
 #logo {
     height: 5.4rem;
 }
@@ -95,12 +95,12 @@ will truncate terms that are too long to fit in the left column
     justify-self: start;
 }
 
-    /* Link to Index page in CodingBuddy logo text */
-    .logo-text a {
-        font-family: Anton, Arial, sans-serif;
-        padding: 10px;
-        font-size: 2rem;
-    }
+/* The link to the Index page in CodingBuddy logo text */
+.logo-text a {
+    font-family: Anton, Arial, sans-serif;
+    padding: 10px;
+    font-size: 2rem;
+}
 
 /* Put main navbar items in center of navigation bar */
 .nav-list {
@@ -108,28 +108,29 @@ will truncate terms that are too long to fit in the left column
     justify-self: center;
 }
 
-    /* Navbar link colors for different link states */
-    .nav-list a:link, .nav-list :visited, .logo-text a:link, .logo-text a:visited {
-        color: white;
-        text-decoration: none;
-    }
+/* Navbar link colors for different link states */
+.nav-list a:link, .nav-list :visited, .logo-text a:link, .logo-text a:visited {
+    color: white;
+    text-decoration: none;
+}
 
-    .nav-list a:active, .logo-text a:active {
-        color: var(--peachyYellow) !important;
-        text-decoration: underline;
-    }
+.nav-list a:active, .logo-text a:active {
+    color: var(--peachyYellow) !important;
+    text-decoration: underline;
+}
 
-    .nav-list a:hover, .logo-text a:hover {
-        color: var(--periwinkle);
-        text-decoration: underline;
-    }
+.nav-list a:hover, .logo-text a:hover {
+    color: var(--periwinkle);
+    text-decoration: underline;
+}
 
+/* Navbar Sign-In and Login Links/Styled as Buttons */
 .nav-list, .login-signup-list {
     align-self: center;
     margin-top: 20px;
 }
 
-/** Deletes bullet points from list in navbar */
+/** Delete the bullet points from list in navbar */
 .login-signup-list {
     list-style-type: none;
 }
@@ -157,9 +158,9 @@ will truncate terms that are too long to fit in the left column
     margin-left: auto;
 }
 
-    .login-signup-list .list-item {
-        padding: 20px 20px;
-    }
+.login-signup-list .list-item {
+    padding: 20px 20px;
+}
 
 /* Styling for login and sign up buttons */
 #signup-button, #login-button, #logout-button {
@@ -169,6 +170,7 @@ will truncate terms that are too long to fit in the left column
     cursor: pointer;
 }
 
+/* Make login completely different colour but same style to Sign-Up button */
 #login-button, #logout-button {
     background-color: var(--mediumBlue);
     padding-left: 35px;
@@ -185,7 +187,7 @@ will truncate terms that are too long to fit in the left column
     text-decoration: none;
 }
 
-/*Styling for states of login/register links */
+/*Styling to indicate the different states of login/register links */
 #login-button:hover {
     color: var(--peachyYellow);
 }
@@ -199,7 +201,7 @@ will truncate terms that are too long to fit in the left column
 }
 
 
-/* Styling for the tribar menu (for mobile screens) */
+/* Styling for the tribar menu (expandable dropdown navbar for mobile screens) */
 
 .menu { /* Creates a menu button*/
     display: none;
@@ -216,7 +218,7 @@ will truncate terms that are too long to fit in the left column
     margin-bottom: 8px;
 }
 
-/* Navbar Settings for Tablet and Mobile < 1024px Size Screens */
+/* Navbar Settings for Tablet and Mobile < 1200px Size Screens */
 @media all and (max-width: 1200px) {
 
     /* Changes menu to vertical dropdown */
@@ -233,7 +235,7 @@ will truncate terms that are too long to fit in the left column
         margin-left: -2px;
     }
 
-    /* Navbar links aligned in the center of the dropdown*/
+    /* Navbar links should be aligned in the center of the dropdown*/
     .nav-list {
         margin-top: 20px;
         width: 100%;
@@ -262,15 +264,16 @@ will truncate terms that are too long to fit in the left column
         font-size: 1.2rem;
         padding: 20px !important;
         margin-left: 10%;
-        margin-right: 10%; /* Put margin on the right as width of lines is only 90% */
+        margin-right: 10%; /* Put the margin on the right as width of lines is only 90% */
     }
 
-    /* Class toggled in JS code to add this class to show/hide links list when toggle tribar menu button*/
+    /* A class toggled in JS code to add this class to show/hide links list when toggle tribar menu button*/
     .active {
         display: block;
     }
 }
 
+/* Highlight selected items in mediumblue*/
 .selected {
     color: var(--mediumBlue);
     text-decoration: underline;
@@ -279,19 +282,21 @@ will truncate terms that are too long to fit in the left column
 /**********************End of Navigation Bar Settings*****************************/
 
 
-/*Home/Index Page Settings*/
+
+/********************************Home/Index Page Settings*************************/
 
 /* Attribution for creating a split screen: https://www.tutorialspoint.com/how-to-create-a-split-screen-50-50-with-css */
 
 /* Black left-hand side of Home screen */
 .left {
     position: absolute;
+    /* Places intro (black-background) to site on top-left, takes up 50% of width of the screen */
     left: 0;
     top: 0;
     bottom: 5px;
     background-color: black;
     color: white;
-    /*border-right: 4px solid var(--mediumBlue); --> disliked by users! */
+    /*border-right: 4px solid var(--mediumBlue); --> this was disliked by users! */
     z-index: 0;
     width: 45%;
     height: 100%;
@@ -299,14 +304,14 @@ will truncate terms that are too long to fit in the left column
     flex-direction: column;
 }
 
-    .left .splitscreen-textbox {
-        margin-top: 5%;
-        padding: 40px 30px;
-        display: flex;
-        flex-direction: column;
-    }
+.left .splitscreen-textbox {
+    margin-top: 5%;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+}
 
-/* Welcome to CodingBuddy heading styling */
+/* "Welcome to CodingBuddy" heading styling */
 #welcome-heading {
     font-family: Gordita, Verdana, Arial, sans-serif;
     font-size: 2.2rem;
@@ -321,11 +326,12 @@ will truncate terms that are too long to fit in the left column
     margin-top: 6%;
 }
 
-    #welcome-list li {
-        font-family: Gordita, Arial, Verdana, sans-serif;
-        font-size: 1rem;
-        padding: 10px;
-    }
+/* List elements for the description of the application */
+#welcome-list li {
+    font-family: Gordita, Arial, Verdana, sans-serif;
+    font-size: 1rem;
+    padding: 10px;
+}
 
 /* Right-hand side "Code, Connect, Create" slogan styling */
 .right {
@@ -337,7 +343,7 @@ will truncate terms that are too long to fit in the left column
 
 /* Container for "Code, Connect, Create" graphics/slogan */
 .slogan-container {
-    position: fixed; /* Always on bottom right */
+    position: fixed; /* Always on the bottom right */
     width: 50%;
     bottom: 4%;
     right: -20% !important;
@@ -366,7 +372,7 @@ will truncate terms that are too long to fit in the left column
 
 
 
-/**************************************About/FAQ Pages********************************************************/
+/**************************************Settings for the About/FAQ Pages********************************************************/
 
 /* Styling for fullwidth div (across the main part of the page) */
 .fullwidth-div {
@@ -416,7 +422,7 @@ will truncate terms that are too long to fit in the left column
     padding-top: 30px;
 }
 
-/*  Styling for about description*/
+/*  Styling for about description/main text-content*/
 #app-about {
     padding-left: 20px;
     padding-right: 10%;
@@ -429,6 +435,7 @@ will truncate terms that are too long to fit in the left column
     line-height: 1.5;
 }
 
+/* FAQ Page Title */
 #faq-heading {
     font-family: Gordita, Verdana, Arial, sans-serif;
 }
@@ -464,9 +471,9 @@ p.FAQ-answer {
 
 
 
-/**********************************Settings for Footer***********************************/
+/**********************************Settings for the Footer***********************************/
 
-
+/* Fix the footer alays at bottom of the page */
 footer {
     display: block;
     position: fixed;
@@ -500,7 +507,7 @@ footer {
 
 
 
-/* On screens < 1200px get rid of split-screen and make the left-half 100% of the viewport*/
+/* On screens < 1200px get rid of the split-screen and make the left-half 100% of the viewport*/
 @media all and (max-width: 1200px) {
 
 
@@ -566,8 +573,6 @@ footer {
 }
 
 
-
-
 @media all and (max-width: 550px) {
 
 
@@ -612,6 +617,7 @@ footer {
     width: 60%;
 }
 
+/* Checkbox for "remember me", should the user stay signed-in */
 #login-error-message {
     color: red;
     text-align: center;
@@ -628,11 +634,11 @@ footer {
     justify-content: flex-start;
 }
 
-    #checkbox-form-group input,
-    #checkbox-form-group label {
-        vertical-align: middle;
-        padding: 10px;
-    }
+#checkbox-form-group input,
+#checkbox-form-group label {
+    vertical-align: middle;
+    padding: 10px;
+}
 
 /**Submit button*/
 #login-form-submit {
@@ -645,10 +651,10 @@ footer {
     width: 30%;
 }
 
-    #login-form-submit:focus {
-        background-color: var(--mediumBlue);
-        color: white;
-    }
+#login-form-submit:focus {
+    background-color: var(--mediumBlue);
+    color: white;
+}
 
 #submit-button-wrapper, #not-registered-wrapper {
     margin: 20px;
@@ -664,17 +670,20 @@ footer {
     color: var(--peachyYellow) !important;
 }
 
-    #not-registered-link:hover {
-        color: var(--mediumBlue) !important;
-    }
+#not-registered-link:hover {
+    color: var(--mediumBlue) !important;
+}
 
 /**********************************Registration Page**********************************/
 /*Attribution for this complex JS and CSS: https://bbbootstrap.com/snippets/multi-step-form-wizard-30467045*/
 /*Highlights the bad input fields in red in the JS file*/
+
+/* Put a red border around form inputs that were not filled in correctly */
 .invalid-input {
     border: 2px solid red !important;
 }
 
+/* Put login/registration on left-hand side of page */
 .registration-container, .login-container {
     position: absolute;
     left: 0;
@@ -688,7 +697,27 @@ footer {
     background-color: black;
     overflow: auto;
     height: 100% !important;
+
 }
+
+/* Scrollbars for registration and login */
+.registration-container::-webkit-scrollbar, .login-container::-webkit-scrollbar {
+    width: 1.2em;
+}
+
+
+.registration-container::-webkit-scrollbar-track,
+.login-container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(100, 100, 255, 50);
+}
+
+.registration-container::-webkit-scrollbar-thumb,
+.login-container::-webkit-scrollbar-thumb {
+    background-color: var(--mediumBlue);
+    outline: 2px solid darkgrey;
+}
+
+
 
 /**The whole div in which the registration title and form is wrapped*/
 .wizard-page, .login-page {
@@ -699,11 +728,11 @@ footer {
     margin-bottom: 80px !important;
 }
 
-    .wizard-page .row, .login-page .row {
-        background-color: black;
-    }
+.wizard-page .row, .login-page .row {
+    background-color: black;
+}
 
-
+/* Group of inputs on each "step" of the wizard */
 fieldset {
     background-color: black !important;
     width: 100%;
@@ -715,22 +744,22 @@ fieldset {
     background-color: black !important;
 }
 
-    /*Padding above thead "Sign Up" title on smaller screens*/
-    .card h2 {
-        padding-top: 20px !important;
-        margin-top: 20px !important;
-        color: white;
-        font-family: Anton, Impact, Arial,Verdana, sans-serif;
-        font-weight: 100;
-        font-size: 2.5rem;
-        text-align: center;
-    }
+.card h2 {
+    padding-top: 20px !important;
+    margin-top: 20px !important;
+    color: white;
+    font-family: Anton, Impact, Arial,Verdana, sans-serif;
+    font-weight: 100;
+    font-size: 2.5rem;
+    text-align: center;
+}
 
-    .card p {
-        color: white;
-        font-family: Gordita, Verdana, Arial, sans-serif;
-    }
+.card p {
+    color: white;
+    font-family: Gordita, Verdana, Arial, sans-serif;
+}
 
+/* Fieldset (step in the wizard) title */
 fieldset h3 {
     font-family: Gordita, Verdana, Arial, sans-serif;
     color: white !important;
@@ -758,11 +787,17 @@ fieldset label {
     display: block;
 }
 
+#slack-id-label-instructions
+{
+    color: var(--palePurple);
+    font-size: 0.8rem;
+    
+}
+
 .control-label {
     float: left !important;
     color: white !important;
 }
-
 
 #registration-form input, #registration-form textarea {
     border: none;
@@ -783,47 +818,48 @@ fieldset label {
 }
 
 
-    #registration-form fieldset .form-card {
-        background: white;
-        border-radius: 0px;
-        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
-        margin: 0 3% 20px 3%;
-        /*stacking fieldsets above each other*/
-        position: relative;
-    }
+#registration-form fieldset .form-card {
+    background: white;
+    border-radius: 0px;
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+    margin: 0 3% 20px 3%;
+    /*stacking the fieldsets all above each other*/
+    position: relative;
+}
 
-    #registration-form fieldset {
-        background: white;
-        border: 5px solid;
-        border: 0 none;
-        border-radius: 0.5rem;
-        margin-bottom: 20px;
-        padding-bottom: 20px;
-        /*stacking fieldsets above each other*/
-        position: relative;
-    }
+#registration-form fieldset {
+    background: white;
+    border: 5px solid;
+    border: 0 none;
+    border-radius: 0.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    /*stacking fieldsets all above each other*/
+    position: relative;
+}
 
 
-    #registration-form input:focus, #registration-form textarea:focus, #career-phases-dropdown:focus, #experience-levels-dropdown:focus,
-    #gender-dropdown:focus {
-        -moz-box-shadow: none !important;
-        -webkit-box-shadow: none !important;
-        box-shadow: none !important;
-        border: 4px solid var(--peachyYellow) !important;
-        font-weight: bold;
-        outline-width: 0;
-    }
+#registration-form input:focus, #registration-form textarea:focus, #career-phases-dropdown:focus, #experience-levels-dropdown:focus,
+#gender-dropdown:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 4px solid var(--peachyYellow) !important;
+    font-weight: bold;
+    outline-width: 0;
+}
 
-    /*Hide all except first fieldset*/
-    #registration-form fieldset:not(:first-of-type) {
-        display: none;
-    }
+/*Hide all the fieldsets (form-steps in the wizard) except first fieldset*/
+#registration-form fieldset:not(:first-of-type) {
+    display: none;
+}
 
-    #registration-form fieldset .form-card {
-        text-align: center;
-        color: black;
-    }
+#registration-form fieldset .form-card {
+    text-align: center;
+    color: black;
+}
 
+/* The next button */
 .next {
     background-color: var(--mediumBlue) !important;
     color: white;
@@ -834,6 +870,7 @@ fieldset label {
     padding: 10px;
 }
 
+/* The previous button */
 .previous {
     background-color: var(--periwinkle) !important;
     color: black !important;
@@ -1108,8 +1145,6 @@ select.list-dt {
     border: 2px solid var(--peachyYellow);
 }
 
-
-
 /*Rdit Profile Page*/
 .profile-header {
     color: white;
@@ -1242,7 +1277,7 @@ select.list-dt {
 /* Panel 1 layout */
 
 #basic-info-first-col {
-    margin-left: 70px;
+    margin-left: 60px;
 }
 
 /* Panel 1 cols */
@@ -1322,9 +1357,9 @@ select.list-dt {
     margin: 10px;
 }
 
-    .edit-button:hover {
-        background-color: var(--mediumBlue);
-    }
+.edit-button:hover {
+    background-color: var(--mediumBlue);
+}
 
 .add-button {
     background-color: black;
@@ -1332,11 +1367,12 @@ select.list-dt {
     border-radius: 10px;
     border: 2px solid white;
     padding: 10px 20px;
+    margin: 0px;
 }
 
-    .add-button:hover {
-        background-color: var(--mediumBlue);
-    }
+.add-button:hover {
+    background-color: var(--mediumBlue);
+}
 
 .options-label {
     margin-right: 10px;
@@ -1474,8 +1510,93 @@ select.list-dt {
 }
 
 /* Button to reset the rejections*/
-#reset-rejections-button {
-    width: 100%;
+#reset-rejections-button, #change-password-button {
+    width: 90%;
+}
+
+/* Change Password field on first panel of Edit Profile*/
+#change-password-button, #delete-account
+{
+    margin-left: 0;
+}
+
+
+/* Input (type text) to validate current password */
+#confirm-current-password-input, #enter-new-password-input, #enter-new-password-confirm-input {
+border-radius: 10px;
+padding: 5px;
+margin-bottom: 5px;
+}
+
+/* Input text field for current password */
+#confirm-current-password-input:focus {
+    background-color: var(--palePurple);
+}
+
+/* Labels/buttons for current password confirmation on EditProfile - ChangePassword form */
+#confirm-current-password-container label
+{
+    margin: 5px;
+}
+#confirm-current-password-container input {
+    margin-bottom: 10px;
+}
+#confirm-current-password-container button
+{
+    margin: 10px;
+}
+
+/* Confirms that password (or other) input is correct */
+.input-confirmation-message {
+    background-color:white;
+    padding: 2px;
+    border-radius: 4px;
+    margin: 10px 0px;
+    color: green;
+}
+
+/* Logout button styled as link which appears after the user has successfully changed their password */
+#logout-after-password-change{
+    background: transparent;
+    border: none;
+    text-decoration: underline;
+    padding: 10px;
+    font-weight: 900;
+}
+
+/* Label with information that the user has successfully changed their password and asking them to logout and log back in*/
+#successfully-changed-password
+{
+    font-size:0.8rem;
+    margin: 12px 0px;
+    text-decoration:wavy;
+    font-style: italic;
+    font-weight: bold;
+}
+#logout-after-password-change:hover {
+    color: white;
+}
+
+
+
+/* Delete Account button: make it stand out and place it further down, to avoid user clicking this by accident! */
+#delete-account {
+    background-color: red;
+    margin-top: 40px;
+}
+
+/* Container which contains message asking user to verify if they really want to delete all their data, or cancel otherwise */
+#delete-confirmation-container {
+    margin: 10px;
+}
+#delete-confirmation-container label {
+    color: black;
+    font-weight: 900;
+    padding: 10px;
+    border-radius: 4px;
+}
+#delete-confirmation-container button {
+    margin: 10px 0px;
 }
 
 /*****************Hidden Forms******************/
@@ -1493,11 +1614,11 @@ select.list-dt {
     border: 2px solid black;
 }
 
-    .save-button:hover {
-        background-color: var(--palePurple);
-        color: black;
-        border: 2px solid black;
-    }
+.save-button:hover {
+    background-color: var(--palePurple);
+    color: black;
+    border: 2px solid black;
+}
 
 /* Button to upload the answer to a random question from 
     the random-question-generator
@@ -1521,17 +1642,13 @@ select.list-dt {
 /* Button to cancel/stop editing profile option or delete-button to delete
     a random question from the random-question generator
 */
-.cancel-button, .delete-button {
+.cancel-button, .delete-button, .confirm-delete-button {
     background-color: red;
     color: white;
     border: 2px solid black;
     border-radius: 10px;
     padding: 5px 10px;
 }
-
-    .delete-button:hover {
-        box-shadow: 0 0.5rem 0.5rem #00000080;
-    }
 
 .edit-answer-button {
     background-color: var(--mediumBlue);
@@ -1542,10 +1659,9 @@ select.list-dt {
     margin-left: 10px;
 }
 
-    .edit-answer-button:hover {
-        box-shadow: 0 0.5rem 0.5rem #00000080;
-    }
-
+.delete-button:hover, .edit-answer-button:hover {
+    box-shadow: 0 0.5rem 0.5rem #00000080;
+}
 
 .save-answer-button {
     background-color: black;
@@ -1556,9 +1672,9 @@ select.list-dt {
     margin-left: 10px;
 }
 
-    .save-answer-button:hover {
-        box-shadow: 0 0.5rem 0.5rem #00000080;
-    }
+.save-answer-button:hover {
+    box-shadow: 0 0.5rem 0.5rem #00000080;
+}
 
 
 /* Button for rsandom question generator */
@@ -1594,6 +1710,11 @@ select.list-dt {
 /* Make error text appear red by adding this class in JQUery*/
 .error-label {
     color: red;
+    background-color: black;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 4px;
+    text-decoration: underline;
 }
 
 #edit-username-form {
@@ -1604,20 +1725,20 @@ select.list-dt {
     background-color: white;
 }
 
-    #edit-username-form input {
-        margin-left: 20px;
-        border-radius: 10px;
-        padding: 5px;
-    }
+#edit-username-form input {
+    margin-left: 20px;
+    border-radius: 10px;
+    padding: 5px;
+}
 
-        /* Highlight username input when selected */
-        #edit-username-form input:focus {
-            background-color: var(--palePurple);
-        }
+/* Highlight username input when selected */
+#edit-username-form input:focus {
+    background-color: var(--palePurple);
+}
 
-    #edit-username-form label {
-        font-weight: bolder;
-    }
+#edit-username-form label {
+    font-weight: bolder;
+}
 
 /*Bio form*/
 /* Try to make textarea put cursor on left hand top corner: REALLY hard! */
@@ -2065,7 +2186,7 @@ select.list-dt {
     }
 }
 
-/* Wrapper around each user's div*/
+/* Wrapper around each div representing a separate user*/
 .match-wrapper {
     margin-left: 50px;
     padding: 20px;
@@ -2081,6 +2202,7 @@ select.list-dt {
     break-inside: avoid;
 }
 
+/* Explanation of each panel of the Matches page */
 .explanation {
     text-align: center;
     padding: 0px;
@@ -2088,6 +2210,7 @@ select.list-dt {
     height: fit-content !important;
 }
 
+/* Sections of the User data for the user that has been liked/matched */
 .match-wrapper div {
     display: flex;
     flex-direction: column;
@@ -2095,7 +2218,7 @@ select.list-dt {
     gap: 4px;
 }
 
-/* Tiny snapshot of user's profike picture*/
+/* Small snapshot of user's profile picture on the My Matches page*/
 .small-profile-picture {
     width: 100px;
     height: 100px;
@@ -2122,7 +2245,7 @@ select.list-dt {
     color: navy !important;
 }
 
-/* X-button to remove user from Likes */
+/* X-button to remove user from Likes/heart button to add the user to the Likes table */
 .remove-button, .heart-button {
     width: fit-content;
     height: fit-content;

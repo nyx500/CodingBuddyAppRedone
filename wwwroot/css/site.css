@@ -36,7 +36,6 @@ html {
 }
 
 
-
 body {
     background-image: url("../assets/background.png");
     box-sizing: border-box !important;
@@ -70,7 +69,6 @@ will truncate terms that are too long to fit in the left column
     --mediumBlue: #1627A3;
     --veryDarkBlue: #050A30;
 }
-
 
 /*****************************End of General Settings*********************************/
 
@@ -699,7 +697,27 @@ footer {
     background-color: black;
     overflow: auto;
     height: 100% !important;
+
 }
+
+/* Scrollbars for registration and login */
+.registration-container::-webkit-scrollbar, .login-container::-webkit-scrollbar {
+    width: 1.2em;
+}
+
+
+.registration-container::-webkit-scrollbar-track,
+.login-container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(100, 100, 255, 50);
+}
+
+.registration-container::-webkit-scrollbar-thumb,
+.login-container::-webkit-scrollbar-thumb {
+    background-color: var(--mediumBlue);
+    outline: 2px solid darkgrey;
+}
+
+
 
 /**The whole div in which the registration title and form is wrapped*/
 .wizard-page, .login-page {
@@ -767,6 +785,13 @@ fieldset label {
     position: relative;
     float: left !important;
     display: block;
+}
+
+#slack-id-label-instructions
+{
+    color: var(--palePurple);
+    font-size: 0.8rem;
+    
 }
 
 .control-label {
@@ -1119,8 +1144,6 @@ select.list-dt {
 .checkbox-unordered-list li input[type="checkbox"]:focus + label {
     border: 2px solid var(--peachyYellow);
 }
-
-
 
 /*Rdit Profile Page*/
 .profile-header {
