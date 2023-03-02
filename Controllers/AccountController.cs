@@ -1758,18 +1758,51 @@ namespace CBApp.Controllers
 
         }
 
+        // Check the user's password (through Ajax call in JS script)
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CheckPassword(string password)
+        {
+            // Gets the currently-logged in user
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            var result = await userManager.CheckPasswordAsync(user, password);
+
+            if (result)
+            {
+
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
+        }
 
 
+        //Change the user's password
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
+        {
+            // Gets the currently - logged in user
+           var username = User.Identity!.Name;
+           User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
 
+            //Result of the change password Identity operation
+            IdentityResult result = await userManager.ChangePasswordAsync(user, currentPassword, newPassword);
 
-
-
-
-
-
-
-
-
+            if (result.Succeeded)
+            {
+                context.SaveChanges();
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
+        }
     } 
 }
 

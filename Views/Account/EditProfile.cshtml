@@ -228,12 +228,43 @@ ViewBag.Title = "My Profile";
 
             </div>
             @* End of second col*@
+            @* Beginning of the third col: reset users you've passed on and rejections, change password form*@
             <div id="basic-info-third-col">
-                <button id="reset-rejections-button" class="add-button">Reset Passed Users/Rejections</button>
-                <label id="could-not-reset" class="hidden error-label" for="reset-rejections-button">Sorry! Database error - could not reset.</label>
-                <label id="could-reset" class="hidden" for="reset-rejections-button">Success! Reset the rejections.</label>
+                <div>
+                    <button id="reset-rejections-button" class="add-button">Reset Passed Users/Rejections</button>
+                    <label id="could-not-reset" class="hidden error-label" for="reset-rejections-button">Sorry! Database error - could not reset.</label>
+                    <label id="could-reset" class="hidden" for="reset-rejections-button">Success! Reset the rejections.</label>
+                </div>
+                <br />
+                <div>
+                    <button id="change-password-button" class="edit-button">Change Password</button>
+                    <div id="confirm-current-password-container" class="hidden">
+                        @* Label: changes 'text' attribute if the password is incorrect *@
+                        <label id="confirm-current-password-label" for="enter-current-password">Please enter your current password:</label>
+                        <input id="confirm-current-password-input" type="password" />
+                        <button id="submit-current-password" class="save-button">Submit</button><button id="cancel-submit-current-password" class="cancel-button">Cancel</button>
+                    </div>
+                    <div id="password-change-container" class="hidden">
+                        @* Will store the old password because controller needs this to change password with Identity library *@
+                        <input id="old-password" type="hidden"/>
+                        <label id="label-reporting-the-state" class="input-confirmation-message">Old password has been confirmed!</label>
+                        <label for="enter-new-password-input">Enter new password:</label>
+                        <input id="enter-new-password-input" type="password" />
+                        <label for="enter-new-password-confirm-input">Confirm new password:</label>
+                        <input id="enter-new-password-confirm-input" type="password" />
+                        <button id="submit-new-password" class="save-button">Save</button>
+                        <button id="cancel-submit-new-password" class="cancel-button">Cancel</button>
+                    </div>
+                    <div id="password-change-success" class="hidden">
+                        <label id="successfully-changed-password">Password changed successfully! Please click on the link below to log out and back in.</label>
+                        <form method="post" asp-action="LogOut" asp-controller="Account"
+                              asp-area="">
+                            <input id="logout-after-password-change" type="submit" value="Log Out"/>
+                        </form>
+                    </div>
+                </div>
             </div>
-
+            @* End of third column *@
         </div>
         @* End of first page/panel of the whole EditProfile View*@
 

@@ -1254,7 +1254,7 @@ select.list-dt {
 /* Panel 1 layout */
 
 #basic-info-first-col {
-    margin-left: 70px;
+    margin-left: 60px;
 }
 
 /* Panel 1 cols */
@@ -1334,9 +1334,9 @@ select.list-dt {
     margin: 10px;
 }
 
-    .edit-button:hover {
-        background-color: var(--mediumBlue);
-    }
+.edit-button:hover {
+    background-color: var(--mediumBlue);
+}
 
 .add-button {
     background-color: black;
@@ -1344,11 +1344,12 @@ select.list-dt {
     border-radius: 10px;
     border: 2px solid white;
     padding: 10px 20px;
+    margin: 0px;
 }
 
-    .add-button:hover {
-        background-color: var(--mediumBlue);
-    }
+.add-button:hover {
+    background-color: var(--mediumBlue);
+}
 
 .options-label {
     margin-right: 10px;
@@ -1486,8 +1487,69 @@ select.list-dt {
 }
 
 /* Button to reset the rejections*/
-#reset-rejections-button {
-    width: 100%;
+#reset-rejections-button, #change-password-button {
+    width: 90%;
+}
+
+/* Change Password field on first panel of Edit Profile*/
+#change-password-button
+{
+    margin-left: 0;
+}
+/* Input (type text) to validate current password */
+#confirm-current-password-input, #enter-new-password-input, #enter-new-password-confirm-input {
+border-radius: 10px;
+padding: 5px;
+margin-bottom: 5px;
+}
+
+/* Input text field for current password */
+#confirm-current-password-input:focus {
+    background-color: var(--palePurple);
+}
+
+/* Labels/buttons for current password confirmation on EditProfile - ChangePassword form */
+#confirm-current-password-container label
+{
+    margin: 5px;
+}
+#confirm-current-password-container input {
+    margin-bottom: 10px;
+}
+#confirm-current-password-container button
+{
+    margin: 10px;
+}
+
+/* Confirms that password (or other) input is correct */
+.input-confirmation-message {
+    background-color:white;
+    padding: 2px;
+    border-radius: 4px;
+    margin: 10px 0px;
+    color: green;
+}
+
+/* Logout button styled as link which appears after the user has successfully changed their password */
+#logout-after-password-change{
+    background: transparent;
+    border: none;
+    text-decoration: underline;
+    padding: 10px;
+    font-weight: 900;
+}
+
+/* Label with information that the user has successfully changed their password and asking them to logout and log back in*/
+#successfully-changed-password
+{
+    font-size:0.8rem;
+    margin: 12px 0px;
+    text-decoration:wavy;
+    font-style: italic;
+    font-weight: bold;
+}
+#logout-after-password-change:hover {
+    color: white;
 }
 
 /*****************Hidden Forms******************/
@@ -1505,11 +1567,11 @@ select.list-dt {
     border: 2px solid black;
 }
 
-    .save-button:hover {
-        background-color: var(--palePurple);
-        color: black;
-        border: 2px solid black;
-    }
+.save-button:hover {
+    background-color: var(--palePurple);
+    color: black;
+    border: 2px solid black;
+}
 
 /* Button to upload the answer to a random question from 
     the random-question-generator
@@ -1601,6 +1663,11 @@ select.list-dt {
 /* Make error text appear red by adding this class in JQUery*/
 .error-label {
     color: red;
+    background-color: black;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 4px;
+    text-decoration: underline;
 }
 
 #edit-username-form {
@@ -1611,20 +1678,20 @@ select.list-dt {
     background-color: white;
 }
 
-    #edit-username-form input {
-        margin-left: 20px;
-        border-radius: 10px;
-        padding: 5px;
-    }
+#edit-username-form input {
+    margin-left: 20px;
+    border-radius: 10px;
+    padding: 5px;
+}
 
-        /* Highlight username input when selected */
-        #edit-username-form input:focus {
-            background-color: var(--palePurple);
-        }
+/* Highlight username input when selected */
+#edit-username-form input:focus {
+    background-color: var(--palePurple);
+}
 
-    #edit-username-form label {
-        font-weight: bolder;
-    }
+#edit-username-form label {
+    font-weight: bolder;
+}
 
 /*Bio form*/
 /* Try to make textarea put cursor on left hand top corner: REALLY hard! */
