@@ -27,102 +27,115 @@
 
     @* The actual tabs' screens containing the forms and information *@
     <div class="profile-panels">
-        <div class="panel" id="panel-one">
-            <div id="basic-info-first-col">
 
-                @*Start of profile picture section*@
-                <div id="profile-picture-wrapper">
-                    @{
-                        if (Model.ImageSrc == null)
-                        {
-                        <img id="profile-picture" src="~/assets/user.png" alt="blue and white graphical drawing of a person representing a user for when user has not uploaded a profile picture" />
-                        }
-                        else
-                        {
-                        @* If time do later - make the user type in what the picture describes for accessibility purposes *@
-                        <img id="profile-picture" src="@Model.ImageSrc" alt="user's profile picture - content depends on what the user has uploaded" />
-                        }
-                    }
-                </div>
-                @*End of profile picture section*@
-
-                <br/>
-
-                @*Career Phase and Experience Level Section*@
-                @* Wrap each section in a flexbox form row to put 'change/edit' button INLINE next to the information section *@
-                <div class="edit-profile-form-row" id="career-phase-wrapper">
-                    @{
-                        if (Model.CareerPhase.Name == "Starter")
-                        {
-                        <div>Career Starter</div>
-                        }
-                        else if (Model.CareerPhase.Name == "Changer")
-                        {
-                        <div>Career Changer</div>
-                        }
-                        else
-                        {
-                        <div>Career Developer</div>
-                        }
-                    }
-                </div>
-                @*Experience Level*@
-                <div class="edit-profile-form-row" id="experience-level-wrapper">
-                    <div>
-                        @Html.DisplayFor(model => model.ExperienceLevel!.Name)
-                    </div>
-                </div>
-               
+        @* DO not display profile IF user has deactivated it*@
+        @if (Model.isDeactivated)
+        {
+            <div>
+                <label class="error-label">
+                    This user no longer exists!
+                </label>
             </div>
-            @*End of left column*@
+        }
+        else
+        {
+            <div class="panel" id="panel-one">
 
-            @* Second column on the right *@
-            <div id="basic-info-second-col" class="view-version-second-col">
+                <div id="basic-info-first-col">
 
-                @* Username and SlackId data *@
-                <div class="edit-profile-form-row">
-                    @* Username and "Like"/"Dislike" heart row *@
-                    <h2 id="username-title"><b>@Html.DisplayFor(model => model.UserName)</b></h2>
-                    @* Form to like/pass on the user*@
-                    <div class="match-likes-div">
-
-                        <div class="like-div">
-                            <div id="could-not-like-error" class="error-label hidden">We are sorry! The database could not be updated. Please try again later.</div>
-                            @* Hidden field: user's long ID, so can redirect with Ajax if Like is updated/changed*@
-                            <input id="hidden-user-id" type="hidden" value=@Model.Id>
-                            @* Colour of the heart button is blue if logged-in user has liked the viewed user, else set it to black using an added class *@
-                            @if (Model.hasBeenLiked)
-                            {   
-                                @* ARIA LABELS on the heart icon buttons for accessibility*@
-                                <button aria-label="click on this button to unlike this user" id="view-profile-like-user-button" class="view-profile-like-button">
-                                    <i aria-label="solid heart icon meaning the current user likes the viewed user" id="like-icon" class="fas fa-heart fa-3x"></i>
-                                </button>
-                                <br />
+                    @*Start of profile picture section*@
+                    <div id="profile-picture-wrapper">
+                        @{
+                            if (Model.ImageSrc == null)
+                            {
+                                <img id="profile-picture" src="~/assets/user.png" alt="blue and white graphical drawing of a person representing a user for when user has not uploaded a profile picture" />
                             }
                             else
                             {
-                                <button aria-label="click on this button to like the user" id="view-profile-like-user-button" class="view-profile-like-button">
-                                    <i aria-label="solid heart icon meaning the current user has not liked the viewed user"   id="like-icon" class="far fa-heart fa-3x"></i>
-                                </button>
-                                <br />
+                                @* If time do later - make the user type in what the picture describes for accessibility purposes *@
+                                <img id="profile-picture" src="@Model.ImageSrc" alt="user's profile picture - content depends on what the user has uploaded" />
                             }
-                        </div>
-                        @if (Model.hasBeenLiked)
-                        {
-                            <div id="like-unlike-text">Unlike</div>
                         }
-                        else
-                        {
-                            <div id="like-unlike-text">Like</div>
-                        }
-
                     </div>
-                    @* End of "like" heart section *@
+                    @*End of profile picture section*@
+
+                    <br />
+
+                    @*Career Phase and Experience Level Section*@
+                    @* Wrap each section in a flexbox form row to put 'change/edit' button INLINE next to the information section *@
+                    <div class="edit-profile-form-row" id="career-phase-wrapper">
+                        @{
+                            if (Model.CareerPhase.Name == "Starter")
+                            {
+                                <div>Career Starter</div>
+                            }
+                            else if (Model.CareerPhase.Name == "Changer")
+                            {
+                                <div>Career Changer</div>
+                            }
+                            else
+                            {
+                                <div>Career Developer</div>
+                            }
+                        }
+                    </div>
+                    @*Experience Level*@
+                    <div class="edit-profile-form-row" id="experience-level-wrapper">
+                        <div>
+                            @Html.DisplayFor(model => model.ExperienceLevel!.Name)
+                        </div>
+                    </div>
+
                 </div>
-                @* End of Username / Like Section *@
+                @*End of left column*@
+
+                @* Second column on the right *@
+                <div id="basic-info-second-col" class="view-version-second-col">
+
+                    @* Username and SlackId data *@
+                    <div class="edit-profile-form-row">
+                        @* Username and "Like"/"Dislike" heart row *@
+                        <h2 id="username-title"><b>@Html.DisplayFor(model => model.UserName)</b></h2>
+                        @* Form to like/pass on the user*@
+                        <div class="match-likes-div">
+
+                            <div class="like-div">
+                                <div id="could-not-like-error" class="error-label hidden">We are sorry! The database could not be updated. Please try again later.</div>
+                                @* Hidden field: user's long ID, so can redirect with Ajax if Like is updated/changed*@
+                                <input id="hidden-user-id" type="hidden" value=@Model.Id>
+                                @* Colour of the heart button is blue if logged-in user has liked the viewed user, else set it to black using an added class *@
+                                @if (Model.hasBeenLiked)
+                                {
+                                    @* ARIA LABELS on the heart icon buttons for accessibility*@
+                                    <button aria-label="click on this button to unlike this user" id="view-profile-like-user-button" class="view-profile-like-button">
+                                        <i aria-label="solid heart icon meaning the current user likes the viewed user" id="like-icon" class="fas fa-heart fa-3x"></i>
+                                    </button>
+                                    <br />
+                                }
+                                else
+                                {
+                                    <button aria-label="click on this button to like the user" id="view-profile-like-user-button" class="view-profile-like-button">
+                                        <i aria-label="solid heart icon meaning the current user has not liked the viewed user" id="like-icon" class="far fa-heart fa-3x"></i>
+                                    </button>
+                                    <br />
+                                }
+                            </div>
+                            @if (Model.hasBeenLiked)
+                            {
+                                <div id="like-unlike-text">Unlike</div>
+                            }
+                            else
+                            {
+                                <div id="like-unlike-text">Like</div>
+                            }
+
+                        </div>
+                        @* End of "like" heart section *@
+                    </div>
+                    @* End of Username / Like Section *@
 
 
-                @*Slack ID Section: do not show SlackId if the user has not been liked by this user! If this is so, then SlackID will be empty*@
+                    @*Slack ID Section: do not show SlackId if the user has not been liked by this user! If this is so, then SlackID will be empty*@
                     @if (Model.SlackId != null && Model.SlackId.Length > 0)
                     {
                         <div class="edit-profile-form-row">
@@ -131,140 +144,140 @@
                             </h5>
                         </div>
                     }
-                
-                @*End of Slack ID Section *@
 
-                @* Bio data *@
-                <div class="edit-profile-form-row">
-                    <div id="bio-section">
-                        <h5 id="bio-title"><b>Bio:</b></h5>
-                        @* Show no-bio message if user has not added one*@
-                        @if (Model.Bio == null || Model.Bio.Length < 1)
+                    @*End of Slack ID Section *@
+
+                    @* Bio data *@
+                    <div class="edit-profile-form-row">
+                        <div id="bio-section">
+                            <h5 id="bio-title"><b>Bio:</b></h5>
+                            @* Show no-bio message if user has not added one*@
+                            @if (Model.Bio == null || Model.Bio.Length < 1)
+                            {
+                                <p id="bio"><em>User has not entered a bio yet!</em></p>
+                            }
+                            else
+                            {
+                                <p id="bio">@Html.DisplayFor(model => model.Bio)</p>
+                            }
+
+                        </div>
+                        <br />
+                    </div>
+                    @* End of Bio section*@
+
+                    @* Languages Spoken data  *@
+                    @*Languages spoken data*@
+                    <div id="languages-wrapper" class="edit-profile-form-column">
+                        <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Languages Spoken:</p>
+                        @if (Model.LanguageNames.Count == 0)
                         {
-                            <p id="bio"><em>User has not entered a bio yet!</em></p>
+                            <p><em>This user has not selected any languages.</em></p>
                         }
                         else
                         {
-                            <p id="bio">@Html.DisplayFor(model => model.Bio)</p>
+                            <ul class="preference-list">
+                                @for (var i = 0; i < Model.LanguageNames!.Count(); i++)
+                                {
+                                    <li>
+                                        <div class="preference-container">
+                                            @Html.DisplayFor(model=>model.LanguageNames![i])
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
                         }
-                        
                     </div>
-                    <br />
                 </div>
-                @* End of Bio section*@
+                @* End of natural languages section*@
+            </div>
+            @* End of first page/panel of the whole EditProfile View*@
 
-                @* Languages Spoken data  *@
-                @*Languages spoken data*@
-                <div id="languages-wrapper" class="edit-profile-form-column">
-                    <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Languages Spoken:</p>
-                    @if (Model.LanguageNames.Count == 0)
-                    {
-                        <p><em>This user has not selected any languages.</em></p>
-                    }
-                    else
-                    {
-                        <ul class="preference-list">
-                            @for (var i = 0; i < Model.LanguageNames!.Count(); i++)
-                            {
-                                <li>
-                                    <div class="preference-container">
-                                        @Html.DisplayFor(model=>model.LanguageNames![i])
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                    }
+            @* Start of second panel*@
+            <div class="panel" id="panel-two">
+                <div id="panel-two-col">
+
+                    <div class="panel-title">Coding Preferences</div>
+
+                    @* Programming Languages *@
+                    <div id="programming-languages-wrapper" class="edit-profile-form-column">
+
+                        @* Programming Languages Data*@
+                        <div id="programming-languages-data">
+                            <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Favourite Programming Languages:</p>
+                            <ul class="preference-list">
+                                @for (var i = 0; i < Model.ProgrammingLanguageNames!.Count(); i++)
+                                {
+                                    <li>
+                                        <div class="preference-container">
+                                            @Html.DisplayFor(model=>model.ProgrammingLanguageNames![i])
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    @*End of programming languages section*@
+
+
+                    @* CS Interests *@
+                    <div id="interests-wrapper" class="edit-profile-form-column">
+                        @* CS Interests Data *@
+                        <div id="cs-interests-data">
+                            <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Computer Science Interests:</p>
+                            <ul class="preference-list">
+                                @for (var i = 0; i < Model.CSInterestNames!.Count(); i++)
+                                {
+                                    <li>
+                                        <div class="preference-container">
+                                            @Html.DisplayFor(model=>model.CSInterestNames![i])
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    @*End of CS Interests Section*@
                 </div>
             </div>
-            @* End of natural languages section*@
-        </div>
-        @* End of first page/panel of the whole EditProfile View*@
+            @* End of second panel *@
 
-        @* Start of second panel*@
-        <div class="panel" id="panel-two">
-            <div id="panel-two-col">
+            @* Start of third panel *@
+            <div class="panel" id="panel-three">
+                @* Third panel's main column *@
+                <div id="panel-three-col">
+                    @* Hobbies Section *@
+                    <div class="panel-title">Hobbies</div>
+                    @* Hobbies Section Main COntainer*@
+                    <div id="hobbies-wrapper" class="edit-profile-form-column">
 
-                <div class="panel-title">Coding Preferences</div>
-
-                @* Programming Languages *@
-                <div id="programming-languages-wrapper" class="edit-profile-form-column">
-
-                    @* Programming Languages Data*@
-                    <div id="programming-languages-data">
-                        <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Favourite Programming Languages:</p>
-                        <ul class="preference-list">
-                            @for (var i = 0; i < Model.ProgrammingLanguageNames!.Count(); i++)
-                        {
-                            <li>
-                                <div class="preference-container">
-                                    @Html.DisplayFor(model=>model.ProgrammingLanguageNames![i])
-                                </div>
-                            </li>
-                        }
-                        </ul>
+                        @* Hobbies Data*@
+                        <div id="hobbies-data">
+                            <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Hobbies and Interests:</p>
+                            <ul class="preference-list">
+                                @for (var i = 0; i < Model.HobbyNames!.Count(); i++)
+                                {
+                                    <li>
+                                        <div class="preference-container">
+                                            @Html.DisplayFor(model=>model.HobbyNames![i])
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
                     </div>
+                    @*End of hobbies section*@
                 </div>
-                @*End of programming languages section*@
-
-
-                @* CS Interests *@
-                <div id="interests-wrapper" class="edit-profile-form-column">
-                    @* CS Interests Data *@
-                    <div id="cs-interests-data">
-                        <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Computer Science Interests:</p>
-                        <ul class="preference-list">
-                            @for (var i = 0; i < Model.CSInterestNames!.Count(); i++)
-                        {
-                            <li>
-                                <div class="preference-container">
-                                    @Html.DisplayFor(model=>model.CSInterestNames![i])
-                                </div>
-                            </li>
-                        }
-                        </ul>
-                    </div>
-                </div>
-                @*End of CS Interests Section*@
             </div>
-        </div>
-        @* End of second panel *@
-
-        @* Start of third panel *@
-        <div class="panel" id="panel-three">
-            @* Third panel's main column *@
-            <div id="panel-three-col">
-                @* Hobbies Section *@
-                <div class="panel-title">Hobbies</div>
-                @* Hobbies Section Main COntainer*@
-                <div id="hobbies-wrapper" class="edit-profile-form-column">
-
-                    @* Hobbies Data*@
-                    <div id="hobbies-data">
-                        <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Hobbies and Interests:</p>
-                        <ul class="preference-list">
-                            @for (var i = 0; i < Model.HobbyNames!.Count(); i++)
-                        {
-                            <li>
-                                <div class="preference-container">
-                                    @Html.DisplayFor(model=>model.HobbyNames![i])
-                                </div>
-                            </li>
-                        }
-                        </ul>
-                    </div>
-                </div>
-                @*End of hobbies section*@
-            </div>
-        </div>
-        @* End of third panel *@
-        @* Start of fourth panel *@
-        <div class="panel" id="panel-four">
-            @* Fourth panel's main column *@
-            <div id="panel-four-col">
-                <div class="panel-title">Random "About You" Questions</div>
-                @* Random Questions Section *@
-                <div id="random-question-wrapper" class="edit-profile-form-column">
-                    <div id="questions-data" class="edit-profile-form-column">
+            @* End of third panel *@
+            @* Start of fourth panel *@
+            <div class="panel" id="panel-four">
+                @* Fourth panel's main column *@
+                <div id="panel-four-col">
+                    <div class="panel-title">Random "About You" Questions</div>
+                    @* Random Questions Section *@
+                    <div id="random-question-wrapper" class="edit-profile-form-column">
+                        <div id="questions-data" class="edit-profile-form-column">
                             @* Display "no Questions answered" message if property list is empty *@
                             @if (Model.QuestionAnswerBlocks.Count == 0)
                             {
@@ -272,24 +285,27 @@
                             }
                             else
                             {
-                            <ul id="questions-list">
-                                @for (var i = 0; i < Model.QuestionAnswerBlocks!.Count(); i++)
-                                {
-                                    <li class="question-answer-block">
-                                        <div><b>@Html.DisplayFor(model => model.QuestionAnswerBlocks[i].QuestionString)</b></div>
-                                        <br>
-                                        <div>@Html.DisplayFor(model => model.QuestionAnswerBlocks[i].AnswerString)</div>
-                                    </li>
-                                    <br />
-                                    <br />
-                                }
-                            </ul>
+                                <ul id="questions-list">
+                                    @for (var i = 0; i < Model.QuestionAnswerBlocks!.Count(); i++)
+                                    {
+                                        <li class="question-answer-block">
+                                            <div><b>@Html.DisplayFor(model => model.QuestionAnswerBlocks[i].QuestionString)</b></div>
+                                            <br>
+                                            <div>@Html.DisplayFor(model => model.QuestionAnswerBlocks[i].AnswerString)</div>
+                                        </li>
+                                        <br />
+                                        <br />
+                                    }
+                                </ul>
                             }
+                        </div>
+                        @* End of the "About You" Questions*@
                     </div>
-                    @* End of the "About You" Questions*@
                 </div>
             </div>
-        </div>
-        @* End  of fourth panel *@
+            @* End  of fourth panel *@
+        }
+
+       
     </div>
     @*End of all the parts*@

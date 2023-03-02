@@ -74,5 +74,8 @@ namespace CBApp.Models
         // Determines if the user has a notification or not
         public bool HasNotification = false;
 
+        // Stores whether user has requested deletion
+        public bool DeactivateRequest = false;
+
     }
 }

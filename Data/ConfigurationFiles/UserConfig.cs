@@ -27,6 +27,7 @@ namespace CBApp.Data.ConfigurationFiles
             entity.Property(u => u.Picture);
             entity.Property(u => u.PictureFormat);
             entity.Property(u => u.HasNotification);
+            entity.Property(u => u.DeactivateRequest);
 
             // Make UserName unique
             entity.HasIndex(u => u.UserName)

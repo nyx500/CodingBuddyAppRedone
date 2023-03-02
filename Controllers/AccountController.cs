@@ -1005,31 +1005,45 @@ namespace CBApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(
-                    model.Username, model.Password, isPersistent: model.RememberMe,
-                    lockoutOnFailure: false);
+                User user = userManager.Users.Where(u => u.UserName == model.Username).FirstOrDefault<User>()!;
 
-                // If result succeeded, check if ReturnUrl property of view model exists
-                if (result.Succeeded)
+                // Do not let "deactivated" users in
+                if (user.DeactivateRequest == true)
                 {
-                    // Checking that the ReturnUrl contains a local URL protects against hacker redirecting
-                    // the browser to an external malicious website
-                    if (!string.IsNullOrEmpty(model.ReturnUrl)
-                        && Url.IsLocalUrl(model.ReturnUrl)
-                    )
+                    ModelState.AddModelError("invalidLogin", "Invalid username.");
+                    return View(model);
+                }
+                else
+                {
+
+                    var result = await signInManager.PasswordSignInAsync(
+                        model.Username, model.Password, isPersistent: model.RememberMe,
+                        lockoutOnFailure: false);
+
+                    // If result succeeded, check if ReturnUrl property of view model exists
+                    if (result.Succeeded)
                     {
-                        // Redirect to the Url specified by ReturnUrl view model property
-                        return Redirect(model.ReturnUrl);
-                    }
-                    else
-                    {
-                        // Otherwise, return to homepage
-                        return RedirectToAction("Index", "Home");
+                        // Checking that the ReturnUrl contains a local URL protects against hacker redirecting
+                        // the browser to an external malicious website
+                        if (!string.IsNullOrEmpty(model.ReturnUrl)
+                            && Url.IsLocalUrl(model.ReturnUrl)
+                        )
+                        {
+                            // Redirect to the Url specified by ReturnUrl view model property
+                            return Redirect(model.ReturnUrl);
+                        }
+                        else
+                        {
+                            // Otherwise, return to homepage
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
                 }
+
+                ModelState.AddModelError("invalidLogin", "Invalid username/password combination!");
+                return View(model);
             }
 
-            ModelState.AddModelError("invalidLogin", "Invalid username/password combination!");
             return View(model);
         }
 
@@ -1803,6 +1817,32 @@ namespace CBApp.Controllers
                 return Json(false);
             }
         }
+
+        // Deletes the user from the database
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteUser()
+        {
+            // Gets the currently - logged in user
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            user.DeactivateRequest = true;
+
+            var result = await userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                context.SaveChanges();
+                await signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return Json(false);
+            }
+        }
+
     } 
 }
 

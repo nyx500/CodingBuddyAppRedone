@@ -241,6 +241,13 @@ namespace CBApp.Controllers
                     }
                 }
 
+                // Check if user is deactivated
+
+                if (currentUser.DeactivateRequest)
+                {
+                    shouldIAddTheUser = false;
+                }
+
                 // Finally check if the user is the currently logged-in user and don't add them if they are
                 if ((currentUser == user))
                 {
@@ -717,6 +724,8 @@ namespace CBApp.Controllers
                 model.UserName = user.UserName;
                 // Set the biography for the user view model
                 model.Bio = user.Bio;
+                // Set if user is deactivated
+                model.isDeactivated = user.DeactivateRequest;
 
                 // Set picture data if there is some in the database for that user
                 if (user.PictureFormat != null)
@@ -830,7 +839,12 @@ namespace CBApp.Controllers
                         matchedUser.PictureString = PotentialMatchUserViewModel.BytesToString_Picture(like.User2.Picture, like.User2.PictureFormat);
                     }
 
-                    model.matchedUsers.Add(matchedUser);
+                    // Do not add deactivated users
+                    if (!like.User2.DeactivateRequest)
+                    {
+                        model.matchedUsers.Add(matchedUser);
+                    }
+
                 }
                 // User has liked this user but they haven't liked them back
                 else if (like.SlackId1 == currentUser.SlackId && !like.IsMatch)
@@ -846,7 +860,12 @@ namespace CBApp.Controllers
                         likedUser.PictureString = PotentialMatchUserViewModel.BytesToString_Picture(like.User2.Picture, like.User2.PictureFormat);
                     }
 
-                    model.likedButNotMatchedUsers.Add(likedUser);
+
+                    // Do not add deactivated users
+                    if (!like.User2.DeactivateRequest)
+                    {
+                        model.likedButNotMatchedUsers.Add(likedUser);
+                    }
                 }
                 // The other user has liked the current user but the current user has not liked them back
                 else if (like.SlackId2 == currentUser.SlackId && !like.IsMatch)
@@ -863,7 +882,11 @@ namespace CBApp.Controllers
                         likerUser.PictureString = PotentialMatchUserViewModel.BytesToString_Picture(like.User1.Picture, like.User1.PictureFormat);
                     }
 
-                    model.likers.Add(likerUser);
+                    // Do not add deactivated users
+                    if (!like.User1.DeactivateRequest)
+                    {
+                        model.likers.Add(likerUser);
+                    }
                 }
             }
 

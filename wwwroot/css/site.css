@@ -1619,7 +1619,7 @@ margin-bottom: 5px;
 /* Button to cancel/stop editing profile option or delete-button to delete
     a random question from the random-question generator
 */
-.cancel-button, .delete-button {
+.cancel-button, .delete-button, .confirm-delete-button {
     background-color: red;
     color: white;
     border: 2px solid black;

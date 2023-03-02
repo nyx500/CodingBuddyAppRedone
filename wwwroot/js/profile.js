@@ -979,8 +979,27 @@ function doNotDeleteButtonPressed() {
     })
 }
 
+// User confirms the deletion - delete the user from DB and redirect to Homepage
 function confirmDeleteButtonPressed() {
     $("#confirm-delete-button").click(function () {
-        console.log("confirmed delete");
+
+        $.ajax({
+            type: "POST",
+            url: "/Account/DeleteUser/",
+            data: {},
+            success: function (response) {
+                if (response) {
+                    window.location.replace("/home/index");
+                }
+                // Did not manage to delete: display error in red
+                else {
+                    $("#delete-label").text("Sorry, could not delete! Try later.")
+                }
+            }, 
+            error: function () {
+                $("#delete-label").text("Sorry, could not delete - server error! Try later.")
+            }
+        });
+
     })
 }

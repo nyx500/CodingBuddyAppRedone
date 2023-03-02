@@ -25,7 +25,12 @@
 
             @* Checks for notification *@
             string username = User.Identity.Name;
-            bool notification = userManager.Users.ToList().Where(u => u.UserName == username).FirstOrDefault<User>().HasNotification;
+            bool notification = false;
+            if (username != null && User != null && userManager != null && userManager.Users != null && User.Identity.Name != null)
+            {
+
+                notification = userManager.Users.ToList().Where(u => u.UserName == username).FirstOrDefault<User>().HasNotification;
+            }
 
             <li class="list-item">
                 <a>@Html.ActionLink("Find-a-Buddy!", "FindABuddy", "Matches")</a>

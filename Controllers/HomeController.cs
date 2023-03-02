@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Linq;
 using CBApp.Data;
 using CBApp.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Ajax.Utilities;
 
 namespace CBApp.Controllers
 {
@@ -16,21 +18,23 @@ namespace CBApp.Controllers
         // Access to the database
         private ApplicationDbContext _context { get; set; }
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context) // Need this to set up access to the database
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context,
+            UserManager<User> _userManager,
+            SignInManager<User> _signInManager
+        ) // Need this to set up access to the database
         {
             _logger = logger;
             _context = context;
+            userManager = _userManager;
+            signInManager = _signInManager;
         }
+
+        private UserManager<User> userManager;
+        private SignInManager<User> signInManager;
+
 
         public IActionResult Index()
         {
-            //Random random = new Random();
-            //int randomQuestionId = random.Next(1, 11);
-
-            //var question = _context.Questions.Find(randomQuestionId).QuestionString;
-
-            //return Content(question);
-
             return View();
         }
 

@@ -21,6 +21,9 @@ namespace CBApp.Models
             // Different display on profile dep. on whether user logged-in has rejected/liked this user
             public bool hasBeenRejected { get; set; }
             public bool hasBeenLiked { get; set; }
+
+            // Is user deactivated
+            public bool isDeactivated { get; set; }
         
     }
 
