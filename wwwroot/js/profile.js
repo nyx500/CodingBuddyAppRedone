@@ -960,6 +960,7 @@ function submitNewPassword(password, oldPassword) {
 function deleteUserAccountFunctionality() {
     deleteButtonPressed();
     doNotDeleteButtonPressed();
+    confirmDeleteButtonPressed();
 }
 
 function deleteButtonPressed() {
@@ -975,5 +976,11 @@ function doNotDeleteButtonPressed() {
     $("#cancel-delete-button").click(function () {
         $("#delete-account").removeClass("hidden");
         $("#delete-confirmation-container").addClass("hidden");
+    })
+}
+
+function confirmDeleteButtonPressed() {
+    $("#confirm-delete-button").click(function () {
+        console.log("confirmed delete");
     })
 }
