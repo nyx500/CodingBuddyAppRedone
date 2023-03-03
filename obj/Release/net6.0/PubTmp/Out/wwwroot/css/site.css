@@ -1290,6 +1290,9 @@ select.list-dt {
 }
 
 /* Third column on first panel: buttons that you don't want user to click by accident!*/
+#basic-info-third-col {
+    margin-left: 2%;
+}
 #basic-info-third-col div {
     margin-bottom: 20px !important;
 }

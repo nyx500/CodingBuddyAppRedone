@@ -34,52 +34,38 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                     <li class="fa" id="confirm"><strong>Finish</strong></li>
                                 </ul>
                                 <!-- fieldsets -->
+                                @* First "fieldset": registration form for basic account info - password, username, etc. *@
                                 <fieldset>
                                     <div class="form-card">
                                         <h3 class="fs-title">Account Information</h3>
                                         <br />
-                                        <br />
 
-                                        @{
-
-                                        if (errors != null && (errors.No_Slack_Id || errors.Invalid_Slack_Id ||
-                                        errors.Bad_Slack_Id_Length))
-                                        {
-                                                                                                                        <label style="color: red;" class="registration-error-message">
-                                                                                                                            Please enter a SlackID (only
-                                                                                                                                alphanumeric chars allowed, must include at least 1 number!)</label>
-
-                                            //    <input id="slackId" style="color: red;" asp-for="SlackId" class="form-control"
-                                            //type="text" name="slackIdInput" placeholder="SlackId" />
-
-                                                                                                                        @Html.EditorFor(model => model.SlackId, new { htmlAttributes = new { Style = "color: red;", @class = "form-control",
-                                            id = "slackId", placeholder="Slack ID"} })
-                                                                                                                        @Html.ValidationMessageFor(model => model.SlackId, "", new { @class = "text-danger" })
-                                        }
-                                        else
-                                        {   
-                                            //Hidden label for client-side validation script: 
-                                            // only appears if bad input detected in site.js file
-                                                                                                                        <label id="client-side-error-slack-id" style="display: none; text-align: left; color: red;">
-                                                                                                                            Invalid SlackID error: Must be between 5 and 50 chars, alphanumeric, and include
-                                                                                                                            at least one digit!
-                                                                                                                        </label>
-                                                                                                                         <label id="client-side-error-slack_id-taken" style="display: none; color: red;">
-                                                                                                                            SlackID is already taken!
-                                                                                                                        </label>
-                                            //    <input id="slackId" asp-for="SlackId" class="form-control" type="text"
-                                            //name="slackIdInput" placeholder="SlackId" />
-                                            <label id="slack-id-label">Please enter your Slack ID (alphanumeric chars only, at least 5 chars, enter at least one number!):</label>
-                                            <label id="slack-id-label-instructions"><em>To find your Slack member ID: go into your Slack workspace. Then click your profile icon on the top-right of the page.
-                                            Click on the three-dots bar next to "View As", and then on click "Copy Member Id!"
-                                            </em></label>
-                                                            @Html.EditorFor(model => model.SlackId, new { htmlAttributes = new {Style = "color: black;", @class = "form-control",
-                                            id = "slackId", placeholder="Slack ID"} }) @Html.ValidationMessageFor(model => model.SlackId, "", new { @class = "text-danger" })
-
-                                        }
-                                        }
+                                        @*SLACK ID INPUT SECTION*@
+                                        @* Hidden error labels that appear if user does not enter SlackID with JavaScript *@
+                                        <label id="client-side-error-slack-id" style="display: none; text-align: left; color: red;">
+                                            Invalid SlackID error: Must be between 5 and 50 chars, alphanumeric, and include
+                                            at least one digit!
+                                        </label>
+                                        <label id="client-side-error-slack-id-taken" style="display: none; color: red;">
+                                            SlackID is already taken!
+                                        </label>
+                                        @* Labels explaining to the user how to find their SlackID on Slack*@
+                                        <label id="slack-id-label">Please enter your Slack ID (alphanumeric chars only, at least 5 chars, enter at least one number!):</label>
+                                        <label id="slack-id-label-instructions">
+                                            <em>
+                                                To find your Slack member ID: go into your Slack workspace. Then click your profile icon on the top-right of the page.
+                                                Click on the three-dots bar next to "View As", and then on click "Copy Member Id!"
+                                            </em>
+                                        </label>
+                                        @* Space for server-side validation errors *@
                                         <span style="font-weight: 800!important; color:red; background-color: black;"
-                                            asp-validation-for="SlackId" class="text-danger"></span>
+                                              asp-validation-for="SlackId" class="text-danger"></span>
+                                        @* The actual input field together with formatting objects (e.g. text must be black!) *@
+                                        @Html.ValidationMessageFor(model => model.SlackId, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.SlackId, new { htmlAttributes = new {Style = "color: black;", @class = "form-control",
+                                        id = "slackId", placeholder="Slack ID"} }) 
+                                        @* End of the SlackID input section *@
+                                        
 
 
 

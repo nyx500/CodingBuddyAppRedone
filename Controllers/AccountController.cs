@@ -40,144 +40,7 @@ namespace CBApp.Controllers
         private UserManager<User> userManager;
         private SignInManager<User> signInManager;
 
-        [HttpGet]
-        public IActionResult Register()
-        {
-            // Logic to clear error list if user refreshes the page (to not highlight fields with bad input in red)
-            if (HttpContext.Session.GetInt32("RedirectToRegistrationForm") != null)
-            {
-                // If this is not a redirect from unsuccessful POST method, then the errors list should be cleared out
-                if (HttpContext.Session.GetInt32("RedirectToRegistrationForm") != 1)
-                {
-                    // Clear the error list if action method is not being called due to redirect from HttpPost method because of bad input
-                    if (HttpContext.Session.GetObject<FormErrors>("InputErrors") != null)
-                    {
-                        FormErrors emptyErrorList = new FormErrors();
-                        HttpContext.Session.SetObject("InputErrors", emptyErrorList);
-                    }
-                }
-            }
-
-            RegisterViewModel model = new RegisterViewModel();
-
-            // Populate view model with CareerPhases
-            model.careerPhaseSelectList = new List<SelectListItem>();
-
-            List<CareerPhase> careerPhases = context.CareerPhases.ToList();
-
-            foreach (var cp in careerPhases)
-            {
-                model.careerPhaseSelectList.Add(
-                    new SelectListItem
-                    {
-                        Text = cp.Name,
-                        Value = cp.CareerPhaseId.ToString()
-                    }
-                ); ;
-            }
-
-            // Populate view model with ExperienceLevels
-            model.experienceLevelSelectList = new List<SelectListItem>();
-
-            List<ExperienceLevel> experienceLevels = context.ExperienceLevels.ToList();
-
-            foreach (var e in experienceLevels)
-            {
-                model.experienceLevelSelectList.Add(
-                    new SelectListItem
-                    {
-                        Text = e.Name,
-                        Value = e.ExperienceLevelId.ToString()
-                    }
-                ); ;
-            }
-
-
-            // Populate view model with Genders
-            model.genderSelectList = new List<SelectListItem>();
-            List<Gender> genders = context.Genders.ToList();
-
-            foreach (var g in genders)
-            {
-                model.genderSelectList.Add(
-                    new SelectListItem
-                    {
-                        Text = g.Name,
-                        Value = g.GenderId.ToString()
-                    }
-                );
-            }
-
-            List<NaturalLanguage> nlangs = context.NaturalLanguages.ToList();
-
-            model.NaturalLanguagesViewModelList = new List<NaturalLanguageViewModel>();
-
-            foreach (var language in nlangs)
-            {
-                model.NaturalLanguagesViewModelList.Add(
-                    new NaturalLanguageViewModel
-                    {
-                        naturalLanguage = language,
-                        isSelected = false
-                    }
-                );
-            }
-
-            // Populates 'create user' view model with programming languages view models with isSelected fields for each language
-            List<ProgrammingLanguage> plangs = context.ProgrammingLanguages.ToList();
-            model.ProgrammingLanguagesViewModelList = new List<ProgrammingLanguageViewModel>();
-            foreach (var language in plangs)
-            {
-                model.ProgrammingLanguagesViewModelList.Add(
-                    new ProgrammingLanguageViewModel
-                    {
-                        programmingLanguage = language,
-                        isSelected = false
-                    }
-                );
-            }
-
-
-            // Populate view model with CS interests
-            List<CSInterest> interests = context.CSInterests.ToList();
-            model.CSInterestsViewModelList = new List<CSInterestViewModel>();
-
-            foreach (var interest in interests)
-            {
-                model.CSInterestsViewModelList.Add(
-                    new CSInterestViewModel
-                    {
-                        CSInterest = interest,
-                        isSelected = false
-                    }
-                );
-            }
-
-
-            // Populate view model with hobbies
-            List<Hobby> hobbies = context.Hobbies.ToList();
-            model.HobbiesViewModelList = new List<HobbyViewModel>();
-
-
-            foreach (var hobby in hobbies)
-            {
-                model.HobbiesViewModelList.Add(
-                    new HobbyViewModel
-                    {
-                        Hobby = hobby,
-                        isSelected = false
-                    }
-                );
-            }
-
-            HttpContext.Session.SetInt32("RedirectToRegistrationForm", 0);
-
-            return View(model);
-        }
-
-
-
-
+      
         [HttpGet]
         public IActionResult RegisterInSteps()
         {
@@ -620,13 +483,15 @@ namespace CBApp.Controllers
                     }
                 }
 
+                // Adds the new user to the database
                 context.Users.Add(user);
-
                 var result = await userManager.CreateAsync(user, model.Password);
 
                 // If the IdentityResult object is true, then sign the user in using a session cookie
                 if (result.Succeeded)
                 {
+                    context.SaveChanges();
+
                     await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }

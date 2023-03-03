@@ -63,15 +63,19 @@ $(document).ready(function () {
 
 
         // CLIENT-SIDE VALIDATION FOR ALL THE INPUT FIELDS ON THE FIRST PAGE (to put in separate functions later)
+        // Reset number of errors with every click/request to go to the next panel
         firstPageErrors = 0;
 
-        // Get slackId input value and check for validity (slackId client-side validation)
+        // Gets slackId input value and check for validity (slackId client-side validation)
         slackIdInputField = $("#slackId");
         slackIdValue = $("#slackId").val();
+        // Gets username input and value to check
         usernameInputField = $("#username-input");
         usernameValue = $("#username-input").val();
+        // Gets password input and value to check
         passwordInputField = $("#password-input");
         passwordValue = $("#password-input").val();
+        // Gets retyped-password input and value to check
         confirmPasswordInputField = $("#confirm-password-input");
         confirmPasswordValue = $("#confirm-password-input").val();
 
@@ -81,26 +85,48 @@ $(document).ready(function () {
         // continue on the form
         // Regex for SlackID --> alphanumeric chars only
         if (slackIdValue.length < 5 || slackIdValue.length > 50 || !slackIdValue.match(/^[0-9a-zA-Z]+$/) || !/\d/.test(slackIdValue)) {
-            // Add error CSS class to SlackId input field
+
+            // Increments the errors which make "next" button unable to click if greater than 0
             firstPageErrors += 1;
 
+            // Class appended to input which makes it outlined in red
             slackIdInputField.addClass("invalid-input");
 
+            // Display the error for wrong slackId-format
             $("#client-side-error-slack-id").css("display", "block");
+            // Hide the explanation labels
             $("#slack-id-label").css("display", "none");
+            // Hide the other error label (for SlackId already taken)
+            $("#client-side-error-slack-id-taken").css("display", "none");
         }
+        // SlackId has valid length and characters: do this code
         else {
-
+            // Slack Id has a good format: remove the red outline
             if (slackIdInputField.hasClass("invalid-input")) {
                 slackIdInputField.removeClass("invalid-input");
             }
 
+            // Hide the errors
             $("#client-side-error-slack-id").css("display", "none");
             $("#slack-id-label").css("display", "block");
 
             var slackIdNotAvailable = CheckIfSlackIdAvailable(slackIdValue);
+            // Returns 'true' --> someone already has this SlackId
             if (slackIdNotAvailable) {
+                // Show corresponding error message
+                $("#client-side-error-slack-id-taken").css("display", "block");
+                // Hide the explanation label
+                $("#slack-id-label").css("display", "none");
+                // Increments the errors which make "next" button unable to click if greater than 0
                 firstPageErrors++;
+            }
+            // Returns 'false' --> SlackId is available!
+            else
+            {   
+                // Hide the corresponding error message
+                $("#client-side-error-slack-id-taken").css("display", "none");
+                // Show the normal label
+                $("#slack-id-label").css("display", "block");
             }
         }
 
@@ -471,11 +497,13 @@ function CheckIfUsernameAvailable(usernameValue) {
 };
 
     
-// Same logic for SlackId
+// Same logic for SlackId: checks if someone has signed up with this SlackId already
 function CheckIfSlackIdAvailable(slackIdValue) {
 
     var slackId_data = { slackId: slackIdValue };
 
+
+    // Response from controller is 'false': output false - SlackID is available
     var result = false;
 
 
@@ -483,18 +511,12 @@ function CheckIfSlackIdAvailable(slackIdValue) {
         type: "POST",
         url: "/Account/CheckSlackId",
         data: slackId_data,
+        // Bad practice! But need async to complete otherwise cannot return the correct boolean value!!!
         async: false, 
         success: function (response) {
-            // Response from controller is 'true': can accept this username because it is unique
+            // Response from controller is 'true': SlackID is taken! Output error
             if (response) {
-                // Hide the 'username already taken' error-message in the view
-                $("#client-side-error-slack_id-taken").css("display", "block");
                 result = true;
-            }
-            // Response from controller is 'false': can accept the username
-            else {
-                // Display the 'username already taken' error-message in the view
-                $("#client-side-error-slack_id-taken").css("display", "none");
             }
         }
     });

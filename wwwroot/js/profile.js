@@ -199,7 +199,6 @@ function updateBioFunctionality() {
         }
 
         // Place cursor on top left-corner of textarea input
-        // Attribution: https://stackoverflow.com/questions/17158802/using-jquery-selector-and-setselectionrange-is-not-a-function
         var textarea = $('#edit-bio-input')[0];
         $('#edit-bio-input').focus(function () {
             textarea.setSelectionRange(0, 0);
