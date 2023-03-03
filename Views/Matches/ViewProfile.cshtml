@@ -254,16 +254,26 @@
                         @* Hobbies Data*@
                         <div id="hobbies-data">
                             <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Hobbies and Interests:</p>
-                            <ul class="preference-list">
-                                @for (var i = 0; i < Model.HobbyNames!.Count(); i++)
-                                {
-                                    <li>
-                                        <div class="preference-container">
-                                            @Html.DisplayFor(model=>model.HobbyNames![i])
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
+                            @if (Model.HobbyNames!.Count() == 0)
+                            {
+                                <p class="explanation"><em>You have no hobbies selected.</em></p>
+                                <div>
+                                    <button class="edit-button" id="edit-hobbies">Add Hobbies</button>
+                                </div>
+                            }
+                            else
+                            {
+                                <ul class="preference-list">
+                                    @for (var i = 0; i < Model.HobbyNames!.Count(); i++)
+                                    {
+                                        <li>
+                                            <div class="preference-container">
+                                                @Html.DisplayFor(model=>model.HobbyNames![i])
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            }
                         </div>
                     </div>
                     @*End of hobbies section*@

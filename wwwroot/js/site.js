@@ -44,6 +44,8 @@ $(document).ready(function () {
     matchPageLikeUser();
     // Go to the last-visited panel
     getTheRightPanel();
+    // Open the warning to complete profile on hover if Profile link is red
+    showProfileIncompleteWarning();
 
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
@@ -419,26 +421,9 @@ $(document).ready(function () {
         }
 
 
-        var hobbyCount = 0;
-        $(".hobby-checkbox").each(function (i, obj) {
-           
-            if (obj.checked) {
-                hobbyCount++;
-            }
-        });
-
-        if (hobbyCount < 3 || hobbyCount > 10) {
-            $("#hobbiesLabel").addClass("invalid-input");
-            $("#hobbiesLabel").css("color", "red");
-            thirdPageErrors++;
-        }
-        else {
-            $("#hobbiesLabel").removeClass("invalid-input");
-            $("#hobbiesLabel").css("color", "black");
-        }
-
         // If there are no errors, print Success message in JS console
         if (thirdPageErrors == 0) {
+            console.log("submitted the form");
             $("#registration-form").submit();
         }
 
@@ -940,3 +925,15 @@ function displayAllLanguagesOnRegistration() {
     });
 }
 
+function showProfileIncompleteWarning() {
+    $("#profile-incomplete-warning").mouseenter(
+        function () {
+            $("#profile-completion-container").removeClass("hidden");
+        }
+    );
+    $("#profile-completion-container").mouseleave(
+        function () {
+            $("#profile-completion-container").addClass("hidden");
+        }
+    );
+}

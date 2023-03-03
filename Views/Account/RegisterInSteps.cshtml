@@ -193,7 +193,7 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                                             @* Class logic above means only most common languages will be shown unless user clicks the "show more" button*@
                                                             var checkboxId = "lang-checkbox-" + (i + 1).ToString();
                                                             <li>
-                                                                @Html.HiddenFor(model => model.NaturalLanguagesViewModelList![i])
+                                                                @Html.HiddenFor(model => model.NaturalLanguagesViewModelList![i].naturalLanguage)
                                                                 @Html.CheckBoxFor(model =>
                                                                 model.NaturalLanguagesViewModelList![i].isSelected, new {
                                                                 @class="lang-checkbox", @id = checkboxId, @type="checkbox" })
@@ -218,7 +218,8 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                     <input type="button" name="next" class="next action-button" id="second"
                                         value="Next Step" />
                                 </fieldset>
-                                @* End of career options/languages fieldset*@
+                                @* End of career options/natural languages fieldset*@
+                                @* Programming interests + hobbies fieldset *@
                                 <fieldset>
                                     <div class="form-card">
                                         <h3 class="fs-title">Skills and Interests</h3>
@@ -227,7 +228,7 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                         <div class="form-group" style="padding: 10px;">
                                             <b>
                                                 @Html.LabelFor(model => model.ProgrammingLanguagesViewModelList,
-                                                htmlAttributes: new {Style = "color: white; ", @class = "control-label",id="progLangsLabel" })
+                                                htmlAttributes: new { @class = "control-label",id="progLangsLabel" })
                                             </b>
                                             <br />
                                             <div class="checkbox-container">
@@ -275,35 +276,7 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                                 </ul>
                                             </div>
                                         </div>
-
                                         <br />
-                                        <br />
-                                        <div class="form-group" style="padding: 10px;">
-                                            <b>
-                                                <label class="control-label" id="hobbiesLabel">
-                                                    Please select 3-10 hobbies!
-                                                </label>
-                                            </b>
-                                            <br />
-                                            <div class="checkbox-container">
-                                                <ul class="checkbox-unordered-list">
-                                                    @for (var i = 0; i < Model.HobbiesViewModelList!.Count(); i++)
-                                                    {
-                                                        // Create an ID property for each checkbox by concatenating a string with the index-number
-                                                        var checkboxId = "hobby-checkbox-" + (i + 1).ToString();
-                                                        <li>
-                                                            @Html.HiddenFor(model => model.HobbiesViewModelList![i])
-                                                            @Html.CheckBoxFor(model =>
-                                                        model.HobbiesViewModelList![i].isSelected, new {
-                                                        @class="hobby-checkbox", @id = checkboxId, @type="checkbox" })
-                                                            @Html.Label(Model.HobbiesViewModelList![i].Hobby!.Name, Model.HobbiesViewModelList![i].Hobby!.Name,
-                                                        htmlAttributes: new { @for = checkboxId })
-                                                        </li>
-                                                    }
-                                                </ul>
-                                            </div>
-                                        </div>
-
                                     </div>
                                     <input type="button" name="previous" class="previous action-button-previous"
                                         value="Previous" />

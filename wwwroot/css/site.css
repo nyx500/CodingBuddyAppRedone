@@ -218,6 +218,28 @@ will truncate terms that are too long to fit in the left column
     margin-bottom: 8px;
 }
 
+/* Pop-up if profile incomplete */
+/* Attribution: https://www.w3schools.com/howto/howto_js_popup.asp */
+#profile-completion-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+#profile-completion-message {
+    width: 500px;
+    background-color: grey;
+    color: black;
+    height:fit-content;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    top: 0%;
+    left: 4%;
+    margin-left: -400px;
+}
+
 /* Navbar Settings for Tablet and Mobile < 1200px Size Screens */
 @media all and (max-width: 1200px) {
 
@@ -1064,6 +1086,10 @@ fieldset label {
     color: blueviolet;
 }
 
+#progLangsLabel {
+    color: white;
+}
+
 /*Styling for checkbox options*/
 .checkbox-container {
     font-family: Gordita, Verdana, Arial, sans-serif;
@@ -1160,7 +1186,9 @@ display: inline !important;
     border: 2px solid var(--peachyYellow);
 }
 
-/*Rdit Profile Page*/
+
+
+/*Edit Profile Page*/
 .profile-header {
     color: white;
     font-family: Anton, Verdana, Arial, sans-serif;
@@ -1306,7 +1334,7 @@ display: inline !important;
 
 /* Third column on first panel: buttons that you don't want user to click by accident!*/
 #basic-info-third-col {
-    margin-left: 2%;
+    margin-left: 20%;
 }
 #basic-info-third-col div {
     margin-bottom: 20px !important;
@@ -1530,6 +1558,10 @@ display: inline !important;
     padding: 10px 20px;
     width: 200px;
     margin-bottom: 100px;
+}
+/* Make hobbies div stretch across the whole panel */
+#panel-three-col {
+    width: 100%;
 }
 
 /* Button to reset the rejections*/

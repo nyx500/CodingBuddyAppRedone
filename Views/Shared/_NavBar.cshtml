@@ -26,11 +26,9 @@
             @* Checks for notification *@
             string username = User.Identity.Name;
             bool notification = false;
-            if (username != null && User != null && userManager != null && userManager.Users != null && User.Identity.Name != null)
-            {
-
-                notification = userManager.Users.ToList().Where(u => u.UserName == username).FirstOrDefault<User>().HasNotification;
-            }
+            User user = userManager.Users.ToList().Where(u => u.UserName == username).FirstOrDefault<User>();
+            notification = user.HasNotification;
+            
 
             <li class="list-item">
                 <a>@Html.ActionLink("Find-a-Buddy!", "FindABuddy", "Matches")</a>
@@ -48,20 +46,40 @@
                     <a>@Html.ActionLink("My Matches", "Matches", "Matches")</a>
                 </li>
             }
-
             
         }
     </ul>
     <ul id="login-list" class="login-signup-list">
         @if (signInManager.IsSignedIn(User))
-        {
+        {   
+            // Get the current user
+            string username = User.Identity.Name;
+            User user = userManager.Users.ToList().Where(u => u.UserName == username).FirstOrDefault<User>();
             @*Displays the username if the user is logged in*@
-            <li class="list-item">
-                @*Links to the edit user page when click on username*@
-                <a asp-action="EditProfile" asp-controller="Account"
-               asp-area="" style="color:blueviolet!important; text-decoration: underline;">@User.Identity!.Name</a>
-            </li>
-
+                @* Tell current user to fill in profile if no hobbies selected*@
+                @if(user.HobbyUsers.Count() == 0)
+            {
+                    <li class="list-item" id="profile-incomplete-warning">
+                        <i style="color: red;" class="fas fa-exclamation-circle"></i>
+                        @*Links to the edit user page when click on username*@
+                        <a asp-action="EditProfile" asp-controller="Account"
+                            asp-area="" style="color:red!important; text-decoration: underline;">@User.Identity!.Name</a>
+                    </li>
+                    <div class="hidden" id="profile-completion-container">
+                        <div id="profile-completion-message">
+                            You have not selected any hobbies. Please click on this link to edit your profile and add more hobbies
+                            on the "hobbies" tab to get better matches!
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <li class="list-item">
+                        @*Links to the edit user page when click on username*@
+                        <a asp-action="EditProfile" asp-controller="Account"
+                        asp-area="" style="color:blueviolet!important; text-decoration: underline;">@User.Identity!.Name</a>
+                    </li>
+                }
             <li class="list-item">
                 <form method="post" asp-action="LogOut" asp-controller="Account"
                   asp-area="">

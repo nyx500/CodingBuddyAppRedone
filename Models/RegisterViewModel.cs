@@ -69,11 +69,6 @@ namespace CBApp.Models
         [Display(Name = "Select your Computer Science interests (please select at least one):")]
         public List<CSInterestViewModel>? CSInterestsViewModelList { get; set; }
 
-        
-
-        [Display(Name = "Select your favourite hobbies (please select between **3-10** hobbies!):")]
-        public List<HobbyViewModel>? HobbiesViewModelList { get; set; }
-
 
     }
 }
