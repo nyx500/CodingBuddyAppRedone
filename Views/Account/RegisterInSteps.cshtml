@@ -11,14 +11,14 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
 
 
     <!-- MultiStep Form -->
-    <div class="registration-container justify-content-left p-0">
+    <div id="registration-wizard-form" class="registration-container justify-content-left p-0">
         <div class="wizard-page w-100 m-0 container-fluid p-0">
         @*Attribution for complex Bootstrap responsive wizard form structure: https://bbbootstrap.com/snippets/multi-step-form-wizard-30467045 /*@
         @*Attribution for how to move a Bootstrap element further down the page: https://stackoverflow.com/questions/31574775/move-a-bootstrap-input-element-further-down-the-page*@
         <div class="row justify-content-left align-items-center mx-0 px-0 py-0 h-100">
             <div class="col w-100 text-center col-11 col-sm-9 col-md-7 col-lg-6 mt-3 mb-2 px-0 mx-0">
                 <div class="card form-card">
-                    <h2><strong>Sign Up</strong></h2>
+                    <h2><strong id="sign-up-title">Sign Up</strong></h2>
                     <p>Fill in all the form fields to go to the next step...</p>
                     <div class="row">
                         <div class="col mx-0">
@@ -59,11 +59,6 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                                 Click on the three-dots bar next to "View As", and then on click "Copy Member Id!"
                                             </em>
                                         </label>
-                                        @* Space for server-side validation errors *@
-                                        <span style="font-weight: 800!important; color:red; background-color: black;"
-                                              asp-validation-for="SlackId" class="text-danger"></span>
-                                        @* The actual input field together with formatting objects (e.g. text must be black!) *@
-                                        @Html.ValidationMessageFor(model => model.SlackId, "", new { @class = "text-danger" })
                                         @Html.EditorFor(model => model.SlackId, 
                                             new { htmlAttributes = new {Style = "color: black;", @class = "form-control",
                                         id = "slackId", placeholder="Slack ID"} }) 
@@ -83,11 +78,8 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                             Username is already taken - please choose a different one!
                                         </label>
                                         @* Label for what to enter *@
-                                        <label id="username-label">Please enter a username (alphanumeric and '_' only, at least 6 characters):</label>
-                                        @* Server-side asp-validation label *@
-                                        <span style="font-weight: 800!important; color:red; background-color: black;"
-                                              asp-validation-for="UserName" class="text-danger"></span>
-                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                        <label id="username-label">Please enter a username (alphanumeric and '_' only, 
+                                            at least 6 characters):</label>
                                         @* Input field *@
                                         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { placeholder="Username",
                                             Style = "color: black;", @class = "form-control", id="username-input" } })
@@ -100,10 +92,6 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                         </label>
                                         @* Normal, non-error label for password *@
                                         <label id="password-label">Please enter a password (at least 6 chars):</label>
-                                        @* Server-side validation message *@
-                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                                        <span style="font-weight: 800!important; color: red; background-color: black;"
-                                              asp-validation-for="Password" class="text-danger"></span>
                                         @* Input field*@
                                         @Html.EditorFor(model => model.Password, new { htmlAttributes =
                                             new { placeholder="Password", Style = "color: black;", id="password-input", 
@@ -118,10 +106,6 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                         <label id="confirm-password-label">
                                             Please type in your password again here to confirm:
                                         </label>
-                                        @* Server-side validation message *@
-                                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                                        <span style="font-weight: 800!important; color: red; background-color: black;"
-                                              asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                         @* Input field *@
                                         @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { placeholder="Confirm password",
                                             Style = "color: black;", id="confirm-password-input", @class = "form-control", type="password" } })
@@ -133,56 +117,80 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                         value="Next Step" />
                                 </fieldset>
                                 @* End of the first "general information/basic account info" step in the registration process*@
+
+                                @* Beginning of the second step/fieldset: career stage, experience level, languages *@
                                 <fieldset>
                                     <div class="form-card">
                                         <h3 class="fs-title">Personal Information</h3>
+                                        @* Dropdown for "career phase" option *@
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.SelectedCareerPhaseId, htmlAttributes: new {
-                                            Style = "color: black;", @class = "control-label col-md-6", id="career-phase-label" })
+                                            @* Label to select career *@
+                                            <label class="control-label col-md-6" id="career-phase-label">*Career phase:</label>
                                             <div class="col-md-10">
+                                                @* Dropdown with career phase options*@
                                                 @Html.DropDownListFor(model => model.SelectedCareerPhaseId, new
                                                 SelectList(Model.careerPhaseSelectList, "Value", "Text"),
                                                 "Select Career Phase", new { @class = "form-control", @id = "career-phases-dropdown"})
-                                                @Html.ValidationMessageFor(model => model.SelectedCareerPhaseId, "", new
-                                                { @class = "text-danger" })
                                             </div>
                                             <br />
                                         </div>
+                                        @* Dropdown for "experience level " option *@
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.SelectedExperienceLevelId, htmlAttributes: new
-                                        { Style = "color: black;", @class = "control-label col-md-6", id="experience-level-label" })
+                                            @* Label *@
+                                            <label class="control-label col-md-6" id="experience-level-label">*Experience Level:</label>
                                             <div class="col-md-10">
+                                                @* Dropdown options *@
                                                 @Html.DropDownListFor(model => model.SelectedExperienceLevelId, new
                                                 SelectList(Model.experienceLevelSelectList, "Value", "Text"),
                                                 "Select Your Experience Level", new { @class = "form-control", @id = "experience-levels-dropdown"})
-                                                @Html.ValidationMessageFor(model => model.SelectedExperienceLevelId, "",
-                                                new { @class = "text-danger" })
                                             </div>
                                         </div>
                                         <br />
+                                        @* OPTIONAL: gender dropdown *@
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.SelectedGenderId, htmlAttributes: new { Style
-                                            = "color: black;", @class = "control-label col-md-6" })
+                                            <label class="control-label col-md-6" id="gender-label">*Gender (optional):</label>
                                             <div class="col-md-10">
+                                                @* The dropdown for gender options *@
                                                 @Html.DropDownListFor(model => model.SelectedGenderId, new
                                                 SelectList(Model.genderSelectList, "Value", "Text"),
                                                 "Select Your Gender (optional)", new { @class = "form-control", @id = "gender-dropdown"})
-                                                @Html.ValidationMessageFor(model => model.SelectedGenderId, "", new {
-                                                @class = "text-danger" })
                                             </div>
                                         </div>
 
-                                        <br />
+                                        @* List of spoken languages *@
                                         <br />
                                         <div class="form-group" style="padding: 10px;">
                                             <b>@Html.LabelFor(model => model.NaturalLanguagesViewModelList,
                                                 htmlAttributes: new {Style = "color: white; ", @class = "control-label" }) </b>
                                             <br />
-                                            <div class="checkbox-container">
+                                            <div id="natural-language-checkbox-container" class="checkbox-container">
                                                 <ul class="checkbox-unordered-list">
                                                     @for (var i = 0; i < Model.NaturalLanguagesViewModelList!.Count(); i++)
-                                                    {   
-                                                            // Create an ID property for each checkbox by concatenating a string with the index-number
+                                                    {
+                                                            var className = "";    
+
+                                                            // Add the hidden class to all languages but the most frequently-spoken/common ones
+                                                             @if (Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Mandarin" &&
+                                                               Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "English" &&
+                                                               Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Spanish" &&
+                                                               Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Arabic" &&
+                                                               Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Hindi" &&
+                                                               Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Bengali" &&
+                                                               Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Portuguese" &&
+                                                               Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Russian" &&
+                                                               Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Japanese" &&
+                                                               Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "French" &&
+                                                               Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "German")
+                                                            {
+                                                                className = "language-label hidden";
+                                                            }
+                                                            // For common languages, add the "common-language" class to be able to toggle with these always showing
+                                                            else
+                                                            {
+                                                            className = "language-label common-language";
+                                                            }
+
+                                                    // Create an ID property for each checkbox by concatenating a string with the index-number
                                                             var checkboxId = "lang-checkbox-" + (i + 1).ToString();
                                                             <li>
                                                                 @Html.HiddenFor(model => model.NaturalLanguagesViewModelList![i])
@@ -190,10 +198,15 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                                                 model.NaturalLanguagesViewModelList![i].isSelected, new {
                                                                 @class="lang-checkbox", @id = checkboxId, @type="checkbox" })
                                                                 @Html.Label(Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,
-                                                                htmlAttributes: new { @for = checkboxId })
+                                                                htmlAttributes: new { @for = checkboxId, @class=className })
                                                             </li>   
                                                     }
                                                 </ul>
+                                                <div id="show-more-languages-container"">
+                                                    <button value="Show all" type="button" id="show-more-languages-button">
+                                                        Show all
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

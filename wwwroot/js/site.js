@@ -57,6 +57,8 @@ $(document).ready(function () {
     var passwordValue;
     var confirmPasswordInputField;
     var confirmPasswordValue;
+    // Show all languages when user clicks the button to show more
+    displayAllLanguagesOnRegistration()
 
 
     $("#first").click(function () {
@@ -98,6 +100,10 @@ $(document).ready(function () {
             $("#slack-id-label").css("display", "none");
             // Hide the other error label (for SlackId already taken)
             $("#client-side-error-slack-id-taken").css("display", "none");
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
         }
         // SlackId has valid length and characters: do this code
         else {
@@ -119,6 +125,10 @@ $(document).ready(function () {
                 $("#slack-id-label").css("display", "none");
                 // Increments the errors which make "next" button unable to click if greater than 0
                 firstPageErrors++;
+
+                // Go to the top of the form
+                gotToTopOfDiv($("#registration-wizard-form"));
+
             }
             // Returns 'false' --> SlackId is available!
             else
@@ -145,6 +155,10 @@ $(document).ready(function () {
             // Hide the other error message if showing
             $("#client-side-error-username-taken").css("display", "none");
 
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
+
         }
         // Username has valid format
         else {
@@ -170,6 +184,11 @@ $(document).ready(function () {
                 $("#client-side-error-username-taken").css("display", "block");
                 // Hide normal label
                 $("#username-label").css("display", "none");
+
+                // Go to the top of the form
+                gotToTopOfDiv($("#registration-wizard-form"));
+
+
             }
             else {
                 // Hide the 'username already taken' error-message in the view
@@ -193,6 +212,11 @@ $(document).ready(function () {
             $("#client-side-error-password").css("display", "block");
             // Hide the normal label
             $("#password-label").css("display", "none");
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
+
         }
         // Password has good length
         else {
@@ -218,6 +242,10 @@ $(document).ready(function () {
             $("#client-side-error-confirm-password").css("display", "block");
             // Hide the normal label
             $("#confirm-password-label").css("display", "none");
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
         }
         // Passwords match
         else {
@@ -234,20 +262,21 @@ $(document).ready(function () {
 
         // Only let user continue if there are no errors
         if (firstPageErrors == 0)
-        {
-
+        {   
+            // Go to the next step
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
 
-            //Add Class Active
+            // Show which step is active on the progress bar
             $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-            //show the next fieldset
+
+            // Display the next fieldset
             next_fs.show();
 
-            //hide the current fieldset with style
+            // Hide the current fieldset
             current_fs.animate({ opacity: 0 }, {
                 step: function (now) {
-                    // for making fielset appear animation
+                    // Fade the current fieldset
                     opacity = 1 - now;
 
                     current_fs.css({
@@ -258,40 +287,61 @@ $(document).ready(function () {
                 },
                 duration: 600
             });
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
         }
-
-
     });
 
-
+    // Click on "next" button in the second step
     $("#second").click(function () {
 
         secondPageErrors = 0;
 
-        // Validate career-phase selected
+        // Validate the career-phase selected
         if ($("#career-phases-dropdown").val() === "") {
-            secondPageErrors += 1;
-            $("#career-phases-dropdown").addClass("invalid-input");
+            secondPageErrors++;
+
+            // Make label red
             $("#career-phase-label").css("color", "red");
+
+            // Add red border to dropdown input field
+            $("#career-phases-dropdown").addClass("invalid-input");
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
         }
         else {
+            // Remove red border
             if ($("#career-phases-dropdown").hasClass("invalid-input")) {
                 $("#career-phases-dropdown").removeClass("invalid-input");
             }
-            $("#career-phase-label").css("color", "black");
+            // Change label back to white
+            $("#career-phase-label").css("color", "white");
         }
 
-        //Validate experience-level selected
+        // Validate experience-level selected
         if ($("#experience-levels-dropdown").val() === "") {
-            secondPageErrors += 1;
+            // Increment the error counter
+            secondPageErrors++;
+            // Add red border
             $("#experience-levels-dropdown").addClass("invalid-input");
+            //Make the label red
             $("#experience-level-label").css("color", "red");
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
         }
         else {
+            // Remove red border
             if ($("#experience-levels-dropdown").hasClass("invalid-input")) {
                 $("#experience-levels-dropdown").removeClass("invalid-input");
             }
-            $("#experience-level-label").css("color", "black");
+            // Make the label go back to white
+            $("#experience-level-label").css("color", "white");
         }
 
         if (secondPageErrors == 0) {
@@ -317,6 +367,10 @@ $(document).ready(function () {
                 },
                 duration: 600
             });
+
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
         }
     }
     )
@@ -416,6 +470,9 @@ $(document).ready(function () {
             },
             duration: 600
         });
+
+        // Go to the top of the form
+        gotToTopOfDiv($("#registration-wizard-form"));
     });
 });
 
@@ -846,3 +903,40 @@ function getTheRightPanel() {
     }
 
 }
+
+// Go to top of a scrollable container
+function gotToTopOfDiv(container) {
+
+    container.animate({ scrollTop: 0 }, "fast");
+}
+
+
+// Shows all the natural languages on registration page
+function displayAllLanguagesOnRegistration() {
+    $("#show-more-languages-button").click(function () {
+
+        // Display all the languages if "show more" is written on the button
+        if ($("#show-more-languages-button").val() == "Show all") {
+            $(".language-label").each(function () {
+                $(this).removeClass("hidden");
+            });
+
+            // Change the value/text of the toggle button from "show all" to "hide"
+            $("#show-more-languages-button").val("Hide");
+            $("#show-more-languages-button").text("Hide");
+        }
+        // Hide all languages except the most common ones if "hide" is written on the button
+        else {
+            $(".language-label").each(function () {
+                if (!$(this).hasClass("common-language")) {
+                    $(this).addClass("hidden");
+                }
+            });
+            // Change the value/text of the toggle button from "hide" to "show all"
+            $("#show-more-languages-button").val("Show all");
+            $("#show-more-languages-button").text("Show all");
+        }
+
+    });
+}
+
