@@ -169,7 +169,7 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                                     {
                                                             var className = "";    
 
-                                                            // Add the hidden class to all languages but the most frequently-spoken/common ones
+                                                            @* Add the hidden class to all languages but the most frequently-spoken/common ones *@
                                                              @if (Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Mandarin" &&
                                                                Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "English" &&
                                                                Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Spanish" &&
@@ -190,7 +190,7 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                                             className = "language-label common-language";
                                                             }
 
-                                                    // Create an ID property for each checkbox by concatenating a string with the index-number
+                                                            @* Class logic above means only most common languages will be shown unless user clicks the "show more" button*@
                                                             var checkboxId = "lang-checkbox-" + (i + 1).ToString();
                                                             <li>
                                                                 @Html.HiddenFor(model => model.NaturalLanguagesViewModelList![i])
@@ -202,19 +202,23 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                                             </li>   
                                                     }
                                                 </ul>
+                                                @* Div containing the "show more" button *@
                                                 <div id="show-more-languages-container"">
+                                                    @* Toggles showing all languages on/off *@
                                                     <button value="Show all" type="button" id="show-more-languages-button">
                                                         Show all
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
+                                        @* End of spoken languages section *@
                                     </div>
                                     <input type="button" name="previous" class="previous action-button-previous"
                                         value="Previous" />
                                     <input type="button" name="next" class="next action-button" id="second"
                                         value="Next Step" />
                                 </fieldset>
+                                @* End of career options/languages fieldset*@
                                 <fieldset>
                                     <div class="form-card">
                                         <h3 class="fs-title">Skills and Interests</h3>
