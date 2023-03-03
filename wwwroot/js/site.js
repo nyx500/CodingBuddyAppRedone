@@ -133,60 +133,102 @@ $(document).ready(function () {
 
         // Validate username
         if (usernameValue.length < 6 || !usernameValue.match(usernameRegex) || usernameValue > 70) {
-            firstPageErrors += 1;
+            firstPageErrors++;
+
+            // Highlight the input field in red by adding a class with a red border property
             usernameInputField.addClass("invalid-input");
 
-
+            // Display the formatting error label
             $("#client-side-error-username").css("display", "block");
+            // Hide the normal label
             $("#username-label").css("display", "none");
+            // Hide the other error message if showing
+            $("#client-side-error-username-taken").css("display", "none");
 
         }
+        // Username has valid format
         else {
+            // Clear the red border in the input field
             if (usernameInputField.hasClass("invalid-input")) {
                 usernameInputField.removeClass("invalid-input");
             }
-
+            // Hide the error message
             $("#client-side-error-username").css("display", "none");
+            // Display the normal label
             $("#username-label").css("display", "block");
 
-
+            // Ajax function to check if username exists
             var usernameNotAvailable = (CheckIfUsernameAvailable(usernameValue));
 
+            // If true - username is already taken
             if (usernameNotAvailable) {
+
+                // Increment the error counter
                 firstPageErrors++;
+
+                // Display the 'username already taken' error-message in the view
+                $("#client-side-error-username-taken").css("display", "block");
+                // Hide normal label
+                $("#username-label").css("display", "none");
+            }
+            else {
+                // Hide the 'username already taken' error-message in the view
+                $("#client-side-error-username-taken").css("display", "none");
+                // Show normal label
+                $("#username-label").css("display", "block");
             }
 
         }
 
 
+        // Validating the password
+        if (passwordValue.length < 6) {
 
-        // Validate password
-        if (passwordValue.length < 10) {
-            firstPageErrors += 1;
+            // Increment the error counter
+            firstPageErrors++;
+
+            // Highlights the field in red
             passwordInputField.addClass("invalid-input");
+            // Display the error message saying password is too short
             $("#client-side-error-password").css("display", "block");
+            // Hide the normal label
             $("#password-label").css("display", "none");
         }
+        // Password has good length
         else {
+            // Remove the red border around the input field
             if (passwordInputField.hasClass("invalid-input")) {
                 passwordInputField.removeClass("invalid-input");
             }
+            // Hide the error message
             $("#client-side-error-password").css("display", "none");
+            // Display the normal label
             $("#password-label").css("display", "block");
         }
 
-        // Validation of passwords matching
-        if (passwordValue.length > 10 && passwordValue != confirmPasswordValue) {
-            firstPageErrors += 1;
+        // Validation of whether the two passwords match
+        if (passwordValue != confirmPasswordValue) {
+            // Increment the error counter
+            firstPageErrors++;
+
+            // Make confirm password field outlined in red
             confirmPasswordInputField.addClass("invalid-input");
+
+            // Show the confirm password error message
             $("#client-side-error-confirm-password").css("display", "block");
+            // Hide the normal label
             $("#confirm-password-label").css("display", "none");
         }
+        // Passwords match
         else {
+
+            // Get rid of the red border around the password confirmation input
             if (confirmPasswordInputField.hasClass("invalid-input")) {
                 confirmPasswordInputField.removeClass("invalid-input");
             }
+            // Hide the error message
             $("#client-side-error-confirm-password").css("display", "none");
+            // Show the normal label
             $("#confirm-password-label").css("display", "block");
         }
 
@@ -481,14 +523,7 @@ function CheckIfUsernameAvailable(usernameValue) {
         success: function (response) {
             // Response from controller is 'true': username is taken already
             if (response) {
-                // Display the 'username already taken' error-message in the view
-                $("#client-side-error-username-taken").css("display", "block");
                 result = true;
-            }
-            // Response from controller is 'false': can accept the username
-            else {
-                // Hide the 'username already taken' error-message in the view
-                $("#client-side-error-username-taken").css("display", "none");
             }
         }
     });

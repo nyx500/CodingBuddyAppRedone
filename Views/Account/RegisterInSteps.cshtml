@@ -50,10 +50,12 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                             SlackID is already taken!
                                         </label>
                                         @* Labels explaining to the user how to find their SlackID on Slack*@
-                                        <label id="slack-id-label">Please enter your Slack ID (alphanumeric chars only, at least 5 chars, enter at least one number!):</label>
+                                        <label id="slack-id-label">Please enter your Slack ID (alphanumeric chars only, 
+                                            at least 5 chars, enter at least one number!):</label>
                                         <label id="slack-id-label-instructions">
                                             <em>
-                                                To find your Slack member ID: go into your Slack workspace. Then click your profile icon on the top-right of the page.
+                                                To find your Slack member ID: go into your Slack workspace. 
+                                                Then click your profile icon on the top-right of the page.
                                                 Click on the three-dots bar next to "View As", and then on click "Copy Member Id!"
                                             </em>
                                         </label>
@@ -62,112 +64,75 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                               asp-validation-for="SlackId" class="text-danger"></span>
                                         @* The actual input field together with formatting objects (e.g. text must be black!) *@
                                         @Html.ValidationMessageFor(model => model.SlackId, "", new { @class = "text-danger" })
-                                        @Html.EditorFor(model => model.SlackId, new { htmlAttributes = new {Style = "color: black;", @class = "form-control",
+                                        @Html.EditorFor(model => model.SlackId, 
+                                            new { htmlAttributes = new {Style = "color: black;", @class = "form-control",
                                         id = "slackId", placeholder="Slack ID"} }) 
                                         @* End of the SlackID input section *@
                                         
 
 
+                                        @* Username Section *@
+                                        @* Hidden error messages*@
+                                        @* Error message about bad format*@
+                                        <label id="client-side-error-username" style="display: none; color: red;">
+                                            Invalid username error: Must be between 6 and 70 chars, and only include
+                                            alphanumeric characters and '_'.
+                                        </label>
+                                        @* Error message saying SlackId is already taken*@
+                                        <label id="client-side-error-username-taken" style="display: none; color: red;">
+                                            Username is already taken - please choose a different one!
+                                        </label>
+                                        @* Label for what to enter *@
+                                        <label id="username-label">Please enter a username (alphanumeric and '_' only, at least 6 characters):</label>
+                                        @* Server-side asp-validation label *@
+                                        <span style="font-weight: 800!important; color:red; background-color: black;"
+                                              asp-validation-for="UserName" class="text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                        @* Input field *@
+                                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { placeholder="Username",
+                                            Style = "color: black;", @class = "form-control", id="username-input" } })
+                                        @* End of Username section*@
 
+                                        @* Beginning of password section *@
+                                        @* Error related to password length (hidden) *@
+                                        <label id="client-side-error-password" style="display: none; color: red;">
+                                            Please enter a password of length at least 10 characters!
+                                        </label>
+                                        @* Normal, non-error label for password *@
+                                        <label id="password-label">Please enter a password (at least 6 chars):</label>
+                                        @* Server-side validation message *@
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                        <span style="font-weight: 800!important; color: red; background-color: black;"
+                                              asp-validation-for="Password" class="text-danger"></span>
+                                        @* Input field*@
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes =
+                                            new { placeholder="Password", Style = "color: black;", id="password-input", 
+                                            @class = "form-control", type="password" } })
 
-                                        @{
-                                        if (errors != null && (errors.No_Username || errors.Invalid_Username ||
-                                        errors.Bad_Username_Length))
-                                        {
-                                                                                                                        <label style="color: red;" class="registration-error-message">Please enter a username containing
-                                                                                                                            only alphanumeric characters and '_' (max. length = 70 chars)</label>
+                                        @* Confirm Password section *@
+                                        @* Error for when passwords do not match *@
+                                        <label id="client-side-error-confirm-password" style="display: none; color: red;">
+                                            Passwords do not match.
+                                        </label>
+                                        @* Normal label for confirm password *@
+                                        <label id="confirm-password-label">
+                                            Please type in your password again here to confirm:
+                                        </label>
+                                        @* Server-side validation message *@
+                                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                        <span style="font-weight: 800!important; color: red; background-color: black;"
+                                              asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                        @* Input field *@
+                                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { placeholder="Confirm password",
+                                            Style = "color: black;", id="confirm-password-input", @class = "form-control", type="password" } })
 
-                                                                                                                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { placeholder="Username", Style = "color: red;", @class = "form-control", id="username-input" } })
-                                                                                                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                                        }
-                                        else
-                                        {
-                                            //Hidden label for client-side validation script:
-                                            // only appears if bad input detected in site.js file
-                                                                                                                        <label id="client-side-error-username" style="display: none; color: red;">
-                                                                                                                            Invalid username error: Must be between 6 and 70 chars, and only include
-                                                                                                                            alphanumeric characters and '_'.
-                                                                                                                        </label>
-                                                                                                                        <label id="client-side-error-username-taken" style="display: none; color: red;">
-                                                                                                                            Username is already taken - please choose a different one!
-                                                                                                                        </label>
-                                                                                                                          <label id="username-label">Please enter a username (alphanumeric and _ only, at least 6 characters):</label>
-                            
-                                                                                                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { placeholder="Username", Style = "color: black;", @class = "form-control", id="username-input" } })
-                                                                                                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                                        }
-
-                                        }
-                                        <span style="font-weight: 800!important; background-color: black;"
-                                            asp-validation-for="UserName" class="text-danger"></span>
-
-
-
-
-
-
-                                        @{
-                                        if (errors != null &&
-                                        (errors.No_Password || errors.Bad_Password_Length))
-                                        {
-                                                                                                                            <label class="registration-error-message">Please enter a password of at least 8
-                                                                                                                                characters!</label>
-
-                                                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { placeholder="Password", Style = "color: red;", id="password-input", @class = "form-control", type="password" } })
-                                                                                                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                                                                                                                            <span style="font-weight: 800!important; background-color: black;"
-                                            asp-validation-for="Password" class="text-danger"></span>
-
-
-                                                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { placeholder="Confirm password", Style = "color: black;", id="confirm-password-input", @class = "form-control", type="password" } })
-                                                                                                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                                                                                                                            <span style="font-weight: 800!important; background-color: black;"
-                                            asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                                        }
-                                        if (errors != null && errors!.Passwords_Do_Not_Match)
-                                        {
-                                                                                                                            <label class="registration-error-message">Passwords do not match!</label>
-                                                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { placeholder="Password", Style = "color: red;", id="password-input", @class = "form-control", type="password" } })
-                                                                                                                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                                                                                                                            <span style="font-weight: 800!important; background-color: black;"
-                                            asp-validation-for="Password" class="text-danger"></span>
-                                                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { placeholder="Confirm password", Style = "color: red;", id="confirm-password-input", @class = "form-control", type="password" } })
-                                                                                                                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                                                                                                                            <span style="font-weight: 800!important; background-color: black;"
-                                            asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                                        }
-                                        else
-                                        {       
-
-                                             // Hidden label for client-side validation script:
-                                            // only appears if bad input detected in site.js file
-                                                                                                                        <label id="client-side-error-password" style="display: none; color: red;">
-                                                                                                                            Please enter a password of length at least 10 characters!
-                                                                                                                        </label>
-                                                                                                                        <label id="password-label">Please enter a password (at least 10 chars!):</label>
-                                                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { placeholder="Password", Style = "color: black;", id="password-input", @class = "form-control", type="password" } })
-                                                                                                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                                                                                                                            <span style="font-weight: 800!important; background-color: black;"
-                                            asp-validation-for="Password" class="text-danger"></span>
-
-                                            // Hidden label for client-side validation script:
-                                            // only appears if bad input detected in site.js file
-                                                                                                                        <label id="client-side-error-confirm-password" style="display: none; color: red;">
-                                                                                                                            Passwords do not match.
-                                                                                                                                                                                                </label>
-                                                                                                                        <label id="confirm-password-label">
-                                                                                                                            Please type in your password again here to confirm:
-                                                                                                                        </label>
-                                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { placeholder="Confirm password", Style = "color: black;", id="confirm-password-input", @class = "form-control", type="password" } })
-                                                                                                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                                                                                                                            <span style="font-weight: 800!important; background-color: black;"
-                                            asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                                        }
-                                        }
+                                        @* End of password section *@
                                     </div>
+                                    @* Next button *@
                                     <input type="button" name="next" class="next action-button" id="first"
                                         value="Next Step" />
                                 </fieldset>
+                                @* End of the first "general information/basic account info" step in the registration process*@
                                 <fieldset>
                                     <div class="form-card">
                                         <h3 class="fs-title">Personal Information</h3>
