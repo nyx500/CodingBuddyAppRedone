@@ -199,7 +199,6 @@ function updateBioFunctionality() {
         }
 
         // Place cursor on top left-corner of textarea input
-        // Attribution: https://stackoverflow.com/questions/17158802/using-jquery-selector-and-setselectionrange-is-not-a-function
         var textarea = $('#edit-bio-input')[0];
         $('#edit-bio-input').focus(function () {
             textarea.setSelectionRange(0, 0);
@@ -546,34 +545,28 @@ function updateHobbies() {
             }
         });
 
-        if (selectedIds.length < 3 || selectedIds.length > 10) {
-            $("#hobby-label").text("Please select between 3-10 hobbies and interests!");
-            $("#hobby-label").addClass("error-options-label");
-        }
-        else {
-            // Do Ajax Upload to update hobbies and interests
-            var hobbyData = { ids: selectedIds };
+        // Do Ajax Upload to update hobbies and interests
+        var hobbyData = { ids: selectedIds };
 
-            sessionStorage.setItem("panel", 3);
-            sessionStorage.setItem("redirect", true);
+        sessionStorage.setItem("panel", 3);
+        sessionStorage.setItem("redirect", true);
 
 
-            $.ajax({
-                type: "POST",
-                url: "/Account/UpdateHobbies",
-                data: hobbyData,
-                success: function (response) {
-                    if (response == "updated") {
-                        window.location.replace("/Account/EditProfile");
-                    }
-                    // Did not manage to update: display error above dropdown in red
-                    else {
-                        $("#hobby-label").text("An error occurred when trying to update the database.");
-                        $("#hobby-label").addClass("error-options-label");
-                    }
+        $.ajax({
+            type: "POST",
+            url: "/Account/UpdateHobbies",
+            data: hobbyData,
+            success: function (response) {
+                if (response == "updated") {
+                    window.location.replace("/Account/EditProfile");
                 }
-            });
-        }
+                // Did not manage to update: display error above dropdown in red
+                else {
+                    $("#hobby-label").text("An error occurred when trying to update the database.");
+                    $("#hobby-label").addClass("error-options-label");
+                }
+            }
+        });
     })
 }
 

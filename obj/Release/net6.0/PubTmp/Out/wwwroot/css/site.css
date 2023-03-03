@@ -218,6 +218,28 @@ will truncate terms that are too long to fit in the left column
     margin-bottom: 8px;
 }
 
+/* Pop-up if profile incomplete */
+/* Attribution: https://www.w3schools.com/howto/howto_js_popup.asp */
+#profile-completion-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+#profile-completion-message {
+    width: 500px;
+    background-color: grey;
+    color: black;
+    height:fit-content;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    top: 0%;
+    left: 4%;
+    margin-left: -400px;
+}
+
 /* Navbar Settings for Tablet and Mobile < 1200px Size Screens */
 @media all and (max-width: 1200px) {
 
@@ -795,8 +817,8 @@ fieldset label {
 }
 
 .control-label {
-    float: left !important;
-    color: white !important;
+    float: left;
+    color: white;
 }
 
 #registration-form input, #registration-form textarea {
@@ -841,10 +863,10 @@ fieldset label {
 
 #registration-form input:focus, #registration-form textarea:focus, #career-phases-dropdown:focus, #experience-levels-dropdown:focus,
 #gender-dropdown:focus {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    border: 4px solid var(--peachyYellow) !important;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 4px solid var(--peachyYellow);
     font-weight: bold;
     outline-width: 0;
 }
@@ -923,9 +945,9 @@ fieldset label {
     margin: 10px 20px;
 }
 
-    #registration-form .action-button:hover, #registration-form .action-button:focus {
-        box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
-    }
+#registration-form .action-button:hover, #registration-form .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
+}
 
 /*Previous Buttons*/
 #registration-form .action-button-previous {
@@ -942,19 +964,6 @@ fieldset label {
 
     #registration-form .action-button-previous:hover, #registration-form .action-button-previous:focus {
         box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
-    }
-
-/*Dropdown List Exp Date*/
-select.list-dt {
-    border: none;
-    outline: 0;
-    border-bottom: 1px solid #ccc;
-    padding: 2px 5px 3px 5px;
-    margin: 2px;
-}
-
-    select.list-dt:focus {
-        border-bottom: 2px solid skyblue;
     }
 
 /*The background card*/
@@ -1048,6 +1057,38 @@ select.list-dt {
     object-fit: cover;
 }
 
+/* Label for career dropdown */
+#career-phase-label
+{   
+    margin-top: 20px;
+    color: white;
+}
+
+/* A div containing the button that when clicked shows all possible languages */
+#show-more-languages-container
+{
+    position: absolute;
+    bottom: 2%;
+    left: 2%;
+    margin-top: 50px;
+}
+
+/* Button to show/hide languages on registration page */
+#show-more-languages-container button {
+    padding: 10px;
+    border-radius: 20px;
+    color: white;
+    background-color:black;
+    border: 4px solid var(--mediumBlue);
+}
+
+#show-more-languages-container button:hover {
+    color: blueviolet;
+}
+
+#progLangsLabel {
+    color: white;
+}
 
 /*Styling for checkbox options*/
 .checkbox-container {
@@ -1078,64 +1119,64 @@ select.list-dt {
     padding: 30px;
 }
 
-    .checkbox-unordered-list li {
-        display: inline !important;
-    }
+.checkbox-unordered-list li {
+display: inline !important;
+}
 
 
-        .checkbox-unordered-list li label {
-            display: inline-block;
-            background-color: var(--mediumBlue);
-            border: 2px solid var(--periwinkle);
-            color: white;
-            border-radius: 25px;
-            white-space: nowrap;
-            margin: 3px 0px;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            transition: all .2s;
-            padding: 8px 12px;
-            cursor: pointer;
-        }
+.checkbox-unordered-list li label {
+    display: inline-block;
+    background-color: var(--mediumBlue);
+    border: 2px solid var(--periwinkle);
+    color: white;
+    border-radius: 25px;
+    white-space: nowrap;
+    margin: 3px 0px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all .2s;
+    padding: 8px 12px;
+    cursor: pointer;
+}
 
-            .checkbox-unordered-list li label::before {
-                display: inline-block;
-                font-style: normal;
-                font-variant: normal;
-                text-rendering: auto;
-                -webkit-font-smoothing: antialiased;
-                font-family: "Font Awesome 5 Free";
-                font-weight: 900;
-                font-size: 12px;
-                padding: 2px 6px 2px 2px;
-                content: "\f067";
-                transition: transform .3s ease-in-out;
-            }
+.checkbox-unordered-list li label::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 12px;
+    padding: 2px 6px 2px 2px;
+    content: "\f067";
+    transition: transform .3s ease-in-out;
+}
 
-        .checkbox-unordered-list li input[type="checkbox"]:checked + label:before {
-            content: "\f00c";
-            transform: rotate(-360deg);
-            transition: transform .3s ease-in-out;
-        }
+.checkbox-unordered-list li input[type="checkbox"]:checked + label:before {
+    content: "\f00c";
+    transform: rotate(-360deg);
+    transition: transform .3s ease-in-out;
+}
 
-        .checkbox-unordered-list li input[type="checkbox"]:checked + label {
-            border: 2px solid var(--palePurple);
-            background-color: var(--periwinkle);
-            color: black;
-            transition: all .2s;
-        }
+.checkbox-unordered-list li input[type="checkbox"]:checked + label {
+    border: 2px solid var(--palePurple);
+    background-color: var(--periwinkle);
+    color: black;
+    transition: all .2s;
+}
 
-        .checkbox-unordered-list li input[type="checkbox"] {
-            display: absolute;
-            position: absolute;
-            opacity: 0;
-            z-index: 20;
-            margin: 40px;
-        }
+.checkbox-unordered-list li input[type="checkbox"] {
+    display: absolute;
+    position: absolute;
+    opacity: 0;
+    z-index: 20;
+    margin: 40px;
+}
 
 .langCheckbox:checked + label {
     color: red;
@@ -1145,7 +1186,9 @@ select.list-dt {
     border: 2px solid var(--peachyYellow);
 }
 
-/*Rdit Profile Page*/
+
+
+/*Edit Profile Page*/
 .profile-header {
     color: white;
     font-family: Anton, Verdana, Arial, sans-serif;
@@ -1288,10 +1331,13 @@ select.list-dt {
     justify-items: flex-start;
     align-items: flex-start;
 }
-
 /* Third column on first panel: buttons that you don't want user to click by accident!*/
-#basic-info-third-col {
+
+#basic-info-second-col{
     margin-left: 2%;
+} 
+#basic-info-third-col {
+    margin-left: 80px;
 }
 #basic-info-third-col div {
     margin-bottom: 20px !important;
@@ -1495,11 +1541,12 @@ select.list-dt {
     list-style: none;
     margin-left: 0;
     padding-left: 0;
+    display: flex;
 }
 
-    .preference-list li {
-        display: inline-block;
-    }
+.preference-list li {
+    display: inline!important;    
+}
 
 .preference-container {
     background-color: var(--palePurple);
@@ -1516,6 +1563,10 @@ select.list-dt {
     width: 200px;
     margin-bottom: 100px;
 }
+/* Make hobbies div stretch across the whole panel */
+#panel-three-col {
+    width: 100%;
+}
 
 /* Button to reset the rejections*/
 #reset-rejections-button, #change-password-button {
@@ -1529,7 +1580,8 @@ select.list-dt {
 }
 #delete-account
 {
-    margin-left: 10px;
+    margin-left: 0px;
+    width: 100%;
 }
 
 /* Input (type text) to validate current password */

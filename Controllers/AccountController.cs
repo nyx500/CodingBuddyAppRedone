@@ -321,10 +321,9 @@ namespace CBApp.Controllers
             {
                 User user = userManager.Users.Where(u => u.UserName == model.Username).FirstOrDefault<User>()!;
 
-                // If username does not exist, reload with an error message
                 if (user == null)
                 {
-                    ModelState.AddModelError("invalidLogin", "Sorry. This username does not exist.");
+                    ModelState.AddModelError("invalidLogin", "Sorry, this username does not exist.");
                     return View(model);
                 }
 
@@ -343,27 +342,18 @@ namespace CBApp.Controllers
                     // If result succeeded, check if ReturnUrl property of view model exists
                     if (result.Succeeded)
                     {
-                        // Checking that the ReturnUrl contains a local URL protects against hacker redirecting
-                        // the browser to an external malicious website
-                        if (!string.IsNullOrEmpty(model.ReturnUrl)
-                            && Url.IsLocalUrl(model.ReturnUrl)
-                        )
-                        {
-                            // Redirect to the Url specified by ReturnUrl view model property
-                            return Redirect(model.ReturnUrl);
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("invalidLogin", "Sorry, we could not log you in.");
-                            return View(model);
-                        }
+                        // Redirect to the index page
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("invalidLogin", "Login failed.");
+                        return View(model);
                     }
                 }
-
-                ModelState.AddModelError("invalidLogin", "Invalid username/password combination!");
-                return View(model);
             }
 
+            ModelState.AddModelError("invalidLogin", "Invalid username/password combination.");
             return View(model);
         }
 

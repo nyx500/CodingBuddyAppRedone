@@ -44,6 +44,8 @@ $(document).ready(function () {
     matchPageLikeUser();
     // Go to the last-visited panel
     getTheRightPanel();
+    // Open the warning to complete profile on hover if Profile link is red
+    showProfileIncompleteWarning();
 
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
@@ -57,21 +59,27 @@ $(document).ready(function () {
     var passwordValue;
     var confirmPasswordInputField;
     var confirmPasswordValue;
+    // Show all languages when user clicks the button to show more
+    displayAllLanguagesOnRegistration()
 
 
     $("#first").click(function () {
 
 
         // CLIENT-SIDE VALIDATION FOR ALL THE INPUT FIELDS ON THE FIRST PAGE (to put in separate functions later)
+        // Reset number of errors with every click/request to go to the next panel
         firstPageErrors = 0;
 
-        // Get slackId input value and check for validity (slackId client-side validation)
+        // Gets slackId input value and check for validity (slackId client-side validation)
         slackIdInputField = $("#slackId");
         slackIdValue = $("#slackId").val();
+        // Gets username input and value to check
         usernameInputField = $("#username-input");
         usernameValue = $("#username-input").val();
+        // Gets password input and value to check
         passwordInputField = $("#password-input");
         passwordValue = $("#password-input").val();
+        // Gets retyped-password input and value to check
         confirmPasswordInputField = $("#confirm-password-input");
         confirmPasswordValue = $("#confirm-password-input").val();
 
@@ -81,105 +89,196 @@ $(document).ready(function () {
         // continue on the form
         // Regex for SlackID --> alphanumeric chars only
         if (slackIdValue.length < 5 || slackIdValue.length > 50 || !slackIdValue.match(/^[0-9a-zA-Z]+$/) || !/\d/.test(slackIdValue)) {
-            // Add error CSS class to SlackId input field
+
+            // Increments the errors which make "next" button unable to click if greater than 0
             firstPageErrors += 1;
 
+            // Class appended to input which makes it outlined in red
             slackIdInputField.addClass("invalid-input");
 
+            // Display the error for wrong slackId-format
             $("#client-side-error-slack-id").css("display", "block");
+            // Hide the explanation labels
             $("#slack-id-label").css("display", "none");
-        }
-        else {
+            // Hide the other error label (for SlackId already taken)
+            $("#client-side-error-slack-id-taken").css("display", "none");
 
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
+        }
+        // SlackId has valid length and characters: do this code
+        else {
+            // Slack Id has a good format: remove the red outline
             if (slackIdInputField.hasClass("invalid-input")) {
                 slackIdInputField.removeClass("invalid-input");
             }
 
+            // Hide the errors
             $("#client-side-error-slack-id").css("display", "none");
             $("#slack-id-label").css("display", "block");
 
             var slackIdNotAvailable = CheckIfSlackIdAvailable(slackIdValue);
+            // Returns 'true' --> someone already has this SlackId
             if (slackIdNotAvailable) {
+                // Show corresponding error message
+                $("#client-side-error-slack-id-taken").css("display", "block");
+                // Hide the explanation label
+                $("#slack-id-label").css("display", "none");
+                // Increments the errors which make "next" button unable to click if greater than 0
                 firstPageErrors++;
+
+                // Go to the top of the form
+                gotToTopOfDiv($("#registration-wizard-form"));
+
+            }
+            // Returns 'false' --> SlackId is available!
+            else
+            {   
+                // Hide the corresponding error message
+                $("#client-side-error-slack-id-taken").css("display", "none");
+                // Show the normal label
+                $("#slack-id-label").css("display", "block");
             }
         }
 
 
         // Validate username
         if (usernameValue.length < 6 || !usernameValue.match(usernameRegex) || usernameValue > 70) {
-            firstPageErrors += 1;
+            firstPageErrors++;
+
+            // Highlight the input field in red by adding a class with a red border property
             usernameInputField.addClass("invalid-input");
 
-
+            // Display the formatting error label
             $("#client-side-error-username").css("display", "block");
+            // Hide the normal label
             $("#username-label").css("display", "none");
+            // Hide the other error message if showing
+            $("#client-side-error-username-taken").css("display", "none");
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
 
         }
+        // Username has valid format
         else {
+            // Clear the red border in the input field
             if (usernameInputField.hasClass("invalid-input")) {
                 usernameInputField.removeClass("invalid-input");
             }
-
+            // Hide the error message
             $("#client-side-error-username").css("display", "none");
+            // Display the normal label
             $("#username-label").css("display", "block");
 
-
+            // Ajax function to check if username exists
             var usernameNotAvailable = (CheckIfUsernameAvailable(usernameValue));
 
+            // If true - username is already taken
             if (usernameNotAvailable) {
+
+                // Increment the error counter
                 firstPageErrors++;
+
+                // Display the 'username already taken' error-message in the view
+                $("#client-side-error-username-taken").css("display", "block");
+                // Hide normal label
+                $("#username-label").css("display", "none");
+
+                // Go to the top of the form
+                gotToTopOfDiv($("#registration-wizard-form"));
+
+
+            }
+            else {
+                // Hide the 'username already taken' error-message in the view
+                $("#client-side-error-username-taken").css("display", "none");
+                // Show normal label
+                $("#username-label").css("display", "block");
             }
 
         }
 
 
+        // Validating the password
+        if (passwordValue.length < 6) {
 
-        // Validate password
-        if (passwordValue.length < 10) {
-            firstPageErrors += 1;
+            // Increment the error counter
+            firstPageErrors++;
+
+            // Highlights the field in red
             passwordInputField.addClass("invalid-input");
+            // Display the error message saying password is too short
             $("#client-side-error-password").css("display", "block");
+            // Hide the normal label
             $("#password-label").css("display", "none");
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
+
         }
+        // Password has good length
         else {
+            // Remove the red border around the input field
             if (passwordInputField.hasClass("invalid-input")) {
                 passwordInputField.removeClass("invalid-input");
             }
+            // Hide the error message
             $("#client-side-error-password").css("display", "none");
+            // Display the normal label
             $("#password-label").css("display", "block");
         }
 
-        // Validation of passwords matching
-        if (passwordValue.length > 10 && passwordValue != confirmPasswordValue) {
-            firstPageErrors += 1;
+        // Validation of whether the two passwords match
+        if (passwordValue != confirmPasswordValue) {
+            // Increment the error counter
+            firstPageErrors++;
+
+            // Make confirm password field outlined in red
             confirmPasswordInputField.addClass("invalid-input");
+
+            // Show the confirm password error message
             $("#client-side-error-confirm-password").css("display", "block");
+            // Hide the normal label
             $("#confirm-password-label").css("display", "none");
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
         }
+        // Passwords match
         else {
+
+            // Get rid of the red border around the password confirmation input
             if (confirmPasswordInputField.hasClass("invalid-input")) {
                 confirmPasswordInputField.removeClass("invalid-input");
             }
+            // Hide the error message
             $("#client-side-error-confirm-password").css("display", "none");
+            // Show the normal label
             $("#confirm-password-label").css("display", "block");
         }
 
         // Only let user continue if there are no errors
         if (firstPageErrors == 0)
-        {
-
+        {   
+            // Go to the next step
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
 
-            //Add Class Active
+            // Show which step is active on the progress bar
             $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-            //show the next fieldset
+
+            // Display the next fieldset
             next_fs.show();
 
-            //hide the current fieldset with style
+            // Hide the current fieldset
             current_fs.animate({ opacity: 0 }, {
                 step: function (now) {
-                    // for making fielset appear animation
+                    // Fade the current fieldset
                     opacity = 1 - now;
 
                     current_fs.css({
@@ -190,40 +289,61 @@ $(document).ready(function () {
                 },
                 duration: 600
             });
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
         }
-
-
     });
 
-
+    // Click on "next" button in the second step
     $("#second").click(function () {
 
         secondPageErrors = 0;
 
-        // Validate career-phase selected
+        // Validate the career-phase selected
         if ($("#career-phases-dropdown").val() === "") {
-            secondPageErrors += 1;
-            $("#career-phases-dropdown").addClass("invalid-input");
+            secondPageErrors++;
+
+            // Make label red
             $("#career-phase-label").css("color", "red");
+
+            // Add red border to dropdown input field
+            $("#career-phases-dropdown").addClass("invalid-input");
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
         }
         else {
+            // Remove red border
             if ($("#career-phases-dropdown").hasClass("invalid-input")) {
                 $("#career-phases-dropdown").removeClass("invalid-input");
             }
-            $("#career-phase-label").css("color", "black");
+            // Change label back to white
+            $("#career-phase-label").css("color", "white");
         }
 
-        //Validate experience-level selected
+        // Validate experience-level selected
         if ($("#experience-levels-dropdown").val() === "") {
-            secondPageErrors += 1;
+            // Increment the error counter
+            secondPageErrors++;
+            // Add red border
             $("#experience-levels-dropdown").addClass("invalid-input");
+            //Make the label red
             $("#experience-level-label").css("color", "red");
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
+
         }
         else {
+            // Remove red border
             if ($("#experience-levels-dropdown").hasClass("invalid-input")) {
                 $("#experience-levels-dropdown").removeClass("invalid-input");
             }
-            $("#experience-level-label").css("color", "black");
+            // Make the label go back to white
+            $("#experience-level-label").css("color", "white");
         }
 
         if (secondPageErrors == 0) {
@@ -249,6 +369,10 @@ $(document).ready(function () {
                 },
                 duration: 600
             });
+
+
+            // Go to the top of the form
+            gotToTopOfDiv($("#registration-wizard-form"));
         }
     }
     )
@@ -297,26 +421,9 @@ $(document).ready(function () {
         }
 
 
-        var hobbyCount = 0;
-        $(".hobby-checkbox").each(function (i, obj) {
-           
-            if (obj.checked) {
-                hobbyCount++;
-            }
-        });
-
-        if (hobbyCount < 3 || hobbyCount > 10) {
-            $("#hobbiesLabel").addClass("invalid-input");
-            $("#hobbiesLabel").css("color", "red");
-            thirdPageErrors++;
-        }
-        else {
-            $("#hobbiesLabel").removeClass("invalid-input");
-            $("#hobbiesLabel").css("color", "black");
-        }
-
         // If there are no errors, print Success message in JS console
         if (thirdPageErrors == 0) {
+            console.log("submitted the form");
             $("#registration-form").submit();
         }
 
@@ -348,6 +455,9 @@ $(document).ready(function () {
             },
             duration: 600
         });
+
+        // Go to the top of the form
+        gotToTopOfDiv($("#registration-wizard-form"));
     });
 });
 
@@ -455,14 +565,7 @@ function CheckIfUsernameAvailable(usernameValue) {
         success: function (response) {
             // Response from controller is 'true': username is taken already
             if (response) {
-                // Display the 'username already taken' error-message in the view
-                $("#client-side-error-username-taken").css("display", "block");
                 result = true;
-            }
-            // Response from controller is 'false': can accept the username
-            else {
-                // Hide the 'username already taken' error-message in the view
-                $("#client-side-error-username-taken").css("display", "none");
             }
         }
     });
@@ -471,11 +574,13 @@ function CheckIfUsernameAvailable(usernameValue) {
 };
 
     
-// Same logic for SlackId
+// Same logic for SlackId: checks if someone has signed up with this SlackId already
 function CheckIfSlackIdAvailable(slackIdValue) {
 
     var slackId_data = { slackId: slackIdValue };
 
+
+    // Response from controller is 'false': output false - SlackID is available
     var result = false;
 
 
@@ -483,18 +588,12 @@ function CheckIfSlackIdAvailable(slackIdValue) {
         type: "POST",
         url: "/Account/CheckSlackId",
         data: slackId_data,
+        // Bad practice! But need async to complete otherwise cannot return the correct boolean value!!!
         async: false, 
         success: function (response) {
-            // Response from controller is 'true': can accept this username because it is unique
+            // Response from controller is 'true': SlackID is taken! Output error
             if (response) {
-                // Hide the 'username already taken' error-message in the view
-                $("#client-side-error-slack_id-taken").css("display", "block");
                 result = true;
-            }
-            // Response from controller is 'false': can accept the username
-            else {
-                // Display the 'username already taken' error-message in the view
-                $("#client-side-error-slack_id-taken").css("display", "none");
             }
         }
     });
@@ -788,4 +887,53 @@ function getTheRightPanel() {
         }
     }
 
+}
+
+// Go to top of a scrollable container
+function gotToTopOfDiv(container) {
+
+    container.animate({ scrollTop: 0 }, "fast");
+}
+
+
+// Shows all the natural languages on registration page
+function displayAllLanguagesOnRegistration() {
+    $("#show-more-languages-button").click(function () {
+
+        // Display all the languages if "show more" is written on the button
+        if ($("#show-more-languages-button").val() == "Show all") {
+            $(".language-label").each(function () {
+                $(this).removeClass("hidden");
+            });
+
+            // Change the value/text of the toggle button from "show all" to "hide"
+            $("#show-more-languages-button").val("Hide");
+            $("#show-more-languages-button").text("Hide");
+        }
+        // Hide all languages except the most common ones if "hide" is written on the button
+        else {
+            $(".language-label").each(function () {
+                if (!$(this).hasClass("common-language")) {
+                    $(this).addClass("hidden");
+                }
+            });
+            // Change the value/text of the toggle button from "hide" to "show all"
+            $("#show-more-languages-button").val("Show all");
+            $("#show-more-languages-button").text("Show all");
+        }
+
+    });
+}
+
+function showProfileIncompleteWarning() {
+    $("#profile-incomplete-warning").mouseenter(
+        function () {
+            $("#profile-completion-container").removeClass("hidden");
+        }
+    );
+    $("#profile-completion-container").mouseleave(
+        function () {
+            $("#profile-completion-container").addClass("hidden");
+        }
+    );
 }

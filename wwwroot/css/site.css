@@ -1330,17 +1330,17 @@ display: inline !important;
     justify-content: flex-start;
     justify-items: flex-start;
     align-items: flex-start;
-}
+}   
 /* Third column on first panel: buttons that you don't want user to click by accident!*/
 
-#basic-info-second-col{
-    margin-left: 2%;
-} 
+
 #basic-info-third-col {
-    margin-left: 80px;
-}
-#basic-info-third-col div {
-    margin-bottom: 20px !important;
+    margin-left: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 /* Only do this on view profile page (no third column!) */
@@ -1541,11 +1541,10 @@ display: inline !important;
     list-style: none;
     margin-left: 0;
     padding-left: 0;
-    display: flex;
 }
 
 .preference-list li {
-    display: inline!important;    
+    display: inline-block;    
 }
 
 .preference-container {
