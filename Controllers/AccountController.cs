@@ -321,6 +321,13 @@ namespace CBApp.Controllers
             {
                 User user = userManager.Users.Where(u => u.UserName == model.Username).FirstOrDefault<User>()!;
 
+                // If username does not exist, reload with an error message
+                if (user == null)
+                {
+                    ModelState.AddModelError("invalidLogin", "Sorry. This username does not exist.");
+                    return View(model);
+                }
+
                 // Do not let "deactivated" users in
                 if (user.DeactivateRequest == true)
                 {
@@ -329,7 +336,6 @@ namespace CBApp.Controllers
                 }
                 else
                 {
-
                     var result = await signInManager.PasswordSignInAsync(
                         model.Username, model.Password, isPersistent: model.RememberMe,
                         lockoutOnFailure: false);
@@ -348,8 +354,8 @@ namespace CBApp.Controllers
                         }
                         else
                         {
-                            // Otherwise, return to homepage
-                            return RedirectToAction("Index", "Home");
+                            ModelState.AddModelError("invalidLogin", "Sorry, we could not log you in.");
+                            return View(model);
                         }
                     }
                 }
