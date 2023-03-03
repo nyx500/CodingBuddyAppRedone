@@ -186,14 +186,14 @@ ViewBag.Title = "My Profile";
                 <div id="languages-wrapper" class="edit-profile-form-column">
                     <p class="interests-skills-subtitle" id="languages-spoken-subtitle">Languages Spoken:</p>
                     <ul class="preference-list">
-                    @for (var i = 0; i < Model.LanguageNames!.Count(); i++)
-                    {   
-                        <li>
-                            <div class="preference-container">
-                                @Html.DisplayFor(model=>model.LanguageNames![i])
-                            </div>
-                        </li>
-                    }
+                        @for (var i = 0; i < Model.LanguageNames!.Count(); i++)
+                        {   
+                            <li>
+                                <div class="preference-container">
+                                    @Html.DisplayFor(model=>model.LanguageNames![i])
+                                </div>
+                            </li>
+                        }
                     </ul>
                     <button class="edit-button" id="edit-languages-spoken">Edit</button>
                 </div>
