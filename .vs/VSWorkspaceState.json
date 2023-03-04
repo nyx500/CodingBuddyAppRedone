@@ -2,10 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\Controllers",
+    "\\Views",
+    "\\Views\\Account",
     "\\wwwroot",
     "\\wwwroot\\css",
     "\\wwwroot\\js"
   ],
-  "SelectedNode": "\\Controllers\\AccountController.cs",
+  "SelectedNode": "\\CBApp.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -1332,11 +1332,10 @@ display: inline !important;
     justify-items: flex-start;
     align-items: flex-start;
 }   
-/* Third column on first panel: buttons that you don't want user to click by accident!*/
 
-
+/* Third column on first panel: buttons that you don't want user to click by accident! Add margin!*/
 #basic-info-third-col {
-    margin-left: 0px;
+    margin-left: 10%;
     display: flex;
     flex-direction: column;
     justify-items: flex-start;

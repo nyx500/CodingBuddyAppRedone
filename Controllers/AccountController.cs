@@ -189,31 +189,33 @@ namespace CBApp.Controllers
                     user.Gender = context.Genders.Find(model.SelectedGenderId);
                 }
 
-                // Set user's natural langugaes to those selected if any (many-to-many field)
-                user.NaturalLanguageUsers = new List<NaturalLanguageUser>();
-                for (int i = 0; i < model.NaturalLanguagesViewModelList!.Count; ++i)
-                {
-                    if (model.NaturalLanguagesViewModelList[i].isSelected)
-                    {
-                        // Id of the language will always be the 'i' index + 1 (starts from 1 not 0)
-                        NaturalLanguage nLang = context.NaturalLanguages.Find(i + 1)!;
+                // Set user's natural languages to those selected if any (many-to-many field)
+                //user.NaturalLanguageUsers = new List<NaturalLanguageUser>();
+                //for (int i = 0; i < model.NaturalLanguagesViewModelList!.Count; ++i)
+                //{
+                //    if (model.NaturalLanguagesViewModelList[i].isSelected)
+                //    {
+                //        // Id of the language will always be the 'i' index + 1 (starts from 1 not 0)
+                //        NaturalLanguage nLang = context.NaturalLanguages.Find(i + 1)!;
 
-                        // Create many-to-many relationship called "NaturalLanguageUser"
-                        NaturalLanguageUser nlUser = new NaturalLanguageUser
-                        {
-                            NaturalLanguageId = (i + 1),
-                            SlackId = model.SlackId!,
-                            User = user,
-                            NaturalLanguage = nLang
-                        };
+                //        // Create many-to-many relationship called "NaturalLanguageUser"
+                //        NaturalLanguageUser nlUser = new NaturalLanguageUser
+                //        {
+                //            NaturalLanguageId = (i + 1),
+                //            SlackId = model.SlackId!,
+                //            User = user,
+                //            NaturalLanguage = nLang
+                //        };
 
-                        // Add a NaturalLanguageUser to the ICollection in the User class
-                        user.NaturalLanguageUsers.Add(nlUser);
+                //        // Add a NaturalLanguageUser to the ICollection in the User class
+                //        user.NaturalLanguageUsers.Add(nlUser);
 
-                        // Add the many-to-many relationship to the context
-                        context.NaturalLanguageUsers.Add(nlUser);
-                    }
-                }
+                //        // Add the many-to-many relationship to the context
+                //        context.NaturalLanguageUsers.Add(nlUser);
+                //    }
+                //}
+
+                model.setSelectedNaturalLanguagesForUser(user, context);
 
                 // Set user's favourite programming languages to those selected (many-to-many field)
                 user.ProgrammingLanguageUsers = new List<ProgrammingLanguageUser>();

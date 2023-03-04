@@ -70,5 +70,42 @@ namespace CBApp.Models
         public List<CSInterestViewModel>? CSInterestsViewModelList { get; set; }
 
 
+        /** Populates the user's list of natural languages with those selected, and saves this to the database */
+        // Parameters: the user who has selected the natural languages to add to their profile, the Database ApplicationDbContext
+        public void setSelectedNaturalLanguagesForUser(User user, ApplicationDbContext context)
+        {   
+            // Create a new language list for the user
+            user.NaturalLanguageUsers = new List<NaturalLanguageUser>();
+
+            // Loop over the natural languages list stored in this Object/Model
+            for (int i = 0; i < NaturalLanguagesViewModelList!.Count; ++i)
+            {   
+                // If a NaturalLanguage view model object in the list has "isSelected" property set to "true"...
+                if (NaturalLanguagesViewModelList[i].isSelected)
+                {
+                    // Id of the language will always be the 'i' index + 1 (starts from 1 not 0) because of how DB is structured
+                    // This is bad but could not find a way for the View to return the language itself despite using hidden field, not only the
+                    // "isSelected" field
+                    NaturalLanguage nLang = context.NaturalLanguages.Find(i + 1)!;
+
+                    // Create many-to-many relationship called "NaturalLanguageUser"
+                    NaturalLanguageUser nlUser = new NaturalLanguageUser
+                    {
+                        NaturalLanguageId = (i + 1),
+                        // set the SlackId field in the "natural language" class to the SlackId field in this ViewModel
+                        SlackId = SlackId!,
+                        User = user,
+                        NaturalLanguage = nLang
+                    };
+
+                    // Add the just-constructed NaturalLanguageUser to the ICollection in the User class
+                    user.NaturalLanguageUsers.Add(nlUser);
+
+                    // Add the many-to-many relationship to the DB context
+                    context.NaturalLanguageUsers.Add(nlUser);
+                }
+            }
+        }
+
     }
 }
