@@ -217,31 +217,33 @@ namespace CBApp.Controllers
 
                 model.setSelectedNaturalLanguagesForUser(user, context);
 
-                // Set user's favourite programming languages to those selected (many-to-many field)
-                user.ProgrammingLanguageUsers = new List<ProgrammingLanguageUser>();
-                for (int i = 0; i < model.ProgrammingLanguagesViewModelList.Count; ++i)
-                {
-                    if (model.ProgrammingLanguagesViewModelList[i].isSelected)
-                    {
+                //// Set user's favourite programming languages to those selected (many-to-many field)
+                //user.ProgrammingLanguageUsers = new List<ProgrammingLanguageUser>();
+                //for (int i = 0; i < model.ProgrammingLanguagesViewModelList.Count; ++i)
+                //{
+                //    if (model.ProgrammingLanguagesViewModelList[i].isSelected)
+                //    {
 
-                        ProgrammingLanguage pLang = context.ProgrammingLanguages.Find(i + 1)!;
+                //        ProgrammingLanguage pLang = context.ProgrammingLanguages.Find(i + 1)!;
 
-                        ProgrammingLanguageUser plUser = new ProgrammingLanguageUser
-                        {
-                            ProgrammingLanguageId = i + 1,
-                            SlackId = model.SlackId!,
-                            User = user,
-                            ProgrammingLanguage = pLang
-                        };
+                //        ProgrammingLanguageUser plUser = new ProgrammingLanguageUser
+                //        {
+                //            ProgrammingLanguageId = i + 1,
+                //            SlackId = model.SlackId!,
+                //            User = user,
+                //            ProgrammingLanguage = pLang
+                //        };
 
 
-                        // Add a ProgrammingLanguageUser to the ICollection in the User class
-                        user.ProgrammingLanguageUsers.Add(plUser);
-                        // Add the many-to-many relationship to the context
-                        context.ProgrammingLanguageUsers.Add(plUser);
+                //        // Add a ProgrammingLanguageUser to the ICollection in the User class
+                //        user.ProgrammingLanguageUsers.Add(plUser);
+                //        // Add the many-to-many relationship to the context
+                //        context.ProgrammingLanguageUsers.Add(plUser);
 
-                    }
-                }
+                //    }
+                //}
+
+                model.setSelectedProgrammingLanguagesForUser(user, context);
 
                 // Set user's favourite Computer Science interests to those selected (many-to-many field)
                 user.CSInterestUsers = new List<CSInterestUser>();
