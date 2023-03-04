@@ -70,7 +70,7 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                         @* Hidden error messages*@
                                         @* Error message about bad format*@
                                         <label id="client-side-error-username" style="display: none; color: red;">
-                                            Invalid username error: Must be between 6 and 70 chars, and only include
+                                            Invalid username error: Must be between 6 and 14 chars, and only include
                                             alphanumeric characters and '_'.
                                         </label>
                                         @* Error message saying SlackId is already taken*@
@@ -79,7 +79,7 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                         </label>
                                         @* Label for what to enter *@
                                         <label id="username-label">Please enter a username (alphanumeric and '_' only, 
-                                            at least 6 characters):</label>
+                                            between 6-14 chars):</label>
                                         @* Input field *@
                                         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { placeholder="Username",
                                             Style = "color: black;", @class = "form-control", id="username-input" } })

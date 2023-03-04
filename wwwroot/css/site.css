@@ -78,6 +78,7 @@ will truncate terms that are too long to fit in the left column
     background: black;
     color: white;
     display: flex; /* Use responsive flexbox design */
+    flex-wrap: nowrap;
     align-items: center;
     border-bottom: 2px solid var(--mediumBlue);
     padding: 2px;

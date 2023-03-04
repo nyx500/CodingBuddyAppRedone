@@ -144,9 +144,9 @@ $(document).ready(function () {
 
 
         // Validate username
-        if (usernameValue.length < 6 || !usernameValue.match(usernameRegex) || usernameValue > 70) {
+        if (usernameValue.length < 6 || !usernameValue.match(usernameRegex) || usernameValue.length > 14) {
             firstPageErrors++;
-
+            
             // Highlight the input field in red by adding a class with a red border property
             usernameInputField.addClass("invalid-input");
 

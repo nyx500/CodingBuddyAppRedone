@@ -134,8 +134,8 @@ function updateUsernameFunctionality() {
         var usernameInput = $("#edit-username-input");
         // Validate username input
         // Check length
-        if (usernameInput.val().length < 6 || usernameInput.val().length > 70) {
-            $("#username-input-label").text("Invalid: Bad length!");
+        if (usernameInput.val().length < 6 || usernameInput.val().length > 14) {
+            $("#username-input-label").text("Invalid: Bad length! Username must be 6-14 chars.");
             $("#username-input-label").css("color", "red");
         }
         // Check chars
