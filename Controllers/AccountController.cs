@@ -189,84 +189,10 @@ namespace CBApp.Controllers
                     user.Gender = context.Genders.Find(model.SelectedGenderId);
                 }
 
-                // Set user's natural languages to those selected if any (many-to-many field)
-                //user.NaturalLanguageUsers = new List<NaturalLanguageUser>();
-                //for (int i = 0; i < model.NaturalLanguagesViewModelList!.Count; ++i)
-                //{
-                //    if (model.NaturalLanguagesViewModelList[i].isSelected)
-                //    {
-                //        // Id of the language will always be the 'i' index + 1 (starts from 1 not 0)
-                //        NaturalLanguage nLang = context.NaturalLanguages.Find(i + 1)!;
-
-                //        // Create many-to-many relationship called "NaturalLanguageUser"
-                //        NaturalLanguageUser nlUser = new NaturalLanguageUser
-                //        {
-                //            NaturalLanguageId = (i + 1),
-                //            SlackId = model.SlackId!,
-                //            User = user,
-                //            NaturalLanguage = nLang
-                //        };
-
-                //        // Add a NaturalLanguageUser to the ICollection in the User class
-                //        user.NaturalLanguageUsers.Add(nlUser);
-
-                //        // Add the many-to-many relationship to the context
-                //        context.NaturalLanguageUsers.Add(nlUser);
-                //    }
-                //}
-
                 model.setSelectedNaturalLanguagesForUser(user, context);
-
-                //// Set user's favourite programming languages to those selected (many-to-many field)
-                //user.ProgrammingLanguageUsers = new List<ProgrammingLanguageUser>();
-                //for (int i = 0; i < model.ProgrammingLanguagesViewModelList.Count; ++i)
-                //{
-                //    if (model.ProgrammingLanguagesViewModelList[i].isSelected)
-                //    {
-
-                //        ProgrammingLanguage pLang = context.ProgrammingLanguages.Find(i + 1)!;
-
-                //        ProgrammingLanguageUser plUser = new ProgrammingLanguageUser
-                //        {
-                //            ProgrammingLanguageId = i + 1,
-                //            SlackId = model.SlackId!,
-                //            User = user,
-                //            ProgrammingLanguage = pLang
-                //        };
-
-
-                //        // Add a ProgrammingLanguageUser to the ICollection in the User class
-                //        user.ProgrammingLanguageUsers.Add(plUser);
-                //        // Add the many-to-many relationship to the context
-                //        context.ProgrammingLanguageUsers.Add(plUser);
-
-                //    }
-                //}
-
                 model.setSelectedProgrammingLanguagesForUser(user, context);
-
-                // Set user's favourite Computer Science interests to those selected (many-to-many field)
-                user.CSInterestUsers = new List<CSInterestUser>();
-                for (int i = 0; i < model.CSInterestsViewModelList.Count; ++i)
-                {
-                    if (model.CSInterestsViewModelList[i].isSelected)
-                    {
-
-                        CSInterest interest = context.CSInterests.Find(i + 1)!;
-
-                        CSInterestUser interestUser = new CSInterestUser
-                        {
-                            CSInterestId = i + 1,
-                            SlackId = model.SlackId!,
-                            User = user,
-                            CSInterest = interest
-                        };
-
-                        user.CSInterestUsers.Add(interestUser);
-                        context.CSInterestUsers.Add(interestUser);
-
-                    }
-                }
+                model.setSelectedComputerScienceInterestsForUser(user, context);
+                
 
                 // Adds the new user to the database
                 context.Users.Add(user);

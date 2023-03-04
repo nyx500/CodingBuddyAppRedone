@@ -146,8 +146,31 @@ namespace CBApp.Models
             }
         }
 
+        /** Populates the user's list of CS interests ith those selected, and saves this to the database */
+        public void setSelectedComputerScienceInterestsForUser(User user, ApplicationDbContext context)
+        {
+            user.CSInterestUsers = new List<CSInterestUser>();
+            for (int i = 0; i < CSInterestsViewModelList.Count; ++i)
+            {
+                if (CSInterestsViewModelList[i].isSelected)
+                {
 
+                    CSInterest interest = context.CSInterests.Find(i + 1)!;
 
+                    CSInterestUser interestUser = new CSInterestUser
+                    {
+                        CSInterestId = i + 1,
+                        SlackId = SlackId!,
+                        User = user,
+                        CSInterest = interest
+                    };
+
+                    user.CSInterestUsers.Add(interestUser);
+                    context.CSInterestUsers.Add(interestUser);
+
+                }
+            }
+        }
 
     }
        
