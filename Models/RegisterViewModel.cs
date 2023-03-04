@@ -172,6 +172,19 @@ namespace CBApp.Models
             }
         }
 
+        public void setGenderIfSelected(User user, ApplicationDbContext context)
+        {
+
+            // Update Gender "navigation property" of user only if Gender has been selected
+            // We know if a gender has been selected if the Id chosen is not 0 (0 is the default value)
+            if (SelectedGenderId != 0)
+            {
+                user.GenderId = SelectedGenderId;
+                user.Gender = context.Genders.Find(SelectedGenderId);
+            }
+
+        }
+
     }
        
 }

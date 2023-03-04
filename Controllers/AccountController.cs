@@ -198,6 +198,10 @@ namespace CBApp.Controllers
                 // Add user using UserManager object
                 var result = await userManager.CreateAsync(user, model.Password);
 
+                if (result != null)
+                {
+
+                }
                 // If the IdentityResult object is true, then sign the user in using a session cookie
                 if (result.Succeeded)
                 {
