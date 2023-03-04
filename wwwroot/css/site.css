@@ -1335,7 +1335,7 @@ display: inline !important;
 
 /* Third column on first panel: buttons that you don't want user to click by accident! Add margin!*/
 #basic-info-third-col {
-    margin-left: 10%;
+    margin-left: auto;
     display: flex;
     flex-direction: column;
     justify-items: flex-start;

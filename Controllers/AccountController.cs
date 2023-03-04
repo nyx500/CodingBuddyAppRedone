@@ -17,9 +17,6 @@ namespace CBApp.Controllers
 {
     public class AccountController : Controller
     {
-        // Needed for file uploads
-        // Attribution: https://www.aspsnippets.com/questions/130814/Upload-Form-data-and-File-in-ASPNet-Core-using-jQuery-Ajax/
-        private IWebHostEnvironment Environment;
 
 
         /**
@@ -29,12 +26,11 @@ namespace CBApp.Controllers
       */
         private ApplicationDbContext? context;
         public AccountController(ApplicationDbContext _context, UserManager<User> _userManager,
-            SignInManager<User> _signInManager, IWebHostEnvironment _environment)
+            SignInManager<User> _signInManager)
         {
             context = _context;
             userManager = _userManager;
             signInManager = _signInManager;
-            Environment = _environment;
         }
 
         private UserManager<User> userManager;
@@ -168,7 +164,7 @@ namespace CBApp.Controllers
             if (ModelState.IsValid)
             {
 
-                // Model is valid --> create the user and upload it to the database
+                // If the model is valid --> create the user and upload it to the database
                 User user = new User
                 {
                     SlackId = model.SlackId,
@@ -189,13 +185,17 @@ namespace CBApp.Controllers
                     user.Gender = context.Genders.Find(model.SelectedGenderId);
                 }
 
+                // Populate the user's options with their selected values
+                // (for natural langs, prog langs and CS interests)
                 model.setSelectedNaturalLanguagesForUser(user, context);
                 model.setSelectedProgrammingLanguagesForUser(user, context);
                 model.setSelectedComputerScienceInterestsForUser(user, context);
                 
 
-                // Adds the new user to the database
+                // Adds the new user with their data to the database
                 context.Users.Add(user);
+
+                // Add user using UserManager object
                 var result = await userManager.CreateAsync(user, model.Password);
 
                 // If the IdentityResult object is true, then sign the user in using a session cookie
