@@ -12,11 +12,18 @@
     <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.css" />
 
 </head>
-<body>
+<body class="body-colorful-mode">
     @* Attribution: https://cssloaders.github.io/*@
     <div id="loader"></div>
     @Html.Partial("_NavBar");
+    @* Button to toggle color scheme between more vivid and plainer *@
+    <div id="change-color-button-container">
+        <button id="change-color-button">
+            Change Background
+        </button>
+    </div>
     <div class="container body-content">
+        
         @RenderBody()
     </div>
     @Html.Partial("_Footer");
@@ -24,6 +31,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/profile.js" asp-append-version="true"></script>
+    <script src="~/js/colorChanger.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

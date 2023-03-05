@@ -165,11 +165,11 @@ namespace CBApp.Controllers
                     if (result.Succeeded)
                     {
                         // Redirect to the index page
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("FindABuddy", "Matches");
                     }
                     else
                     {
-                        ModelState.AddModelError("invalidLogin", "Login failed.");
+                        ModelState.AddModelError("invalidLogin", "Invalid username/password combination.");
                         return View(model);
                     }
                 }

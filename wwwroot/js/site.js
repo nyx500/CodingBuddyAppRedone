@@ -26,12 +26,19 @@ toggleButton.addEventListener("click", () => {
 // Spinning loader
 $(window).on("unload", function () {
     //your animation here
+    $("#loader").show();
     $("#loader").fadeOut(2000);
 });
+
+
 
 // Attribution: https://bbbootstrap.com/snippets/multi-step-form-wizard-30467045
 $(document).ready(function () {
 
+    // Show loader when Find-a-Buddy form is submitted (as it takes a long time to get a response due to back-end database activities)
+    $("#submit-filters").click(function () {
+        $("#loader").show();
+    });
 
     // Fade the loader icon
     $("#loader").fadeOut(500);

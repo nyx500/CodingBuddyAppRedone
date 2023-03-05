@@ -69,6 +69,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\js\\colorChanger.js",
+      "PackagePath": "staticwebassets\\js\\colorChanger.js"
+    },
+    {
       "Id": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\js\\profile.js",
       "PackagePath": "staticwebassets\\js\\profile.js"
     },

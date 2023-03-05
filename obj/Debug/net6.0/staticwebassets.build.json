@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gGpgjzh6ul8JnO8DKteGCf9z0/TZuzQ8xrXoEWQisjQ=",
+  "Hash": "jI23Ynp4E7nbC19qJugh03CMzHe3JZHSs8jb6408k44=",
   "Source": "CBApp",
   "BasePath": "_content/CBApp",
   "Mode": "Default",
@@ -1324,6 +1324,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\js\\colorChanger.js",
+      "SourceId": "CBApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\",
+      "BasePath": "_content/CBApp",
+      "RelativePath": "js/colorChanger.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\colorChanger.js"
     },
     {
       "Identity": "C:\\Users\\Ophelia\\OneDrive\\Documents\\ASP\\Final\\CBApp\\wwwroot\\js\\profile.js",
