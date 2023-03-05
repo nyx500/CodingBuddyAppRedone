@@ -23,9 +23,18 @@ toggleButton.addEventListener("click", () => {
     loginList.classList.toggle("active");
 })
 
+// Spinning loader
+$(window).on("unload", function () {
+    //your animation here
+    $("#loader").fadeOut(2000);
+});
 
 // Attribution: https://bbbootstrap.com/snippets/multi-step-form-wizard-30467045
 $(document).ready(function () {
+
+
+    // Fade the loader icon
+    $("#loader").fadeOut(500);
 
     // Hides form welcome screen on Find-a-Buddy View when the Start button is pressed
     hideWelcomeScreen();

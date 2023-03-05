@@ -70,6 +70,31 @@ will truncate terms that are too long to fit in the left column
     --veryDarkBlue: #050A30;
 }
 
+/** Loader CSS for when page is not ready */
+/** Attribution: https://cssloaders.github.io/ */
+#loader {
+    width: 48px;
+    height: 48px;
+    border: 5px dotted #FFF;
+    border-radius: 50%;
+    margin-left: 50%;
+    top: 50%;
+    position: fixed;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 2s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+} 
+
 /*****************************End of General Settings*********************************/
 
 
