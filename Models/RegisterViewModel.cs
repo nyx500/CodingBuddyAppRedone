@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using CBApp.Data;
 using System;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CBApp.Models
 {
 
     public class RegisterViewModel
     {
+        public List<string> Errors { get; set; }
 
         [Required(ErrorMessage = "Please enter a Slack ID!")]
         [StringLength(50)]
@@ -68,6 +70,35 @@ namespace CBApp.Models
 
         [Display(Name = "Select your Computer Science interests (please select at least one):")]
         public List<CSInterestViewModel>? CSInterestsViewModelList { get; set; }
+
+
+        // Counts num of programming langs selected by user
+        public int CountNumberProgrammingLanguagesSelected()
+        {
+            int counter = 0;
+            for (int i = 0; i < ProgrammingLanguagesViewModelList!.Count; ++i)
+            {
+                if (ProgrammingLanguagesViewModelList[i].isSelected)
+                {
+                    counter++;
+                }
+            }
+            return counter;
+        }
+
+        // Counts num of CS interests selected by user
+        public int CountNumberCSInterestsSelected()
+        {
+            int counter = 0;
+            for (int i = 0; i < CSInterestsViewModelList!.Count; ++i)
+            {
+                if (CSInterestsViewModelList[i].isSelected)
+                {
+                    counter++;
+                }
+            }
+            return counter;
+        }
 
 
         /** Populates the user's list of natural languages with those selected, and saves this to the database */
@@ -189,6 +220,153 @@ namespace CBApp.Models
             }
 
         }
+
+
+        // Validates format and length of the user's SlackId input
+        public List<string> validateSlackId(string SlackId)
+        {
+            List<string> errorList = new List<string>();
+
+            if (String.IsNullOrEmpty(SlackId))
+            {
+                errorList.Add("No Slack ID entered");
+            }
+            else
+            {
+                if (SlackId!.Length < 5 )
+                {
+                    errorList.Add("Slack ID must be at least 5 characters");
+                }
+
+                if (SlackId.Length > 50)
+                {
+                    errorList.Add("Slack ID cannot be more than 50 characters");
+                }
+
+                if (!SlackId.Any(char.IsDigit))
+                {
+                    errorList.Add("Slack ID must contain a number");
+                }
+
+                if (!SlackId.All(char.IsLetterOrDigit))
+                {
+                    errorList.Add("Slack ID can only contain letters or digits");
+                }
+            }
+            return errorList;
+        }
+
+        // Validates format and length of the user's Username input
+        public List<string> validateUsername(string username)
+        {
+            List<string> errorList = new List<string>();
+
+            // Validates format and length of the user's Username input
+            if (String.IsNullOrEmpty(username))
+            {
+                errorList.Add("No username entered");
+            }
+            else
+            {
+                if (username!.Length < 6)
+                {
+                    errorList.Add("Username has to be more than 6 characters in length");
+                }
+
+                if (username!.Length > 14)
+                {
+                    errorList.Add("Username has to be less than 14 characters in length");
+                }
+
+                // Attribution: https://stackoverflow.com/questions/34264226/check-if-a-string-contains-only-letters-digits-and-underscores
+                // Checks if UserName contains only alphanumeric or underscores
+
+                bool validateUsernameFormat = username.All(c => Char.IsLetterOrDigit(c) || c.Equals('_'));
+                if (!validateUsernameFormat)
+                {
+                    errorList.Add("Username may only contain letters, digits and underscores");
+                }
+            }
+
+            return errorList;
+        }
+
+        // Validates password fields
+        public List<string> validatePassword(string password, string confirmed_password)
+        {
+            List<string> errorList = new List<string>();
+
+            // Validate password length
+            if (password!.Length < 6)
+            {
+                errorList.Add("Password must be at least 6 characters");
+            }
+
+            // If password does not match password confirmation
+            if (String.Compare(password, confirmed_password) != 0)
+            {
+                errorList.Add("Passwords do not match");
+            }
+            return errorList;
+        }
+
+        // Validates Career Phase is Selected
+        public List<string> validateCareerPhaseSelected(int id)
+        {
+            List<string> errorList = new List<string>();
+
+            // Check if career phase has been selected
+            if (id == 0)
+            {
+                errorList.Add("Please select a career phase");
+            }
+
+            return errorList;
+        }
+
+        // Validates Experience Level is Selected
+        public List<string> validateExperienceLevelSelected(int id)
+        {
+            List<string> errorList = new List<string>();
+
+            // Check if career phase has been selected
+            if (id == 0)
+            {
+                errorList.Add("Please select an experience level");
+            }
+
+            return errorList;
+        }
+
+
+        /** Validates the model data which has been returned via the form with httppost */
+        public List<string> validateModelData()
+        {
+            // Create a list of strings describing errors
+            List<string> errorList = new List<string>();
+            // Adds errors for bad SlackId input
+            errorList.AddRange(validateSlackId(SlackId!));
+            // Adds errors for bad username input
+            errorList.AddRange(validateUsername(UserName!));
+            // Adds errors for bad password input
+            errorList.AddRange(validatePassword(Password!, ConfirmPassword!));
+            // Adds errors if no careerphase/experiencelevel is selected
+            errorList.AddRange(validateCareerPhaseSelected(SelectedCareerPhaseId));
+            errorList.AddRange(validateExperienceLevelSelected(SelectedExperienceLevelId));
+
+            // If no programming languages selected, append error
+            if (CountNumberProgrammingLanguagesSelected() < 1)
+            {
+                errorList.Add("No programming languages selected. Please select at least one");
+            }
+            // If no CS interests selected, append error
+            if (CountNumberProgrammingLanguagesSelected() < 1)
+            {
+                errorList.Add("No CS interests selected. Please select at least one");
+            }
+            return errorList;
+        }
+
 
         /** Creates a user object and returns it out of the viewModel data */
         public User createUser(ApplicationDbContext context)

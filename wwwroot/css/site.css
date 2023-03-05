@@ -81,7 +81,6 @@ will truncate terms that are too long to fit in the left column
     flex-wrap: nowrap;
     align-items: center;
     border-bottom: 2px solid var(--mediumBlue);
-    padding: 2px;
     z-index: 99; /* Make the navbar always appear in front of rest of page */
 }
 
@@ -99,7 +98,7 @@ will truncate terms that are too long to fit in the left column
 /* The link to the Index page in CodingBuddy logo text */
 .logo-text a {
     font-family: Anton, Arial, sans-serif;
-    padding: 10px;
+    padding: 5px;
     font-size: 2rem;
 }
 
@@ -128,7 +127,7 @@ will truncate terms that are too long to fit in the left column
 /* Navbar Sign-In and Login Links/Styled as Buttons */
 .nav-list, .login-signup-list {
     align-self: center;
-    margin-top: 20px;
+    margin-top: 12px;
 }
 
 /** Delete the bullet points from list in navbar */
@@ -160,12 +159,12 @@ will truncate terms that are too long to fit in the left column
 }
 
 .login-signup-list .list-item {
-    padding: 20px 20px;
+    padding: 5px 20px;
 }
 
 /* Styling for login and sign up buttons */
 #signup-button, #login-button, #logout-button {
-    padding: 10px 30px !important;
+    padding: 8px 30px !important;
     border-radius: 30px;
     font-size: 1rem;
     cursor: pointer;
@@ -325,6 +324,7 @@ will truncate terms that are too long to fit in the left column
     height: 100%;
     display: flex;
     flex-direction: column;
+    scroll-behavior: auto;
 }
 
 .left .splitscreen-textbox {
@@ -1777,6 +1777,7 @@ display: inline !important;
     margin: 5px;
     border-radius: 4px;
     text-decoration: underline;
+    border: 2px solid red;
 }
 
 #edit-username-form {

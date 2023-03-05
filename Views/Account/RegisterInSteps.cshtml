@@ -13,164 +13,183 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
     <!-- MultiStep Form -->
     <div id="registration-wizard-form" class="registration-container justify-content-left p-0">
         <div class="wizard-page w-100 m-0 container-fluid p-0">
-        @*Attribution for complex Bootstrap responsive wizard form structure: https://bbbootstrap.com/snippets/multi-step-form-wizard-30467045 /*@
-        @*Attribution for how to move a Bootstrap element further down the page: https://stackoverflow.com/questions/31574775/move-a-bootstrap-input-element-further-down-the-page*@
-        <div class="row justify-content-left align-items-center mx-0 px-0 py-0 h-100">
-            <div class="col w-100 text-center col-11 col-sm-9 col-md-7 col-lg-6 mt-3 mb-2 px-0 mx-0">
-                <div class="card form-card">
-                    <h2><strong id="sign-up-title">Sign Up</strong></h2>
-                    <p>Fill in all the form fields to go to the next step...</p>
-                    <div class="row">
-                        <div class="col mx-0">
-                            <form id="registration-form" method="post" asp-action="RegisterInSteps">
-                                <!-- progressbar -->
-                                <ul id="progressbar">
-                                    @*SlackId, Username, Passwords*@
-                                    <li class="active fa" id="account"><strong>Account</strong></li>
-                                    @*Career phase, Experience, Gender, Languages spoken*@
-                                    <li class="fa" id="personal"><strong>About Me</strong></li>
-                                    @*Computer Science interests and Hobbies*@
-                                    <li class="fa" id="interests"><strong>Interests</strong></li>
-                                    <li class="fa" id="confirm"><strong>Finish</strong></li>
-                                </ul>
-                                <!-- fieldsets -->
-                                @* First "fieldset": registration form for basic account info - password, username, etc. *@
-                                <fieldset>
-                                    <div class="form-card">
-                                        <h3 class="fs-title">Account Information</h3>
-                                        <br />
+            @*Attribution for complex Bootstrap responsive wizard form structure: https://bbbootstrap.com/snippets/multi-step-form-wizard-30467045 /*@
+            @*Attribution for how to move a Bootstrap element further down the page: https://stackoverflow.com/questions/31574775/move-a-bootstrap-input-element-further-down-the-page*@
+            <div class="row justify-content-left align-items-center mx-0 px-0 py-0 h-100">
 
-                                        @*SLACK ID INPUT SECTION*@
-                                        @* Hidden error labels that appear if user does not enter SlackID with JavaScript *@
-                                        <label id="client-side-error-slack-id" style="display: none; text-align: left; color: red;">
-                                            Invalid SlackID error: Must be between 5 and 50 chars, alphanumeric, and include
-                                            at least one digit!
-                                        </label>
-                                        <label id="client-side-error-slack-id-taken" style="display: none; color: red;">
-                                            SlackID is already taken!
-                                        </label>
-                                        @* Labels explaining to the user how to find their SlackID on Slack*@
-                                        <label id="slack-id-label">Please enter your Slack ID (alphanumeric chars only, 
-                                            at least 5 chars, enter at least one number!):</label>
-                                        <label id="slack-id-label-instructions">
-                                            <em>
-                                                To find your Slack member ID: go into your Slack workspace. 
-                                                Then click your profile icon on the top-right of the page.
-                                                Click on the three-dots bar next to "View As", and then on click "Copy Member Id!"
-                                            </em>
-                                        </label>
-                                        @Html.EditorFor(model => model.SlackId, 
+                @if (Model.Errors != null)
+                {   
+                    <ul>
+                        @foreach(string error in Model.Errors)
+                        {
+                            <li class="error-label">
+                             Error encountered: @error
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <div class="col w-100 text-center col-11 col-sm-9 col-md-7 col-lg-6 mt-3 mb-2 px-0 mx-0">
+                        <div class="card form-card">
+                            <h2><strong id="sign-up-title">Sign Up</strong></h2>
+                            <p>Fill in all the form fields to go to the next step...</p>
+                            <div class="row">
+                                <div class="col mx-0">
+                                    <form id="registration-form" method="post" asp-action="RegisterInSteps">
+                                        <!-- progressbar -->
+                                        <ul id="progressbar">
+                                            @*SlackId, Username, Passwords*@
+                                            <li class="active fa" id="account"><strong>Account</strong></li>
+                                            @*Career phase, Experience, Gender, Languages spoken*@
+                                            <li class="fa" id="personal"><strong>About Me</strong></li>
+                                            @*Computer Science interests and Hobbies*@
+                                            <li class="fa" id="interests"><strong>Interests</strong></li>
+                                            <li class="fa" id="confirm"><strong>Finish</strong></li>
+                                        </ul>
+                                        <!-- fieldsets -->
+                                        @* First "fieldset": registration form for basic account info - password, username, etc. *@
+                                        <fieldset>
+                                            <div class="form-card">
+                                                <h3 class="fs-title">Account Information</h3>
+                                                <br />
+                                                @*SLACK ID INPUT SECTION*@
+                                                @* Hidden error labels that appear if user does not enter SlackID with JavaScript *@
+                                                <label id="client-side-error-slack-id" style="display: none; text-align: left; color: red;">
+                                                    Invalid SlackID error: Must be between 5 and 50 chars, alphanumeric, and include
+                                                    at least one digit!
+                                                </label>
+                                                <label id="client-side-error-slack-id-taken" style="display: none; color: red;">
+                                                    SlackID is already taken!
+                                                </label>
+                                                @* Labels explaining to the user how to find their SlackID on Slack*@
+                                                <label id="slack-id-label">
+                                                    Please enter your Slack ID (alphanumeric chars only,
+                                                    at least 5 chars, enter at least one number!):
+                                                </label>
+                                                <label id="slack-id-label-instructions">
+                                                    <em>
+                                                        To find your Slack member ID: go into your Slack workspace.
+                                                        Then click your profile icon on the top-right of the page.
+                                                        Click on the three-dots bar next to "View As", and then on click "Copy Member Id!"
+                                                    </em>
+                                                </label>
+                                                @Html.EditorFor(model => model.SlackId,
                                             new { htmlAttributes = new {Style = "color: black;", @class = "form-control",
-                                        id = "slackId", placeholder="Slack ID"} }) 
-                                        @* End of the SlackID input section *@
-                                        
+                                            id = "slackId", placeholder="Slack ID"} })
+                                                @* End of the SlackID input section *@
 
 
-                                        @* Username Section *@
-                                        @* Hidden error messages*@
-                                        @* Error message about bad format*@
-                                        <label id="client-side-error-username" style="display: none; color: red;">
-                                            Invalid username error: Must be between 6 and 14 chars, and only include
-                                            alphanumeric characters and '_'.
-                                        </label>
-                                        @* Error message saying SlackId is already taken*@
-                                        <label id="client-side-error-username-taken" style="display: none; color: red;">
-                                            Username is already taken - please choose a different one!
-                                        </label>
-                                        @* Label for what to enter *@
-                                        <label id="username-label">Please enter a username (alphanumeric and '_' only, 
-                                            between 6-14 chars):</label>
-                                        @* Input field *@
-                                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { placeholder="Username",
+
+                                                @* Username Section *@
+                                                @* Hidden error messages*@
+                                                @* Error message about bad format*@
+                                                <label id="client-side-error-username" style="display: none; color: red;">
+                                                    Invalid username error: Must be between 6 and 14 chars, and only include
+                                                    alphanumeric characters and '_'.
+                                                </label>
+                                                @* Error message saying SlackId is already taken*@
+                                                <label id="client-side-error-username-taken" style="display: none; color: red;">
+                                                    Username is already taken - please choose a different one!
+                                                </label>
+                                                @* Label for what to enter *@
+                                                <label id="username-label">
+                                                    Please enter a username (alphanumeric and '_' only,
+                                                    between 6-14 chars):
+                                                </label>
+                                                @* Input field *@
+                                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { placeholder="Username",
                                             Style = "color: black;", @class = "form-control", id="username-input" } })
-                                        @* End of Username section*@
+                                                @* End of Username section*@
 
-                                        @* Beginning of password section *@
-                                        @* Error related to password length (hidden) *@
-                                        <label id="client-side-error-password" style="display: none; color: red;">
-                                            Please enter a password of length at least 10 characters!
-                                        </label>
-                                        @* Normal, non-error label for password *@
-                                        <label id="password-label">Please enter a password (at least 6 chars):</label>
-                                        @* Input field*@
-                                        @Html.EditorFor(model => model.Password, new { htmlAttributes =
-                                            new { placeholder="Password", Style = "color: black;", id="password-input", 
+                                                @* Beginning of password section *@
+                                                @* Error related to password length (hidden) *@
+                                                <label id="client-side-error-password" style="display: none; color: red;">
+                                                    Please enter a password of length at least 10 characters!
+                                                </label>
+                                                @* Normal, non-error label for password *@
+                                                <label id="password-label">Please enter a password (at least 6 chars):</label>
+                                                @* Input field*@
+                                                @Html.EditorFor(model => model.Password, new { htmlAttributes =
+                                            new { placeholder="Password", Style = "color: black;", id="password-input",
                                             @class = "form-control", type="password" } })
 
-                                        @* Confirm Password section *@
-                                        @* Error for when passwords do not match *@
-                                        <label id="client-side-error-confirm-password" style="display: none; color: red;">
-                                            Passwords do not match.
-                                        </label>
-                                        @* Normal label for confirm password *@
-                                        <label id="confirm-password-label">
-                                            Please type in your password again here to confirm:
-                                        </label>
-                                        @* Input field *@
-                                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { placeholder="Confirm password",
+                                                @* Confirm Password section *@
+                                                @* Error for when passwords do not match *@
+                                                <label id="client-side-error-confirm-password" style="display: none; color: red;">
+                                                    Passwords do not match.
+                                                </label>
+                                                @* Normal label for confirm password *@
+                                                <label id="confirm-password-label">
+                                                    Please type in your password again here to confirm:
+                                                </label>
+                                                @* Input field *@
+                                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { placeholder="Confirm password",
                                             Style = "color: black;", id="confirm-password-input", @class = "form-control", type="password" } })
 
-                                        @* End of password section *@
-                                    </div>
-                                    @* Next button *@
-                                    <input type="button" name="next" class="next action-button" id="first"
-                                        value="Next Step" />
-                                </fieldset>
-                                @* End of the first "general information/basic account info" step in the registration process*@
-
-                                @* Beginning of the second step/fieldset: career stage, experience level, languages *@
-                                <fieldset>
-                                    <div class="form-card">
-                                        <h3 class="fs-title">Personal Information</h3>
-                                        @* Dropdown for "career phase" option *@
-                                        <div class="form-group">
-                                            @* Label to select career *@
-                                            <label class="control-label col-md-6" id="career-phase-label">*Career phase:</label>
-                                            <div class="col-md-10">
-                                                @* Dropdown with career phase options*@
-                                                @Html.DropDownListFor(model => model.SelectedCareerPhaseId, new
-                                                SelectList(Model.careerPhaseSelectList, "Value", "Text"),
-                                                "Select Career Phase", new { @class = "form-control", @id = "career-phases-dropdown"})
+                                                @* End of password section *@
                                             </div>
-                                            <br />
-                                        </div>
-                                        @* Dropdown for "experience level " option *@
-                                        <div class="form-group">
-                                            @* Label *@
-                                            <label class="control-label col-md-6" id="experience-level-label">*Experience Level:</label>
-                                            <div class="col-md-10">
-                                                @* Dropdown options *@
-                                                @Html.DropDownListFor(model => model.SelectedExperienceLevelId, new
-                                                SelectList(Model.experienceLevelSelectList, "Value", "Text"),
-                                                "Select Your Experience Level", new { @class = "form-control", @id = "experience-levels-dropdown"})
-                                            </div>
-                                        </div>
-                                        <br />
-                                        @* OPTIONAL: gender dropdown *@
-                                        <div class="form-group">
-                                            <label class="control-label col-md-6" id="gender-label">*Gender (optional):</label>
-                                            <div class="col-md-10">
-                                                @* The dropdown for gender options *@
-                                                @Html.DropDownListFor(model => model.SelectedGenderId, new
-                                                SelectList(Model.genderSelectList, "Value", "Text"),
-                                                "Select Your Gender (optional)", new { @class = "form-control", @id = "gender-dropdown"})
-                                            </div>
-                                        </div>
+                                            @* Next button *@
+                                            <input type="button" name="next" class="next action-button" id="first"
+                                                   value="Next Step" />
+                                        </fieldset>
+                                        @* End of the first "general information/basic account info" step in the registration process*@
 
-                                        @* List of spoken languages *@
-                                        <br />
-                                        <div class="form-group" style="padding: 10px;">
-                                            <b>@Html.LabelFor(model => model.NaturalLanguagesViewModelList,
-                                                htmlAttributes: new {Style = "color: white; ", @class = "control-label" }) </b>
-                                            <br />
-                                            <div id="natural-language-checkbox-container" class="checkbox-container">
-                                                <ul class="checkbox-unordered-list">
-                                                    @for (var i = 0; i < Model.NaturalLanguagesViewModelList!.Count(); i++)
-                                                    {
-                                                            var className = "";    
+                                        @* Beginning of the second step/fieldset: career stage, experience level, languages *@
+                                        <fieldset>
+                                            <div class="form-card">
+                                                <h3 class="fs-title">Personal Information</h3>
+                                                @* Dropdown for "career phase" option *@
+                                                <div class="form-group">
+                                                    @* Label to select career *@
+                                                    <label class="control-label col-md-6" id="career-phase-label">*Career phase:</label>
+                                                    <div class="col-md-10">
+                                                        @* Dropdown with career phase options*@
+                                                        @Html.DropDownListFor(model => model.SelectedCareerPhaseId, new
+                                                    SelectList(Model.careerPhaseSelectList, "Value", "Text"),
+                                                    "Select Career Phase", new { @class = "form-control", @id = "career-phases-dropdown"})
+                                                    </div>
+                                                    <br />
+                                                </div>
+                                                @* Dropdown for "experience level " option *@
+                                                <div class="form-group">
+                                                    @* Label *@
+                                                    <label class="control-label col-md-6" id="experience-level-label">*Experience Level:</label>
+                                                    <div class="col-md-10">
+                                                        @* Dropdown options *@
+                                                        @Html.DropDownListFor(model => model.SelectedExperienceLevelId, new
+                                                    SelectList(Model.experienceLevelSelectList, "Value", "Text"),
+                                                    "Select Your Experience Level", new { @class = "form-control", @id = "experience-levels-dropdown"})
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                @* OPTIONAL: gender dropdown *@
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-6" id="gender-label">*Gender (optional):</label>
+                                                    <div class="col-md-10">
+                                                        @* The dropdown for gender options *@
+                                                        @Html.DropDownListFor(model => model.SelectedGenderId, new
+                                                    SelectList(Model.genderSelectList, "Value", "Text"),
+                                                    "Select Your Gender (optional)", new { @class = "form-control", @id = "gender-dropdown"})
+                                                    </div>
+                                                </div>
 
-                                                            @* Add the hidden class to all languages but the most frequently-spoken/common ones *@
-                                                             @if (Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Mandarin" &&
+                                                @* List of spoken languages *@
+                                                <br />
+                                                <div class="form-group" style="padding: 10px;">
+                                                    <b>
+                                                        @Html.LabelFor(model => model.NaturalLanguagesViewModelList,
+                                                    htmlAttributes: new {Style = "color: white; ", @class = "control-label" })
+                                                    </b>
+                                                    <br />
+                                                    <div id="natural-language-checkbox-container" class="checkbox-container">
+                                                        <ul class="checkbox-unordered-list">
+                                                            @for (var i = 0; i < Model.NaturalLanguagesViewModelList!.Count(); i++)
+                                                            {
+                                                                var className = "";
+
+                                                                @* Add the hidden class to all languages but the most frequently-spoken/common ones *@
+                                                                @if (Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Mandarin" &&
                                                                Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "English" &&
                                                                Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Spanish" &&
                                                                Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Arabic" &&
@@ -181,131 +200,132 @@ var errors = Context.Session.GetObject<FormErrors>("InputErrors");
                                                                Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "Japanese" &&
                                                                Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "French" &&
                                                                Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name != "German")
-                                                            {
-                                                                className = "language-label hidden";
-                                                            }
-                                                            // For common languages, add the "common-language" class to be able to toggle with these always showing
-                                                            else
-                                                            {
-                                                            className = "language-label common-language";
-                                                            }
+                                                                {
+                                                                    className = "language-label hidden";
+                                                                }
+                                                                // For common languages, add the "common-language" class to be able to toggle with these always showing
+                                                                else
+                                                                {
+                                                                    className = "language-label common-language";
+                                                                }
 
-                                                            @* Class logic above means only most common languages will be shown unless user clicks the "show more" button*@
-                                                            var checkboxId = "lang-checkbox-" + (i + 1).ToString();
-                                                            <li>
-                                                                @Html.HiddenFor(model => model.NaturalLanguagesViewModelList![i].naturalLanguage)
+                                                                @* Class logic above means only most common languages will be shown unless user clicks the "show more" button*@
+                                                                var checkboxId = "lang-checkbox-" + (i + 1).ToString();
+                                                                <li>
+                                                                    @Html.HiddenFor(model => model.NaturalLanguagesViewModelList![i].naturalLanguage)
+                                                                    @Html.CheckBoxFor(model =>
+                                                            model.NaturalLanguagesViewModelList![i].isSelected, new {
+                                                            @class="lang-checkbox", @id = checkboxId, @type="checkbox" })
+                                                                    @Html.Label(Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,
+                                                            htmlAttributes: new { @for = checkboxId, @class=className })
+                                                                </li>
+                                                            }
+                                                        </ul>
+                                                        @* Div containing the "show more" button *@
+                                                        <div id="show-more-languages-container" ">
+                                                        @* Toggles showing all languages on/off *@
+                                                            <button value="Show all" type="button" id="show-more-languages-button">
+                                                                Show all
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                        @* End of spoken languages section *@
+                                            </div>
+                                            <input type="button" name="previous" class="previous action-button-previous"
+                                                   value="Previous" />
+                                            <input type="button" name="next" class="next action-button" id="second"
+                                                   value="Next Step" />
+                                        </fieldset>
+                                                        @* End of career options/natural languages fieldset*@
+                                                        @* Programming interests + hobbies fieldset *@
+                                        <fieldset>
+                                            <div class="form-card">
+                                                <h3 class="fs-title">Skills and Interests</h3>
+                                                <br />
+                                                <br />
+                                                <div class="form-group" style="padding: 10px;">
+                                                    <b>
+                                                        @Html.LabelFor(model => model.ProgrammingLanguagesViewModelList,
+                                                    htmlAttributes: new { @class = "control-label",id="progLangsLabel" })
+                                                    </b>
+                                                    <br />
+                                                    <div class="checkbox-container">
+                                                        <ul class="checkbox-unordered-list">
+                                                        @for (var i = 0; i < Model.ProgrammingLanguagesViewModelList!.Count(); i++)
+                                                        {
+                                                            // Create an ID property for each checkbox by concatenating a string with the index-number
+                                                            var checkboxId = "prog-lang-checkbox-" + (i + 1).ToString();
+                                                                <li>
+                                                                @Html.HiddenFor(model => model.ProgrammingLanguagesViewModelList![i])
                                                                 @Html.CheckBoxFor(model =>
-                                                                model.NaturalLanguagesViewModelList![i].isSelected, new {
-                                                                @class="lang-checkbox", @id = checkboxId, @type="checkbox" })
-                                                                @Html.Label(Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,Model.NaturalLanguagesViewModelList![i].naturalLanguage!.Name,
-                                                                htmlAttributes: new { @for = checkboxId, @class=className })
-                                                            </li>   
-                                                    }
-                                                </ul>
-                                                @* Div containing the "show more" button *@
-                                                <div id="show-more-languages-container"">
-                                                    @* Toggles showing all languages on/off *@
-                                                    <button value="Show all" type="button" id="show-more-languages-button">
-                                                        Show all
-                                                    </button>
+                                                            model.ProgrammingLanguagesViewModelList![i].isSelected, new {
+                                                            @class="prog-lang-checkbox", @id = checkboxId, @type="checkbox" })
+                                                                @Html.Label(Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name, Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name,
+                                                            htmlAttributes: new { @for = checkboxId })
+                                                                </li>
+                                                        }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+                                                <br />
+                                                <div class="form-group" style="padding: 10px;">
+                                                    <b>
+                                                        @Html.LabelFor(model => model.CSInterestsViewModelList,
+                                                    htmlAttributes: new {Style = "color: white; ", @class = "control-label",id="csInterestsLabel" })
+                                                    </b>
+                                                    <br />
+                                                    <div class="checkbox-container">
+                                                        <ul class="checkbox-unordered-list">
+                                                        @for (var i = 0; i < Model.CSInterestsViewModelList!.Count(); i++)
+                                                        {
+                                                            // Create an ID property for each checkbox by concatenating a string with the index-number
+                                                            var checkboxId = "cs-interest-checkbox-" + (i + 1).ToString();
+                                                                <li>
+                                                                @Html.HiddenFor(model => model.CSInterestsViewModelList![i])
+                                                                @Html.CheckBoxFor(model =>
+                                                            model.CSInterestsViewModelList![i].isSelected, new {
+                                                            @class="cs-interest-checkbox", @id = checkboxId, @type="checkbox" })
+                                                                @Html.Label(Model.CSInterestsViewModelList![i].CSInterest!.Name, Model.CSInterestsViewModelList![i].CSInterest!.Name,
+                                                            htmlAttributes: new { @for = checkboxId })
+                                                                </li>
+                                                        }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+                                            <input type="button" name="previous" class="previous action-button-previous"
+                                                   value="Previous" />
+                                            <input type="button" name="make_payment" class="next action-button" id="confirmation"
+                                                   value="Confirm" />
+                                        </fieldset>
+                                        <fieldset>
+                                            <div class="form-card">
+                                                <h2 class="fs-title text-center">Success !</h2>
+                                                <br><br>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-3">
+                                                        <img src="https://img.icons8.com/color/96/000000/ok--v2.png"
+                                                             class="fit-image">
+                                                    </div>
+                                                </div>
+                                                <br><br>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-7 text-center">
+                                                        <h5>You Have Successfully Signed Up</h5>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        @* End of spoken languages section *@
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous"
-                                        value="Previous" />
-                                    <input type="button" name="next" class="next action-button" id="second"
-                                        value="Next Step" />
-                                </fieldset>
-                                @* End of career options/natural languages fieldset*@
-                                @* Programming interests + hobbies fieldset *@
-                                <fieldset>
-                                    <div class="form-card">
-                                        <h3 class="fs-title">Skills and Interests</h3>
-                                        <br />
-                                        <br />
-                                        <div class="form-group" style="padding: 10px;">
-                                            <b>
-                                                @Html.LabelFor(model => model.ProgrammingLanguagesViewModelList,
-                                                htmlAttributes: new { @class = "control-label",id="progLangsLabel" })
-                                            </b>
-                                            <br />
-                                            <div class="checkbox-container">
-                                                <ul class="checkbox-unordered-list">
-                                                    @for (var i = 0; i < Model.ProgrammingLanguagesViewModelList!.Count(); i++)
-                                                    {
-                                                        // Create an ID property for each checkbox by concatenating a string with the index-number
-                                                        var checkboxId = "prog-lang-checkbox-" + (i + 1).ToString();
-                                                        <li>
-                                                            @Html.HiddenFor(model => model.ProgrammingLanguagesViewModelList![i])
-                                                            @Html.CheckBoxFor(model =>
-                                                        model.ProgrammingLanguagesViewModelList![i].isSelected, new {
-                                                        @class="prog-lang-checkbox", @id = checkboxId, @type="checkbox" })
-                                                            @Html.Label(Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name, Model.ProgrammingLanguagesViewModelList![i].programmingLanguage!.Name,
-                                                        htmlAttributes: new { @for = checkboxId })
-                                                        </li>
-                                                    }
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <br />
-                                        <br />
-                                        <div class="form-group" style="padding: 10px;">
-                                            <b>
-                                                @Html.LabelFor(model => model.CSInterestsViewModelList,
-                                                htmlAttributes: new {Style = "color: white; ", @class = "control-label",id="csInterestsLabel" })
-                                            </b>
-                                            <br />
-                                            <div class="checkbox-container">
-                                                <ul class="checkbox-unordered-list">
-                                                    @for (var i = 0; i < Model.CSInterestsViewModelList!.Count(); i++)
-                                                    {
-                                                        // Create an ID property for each checkbox by concatenating a string with the index-number
-                                                        var checkboxId = "cs-interest-checkbox-" + (i + 1).ToString();
-                                                        <li>
-                                                            @Html.HiddenFor(model => model.CSInterestsViewModelList![i])
-                                                            @Html.CheckBoxFor(model =>
-                                                        model.CSInterestsViewModelList![i].isSelected, new {
-                                                        @class="cs-interest-checkbox", @id = checkboxId, @type="checkbox" })
-                                                            @Html.Label(Model.CSInterestsViewModelList![i].CSInterest!.Name, Model.CSInterestsViewModelList![i].CSInterest!.Name,
-                                                        htmlAttributes: new { @for = checkboxId })
-                                                        </li>
-                                                    }
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <br />
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous"
-                                        value="Previous" />
-                                    <input type="button" name="make_payment" class="next action-button" id="confirmation"
-                                        value="Confirm" />
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-card">
-                                        <h2 class="fs-title text-center">Success !</h2>
-                                        <br><br>
-                                        <div class="row justify-content-center">
-                                            <div class="col-3">
-                                                <img src="https://img.icons8.com/color/96/000000/ok--v2.png"
-                                                    class="fit-image">
-                                            </div>
-                                        </div>
-                                        <br><br>
-                                        <div class="row justify-content-center">
-                                            <div class="col-7 text-center">
-                                                <h5>You Have Successfully Signed Up</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                }
         </div>
     </div>
 </div>
