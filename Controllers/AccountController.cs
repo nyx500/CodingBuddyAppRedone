@@ -37,7 +37,8 @@ namespace CBApp.Controllers
         private UserManager<User> userManager;
         private SignInManager<User> signInManager;
 
-      
+        
+        /** Creates a RegisterViewModel from the DBContext and outputs the Registration Wizard view */
         [HttpGet]
         public IActionResult RegisterInSteps()
         {
@@ -56,108 +57,34 @@ namespace CBApp.Controllers
                 }
             }
 
+            // Create a new view model
             RegisterViewModel model = new RegisterViewModel();
 
-            // Populate view model with CareerPhases
-            model.careerPhaseSelectList = new List<SelectListItem>();
+            // Populate registration view model with CareerPhases
+            model.getCareerOptionsFromDbContext(context);
 
-            List<CareerPhase> careerPhases = context.CareerPhases.ToList();
+            // Populate registration view model with ExperienceLevels
+            model.getExperienceLevelsFromDbContext(context);
 
-            foreach (var cp in careerPhases)
-            {
-                model.careerPhaseSelectList.Add(
-                    new SelectListItem
-                    {
-                        Text = cp.Name,
-                        Value = cp.CareerPhaseId.ToString()
-                    }
-                );
-            }
+            // Populate registration view model with Genders
+            model.getGendersFromDbContext(context);
 
-            // Populate view model with ExperienceLevels
-            model.experienceLevelSelectList = new List<SelectListItem>();
+            // Populate registration view model with natural language view models with isSelected fields for each language
+            model.getLanguagesFromDbContext(context);
 
-            List<ExperienceLevel> experienceLevels = context.ExperienceLevels.ToList();
+            // Populate registration view model with programming language view models with isSelected fields for each language
+            model.getProgrammingLanguagesFromDbContext(context);
 
-            foreach (var e in experienceLevels)
-            {
-                model.experienceLevelSelectList.Add(
-                    new SelectListItem
-                    {
-                        Text = e.Name,
-                        Value = e.ExperienceLevelId.ToString()
-                    }
-                ); ;
-            }
+            // Populate registration view model with programming language view models with isSelected fields for each language
+            model.getCSInterestsFromDbContext(context);
 
-
-            // Populate view model with Genders
-            model.genderSelectList = new List<SelectListItem>();
-            List<Gender> genders = context.Genders.ToList();
-
-            foreach (var g in genders)
-            {
-                model.genderSelectList.Add(
-                    new SelectListItem
-                    {
-                        Text = g.Name,
-                        Value = g.GenderId.ToString()
-                    }
-                );
-            }
-
-            List<NaturalLanguage> nlangs = context.NaturalLanguages.ToList();
-
-            model.NaturalLanguagesViewModelList = new List<NaturalLanguageViewModel>();
-
-            foreach (var language in nlangs)
-            {
-                model.NaturalLanguagesViewModelList.Add(
-                    new NaturalLanguageViewModel
-                    {
-                        naturalLanguage = language,
-                        isSelected = false
-                    }
-                );
-            }
-
-            // Populates 'create user' view model with programming languages view models with isSelected fields for each language
-            List<ProgrammingLanguage> plangs = context.ProgrammingLanguages.ToList();
-            model.ProgrammingLanguagesViewModelList = new List<ProgrammingLanguageViewModel>();
-            foreach (var language in plangs)
-            {
-                model.ProgrammingLanguagesViewModelList.Add(
-                    new ProgrammingLanguageViewModel
-                    {
-                        programmingLanguage = language,
-                        isSelected = false
-                    }
-                );
-            }
-
-
-            // Populate view model with CS interests
-            List<CSInterest> interests = context.CSInterests.ToList();
-            model.CSInterestsViewModelList = new List<CSInterestViewModel>();
-
-            foreach (var interest in interests)
-            {
-                model.CSInterestsViewModelList.Add(
-                    new CSInterestViewModel
-                    {
-                        CSInterest = interest,
-                        isSelected = false
-                    }
-                );
-            }
-
-
+            // Set state of whether the user had to redirect (due to input error) to this route to 0 (=false)
             HttpContext.Session.SetInt32("RedirectToRegistrationForm", 0);
 
             return View(model);
         }
 
-
+        /** Gets the data the user submitted when registered, and if valid, sign the user in, otherwise display errors in model */
         [HttpPost]
         public async Task<IActionResult> RegisterInSteps(RegisterViewModel model)
         {   
@@ -203,7 +130,8 @@ namespace CBApp.Controllers
             }
 
         }
-
+        
+        /** Logs the currently-signed in user out */
         [HttpPost]
         public async Task<IActionResult> LogOut()
         {

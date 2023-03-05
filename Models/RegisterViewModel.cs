@@ -61,18 +61,140 @@ namespace CBApp.Models
         public List<NaturalLanguageViewModel>? NaturalLanguagesViewModelList { get; set; }
 
 
-
-
         [Display(Name = "Select your favourite programming languages (select at least one):")]
         public List<ProgrammingLanguageViewModel>? ProgrammingLanguagesViewModelList { get; set; }
-
 
 
         [Display(Name = "Select your Computer Science interests (please select at least one):")]
         public List<CSInterestViewModel>? CSInterestsViewModelList { get; set; }
 
 
-        // Counts num of programming langs selected by user
+        /***********************FUNCTIONS FOR HTTPGET METHOD ************************************************************/
+
+        // Populates view model with CareerPhase options
+        public void getCareerOptionsFromDbContext(ApplicationDbContext context)
+        {   
+            // Create model list
+            careerPhaseSelectList = new List<SelectListItem>();
+            // Get options from DB Context
+            List<CareerPhase> careerPhases = context.CareerPhases.ToList();
+
+            foreach (var cp in careerPhases)
+            {       
+                    // Add the select object for career phase options
+                    careerPhaseSelectList!.Add(
+                    new SelectListItem
+                    {
+                        Text = cp.Name,
+                        Value = cp.CareerPhaseId.ToString()
+                    }
+                );
+            }
+        }
+
+        // Populates view model with ExperienceLevels
+        public void getExperienceLevelsFromDbContext(ApplicationDbContext context)
+        {
+            experienceLevelSelectList = new List<SelectListItem>();
+
+            List<ExperienceLevel> experienceLevels = context.ExperienceLevels.ToList();
+
+            foreach (var e in experienceLevels)
+            {
+                experienceLevelSelectList.Add(
+                    new SelectListItem
+                    {
+                        Text = e.Name,
+                        Value = e.ExperienceLevelId.ToString()
+                    }
+                );
+            }
+        }
+
+        // Populates view model with Gender options
+        public void getGendersFromDbContext(ApplicationDbContext context)
+        {
+
+            // Populate view model with Genders
+            genderSelectList = new List<SelectListItem>();
+
+            List<Gender> genders = context.Genders.ToList();
+
+            foreach (var g in genders)
+            {
+                genderSelectList.Add(
+                    new SelectListItem
+                    {
+                        Text = g.Name,
+                        Value = g.GenderId.ToString()
+                    }
+                );
+            }
+        }
+
+        // Populates view model with Natural Language options
+        public void getLanguagesFromDbContext(ApplicationDbContext context)
+        {
+            List<NaturalLanguage> nlangs = context.NaturalLanguages.ToList();
+
+            NaturalLanguagesViewModelList = new List<NaturalLanguageViewModel>();
+
+            foreach (var language in nlangs)
+            {
+                NaturalLanguagesViewModelList.Add(
+                    new NaturalLanguageViewModel
+                    {
+                        naturalLanguage = language,
+                        isSelected = false
+                    }
+                );
+            }
+        }
+
+        // Populates view model with Programming Language options
+        public void getProgrammingLanguagesFromDbContext(ApplicationDbContext context)
+        {
+            // Populates 'create user' view model with programming languages view models with isSelected fields for each language
+            List<ProgrammingLanguage> plangs = context.ProgrammingLanguages.ToList();
+            ProgrammingLanguagesViewModelList = new List<ProgrammingLanguageViewModel>();
+            foreach (var language in plangs)
+            {
+                ProgrammingLanguagesViewModelList.Add(
+                    new ProgrammingLanguageViewModel
+                    {
+                        programmingLanguage = language,
+                        isSelected = false
+                    }
+                );
+            }
+
+        }
+
+        // Populates view model with Comptuer Science interest options
+        public void getCSInterestsFromDbContext(ApplicationDbContext context)
+        {
+            // Populate view model with CS interests
+            List<CSInterest> interests = context.CSInterests.ToList();
+            CSInterestsViewModelList = new List<CSInterestViewModel>();
+
+            foreach (var interest in interests)
+            {
+                CSInterestsViewModelList.Add(
+                    new CSInterestViewModel
+                    {
+                        CSInterest = interest,
+                        isSelected = false
+                    }
+                );
+            }
+        }
+
+        /*********************** END OFFUNCTIONS FOR HTTPGET METHOD *****************************************************/
+
+
+
+        /***********************FUNCTIONS FOR HTTPPOST METHOD ************************************************************/
+        /** Counts the num of programming langs selected by user */
         public int CountNumberProgrammingLanguagesSelected()
         {
             int counter = 0;
@@ -86,7 +208,7 @@ namespace CBApp.Models
             return counter;
         }
 
-        // Counts num of CS interests selected by user
+        /** Counts the num of CS interests selected by user */
         public int CountNumberCSInterestsSelected()
         {
             int counter = 0;
