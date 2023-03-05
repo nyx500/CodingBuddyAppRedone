@@ -164,44 +164,41 @@ namespace CBApp.Controllers
             if (ModelState.IsValid)
             {
 
-                // If the model is valid --> create the user and upload it to the database
-                User user = new User
-                {
-                    SlackId = model.SlackId,
-                    UserName = model.UserName,
-                    CareerPhaseId = model.SelectedCareerPhaseId,
-                    CareerPhase = context!.CareerPhases.Find(model.SelectedCareerPhaseId),
-                    ExperienceLevelId = model.SelectedExperienceLevelId,
-                    ExperienceLevel = context.ExperienceLevels.Find(model.SelectedExperienceLevelId),
-                    GenderId = 0
-                };
+                //// If the model is valid --> create the user and upload it to the database
+                //User user = new User
+                //{
+                //    SlackId = model.SlackId,
+                //    UserName = model.UserName,
+                //    CareerPhaseId = model.SelectedCareerPhaseId,
+                //    CareerPhase = context!.CareerPhases.Find(model.SelectedCareerPhaseId),
+                //    ExperienceLevelId = model.SelectedExperienceLevelId,
+                //    ExperienceLevel = context.ExperienceLevels.Find(model.SelectedExperienceLevelId),
+                //    GenderId = 0
+                //};
 
 
-                // Update Gender "navigation property" of user only if Gender has been selected
-                // We know if a gender has been selected if the Id chosen is not 0 (0 is the default value)
-                if (model.SelectedGenderId != 0)
-                {
-                    user.GenderId = model.SelectedGenderId;
-                    user.Gender = context.Genders.Find(model.SelectedGenderId);
-                }
+                //// Update Gender "navigation property" of user only if Gender has been selected
+                //// We know if a gender has been selected if the Id chosen is not 0 (0 is the default value)
+                //if (model.SelectedGenderId != 0)
+                //{
+                //    user.GenderId = model.SelectedGenderId;
+                //    user.Gender = context.Genders.Find(model.SelectedGenderId);
+                //}
 
-                // Populate the user's options with their selected values
-                // (for natural langs, prog langs and CS interests)
-                model.setSelectedNaturalLanguagesForUser(user, context);
-                model.setSelectedProgrammingLanguagesForUser(user, context);
-                model.setSelectedComputerScienceInterestsForUser(user, context);
-                
+                //// Populate the user's options with their selected values
+                //// (for natural langs, prog langs and CS interests)
+                //model.setSelectedNaturalLanguagesForUser(user, context);
+                //model.setSelectedProgrammingLanguagesForUser(user, context);
+                //model.setSelectedComputerScienceInterestsForUser(user, context);
 
+                User user = model.createUser(context!);
+    
                 // Adds the new user with their data to the database
-                context.Users.Add(user);
+                context!.Users.Add(user);
 
-                // Add user using UserManager object
+                // Add user and hash the submitted password using the UserManager instance
                 var result = await userManager.CreateAsync(user, model.Password);
 
-                if (result != null)
-                {
-
-                }
                 // If the IdentityResult object is true, then sign the user in using a session cookie
                 if (result.Succeeded)
                 {

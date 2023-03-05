@@ -182,6 +182,38 @@ namespace CBApp.Models
                 user.GenderId = SelectedGenderId;
                 user.Gender = context.Genders.Find(SelectedGenderId);
             }
+            else
+            {
+                user.GenderId = 0;
+                user.Gender = null;
+            }
+
+        }
+
+        /** Creates a user object and returns it out of the viewModel data */
+        public User createUser(ApplicationDbContext context)
+        {
+            // If the model is valid --> creates a user
+            User user = new User
+            {
+                SlackId = SlackId,
+                UserName = UserName,
+                CareerPhaseId = SelectedCareerPhaseId,
+                CareerPhase = context!.CareerPhases.Find(SelectedCareerPhaseId),
+                ExperienceLevelId = SelectedExperienceLevelId,
+                ExperienceLevel = context.ExperienceLevels.Find(SelectedExperienceLevelId)
+            };
+
+            // Calls the function to set the gender if selected
+            setGenderIfSelected(user, context);
+
+            // Adds the language/interest options
+            setSelectedNaturalLanguagesForUser(user, context);
+            setSelectedProgrammingLanguagesForUser(user, context);
+            setSelectedComputerScienceInterestsForUser(user, context);
+
+            // Return the user just created
+            return user;
 
         }
 
