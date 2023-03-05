@@ -189,7 +189,18 @@ namespace CBApp.Models
             }
         }
 
-        /*********************** END OFFUNCTIONS FOR HTTPGET METHOD *****************************************************/
+        /** Creates the whole model from DB */
+        public void createModelFromDatabase(ApplicationDbContext context)
+        {
+            getCareerOptionsFromDbContext(context);
+            getExperienceLevelsFromDbContext(context);
+            getGendersFromDbContext(context);
+            getLanguagesFromDbContext(context);
+            getProgrammingLanguagesFromDbContext(context);
+            getCSInterestsFromDbContext(context);
+        }
+    
+        /*********************** END OF FUNCTIONS FOR HTTPGET METHOD *****************************************************/
 
 
 

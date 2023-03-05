@@ -60,29 +60,15 @@ namespace CBApp.Controllers
             // Create a new view model
             RegisterViewModel model = new RegisterViewModel();
 
-            // Populate registration view model with CareerPhases
-            model.getCareerOptionsFromDbContext(context);
-
-            // Populate registration view model with ExperienceLevels
-            model.getExperienceLevelsFromDbContext(context);
-
-            // Populate registration view model with Genders
-            model.getGendersFromDbContext(context);
-
-            // Populate registration view model with natural language view models with isSelected fields for each language
-            model.getLanguagesFromDbContext(context);
-
-            // Populate registration view model with programming language view models with isSelected fields for each language
-            model.getProgrammingLanguagesFromDbContext(context);
-
-            // Populate registration view model with programming language view models with isSelected fields for each language
-            model.getCSInterestsFromDbContext(context);
+            // Populates the view model with data from the database
+            model.createModelFromDatabase(context);
 
             // Set state of whether the user had to redirect (due to input error) to this route to 0 (=false)
             HttpContext.Session.SetInt32("RedirectToRegistrationForm", 0);
 
             return View(model);
         }
+
 
         /** Gets the data the user submitted when registered, and if valid, sign the user in, otherwise display errors in model */
         [HttpPost]
@@ -195,6 +181,7 @@ namespace CBApp.Controllers
 
 
 
+        /** Checks if the inputted username exists, returns JSON 'true' if already exists in database */
         [HttpPost]
         public JsonResult CheckUsername(string username = "")
         {
@@ -214,6 +201,8 @@ namespace CBApp.Controllers
         }
 
 
+
+        /** Checks if the inputted SlackId exists, returns JSON 'true' if already exists in database */
         [HttpPost]
         public JsonResult CheckSlackId(string slackId = "")
         {
@@ -232,13 +221,9 @@ namespace CBApp.Controllers
             return Json(result);
         }
 
-        [HttpGet]
-        public ActionResult ViewProfile(string id = "")
-        {
-            return Content("SlackID: " + id.ToString());
-        }
 
-        /** Make this route only accessible if user is logged in! */
+        /** Authorize: Make this route only accessible if user is logged in! */
+        /** Goes to the user's own profile page so they can edit it */
         [Authorize]
         [HttpGet]
         public ActionResult EditProfile()
