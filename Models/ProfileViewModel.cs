@@ -11,6 +11,8 @@ namespace CBApp.Models
             public string? Bio { get; set; }
             public CareerPhase? CareerPhase { get; set; }
             public ExperienceLevel? ExperienceLevel { get; set; }
+            public Gender? Gender{ get; set; }
+
 
             public List<String>? LanguageNames = new List<String>();
             public List<String>? ProgrammingLanguageNames = new List<String>();

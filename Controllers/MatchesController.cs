@@ -734,6 +734,11 @@ namespace CBApp.Controllers
                 }
                 model.CareerPhase = user.CareerPhase;
                 model.ExperienceLevel = user.ExperienceLevel;
+
+                if (user.GenderId != 0)
+                {
+                    model.Gender = user.Gender;
+                }
                 
                 // Only display the user's slackID if they have liked the currently logged-in user
                 if ((context.Likes.ToList().FindIndex(f => f.SlackId1 == user.SlackId) != -1) &&

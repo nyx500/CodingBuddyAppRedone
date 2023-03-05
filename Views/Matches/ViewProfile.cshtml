@@ -41,7 +41,7 @@
         {
             <div class="panel" id="panel-one">
 
-                <div id="basic-info-first-col">
+                <div id="first-col-view-profile">
 
                     @*Start of profile picture section*@
                     <div id="profile-picture-wrapper">
@@ -86,11 +86,20 @@
                         </div>
                     </div>
 
+                    @* Selected gender *@
+                    @if (Model.Gender != null)
+                    {
+                        <div class="edit-profile-form-row" id="gender-wrapper">
+                            <div>
+                                @Html.DisplayFor(model => model.Gender!.Name)
+                            </div>
+                        </div>
+                    }
                 </div>
                 @*End of left column*@
 
                 @* Second column on the right *@
-                <div id="basic-info-second-col" class="view-version-second-col">
+                <div id="second-col-view-profile">
 
                     @* Username and SlackId data *@
                     <div class="edit-profile-form-row">

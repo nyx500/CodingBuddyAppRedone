@@ -75,7 +75,7 @@ ViewBag.Title = "My Profile";
                 </div>
                 
                 @*Career Phase Dropdown*@
-                <div id="career-dropdown" class="hidden" style="display: none;">
+                <div id="career-dropdown" class="hidden">
                     <label id="career-error-label"></label>
                     @Html.DropDownListFor(model => model.SelectedCareerPhaseId, new
                     SelectList(Model.careerPhaseSelectList, "Value", "Text"),
@@ -95,7 +95,7 @@ ViewBag.Title = "My Profile";
                     <button class="edit-button" id="edit-experience-level">Edit</button>
                 </div>
                 @*Experience Level Dropdown*@
-                <div id="experience-dropdown" class="hidden" style="display: none;">
+                <div id="experience-dropdown" class="hidden">
                     <label id="experience-error-label"></label>
                     @Html.DropDownListFor(model => model.SelectedExperienceLevelId, new
                     SelectList(Model.experienceLevelSelectList, "Value", "Text"),
@@ -106,7 +106,37 @@ ViewBag.Title = "My Profile";
                     </div>
                 </div>
                 @*End of Experience Level Dropdown*@
-                 @*End of Career Phase and Experience Level Section*@
+
+                @*@*Gender*@
+                <div class="edit-profile-form-row" id="gender-wrapper">
+                @if (Model.Gender != null)
+                {
+                        <div>
+                            @Html.DisplayFor(model => model.Gender!.Name)
+                        </div>
+                        <button class="edit-button" id="edit-gender">Edit</button>
+                }
+                else
+                {
+                 
+                    <button class="edit-button" id="edit-gender">Add gender</button>
+                }
+                </div>
+
+                @*Gender Dropdown*@
+                <div id="gender-dropdown" class="hidden">
+                    <label id="gender-error-label"></label>
+                    @Html.DropDownListFor(model => model.SelectedGenderId, new
+                    SelectList(Model.genderSelectList, "Value", "Text"),
+                    "Select Gender", new { @class = "form-control", @id = "genders-dropdown"})
+                    <div id="gender-buttons">
+                        <button class="save-button" id="save-gender-button">Save</button>
+                        <button class="cancel-button" id="cancel-gender-button">Cancel</button>
+                    </div>
+                </div>
+                @*End of Gender Selection Dropdown*@
+
+                 @*End of Career Phase, Experience Level and Gender Section*@
             </div> 
             @*End of left column*@
 

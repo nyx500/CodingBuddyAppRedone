@@ -13,6 +13,7 @@ namespace CBApp.Models
 
         public CareerPhase? CareerPhase { get; set; }
         public ExperienceLevel? ExperienceLevel { get; set; }
+        public Gender? Gender { get; set; }
         public List<String>? LanguageNames { get; set; }
         public List<String>? ProgrammingLanguageNames { get; set; }
         public List<String>? CSInterestNames { get; set; }
@@ -27,8 +28,10 @@ namespace CBApp.Models
         // Dropdowns and selections (single-option) for editing the choices
         public List<SelectListItem>? careerPhaseSelectList;
         public List<SelectListItem>? experienceLevelSelectList;
+        public List<SelectListItem>? genderSelectList;
         public int SelectedCareerPhaseId { get; set; }
         public int SelectedExperienceLevelId { get; set; }
+        public int SelectedGenderId { get; set; }
 
     }
 }

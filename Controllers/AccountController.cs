@@ -236,6 +236,7 @@ namespace CBApp.Controllers
             model.SlackId = user.SlackId;
             model.CareerPhase = user.CareerPhase;
             model.ExperienceLevel = user.ExperienceLevel;
+            model.Gender = user.Gender;
             model.LanguageNames = new List<string>();
             model.QuestionAnswerBlocks = new List<QuestionAnswerBlock>();
             model.Bio = user.Bio;
@@ -272,6 +273,20 @@ namespace CBApp.Controllers
                     }
                 ); ;
             }
+            // Populate the view model with ExperienceLevels
+            model.genderSelectList = new List<SelectListItem>();
+            List<Gender> genders = context.Genders.ToList();
+            foreach (var g in genders)
+            {
+                model.genderSelectList.Add(
+                    new SelectListItem
+                    {
+                        Text = g.Name,
+                        Value = g.GenderId.ToString()
+                    }
+                ); ;
+            }
+
 
             // Get user preferences
             model.LanguageNames = new List<String>();
@@ -530,6 +545,43 @@ namespace CBApp.Controllers
             // Update the logged-in user's careerPhase Navigation Property
             ExperienceLevel el = context!.ExperienceLevels.Where(e => e.ExperienceLevelId == experienceLevelId).FirstOrDefault<ExperienceLevel>()!;
             user.ExperienceLevel = el;
+
+            // Update the user properties
+            var result = await userManager.UpdateAsync(user);
+
+            // If the IdentityResult object is true, then sign the user in using a session cookie
+            if (result.Succeeded)
+            {
+                // Update the dtabase
+                context.SaveChanges();
+                return Json("updated");
+            }
+            else
+            {
+                return Json("failed");
+            }
+        }
+
+        // Update user's gender
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> UpdateGender(string id)
+        {
+            int genderId = Convert.ToInt32(id);
+
+            // Find the currently-logged in user by username
+            var username = User.Identity!.Name;
+            User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
+
+            // Update the logged-in user's gender (foreign key)
+            user.GenderId = genderId;
+
+            if (genderId != 0)
+            {
+                // Update the logged-in user's gender Navigation Property
+                Gender g = context!.Genders.Where(g => g.GenderId == genderId).FirstOrDefault<Gender>()!;
+                user.Gender = g;
+            }
 
             // Update the user properties
             var result = await userManager.UpdateAsync(user);
