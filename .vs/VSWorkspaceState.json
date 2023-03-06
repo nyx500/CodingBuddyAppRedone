@@ -9,6 +9,6 @@
     "\\wwwroot\\css",
     "\\wwwroot\\js"
   ],
-  "SelectedNode": "\\Data\\ApplicationDbContext.cs",
+  "SelectedNode": "\\Controllers\\AccountController.cs",
   "PreviewInSolutionExplorer": false
 }

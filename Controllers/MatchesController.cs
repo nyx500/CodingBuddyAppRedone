@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using CBApp.Models;
@@ -24,7 +23,6 @@ namespace CBApp.Controllers
         * this will provide the controller with the Database Context object through a
         * Dependency Injection.
      */
-        private ApplicationDbContext? context;
         public MatchesController(ApplicationDbContext _context, UserManager<User> _userManager,
             SignInManager<User> _signInManager, IWebHostEnvironment _environment)
         {   
@@ -37,6 +35,7 @@ namespace CBApp.Controllers
 
         private UserManager<User> userManager;
         private SignInManager<User> signInManager;
+        private ApplicationDbContext? context;
         private IWebHostEnvironment Environment;
 
         [Authorize]

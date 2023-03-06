@@ -61,6 +61,7 @@ $(document).ready(function () {
     updateBioFunctionality();
     updateCareerPhaseFunctionality();
     updateExperienceLevelFunctionality();
+    updateGenderFunctionality();
     updateLanguages();
     updateProgrammingLanguages();
     updateCSInterests();
@@ -134,8 +135,8 @@ function updateUsernameFunctionality() {
         var usernameInput = $("#edit-username-input");
         // Validate username input
         // Check length
-        if (usernameInput.val().length < 6 || usernameInput.val().length > 70) {
-            $("#username-input-label").text("Invalid: Bad length!");
+        if (usernameInput.val().length < 6 || usernameInput.val().length > 14) {
+            $("#username-input-label").text("Invalid: Bad length! Username must be 6-14 chars.");
             $("#username-input-label").css("color", "red");
         }
         // Check chars
@@ -257,7 +258,7 @@ function updateCareerPhaseFunctionality() {
         // For some reason, adding class called "hidden" to
         // element with Id "career-dropdown" doesn't work,
         // so act directly on CSS here:
-        $("#career-dropdown").css("display", "block");
+        $("#career-dropdown").removeClass("hidden");
         // hide the data + edit button
         $("#career-phase-wrapper").addClass("hidden");
     })
@@ -265,7 +266,7 @@ function updateCareerPhaseFunctionality() {
     var cancelButton = $("#cancel-career-button");
     cancelButton.click(function () {
         // Hide the dropdown
-        $("#career-dropdown").css("display", "none");
+        $("#career-dropdown").addClass("hidden");
         // Show the data + edit button again
         $("#career-phase-wrapper").removeClass("hidden");
     });
@@ -303,20 +304,17 @@ function updateExperienceLevelFunctionality() {
     var editButton = $("#edit-experience-level");
 
     editButton.click(function () {
-        // For some reason, adding class called "hidden" to
-        // element with Id "career-dropdown" doesn't work,
-        // so act directly on CSS here:
-        $("#experience-dropdown").css("display", "block");
-        // hide the data + edit button
+        $("#experience-dropdown").removeClass("hidden");
         $("#experience-level-wrapper").addClass("hidden");
     })
 
     var cancelButton = $("#cancel-experience-button");
     cancelButton.click(function () {
         // Hide the dropdown
-        $("#experience-dropdown").css("display", "none");
+        $("#experience-dropdown").addClass("hidden");
         // Show the data + edit button again
         $("#experience-level-wrapper").removeClass("hidden");
+        $("#experience-level-wrapper").css("display", "flex");
     });
 
     var saveButton = $("#save-experience-button");
@@ -345,6 +343,50 @@ function updateExperienceLevelFunctionality() {
                 }
             });
         }
+    })
+}
+
+function updateGenderFunctionality() {
+
+    var editButton = $("#edit-gender");
+
+    editButton.click(function () {
+        $("#gender-dropdown").removeClass("hidden");
+        // hide the data + edit button
+        $("#gender-wrapper").addClass("hidden");
+    })
+
+    var cancelButton = $("#cancel-gender-button");
+    cancelButton.click(function () {
+        // Hide the dropdown
+        $("#gender-dropdown").addClass("hidden");
+        // Show the data + edit button again
+        $("#gender-wrapper").removeClass("hidden");
+    });
+
+    var saveButton = $("#save-gender-button");
+    saveButton.click(function () {
+
+
+        console.log($("#genders-dropdown").val());
+        // Update gender with AJAX in controller
+
+        var gender_data = { id: $("#genders-dropdown").val() };
+        $.ajax({
+            type: "POST",
+            url: "/Account/UpdateGender",
+            data: gender_data,
+            success: function (response) {
+                if (response == "updated") {
+                    window.location.replace("/account/EditProfile");
+                }
+                // Did not manage to update: display error above dropdown in red
+                else {
+                    $("#gender-error-label").text("An error occurred when trying to update the database.");
+                    $("#gender-error-label").css("color", "red");
+                }
+            }
+        });
     })
 }
 

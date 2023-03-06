@@ -9,6 +9,19 @@ html {
     width: 100%;
 }
 
+
+/** Colour palette variables */
+:root {
+    --peachyYellow: #FFBD59;
+    --periwinkle: #856BC2;
+    --palePurple: #DED6E6;
+    --mediumBlue: #1627A3;
+    --veryDarkBlue: #050A30;
+    --greyishBlue: #7393B9;
+    --darkGreyishBlue: #323235;
+    --darkestBlue: #02072F;
+}
+
 /*Header font*/
 @font-face {
     font-family: "Anton";
@@ -36,21 +49,40 @@ html {
 }
 
 
+/** Attribution: https://www.scaler.com/topics/html-background-image-full-screen/*/
 body {
+    /*background-image: url("../assets/background.png");*/
+    margin: 0px;
+    padding: 0px;
+    background: repeating-linear-gradient( 190deg, rgba(48, 44, 120, 0.5) 40px, rgba(86, 51, 161, 0.5) 80px,
+        rgba(61, 68, 186, 0.5) 120px, rgba(129, 133, 201, 0.5) 160px, rgba(160, 96, 219, 0.5) 200px, rgba(28, 27, 51, 0.5) 240px,
+        rgba(10, 6, 92, 0.5) 280px, blueviolet 300px ),
+        repeating-linear-gradient( -190deg, rgba(104, 0, 198, 0.5) 30px, #856BC2 60px, rgba(0, 0, 255) 90px,
+            rgba(118, 72, 199, 0.5) 120px, rgba(0, 0, 255, 0.5) 150px, rgba(75, 0, 190, 0.5) 180px, rgba(255, 189, 89, 0.5) 210px, 
+            rgba(255,189,89,    0.5) 230px ),
+        repeating-linear-gradient(23deg, indigo 50px, var(--mediumBlue) 100px, blueviolet 150px, black 200px,
+            darkblue 250px, var(--palePurple) 300px, violet 350px, darkgrey 370px);
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}	
+
+.body-coding-background {
     background-image: url("../assets/background.png");
-    box-sizing: border-box !important;
-    margin: 0;
-    padding: 0;
 }
+
+/*.body-minimalist-mode {
+    background-image: none;
+    background-color: var(--palePurple);
+}*/
 
 /**Everything under the navbar goes here*/
 .body-content {
-    vertical-align: middle;
-    overflow: auto;
     margin: 0;
-    height: 100%;
-    width: 100%;
     padding: 0;
+    height: fit-content;
+    width: 100vw;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -61,14 +93,52 @@ will truncate terms that are too long to fit in the left column
 }
 
 
-/** Colour palette variables */
-:root {
-    --peachyYellow: #FFBD59;
-    --periwinkle: #856BC2;
-    --palePurple: #DED6E6;
-    --mediumBlue: #1627A3;
-    --veryDarkBlue: #050A30;
+
+/** Loader CSS for when page is not ready */
+/** Attribution: https://cssloaders.github.io/ */
+#loader {
+    width: 48px;
+    height: 48px;
+    border: 5px dotted #FFF;
+    border-radius: 50%;
+    margin-left: 50%;
+    top: 50%;
+    position: fixed;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 2s linear infinite;
 }
+
+/* Container for button to change colour scheme */
+#change-color-button-container
+{   
+    width: fit-content;
+    position: relative;
+    float: right;
+    margin: 10px;
+   /* Always appear*/
+    z-index: 10;
+}
+#change-color-button {
+    background-color: white;
+    border-radius: 8px;
+    padding: 6px;
+    font-family: Gordita, Verdana,Arial, sans-serif;
+}
+
+#change-color-button:hover {
+    background-color: var(--peachyYellow);
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+} 
 
 /*****************************End of General Settings*********************************/
 
@@ -78,9 +148,9 @@ will truncate terms that are too long to fit in the left column
     background: black;
     color: white;
     display: flex; /* Use responsive flexbox design */
+    flex-wrap: nowrap;
     align-items: center;
     border-bottom: 2px solid var(--mediumBlue);
-    padding: 2px;
     z-index: 99; /* Make the navbar always appear in front of rest of page */
 }
 
@@ -98,7 +168,7 @@ will truncate terms that are too long to fit in the left column
 /* The link to the Index page in CodingBuddy logo text */
 .logo-text a {
     font-family: Anton, Arial, sans-serif;
-    padding: 10px;
+    padding: 5px;
     font-size: 2rem;
 }
 
@@ -127,7 +197,7 @@ will truncate terms that are too long to fit in the left column
 /* Navbar Sign-In and Login Links/Styled as Buttons */
 .nav-list, .login-signup-list {
     align-self: center;
-    margin-top: 20px;
+    margin-top: 12px;
 }
 
 /** Delete the bullet points from list in navbar */
@@ -159,12 +229,12 @@ will truncate terms that are too long to fit in the left column
 }
 
 .login-signup-list .list-item {
-    padding: 20px 20px;
+    padding: 5px 20px;
 }
 
 /* Styling for login and sign up buttons */
 #signup-button, #login-button, #logout-button {
-    padding: 10px 30px !important;
+    padding: 8px 30px !important;
     border-radius: 30px;
     font-size: 1rem;
     cursor: pointer;
@@ -321,9 +391,10 @@ will truncate terms that are too long to fit in the left column
     /*border-right: 4px solid var(--mediumBlue); --> this was disliked by users! */
     z-index: 0;
     width: 45%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    scroll-behavior: auto;
 }
 
 .left .splitscreen-textbox {
@@ -1190,7 +1261,7 @@ display: inline !important;
 
 /*Edit Profile Page*/
 .profile-header {
-    color: white;
+    color: black;
     font-family: Anton, Verdana, Arial, sans-serif;
     font-weight: 100;
     margin-left: 70px;
@@ -1237,7 +1308,7 @@ display: inline !important;
 
 /* The container for all the 4 separate panels here: */
 .profile-panels, .matches-panels {
-    background-color: var(--periwinkle);
+    background-color: var(--palePurple);
     height: fit-content !important;
     padding-right: 200px;
     border-radius: 3px;
@@ -1251,6 +1322,7 @@ display: inline !important;
 
 /* Style for each panel: hide unless clicked on the corresponding tab! */
 .panel {
+    margin-top: 40px;   
     display: none;
     animation: fadein 0.8s;
 }
@@ -1293,9 +1365,9 @@ display: inline !important;
 #radio-two:checked ~ .tabs #tab-two,
 #radio-three:checked ~ .tabs #tab-three,
 #radio-four:checked ~ .tabs #tab-four {
-    background: var(--periwinkle);
-    color: black;
-    border-top: 4px solid var(--peachyYellow);
+    background: var(--darkestBlue);
+    color: white;
+    border-top: 4px solid var(--periwinkle);
     text-decoration: underline;
     font-weight: bolder;
 }
@@ -1319,33 +1391,46 @@ display: inline !important;
 
 /* Panel 1 layout */
 
-#basic-info-first-col {
-    margin-left: 60px;
-}
 
 /* Panel 1 cols */
-#basic-info-first-col, #basic-info-second-col, #basic-info-third-col {
+#basic-info-first-col, #basic-info-second-col, #basic-info-third-col,
+#first-col-view-profile, #second-col-view-profile {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     justify-items: flex-start;
-    align-items: flex-start;
-}   
-/* Third column on first panel: buttons that you don't want user to click by accident!*/
-
-
-#basic-info-third-col {
-    margin-left: 0px;
-    display: flex;
-    flex-direction: column;
-    justify-items: flex-start;
-    justify-content: flex-start;
     align-items: flex-start;
 }
 
-/* Only do this on view profile page (no third column!) */
-.view-version-second-col {
-    margin-left: 10%;
+/* View profile, first panel columns */
+#first-col-view-profile {
+    margin-left: 50px;
+    margin-right: 0px;
+}
+
+#second-col-view-profile {
+    margin-left: 200px;
+}
+
+/* Edit profile, first panel columns */
+#basic-info-first-col {
+    width: auto;
+    margin-left: 5%;
+}
+
+#basic-info-second-col {
+    width: auto;
+    margin-left: auto;
+}
+
+/* Third column on first panel: buttons that you don't want user to click by accident! Add margin!*/
+#basic-info-third-col {
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 /* Panels 2, 3 and 4 central cols*/
@@ -1407,7 +1492,7 @@ display: inline !important;
     color: white;
     padding: 5px 10px;
     border-radius: 10px;
-    border: 2px solid white;
+    border: 2px solid var(--mediumBlue);
     margin: 10px;
 }
 
@@ -1419,7 +1504,7 @@ display: inline !important;
     background-color: black;
     color: white;
     border-radius: 10px;
-    border: 2px solid white;
+    border: 2px var(--mediumBlue);
     padding: 10px 20px;
     margin: 0px;
 }
@@ -1463,45 +1548,47 @@ display: inline !important;
     margin-top: 20px;
 }
     /* Styling for the "Choose file..." button to select a file from local disk*/
-    #profile-picture-input::file-selector-button {
-        border-radius: 12px;
-        background-color: var(--mediumBlue);
-        color: white;
-        cursor: pointer;
-        padding: 10px;
-        margin-right: 10px;
-    }
-        /* Change colour of "Choose file..." button when move over it */
-        #profile-picture-input::file-selector-button:hover {
-            background-color: var(--palePurple);
-            color: black;
-        }
+#profile-picture-input::file-selector-button {
+    border-radius: 12px;
+    background-color: var(--mediumBlue);
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 10px;
+}
+/* Change colour of "Choose file..." button when move over it */
+#profile-picture-input::file-selector-button:hover {
+    background-color: var(--palePurple);
+    color: black;
+}
 
 /* Career-Phase and Experience-Level text styling */
-#career-phase-wrapper, #experience-level-wrapper, #career-phase-wrapper div, #experience-level-wrapper div {
+#career-phase-wrapper, #experience-level-wrapper, #career-phase-wrapper div, #experience-level-wrapper div,
+#gender-wrapper div {
     margin: 0;
     margin-bottom: 10px;
     padding: 0;
 }
 
-    #career-phase-wrapper div, #experience-level-wrapper div {
-        background-color: var(--palePurple);
-        padding: 10px;
-        border: 4px solid black;
-        border-radius: 20px;
-        width: 180px;
-        text-align: center;
-    }
+#career-phase-wrapper div, #experience-level-wrapper div, #gender-wrapper div {
+    background-color: var(--mediumBlue);
+    color: white;
+    padding: 10px;
+    border: 4px solid black;
+    border-radius: 20px;
+    width: 180px;
+    text-align: center;
+}
 
-#career-dropdown, #experience-dropdown {
+#career-dropdown, #experience-dropdown, #gender-dropdown {
     width: 390px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap
+    flex-wrap: wrap;
 }
 
-#career-phase-buttons, #experience-level-buttons {
+#career-phase-buttons, #experience-level-buttons, #gender-buttons {
     margin-top: 10px;
     display: flex;
     gap: 10px;
@@ -1548,10 +1635,10 @@ display: inline !important;
 }
 
 .preference-container {
-    background-color: var(--palePurple);
+    background-color: var(--mediumBlue);
     padding: 10px 20px;
     border: 2px solid black;
-    color: black;
+    color: white;
     border-radius: 40px;
     margin: 10px;
 }
@@ -1562,25 +1649,30 @@ display: inline !important;
     width: 200px;
     margin-bottom: 100px;
 }
-/* Make hobbies div stretch across the whole panel */
+/* Cancel/delete buttons column*/
 #panel-three-col {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 /* Button to reset the rejections*/
 #reset-rejections-button, #change-password-button {
-    width: 90%;
+    width: 200px;
 }
 
 /* Change Password field on first panel of Edit Profile*/
 #change-password-button
 {
     margin-left: 0;
+    width: 200px;
 }
+/* Delete account (red) button */
 #delete-account
 {
     margin-left: 0px;
-    width: 100%;
+    width: 200px;
 }
 
 /* Input (type text) to validate current password */
@@ -1777,6 +1869,7 @@ display: inline !important;
     margin: 5px;
     border-radius: 4px;
     text-decoration: underline;
+    border: 2px solid red;
 }
 
 #edit-username-form {
@@ -2149,6 +2242,10 @@ display: inline !important;
     color: var(--periwinkle);
 }
 
+.like-button i:hover, .pass-button i:hover {
+    color: var(--mediumBlue);
+}
+
 /* Text displaying like/unlike*/
 #like-unlike-text {
     justify-self: flex-end;
@@ -2322,10 +2419,8 @@ display: inline !important;
     margin-top: 30px;
 }
 
-    .remove-button:hover, .heart-button:hover {
-        border: 2px solid blue;
-        color: blue;
-    }
+.remove-button:hover, .heart-button:hover {
+    border: 2px solid blue;
+    color: blue;
+}
 
-/* My Matches page styling */
-/* End of My Matches page styling */

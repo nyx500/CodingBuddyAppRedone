@@ -1,3 +1,5 @@
+// Functionality to change the background when the "Change Background" button in the body of the HTML DOM is clicked
+
 // Start code running when DOM is fully-loaded:
 $(document).ready(function () {
 

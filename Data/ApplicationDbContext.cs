@@ -30,7 +30,7 @@ namespace CBApp.Data
             //    UseSqlServer("Server = tcp:codingbuddyappserver.database.windows.net, 1433; Initial Catalog = cbappdb; Persist Security Info = False; User ID = ophelia; Password =Gniezno55; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
             //}
 
-            //When not running unit tests
+            // Use this when not running unit tests
             optionsBuilder
             .UseLazyLoadingProxies().
             UseSqlServer("Server = tcp:codingbuddyappserver.database.windows.net, 1433; Initial Catalog = cbappdb; Persist Security Info = False; User ID = ophelia; Password =Gniezno55; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
