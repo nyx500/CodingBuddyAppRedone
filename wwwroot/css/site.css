@@ -1298,15 +1298,16 @@ display: inline !important;
     cursor: pointer;
     padding: 10px 50px;
     margin: 0px 20px;
-    background-color: var(--palePurple);
+    background-color: var(--darkestBlue);
+    border-top: 4px solid var(--palePurple);
     display: inline-block;
-    color: black;
+    color: white;
     border-radius: 10px 10px 0px 0px;
     /* Put some shadow under the tabs for a pleasing effect */
     box-shadow: 0 0.5rem 0.5rem #00000080;
 }
 
-/* The container for all the 4 separate panels here: */
+/* The styling for the container for all the 4 separate profile panels here: */
 .profile-panels, .matches-panels {
     background-color: var(--palePurple);
     height: fit-content !important;
@@ -1365,9 +1366,9 @@ display: inline !important;
 #radio-two:checked ~ .tabs #tab-two,
 #radio-three:checked ~ .tabs #tab-three,
 #radio-four:checked ~ .tabs #tab-four {
-    background: var(--darkestBlue);
-    color: white;
-    border-top: 4px solid var(--periwinkle);
+    background: var(--palePurple);
+    color: black;
+    border-top: 4px solid var(--darkGreyishBlue);
     text-decoration: underline;
     font-weight: bolder;
 }

@@ -20,27 +20,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
       )
    );
 
-//// Dependency injection for Questions DB context class
-//if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
-//{
-//    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//   options.UseSqlServer(
-//       builder.Configuration.GetConnectionString("ApplicationDbContextRemote")
-//      )
-//   );
-//}
-//else
-//{
-//    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlServer(
-//        builder.Configuration.GetConnectionString("ApplicationDbContext")
-//       )
-//    );
-
-//    builder.Services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
-//}// AddDbContext creates a DbContextOptions object with settings for database server/connection string
-
-
 // Set up password options so that this is easy to test --> when app is working and unit tested,
 // more difficult password constraints can be introduced
 builder.Services.AddIdentity<User, IdentityRole>(options =>

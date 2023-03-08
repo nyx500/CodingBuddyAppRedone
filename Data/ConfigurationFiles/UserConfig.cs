@@ -43,25 +43,6 @@ namespace CBApp.Data.ConfigurationFiles
 
             entity.HasOne(u => u.CareerPhase).WithMany(c => c.Users).OnDelete(DeleteBehavior.Cascade); ;
 
-            // Seeds DB with test users
-            //entity.HasData(
-            //     new User
-            //     {
-            //         SlackId = "U73VQP71",
-            //         Bio = "Hello, my name is John. I am interested in AI.",
-            //         GenderId = 1,
-            //         CareerPhaseId = 2,
-            //         ExperienceLevelId = 2
-            //     },
-            //     new User
-            //     {
-            //         SlackId = "8UJBW6F3",
-            //         Bio = "Hello, my name is Amanda. I am interested in VR.",
-            //         GenderId = 2,
-            //         CareerPhaseId = 1,
-            //         ExperienceLevelId = 2
-            //     }
-            //);
         }
     }
 }
