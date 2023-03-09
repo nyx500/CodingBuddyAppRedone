@@ -560,6 +560,17 @@ p.FAQ-answer {
     line-height: 1.5;
 }
 
+/* Styling for UL list in FAQ page */
+.faq-list {
+    text-align: left;
+    padding-left: 20px;
+    margin-left: 10%;
+}
+
+.faq-list li {
+    margin: 10px;
+}
+
 /**********************************End of settings for About/FAQ Pages***********************************/
 
 
@@ -1426,7 +1437,7 @@ display: inline !important;
 
 /* Third column on first panel: buttons that you don't want user to click by accident! Add margin!*/
 #basic-info-third-col {
-    margin-left: 0;
+    margin-left: auto;
     display: flex;
     flex-direction: column;
     justify-items: flex-start;
@@ -2115,12 +2126,20 @@ display: inline !important;
     padding: 0;
     /* Put the matched user in the center */
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: nowrap;
     align-content: center;
     align-items: center;
     justify-content: center;
     justify-items: center;
+}
+
+.matches-wrapper h1 {
+    color: white;
+    font-size: 1rem;
+    align-self: center!important;
+    text-align: center;
+    margin: 20px;
 }
 
 .no-matches-error-message {
@@ -2221,6 +2240,10 @@ display: inline !important;
 }
 
 /* Like and Pass Buttons on the "Suggested Matches" view and on the "ViewProfile view */
+.like-user-label, .reject-user-label {
+    color: white;
+}
+
 .like-button, .pass-button, .view-profile-like-button {
     width: fit-content;
     background-color: transparent;

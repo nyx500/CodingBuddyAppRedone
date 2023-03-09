@@ -2,6 +2,8 @@
 
 <div class="matches-wrapper">
 
+    <h1>Please click like (the heart icon) / reject (the cross icon) to navigate through the list of users.</h1>
+
     @if (Model.matches.Count == 0)
     {   
         <div class="no-matches-error-message">
@@ -11,6 +13,7 @@
             @Html.ActionLink("Start Again", "FindABuddy", "Matches", null, new { @class = "return-to-page-link"})
         </div>
     }
+
 
     @* Error section if user runs out of matches *@
     <div id="no-matches-left" class="no-matches-error-message hidden">
@@ -38,13 +41,13 @@
         <div id=@DivId class=@className>
             @* Three sections: username header, profile picture, body with details about the user *@
             <div class="match-header-row">
-                <h1>
+                <h2>
 
                     @Html.ActionLink(@Model.matches[i].Username, "ViewProfile", "Matches", 
                     new { id = @Model.matches[i].Id}, 
                     null
                    )
-                </h1>
+                </h2>
             </div>
             @* Body of the container under the username *@
             <div class="match-body-row">
@@ -75,11 +78,13 @@
                         @* Like/Pass Form *@
                         <div class="match-likes-div">
                             <div class="like-div">
+                                <label class="like-user-label">Like this user</label>
                                 <input type="hidden" value=@UserId>
                                 <button id=@LikeButtonId class="like-button"><i class="fas fa-heart fa-3x"></i></button>
                                 <input type="hidden" value=@DivId>
                             </div>
                             <div class="pass-div">
+                                <label class="reject-user-label">Reject this user</label>
                                 <input type="hidden" value=@UserId>
                                 <button id=@PassButtonId class="pass-button"><i class="fas fa-circle-xmark fa-3x"></i></button>
                                 <input type="hidden" value=@DivId>
