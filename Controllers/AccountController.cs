@@ -185,7 +185,7 @@ namespace CBApp.Controllers
         [HttpPost]
         public JsonResult CheckUsername(string username = "")
         {
-            List<User> users = userManager.Users.ToList();
+            List<User> users = context!.Users.ToList();
 
             var result = false;
 
@@ -206,7 +206,7 @@ namespace CBApp.Controllers
         [HttpPost]
         public JsonResult CheckSlackId(string slackId = "")
         {
-            List<User> users = userManager.Users.ToList();
+            List<User> users = context!.Users.ToList();
 
             var result = false;
 
@@ -233,7 +233,9 @@ namespace CBApp.Controllers
             User user = context!.Users.Where(u => u.UserName == username).FirstOrDefault<User>()!;
 
             EditUserViewModel model = new EditUserViewModel();
+            // Populates the model fields with the user's preferences/fields
             model.createModelFromUser(user);
+            // Populates the model with all options to choose from the database
             model.createOptionsLists(context);
 
             return View(model);
