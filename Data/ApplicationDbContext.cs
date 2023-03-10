@@ -22,7 +22,7 @@ namespace CBApp.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //For unit tests uncomment:
+            // For running unit tests ONLY uncomment:
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
