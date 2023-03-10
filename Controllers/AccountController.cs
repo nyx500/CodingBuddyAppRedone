@@ -208,6 +208,7 @@ namespace CBApp.Controllers
         {
             List<User> users = context!.Users.ToList();
 
+
             var result = false;
 
             foreach (User user in users)

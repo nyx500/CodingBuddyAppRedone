@@ -5,10 +5,11 @@
     "\\Data",
     "\\Views",
     "\\Views\\Account",
+    "\\Views\\Home",
     "\\wwwroot",
     "\\wwwroot\\css",
     "\\wwwroot\\js"
   ],
-  "SelectedNode": "\\wwwroot\\js\\profile.js",
+  "SelectedNode": "\\wwwroot\\css\\site.css",
   "PreviewInSolutionExplorer": false
 }

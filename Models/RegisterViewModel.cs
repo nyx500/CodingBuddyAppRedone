@@ -286,7 +286,8 @@ namespace CBApp.Models
         {
             user.ProgrammingLanguageUsers = new List<ProgrammingLanguageUser>();
             for (int i = 0; i < ProgrammingLanguagesViewModelList!.Count; ++i)
-            {
+            {   
+                // Add a new ProgrammingLanguageUser relationship if the ProgrammingLanguage in question has isSelected to true
                 if (ProgrammingLanguagesViewModelList[i].isSelected)
                 {
 

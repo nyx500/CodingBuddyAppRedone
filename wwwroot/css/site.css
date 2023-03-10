@@ -1388,7 +1388,7 @@ display: inline !important;
     Column on the left is to take up less space than the column on the right
 */
 .profile-wrapper panel #panel-one {
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .profile-wrapper panel #panel-two {
@@ -1426,13 +1426,12 @@ display: inline !important;
 
 /* Edit profile, first panel columns */
 #basic-info-first-col {
-    width: auto;
     margin-left: 5%;
 }
 
 #basic-info-second-col {
-    width: auto;
-    margin-left: auto;
+    margin-left: 9px;
+    width: 50%;
 }
 
 /* Third column on first panel: buttons that you don't want user to click by accident! Add margin!*/
@@ -1440,9 +1439,9 @@ display: inline !important;
     margin-left: auto;
     display: flex;
     flex-direction: column;
-    justify-items: flex-start;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Panels 2, 3 and 4 central cols*/
@@ -1500,7 +1499,7 @@ display: inline !important;
 }
 
 .edit-button {
-    background-color: black;
+    background-color: var(--darkGreyishBlue);
     color: white;
     padding: 5px 10px;
     border-radius: 10px;
@@ -1513,7 +1512,7 @@ display: inline !important;
 }
 
 .add-button {
-    background-color: black;
+    background-color: var(--darkGreyishBlue);
     color: white;
     border-radius: 10px;
     border: 2px var(--mediumBlue);

@@ -12,11 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add ApplicationDbContext
 var connectionString1 = builder.Configuration.GetConnectionString("ApplicationDbContext");
-var connectionString2 = builder.Configuration.GetConnectionString("ApplicationDbContextRemote");
+// Azure server
+//var connectionString2 = builder.Configuration.GetConnectionString("ApplicationDbContextRemote");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
    options.UseSqlServer(
-       builder.Configuration.GetConnectionString("ApplicationDbContextRemote")
+       builder.Configuration.GetConnectionString("ApplicationDbContext")
       )
    );
 
