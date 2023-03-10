@@ -23,17 +23,17 @@ namespace CBApp.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // For running unit tests ONLY uncomment:
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder
-                .UseLazyLoadingProxies().
-                UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-CBApp-0EFDC2CE-E197-4185-AEEB-8A5182EBB5B5;Trusted_Connection=True;MultipleActiveResultSets=true");
-            }
+            //if (!optionsBuilder.IsConfigured)
+            //{
+            //    optionsBuilder
+            //    .UseLazyLoadingProxies().
+            //    UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-CBApp-0EFDC2CE-E197-4185-AEEB-8A5182EBB5B5;Trusted_Connection=True;MultipleActiveResultSets=true");
+            //}
 
             // Use this when not running unit tests
-            //optionsBuilder
-            //.UseLazyLoadingProxies().
-            //UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-CBApp-0EFDC2CE-E197-4185-AEEB-8A5182EBB5B5;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder
+            .UseLazyLoadingProxies().
+            UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-CBApp-0EFDC2CE-E197-4185-AEEB-8A5182EBB5B5;Trusted_Connection=True;MultipleActiveResultSets=true");
 
         }
 
